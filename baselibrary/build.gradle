@@ -1,0 +1,77 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    api "com.android.support:appcompat-v7:$support_version"
+    api "com.android.support:support-v4:$support_version"
+    api "com.android.support:recyclerview-v7:$support_version"
+    api 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // Anko Commons
+    api "org.jetbrains.anko:anko-commons:$anko_version"
+
+    //Rx
+    api "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
+    api "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+
+    //Retrofit
+    api "com.squareup.okhttp3:okhttp:$ok_http_version"
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.okhttp3:logging-interceptor:$ok_http_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    api "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
+
+    //Dagger2
+    api "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    //RxLifecycle
+    api "com.trello.rxlifecycle2:rxlifecycle-kotlin:$rx_lifecycle_version"
+    api "com.trello.rxlifecycle2:rxlifecycle-components:$rx_lifecycle_version"
+
+    //Glide
+    api "com.github.bumptech.glide:glide:$glide_version"
+
+    //Circle ImageView
+    api "de.hdodenhof:circleimageview:$circle_imageView_version"
+
+    //Take Photo
+    api "com.jph.takephoto:takephoto_library:$take_photo_version"
+
+    //Alert View
+    api "com.bigkoo:alertview:$alert_view_version"
+
+    //Timer
+    api 'com.jakewharton.timber:timber:4.6.1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+}

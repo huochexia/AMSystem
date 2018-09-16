@@ -13,26 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.baselibrary.common
+package com.owner.baselibrary.injection.module
+
+import com.owner.baselibrary.injection.scope.ActivityScope
+import com.trello.rxlifecycle2.LifecycleProvider
+import dagger.Module
+import dagger.Provides
 
 /**
- * 基本常量
+ *
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-class BaseConstant {
-    companion object {
-        /*
-        Api访问网址
-         */
-        const val BASE_URL = ""
-        /*
-         SharedPreferences所有表表名
-         */
-        const val TABLE_PREFS = "ams_table"
-
-        //Token Key,在做网络请求时，这个值通常是放在Header当中的，我们retrofit工厂是在base中，
-        // 所以将它设在base中
-        const val KEY_SP_TOKEN = "token"
+@Module
+class LifecycleModule(private val lifecycleProvider: LifecycleProvider<*>) {
+    @Provides
+    @ActivityScope
+    fun provideLifecycleProvider(): LifecycleProvider<*> {
+        return lifecycleProvider
     }
+
 }

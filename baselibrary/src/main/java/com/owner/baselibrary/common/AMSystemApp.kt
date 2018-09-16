@@ -17,10 +17,15 @@ package com.owner.baselibrary.common
 
 import android.app.Application
 import android.content.Context
+import com.owner.baselibrary.injection.component.AppComponent
+import com.owner.baselibrary.injection.component.DaggerAppComponent
+import com.owner.baselibrary.injection.module.ApiModule
+import com.owner.baselibrary.injection.module.AppModule
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
+import javax.inject.Inject
 
 
 /**
@@ -33,12 +38,15 @@ class AMSystemApp : Application() {
     /*
        定义内存泄露管理工具
      */
-    private lateinit var refWatcher: RefWatcher
+    @Inject
+    lateinit var refWatcher: RefWatcher
+
 
     companion object {
         lateinit var instance: AMSystemApp
             private set
 
+        lateinit var appComponent: AppComponent
         /*
             静态方法，获取RefWatcher
          */
@@ -49,11 +57,18 @@ class AMSystemApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        /*
+      初始化Application的依赖注入
+     */
+        appComponent = DaggerAppComponent.builder()
+                .appModule(AppModule(this))
+                .build()
         instance = this
-        //初始化内存泄露管理工具
-        refWatcher = LeakCanary.install(this)
+
         //初始化Timber日志管理工具
         Timber.plant(Timber.DebugTree())
         RxJavaPlugins.setErrorHandler { Timber.e(it) }
     }
+
+
 }

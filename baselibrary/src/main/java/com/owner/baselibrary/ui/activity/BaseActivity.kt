@@ -47,7 +47,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : RxAppC
     protected lateinit var viewModel: VM
     @Inject
     protected lateinit var refWatcher: RefWatcher
-
+    /**
+     * 为子类依赖提供组件
+     */
     internal val activityComponent: ActivityComponent by lazy {
         DaggerActivityComponent.builder()
                 .activityModule(ActivityModule(this))
@@ -64,14 +66,19 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : RxAppC
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initInjection(activityComponent)
         AppManager.instance.addActivity(this)
     }
+
+    /**
+     * 子类完成自己的依赖注入
+     */
+    abstract fun initInjection(activityComponent: ActivityComponent)
 
     @CallSuper
     override fun onDestroy() {
         super.onDestroy()
         AppManager.instance.removeActivity(this)
     }
-
 
 }

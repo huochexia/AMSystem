@@ -30,7 +30,7 @@ import javax.inject.Singleton
  *@description:
  */
 @Singleton
-@Component(modules = [AppModule::class])
+@Component(modules = [AppModule::class,ApiModule::class])
 interface AppComponent {
 
     @AppContext

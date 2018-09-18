@@ -34,7 +34,7 @@ import dagger.Component
  *@description:
  */
 @ActivityScope
-@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class, LifecycleModule::class,ApiModule::class])
+@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class, LifecycleModule::class])
 interface ActivityComponent {
 
 

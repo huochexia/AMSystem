@@ -15,21 +15,53 @@
  */
 package com.owner.baselibrary.ui.fragment
 
+import android.databinding.ViewDataBinding
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.owner.baselibrary.common.AMSystemApp
+import com.owner.baselibrary.viewmodel.MvvmViewModel
+import com.owner.baselibrary.viewmodel.view.MvvmView
 import com.squareup.leakcanary.RefWatcher
+import javax.inject.Inject
 
 /**
  *
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-class BaseFragment : Fragment() {
+abstract class BaseFragment<B:ViewDataBinding,VM:MvvmViewModel<*>>: Fragment(),MvvmView {
+
+    protected lateinit var binding:B
+    @Inject
+    protected lateinit var viewModel:VM
+    @Inject
+    protected lateinit var refWatcher: RefWatcher
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        viewModel.saveInstanceState(outState)
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initInjection()
+    }
+
+    /**
+     * 子类完成自己的依赖注入
+     */
+   abstract  fun initInjection()
 
     override fun onDestroy() {
         super.onDestroy()
         //使用RefWatcher监控Fragment
         val refWatcher = AMSystemApp.getRefWatcher(activity!!)
         refWatcher.watch(this)
+    }
+
+    override fun onError(error: String) {
+        TODO("not implemented")
     }
 }

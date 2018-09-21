@@ -24,6 +24,7 @@ import com.owner.baselibrary.common.AppManager
 import com.owner.baselibrary.injection.component.ActivityComponent
 import com.owner.baselibrary.injection.component.DaggerActivityComponent
 import com.owner.baselibrary.injection.module.ActivityModule
+import com.owner.baselibrary.injection.module.LifecycleModule
 import com.owner.baselibrary.viewmodel.MvvmViewModel
 import com.owner.baselibrary.viewmodel.view.BaseView
 import com.owner.baselibrary.viewmodel.view.MvvmView
@@ -38,7 +39,7 @@ import javax.inject.Inject
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : RxAppCompatActivity(), MvvmView {
+abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : RxAppCompatActivity(), BaseView {
 
     //为子类提供binding
     protected lateinit var binding: B
@@ -54,6 +55,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : RxAppC
         DaggerActivityComponent.builder()
                 .activityModule(ActivityModule(this))
                 .appComponent(AMSystemApp.appComponent)
+                .lifecycleModule(LifecycleModule(this))
                 .build()
     }
 
@@ -81,4 +83,5 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : RxAppC
         AppManager.instance.removeActivity(this)
     }
 
+    override fun onError(error: String) = Unit
 }

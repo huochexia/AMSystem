@@ -23,6 +23,7 @@ import com.owner.baselibrary.injection.module.LifecycleModule
 import com.owner.baselibrary.injection.qualifier.ActivityContext
 import com.owner.baselibrary.injection.qualifier.AppContext
 import com.owner.baselibrary.injection.scope.ActivityScope
+import com.squareup.leakcanary.RefWatcher
 import com.trello.rxlifecycle2.LifecycleProvider
 import dagger.Component
 
@@ -45,5 +46,7 @@ interface ActivityComponent {
     fun activity(): AppCompatActivity
 
     fun lifecycleProvider(): LifecycleProvider<*>
+
+    fun refWatcher(): RefWatcher
 
 }

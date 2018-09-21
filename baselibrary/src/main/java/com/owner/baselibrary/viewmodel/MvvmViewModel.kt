@@ -31,11 +31,11 @@ import com.owner.baselibrary.viewmodel.view.MvvmView
  */
 interface MvvmViewModel<V : MvvmView> : Observable {
     /*
-     与View建立联系
+        与View建立联系
      */
     fun attachView(view: V, savedInstanceState: Bundle?)
     /*
-    取消与View之间的联系
+        取消与View之间的联系
      */
     fun detachView()
     /*

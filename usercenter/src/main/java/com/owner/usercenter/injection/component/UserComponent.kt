@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.baselibrary.injection.module
+package com.owner.usercenter.injection.component
 
+import com.owner.baselibrary.injection.component.ActivityComponent
 import com.owner.baselibrary.injection.scope.ActivityScope
-import com.trello.rxlifecycle2.LifecycleProvider
-import dagger.Module
-import dagger.Provides
+import com.owner.baselibrary.injection.scope.PerComponentScope
+import com.owner.usercenter.injection.module.UserModule
+import com.owner.usercenter.ui.activity.RegisterActivity
+import dagger.Component
 
 /**
  *
- * Created by Liuyong on 2018-09-15.It's AMSystem
+ * Created by Liuyong on 2018-09-21.It's AMSystem
  *@description:
  */
-@Module
-class LifecycleModule(private val lifecycleProvider: LifecycleProvider<*>) {
-    
-    @Provides
-    @ActivityScope
-    fun provideLifecycleProvider(): LifecycleProvider<*> {
-        return lifecycleProvider
-    }
+@PerComponentScope
+@Component(dependencies = [ActivityComponent::class], modules = [UserModule::class])
+interface UserComponent {
+
+    fun inject(registerActivity: RegisterActivity)
 
 }

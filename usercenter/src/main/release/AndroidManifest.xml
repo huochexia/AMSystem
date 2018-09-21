@@ -1,2 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.owner.usercenter" />
+    package="com.owner.usercenter">
+
+    <activity android:name="com.owner.usercenter.ui.activity.RegisterActivity"/>
+
+</manifest>

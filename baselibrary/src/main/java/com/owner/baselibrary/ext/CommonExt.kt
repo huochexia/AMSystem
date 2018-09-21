@@ -13,25 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.baselibrary.injection.module
+package com.owner.baselibrary.ext
 
-import com.owner.baselibrary.injection.scope.ActivityScope
-import com.trello.rxlifecycle2.LifecycleProvider
-import dagger.Module
-import dagger.Provides
+import android.widget.Button
+import android.widget.EditText
+import com.owner.baselibrary.widgets.DefaultTextWatcher
 
 /**
  *
- * Created by Liuyong on 2018-09-15.It's AMSystem
+ * Created by Liuyong on 2018-09-21.It's AMSystem
  *@description:
  */
-@Module
-class LifecycleModule(private val lifecycleProvider: LifecycleProvider<*>) {
-    
-    @Provides
-    @ActivityScope
-    fun provideLifecycleProvider(): LifecycleProvider<*> {
-        return lifecycleProvider
-    }
+/**
+ * Button扩展方法，判断按钮是否可用
+ */
+fun Button.enabled(et: EditText, method: () -> Boolean) {
+    val btn = this
+    et.addTextChangedListener(object : DefaultTextWatcher() {
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            btn.isEnabled = method()
+        }
+    })
 
 }

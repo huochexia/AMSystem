@@ -13,25 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.baselibrary.injection.module
+package com.owner.usercenter.viewmodel.view
 
-import com.owner.baselibrary.injection.scope.ActivityScope
-import com.trello.rxlifecycle2.LifecycleProvider
-import dagger.Module
-import dagger.Provides
+import com.owner.baselibrary.viewmodel.view.BaseView
+import com.owner.baselibrary.viewmodel.view.MvvmView
 
 /**
- *
- * Created by Liuyong on 2018-09-15.It's AMSystem
+ * 注册过程中回调的方法
+ * Created by Liuyong on 2018-09-21.It's AMSystem
  *@description:
  */
-@Module
-class LifecycleModule(private val lifecycleProvider: LifecycleProvider<*>) {
-    
-    @Provides
-    @ActivityScope
-    fun provideLifecycleProvider(): LifecycleProvider<*> {
-        return lifecycleProvider
-    }
+interface RegisterView : MvvmView {
+
+    fun onRegisterResult(result: String)
 
 }

@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.viewmodel.MvvmViewModel
+import com.owner.baselibrary.viewmodel.view.BaseView
 import com.owner.baselibrary.viewmodel.view.MvvmView
 import com.squareup.leakcanary.RefWatcher
 import javax.inject.Inject
@@ -29,7 +30,7 @@ import javax.inject.Inject
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseFragment<B:ViewDataBinding,VM:MvvmViewModel<*>>: Fragment(),MvvmView {
+abstract class BaseFragment<B:ViewDataBinding,VM:MvvmViewModel<*>>: Fragment(), BaseView {
 
     protected lateinit var binding:B
     @Inject
@@ -62,6 +63,5 @@ abstract class BaseFragment<B:ViewDataBinding,VM:MvvmViewModel<*>>: Fragment(),M
     }
 
     override fun onError(error: String) {
-        TODO("not implemented")
     }
 }

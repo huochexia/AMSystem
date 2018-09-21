@@ -1,9 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.owner.usercenter.ui.activity.RegisterActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</android.support.constraint.ConstraintLayout>
+    <data>
+        <variable
+            name="vm"
+            type="com.owner.usercenter.viewmodel.RegisterViewModel"/>
+    </data>
+
+    <LinearLayout style="@style/MatchMatch.Vertical.Common">
+
+        <com.owner.baselibrary.widgets.HeaderBar
+            android:id="@+id/mHeaderBar"
+            style="@style/MatchWrap"
+            app:titleText="注册" />
+
+        <LinearLayout
+            style="@style/MatchWrap.Vertical"
+            android:layout_margin="@dimen/common_margin"
+            android:background="@drawable/border_corner_all">
+
+            <LinearLayout style="@style/MatchWrap.Horizontal">
+
+                <EditText
+                    android:id="@+id/mMobileEt"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_line_height"
+                    android:layout_weight="1.0"
+                    android:background="@null"
+                    android:drawableLeft="@mipmap/icon_phone"
+                    android:drawablePadding="@dimen/common_padding_small"
+                    android:hint="请输入手机号码"
+                    android:inputType="phone"
+                    android:paddingLeft="@dimen/common_padding_small"
+                    android:onTextChanged="@{vm::getMobile}"/>
+
+                <View style="@style/DividerFixedWidth.MarginTopBottom" />
+
+                <com.owner.baselibrary.widgets.VerifyButton
+                    android:id="@+id/mVerifyCodeBtn"
+                    style="@style/WrapMatch"
+                    android:background="@null"
+                    android:text="获取验证码"
+                    android:textColor="@color/common_blue"
+                    android:onClick="@{vm::acceptVerifyCode}"/>
+            </LinearLayout>
+
+            <View style="@style/DividerFixedHeight" />
+
+            <EditText
+                android:id="@+id/mVerifyCodeEt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_line_height"
+                android:background="@null"
+                android:drawableLeft="@mipmap/icon_verify_code"
+                android:drawablePadding="@dimen/common_padding_small"
+                android:hint="请输入短信验证码"
+                android:inputType="number"
+                android:paddingLeft="@dimen/common_padding_small"
+                android:onTextChanged="@{vm::getVerifyCode}"/>
+
+            <View style="@style/DividerFixedHeight" />
+
+            <EditText
+                android:id="@+id/mPwdEt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_line_height"
+                android:background="@null"
+                android:drawableLeft="@mipmap/icon_pwd"
+                android:drawablePadding="@dimen/common_padding_small"
+                android:hint="请输入密码（6-20位字母或数字）"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/common_padding_small"
+                android:onTextChanged="@{vm::getPwd}"/>
+
+            <View style="@style/DividerFixedHeight" />
+
+            <EditText
+                android:id="@+id/mPwdConfirmEt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_line_height"
+                android:background="@null"
+                android:drawableLeft="@mipmap/icon_pwd"
+                android:drawablePadding="@dimen/common_padding_small"
+                android:hint="请再次输入密码"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/common_padding_small"
+                android:onTextChanged="@{vm::getPwdAgain}"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/mRegisterBtn"
+            style="@style/FullBtnStyle"
+            android:text="注册" />
+    </LinearLayout>
+</layout>

@@ -32,16 +32,23 @@ import javax.inject.Inject
 
 /**
  *VeiwModel基类，为子类提供BaseView对象，LifecycleProvider对象，Activity级的context
- * 继承ViewModel对象，实现DATaBinding的Observable接口
+ * 继承ViewModel对象，实现DataBinding的Observable接口
  * Created by Liuyong on 2018-09-16.It's AMSystem
  *@description:
  */
-open class BaseViewModel<T : MvvmView> : ViewModel(), MvvmViewModel<T> {
+abstract class BaseViewModel<T : MvvmView> : ViewModel(), MvvmViewModel<T> {
+
     /*
       为子类提供View对象
      */
     var view: T? = null
         private set
+    /**
+     *满足所有ViewModel对LifecycelProvider的使用
+     */
+    @Inject
+    lateinit var lifecycleProvider: LifecycleProvider<*>
+
 
     @CallSuper//表示任何覆盖的方法都应该调用这个方法。
     override fun attachView(view: T, savedInstanceState: Bundle?) {
@@ -64,25 +71,7 @@ open class BaseViewModel<T : MvvmView> : ViewModel(), MvvmViewModel<T> {
     override fun saveInstanceState(outState: Bundle) {}
 
 
-    /**
-     *满足所有ViewModel对LifecycelProvider的使用
-     */
-    @Inject
-    lateinit var lifecycleProvider: LifecycleProvider<*>
 
-    /*
-      引用非Application的context
-     */
-    @Inject
-    @AppContext
-    lateinit var app: Application
-
-    fun checkNetWork(): Boolean {
-        if (NetWorkUtils.isNetWorkAvailable(app))
-            return true
-        view?.onError("网络不可用")
-        return false
-    }
 
     /**
      * 实现Observable接口部分

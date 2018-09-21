@@ -13,25 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.baselibrary.injection.module
+package com.owner.usercenter.service
 
-import com.owner.baselibrary.injection.scope.ActivityScope
-import com.trello.rxlifecycle2.LifecycleProvider
-import dagger.Module
-import dagger.Provides
+import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
  *
- * Created by Liuyong on 2018-09-15.It's AMSystem
+ * Created by Liuyong on 2018-09-21.It's AMSystem
  *@description:
  */
-@Module
-class LifecycleModule(private val lifecycleProvider: LifecycleProvider<*>) {
-    
-    @Provides
-    @ActivityScope
-    fun provideLifecycleProvider(): LifecycleProvider<*> {
-        return lifecycleProvider
+class UserServiceImpl @Inject constructor():UserService{
+    /*
+       注册
+     */
+    override fun register(name: String, pwd: String, verifyCode: String): Observable<Boolean> {
+
+        return Observable.just(true)
     }
 
 }

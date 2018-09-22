@@ -1,5 +1,6 @@
 package com.owner.usercenter.ui.activity
 
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.owner.amsystem.R
@@ -10,14 +11,14 @@ import com.owner.baselibrary.ui.activity.BaseActivity
 import com.owner.usercenter.injection.component.DaggerUserComponent
 import com.owner.usercenter.injection.module.UserModule
 import com.owner.usercenter.viewmodel.RegisterViewModel
-import com.owner.usercenter.viewmodel.view.RegisterView
 import kotlinx.android.synthetic.main.activity_register.*
 
-class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel>(), RegisterView {
+class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel>(){
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
         binding.vm = viewModel
         initView()
@@ -60,8 +61,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
     /**
      * RegisterView的方法
      */
-    override fun onRegisterResult(result: String) {
-        TODO("not implemented")
+    fun onRegisterResult(result: String) {
+
     }
 
 }

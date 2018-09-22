@@ -15,13 +15,16 @@
  */
 package com.owner.usercenter.viewmodel
 
+import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.Toast
+import com.owner.baselibrary.common.AMSystemApp
+import com.owner.baselibrary.injection.qualifier.ActivityContext
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
-import com.owner.baselibrary.viewmodel.MvvmViewModel
 import com.owner.baselibrary.widgets.VerifyButton
+import com.owner.usercenter.data.UserRepository
 import com.owner.usercenter.service.UserService
-import com.owner.usercenter.viewmodel.view.RegisterView
 import javax.inject.Inject
 
 /**
@@ -29,7 +32,7 @@ import javax.inject.Inject
  * Created by Liuyong on 2018-09-18.It's AMSystem
  *@description:
  */
-class RegisterViewModel @Inject constructor() : BaseViewModel<RegisterView>() {
+class RegisterViewModel @Inject constructor() : BaseViewModel<UserRepository>() {
     @Inject
     lateinit var userServiceImpl: UserService
 
@@ -68,7 +71,8 @@ class RegisterViewModel @Inject constructor() : BaseViewModel<RegisterView>() {
      * 注册按钮
      */
     fun register(view: View) {
-        if (NetWorkUtils.isNetWorkAvailable(view.context)) {
+
+        if (NetWorkUtils.isNetWorkAvailable(AMSystemApp.instance)) {
 
         }
     }

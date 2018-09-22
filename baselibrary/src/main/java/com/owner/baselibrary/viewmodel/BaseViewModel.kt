@@ -15,63 +15,32 @@
  */
 package com.owner.baselibrary.viewmodel
 
+import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.databinding.Observable
 import android.databinding.PropertyChangeRegistry
-import android.os.Bundle
-import android.support.annotation.CallSuper
+import android.support.v7.app.AppCompatActivity
+import com.owner.baselibrary.data.respository.BaseRepository
 import com.owner.baselibrary.injection.qualifier.ActivityContext
 import com.owner.baselibrary.injection.qualifier.AppContext
-import com.owner.baselibrary.utils.NetWorkUtils
-import com.owner.baselibrary.viewmodel.view.BaseView
-import com.owner.baselibrary.viewmodel.view.MvvmView
-import com.trello.rxlifecycle2.LifecycleProvider
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
- *VeiwModel基类，为子类提供BaseView对象，LifecycleProvider对象，Activity级的context
- * 继承ViewModel对象，实现DataBinding的Observable接口
+ * VeiwModel基类继承ViewModel对象，实现DataBinding的Observable接口
+ * 1、ViewModel不能持有View对象，因为ViewModel的生命周期大于View 。ViewModel与View之间的数据传递依靠
+ * LiveData对象或者databinding。这两者均为可观察者，它们的变化会直接反应到UI上。使用双向绑定后，
+ * UI的变化也会更新ViewModel中的数据
+ * 2、持有数据仓库对象
  * Created by Liuyong on 2018-09-16.It's AMSystem
  *@description:
  */
-abstract class BaseViewModel<T : MvvmView> : ViewModel(), MvvmViewModel<T> {
+abstract class BaseViewModel<R : BaseRepository> : ViewModel(), Observable {
 
-    /*
-      为子类提供View对象
-     */
-    var view: T? = null
-        private set
-    /**
-     *满足所有ViewModel对LifecycelProvider的使用
-     */
     @Inject
-    lateinit var lifecycleProvider: LifecycleProvider<*>
-
-
-    @CallSuper//表示任何覆盖的方法都应该调用这个方法。
-    override fun attachView(view: T, savedInstanceState: Bundle?) {
-        this.view = view
-        if (savedInstanceState != null) {
-            restoreInstanceState(savedInstanceState)
-        }
-    }
-
-    @CallSuper
-    override fun detachView() {
-        view = null
-    }
-
-    /**
-     *开放这个方法由具体业务ViewModel来实现
-     */
-    protected open fun restoreInstanceState(savedInstanceState: Bundle?) {}
-
-    override fun saveInstanceState(outState: Bundle) {}
-
-
-
+    lateinit var repository: R
 
     /**
      * 实现Observable接口部分

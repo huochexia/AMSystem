@@ -17,7 +17,6 @@ package com.owner.baselibrary.ui.activity
 
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.os.TokenWatcher
 import android.support.annotation.CallSuper
 import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.common.AppManager
@@ -25,9 +24,7 @@ import com.owner.baselibrary.injection.component.ActivityComponent
 import com.owner.baselibrary.injection.component.DaggerActivityComponent
 import com.owner.baselibrary.injection.module.ActivityModule
 import com.owner.baselibrary.injection.module.LifecycleModule
-import com.owner.baselibrary.viewmodel.MvvmViewModel
-import com.owner.baselibrary.viewmodel.view.BaseView
-import com.owner.baselibrary.viewmodel.view.MvvmView
+import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.squareup.leakcanary.RefWatcher
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import javax.inject.Inject
@@ -39,12 +36,11 @@ import javax.inject.Inject
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : RxAppCompatActivity(), BaseView {
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel<*>> : RxAppCompatActivity(){
 
     //为子类提供binding
     protected lateinit var binding: B
-    //为子类提供viewModel联系
-    @Inject
+    //为子类提供viewModel
     protected lateinit var viewModel: VM
     @Inject
     protected lateinit var refWatcher: RefWatcher
@@ -59,15 +55,11 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : RxAppC
                 .build()
     }
 
-    @CallSuper
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        viewModel.saveInstanceState(outState)
-    }
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         initInjection(activityComponent)
         AppManager.instance.addActivity(this)
     }
@@ -83,5 +75,5 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : RxAppC
         AppManager.instance.removeActivity(this)
     }
 
-    override fun onError(error: String) = Unit
+
 }

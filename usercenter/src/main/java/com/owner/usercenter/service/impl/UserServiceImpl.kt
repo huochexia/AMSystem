@@ -13,14 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.baselibrary.viewmodel.view
+package com.owner.usercenter.service.impl
+
+import com.owner.usercenter.service.UserService
+import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
  *
- * Created by Liuyong on 2018-09-16.It's AMSystem
+ * Created by Liuyong on 2018-09-21.It's AMSystem
  *@description:
  */
-interface MvvmView {
+class UserServiceImpl @Inject constructor(): UserService {
+    /*
+       注册
+     */
+    override fun register(name: String, pwd: String, verifyCode: String): Observable<Boolean> {
 
-    fun onError(error: String)
+        return Observable.just(true)
+    }
+
 }

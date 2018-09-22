@@ -17,7 +17,7 @@ package com.owner.usercenter.injection.module
 
 import com.owner.baselibrary.injection.scope.PerComponentScope
 import com.owner.usercenter.service.UserService
-import com.owner.usercenter.service.UserServiceImpl
+import com.owner.usercenter.service.impl.UserServiceImpl
 import dagger.Module
 import dagger.Provides
 

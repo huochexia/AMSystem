@@ -15,6 +15,10 @@
  */
 package com.owner.baselibrary.ext
 
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
+import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import com.owner.baselibrary.widgets.DefaultTextWatcher
@@ -35,4 +39,33 @@ fun Button.enabled(et: EditText, method: () -> Boolean) {
         }
     })
 
+}
+/**
+ * 用于管理Fragment的扩展函数
+ * Created by Liuyong on 2018-09-01.
+ *@description:
+ */
+fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
+    val fragmentTransaction = beginTransaction()
+    fragmentTransaction.func()
+    fragmentTransaction.commit()
+}
+
+fun AppCompatActivity.addFragment(fragment: Fragment, containerId: Int) {
+    supportFragmentManager.inTransaction {
+        add(containerId, fragment)
+    }
+
+}
+
+fun AppCompatActivity.replaceFragment(fragment: Fragment, containerId: Int) {
+    supportFragmentManager.inTransaction {
+        replace(containerId, fragment)
+    }
+}
+
+fun AppCompatActivity.removeFragment(fragment: Fragment) {
+    supportFragmentManager.inTransaction {
+        remove(fragment)
+    }
 }

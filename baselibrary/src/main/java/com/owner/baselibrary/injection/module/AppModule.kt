@@ -18,6 +18,8 @@ package com.owner.baselibrary.injection.module
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
+import com.owner.baselibrary.data.respository.BaseRepository
+import com.owner.baselibrary.data.respository.impl.BaseReositoryImpl
 import com.owner.baselibrary.injection.qualifier.AppContext
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
@@ -47,4 +49,9 @@ class AppModule(private val app: Application) {
     @Singleton
     internal fun provideRefWatcher(): RefWatcher = LeakCanary.install(app)
 
+    @Provides
+    @Singleton
+    fun provideBaseRepositoryImpl(repositoryImpl: BaseReositoryImpl): BaseRepository {
+        return repositoryImpl
+    }
 }

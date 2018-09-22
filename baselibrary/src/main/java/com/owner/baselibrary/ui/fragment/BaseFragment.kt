@@ -19,9 +19,7 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.owner.baselibrary.common.AMSystemApp
-import com.owner.baselibrary.viewmodel.MvvmViewModel
-import com.owner.baselibrary.viewmodel.view.BaseView
-import com.owner.baselibrary.viewmodel.view.MvvmView
+import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.squareup.leakcanary.RefWatcher
 import javax.inject.Inject
 
@@ -30,7 +28,7 @@ import javax.inject.Inject
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseFragment<B:ViewDataBinding,VM:MvvmViewModel<*>>: Fragment(), BaseView {
+abstract class BaseFragment<B:ViewDataBinding,VM:BaseViewModel<*>>: Fragment() {
 
     protected lateinit var binding:B
     @Inject
@@ -41,7 +39,6 @@ abstract class BaseFragment<B:ViewDataBinding,VM:MvvmViewModel<*>>: Fragment(), 
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        viewModel.saveInstanceState(outState)
 
     }
 
@@ -62,6 +59,5 @@ abstract class BaseFragment<B:ViewDataBinding,VM:MvvmViewModel<*>>: Fragment(), 
         refWatcher.watch(this)
     }
 
-    override fun onError(error: String) {
-    }
+
 }

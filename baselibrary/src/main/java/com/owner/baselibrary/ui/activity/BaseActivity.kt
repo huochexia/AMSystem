@@ -17,17 +17,10 @@ package com.owner.baselibrary.ui.activity
 
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.CallSuper
-import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.common.AppManager
-import com.owner.baselibrary.injection.component.ActivityComponent
-import com.owner.baselibrary.injection.component.DaggerActivityComponent
-import com.owner.baselibrary.injection.module.ActivityModule
-import com.owner.baselibrary.injection.module.LifecycleModule
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.squareup.leakcanary.RefWatcher
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
-import javax.inject.Inject
 
 /**
  * 抽象类，因为没有实现MvvmView接口的方法
@@ -36,38 +29,19 @@ import javax.inject.Inject
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : RxAppCompatActivity(){
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : RxAppCompatActivity() {
 
     //为子类提供binding
     protected lateinit var binding: B
-    //为子类提供viewModel
-    @Inject
-    protected lateinit var viewModel: VM
-    @Inject
+    //    为子类提供viewModel
+    lateinit var viewModel: VM
+
     protected lateinit var refWatcher: RefWatcher
-    /**
-     * 为子类依赖提供组件
-     */
-    lateinit var  activityComponent: ActivityComponent
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityComponent =DaggerActivityComponent.builder()
-                .activityModule(ActivityModule(this))
-                .appComponent((application as AMSystemApp).appComponent)
-                .lifecycleModule(LifecycleModule(this))
-                .build()
-        initInjection()
         AppManager.instance.addActivity(this)
     }
-
-    /**
-     * 子类完成自己的依赖注入
-     */
-    abstract fun initInjection()
-
 
     override fun onDestroy() {
         super.onDestroy()

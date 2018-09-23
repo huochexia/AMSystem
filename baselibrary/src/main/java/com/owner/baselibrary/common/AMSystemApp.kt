@@ -18,16 +18,9 @@ package com.owner.baselibrary.common
 import android.app.Application
 import android.content.Context
 import com.avos.avoscloud.AVOSCloud
-import com.owner.baselibrary.injection.component.AppComponent
-import com.owner.baselibrary.injection.component.DaggerAppComponent
-import com.owner.baselibrary.injection.module.ApiModule
-import com.owner.baselibrary.injection.module.AppModule
-import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import io.reactivex.plugins.RxJavaPlugins
-import retrofit2.Retrofit
 import timber.log.Timber
-import javax.inject.Inject
 
 
 /**
@@ -40,12 +33,7 @@ class AMSystemApp : Application() {
     /*
        定义内存泄露管理工具
      */
-    @Inject
     lateinit var refWatcher: RefWatcher
-
-
-    lateinit var appComponent: AppComponent
-
     companion object {
         lateinit var instance: AMSystemApp
             private set
@@ -56,20 +44,10 @@ class AMSystemApp : Application() {
         fun getRefWatcher(context: Context): RefWatcher {
             return instance.refWatcher
         }
-
-
     }
 
     override fun onCreate() {
         super.onCreate()
-        /*
-      初始化Application的依赖注入
-     */
-        appComponent = DaggerAppComponent.builder()
-                .appModule(AppModule(this))
-                .apiModule(ApiModule())
-                .build()
-
         instance = this
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this, "NNsHKVMl4HG7DWLoqp3NsUjB-gzGzoHsz", "NKAMBzaJ248RQB4i5qPOCkIB")

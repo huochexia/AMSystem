@@ -15,18 +15,10 @@
  */
 package com.owner.baselibrary.viewmodel
 
-import android.app.Activity
-import android.app.Application
 import android.arch.lifecycle.ViewModel
-import android.content.Context
 import android.databinding.Observable
 import android.databinding.PropertyChangeRegistry
-import android.support.v7.app.AppCompatActivity
-import com.owner.baselibrary.data.respository.BaseRepository
-import com.owner.baselibrary.injection.qualifier.ActivityContext
-import com.owner.baselibrary.injection.qualifier.AppContext
-import javax.inject.Inject
-import javax.inject.Singleton
+import io.reactivex.disposables.CompositeDisposable
 
 /**
  * VeiwModel基类继承ViewModel对象，实现DataBinding的Observable接口
@@ -39,6 +31,10 @@ import javax.inject.Singleton
  */
 abstract class BaseViewModel : ViewModel(), Observable {
 
+    /**
+     * 管理Rxjava的Observable对象
+     */
+    val compositeDisposable = CompositeDisposable()
     /**
      * 实现Observable接口部分
      */

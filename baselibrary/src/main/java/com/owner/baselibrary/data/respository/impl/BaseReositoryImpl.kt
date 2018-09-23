@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.baselibrary.injection.qualifier
+package com.owner.baselibrary.data.respository.impl
 
-import javax.inject.Qualifier
+import com.owner.baselibrary.data.respository.BaseRepository
 
 /**
  *
- * Created by Liuyong on 2018-09-15.It's AMSystem
+ * Created by Liuyong on 2018-09-22.It's AMSystem
  *@description:
  */
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
-annotation class ActivityContext
+class BaseReositoryImpl:BaseRepository {
+}

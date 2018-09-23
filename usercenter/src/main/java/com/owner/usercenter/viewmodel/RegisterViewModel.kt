@@ -15,35 +15,24 @@
  */
 package com.owner.usercenter.viewmodel
 
-import android.content.Context
-import android.databinding.ObservableBoolean
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-import com.avos.avoscloud.*
 import com.owner.baselibrary.common.AMSystemApp
-import com.owner.baselibrary.injection.qualifier.ActivityContext
-import com.owner.baselibrary.injection.qualifier.AppContext
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.owner.baselibrary.widgets.VerifyButton
-import com.owner.usercenter.data.UserRepository
 import com.owner.usercenter.service.UserService
-import io.reactivex.Observable
-import timber.log.Timber
-import javax.inject.Inject
+import com.owner.usercenter.service.impl.UserServiceImpl
 
 /**
  *
  * Created by Liuyong on 2018-09-18.It's AMSystem
  *@description:
  */
-class RegisterViewModel @Inject constructor()  : BaseViewModel() {
+class RegisterViewModel : BaseViewModel() {
 
 
-    @Inject
     lateinit var userServiceImpl: UserService
-
 
     private var mobile: String = ""
     private var verifyCode = ""
@@ -84,6 +73,7 @@ class RegisterViewModel @Inject constructor()  : BaseViewModel() {
 
         if (NetWorkUtils.isNetWorkAvailable(AMSystemApp.instance)) {
             if (pwd == pwdAgain) {
+                userServiceImpl = UserServiceImpl()
                 userServiceImpl.register(AMSystemApp.instance,mobile,pwd)
             }else{
                 Toast.makeText(AMSystemApp.instance,"两次密码不一致！",Toast.LENGTH_SHORT).show()

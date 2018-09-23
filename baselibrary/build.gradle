@@ -60,9 +60,9 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
     api "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
 
-    //Dagger2
-    api "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    //Dagger2暂时放弃使用
+//    api "com.google.dagger:dagger:$dagger_version"
+//    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     //RxLifecycle
     api "com.trello.rxlifecycle2:rxlifecycle-kotlin:$rx_lifecycle_version"

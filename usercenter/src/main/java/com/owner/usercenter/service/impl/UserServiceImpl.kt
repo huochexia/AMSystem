@@ -20,23 +20,22 @@ import com.owner.baselibrary.data.respository.BaseRepository
 import com.owner.usercenter.data.UserRepository
 import com.owner.usercenter.service.UserService
 import io.reactivex.Observable
-import javax.inject.Inject
 
 /**
  *
  * Created by Liuyong on 2018-09-21.It's AMSystem
  *@description:
  */
-class UserServiceImpl @Inject constructor(): UserService {
+class UserServiceImpl : UserService {
 
-    @Inject
-    lateinit var userRepository:BaseRepository
+
+    lateinit var userRepository: UserRepository
     /*
        注册
      */
-    override fun register(context: Context,name: String, pwd: String) {
-
-        (userRepository as UserRepository).register(context,name,pwd)
+    override fun register(context: Context, name: String, pwd: String) {
+        userRepository = UserRepository()
+        userRepository.register(context, name, pwd)
     }
 
 }

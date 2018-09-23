@@ -54,7 +54,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api project(':provideslib')
     //Dagger2
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+//    kapt "com.google.dagger:dagger-compiler:$dagger_version"
     //leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'

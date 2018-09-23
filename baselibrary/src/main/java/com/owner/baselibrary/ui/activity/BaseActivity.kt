@@ -36,40 +36,39 @@ import javax.inject.Inject
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel<*>> : RxAppCompatActivity(){
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : RxAppCompatActivity(){
 
     //为子类提供binding
     protected lateinit var binding: B
     //为子类提供viewModel
+    @Inject
     protected lateinit var viewModel: VM
     @Inject
     protected lateinit var refWatcher: RefWatcher
     /**
      * 为子类依赖提供组件
      */
-    internal val activityComponent: ActivityComponent by lazy {
-        DaggerActivityComponent.builder()
-                .activityModule(ActivityModule(this))
-                .appComponent(AMSystemApp.appComponent)
-                .lifecycleModule(LifecycleModule(this))
-                .build()
-    }
+    lateinit var  activityComponent: ActivityComponent
 
 
-    @CallSuper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        initInjection(activityComponent)
+        activityComponent =DaggerActivityComponent.builder()
+                .activityModule(ActivityModule(this))
+                .appComponent((application as AMSystemApp).appComponent)
+                .lifecycleModule(LifecycleModule(this))
+                .build()
+        initInjection()
         AppManager.instance.addActivity(this)
     }
 
     /**
      * 子类完成自己的依赖注入
      */
-    abstract fun initInjection(activityComponent: ActivityComponent)
+    abstract fun initInjection()
 
-    @CallSuper
+
     override fun onDestroy() {
         super.onDestroy()
         AppManager.instance.removeActivity(this)

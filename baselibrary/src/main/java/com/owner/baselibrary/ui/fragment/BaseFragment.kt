@@ -28,10 +28,10 @@ import javax.inject.Inject
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseFragment<B:ViewDataBinding,VM:BaseViewModel<*>>: Fragment() {
+abstract class BaseFragment<B:ViewDataBinding,VM:BaseViewModel>: Fragment() {
 
     protected lateinit var binding:B
-    @Inject
+
     protected lateinit var viewModel:VM
     @Inject
     protected lateinit var refWatcher: RefWatcher

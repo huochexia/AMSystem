@@ -15,16 +15,22 @@
  */
 package com.owner.usercenter.viewmodel
 
+import android.content.Context
+import android.databinding.ObservableBoolean
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
+import com.avos.avoscloud.*
 import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.injection.qualifier.ActivityContext
+import com.owner.baselibrary.injection.qualifier.AppContext
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.owner.baselibrary.widgets.VerifyButton
 import com.owner.usercenter.data.UserRepository
 import com.owner.usercenter.service.UserService
+import io.reactivex.Observable
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -32,14 +38,17 @@ import javax.inject.Inject
  * Created by Liuyong on 2018-09-18.It's AMSystem
  *@description:
  */
-class RegisterViewModel @Inject constructor() : BaseViewModel<UserRepository>() {
+class RegisterViewModel @Inject constructor()  : BaseViewModel() {
+
+
     @Inject
     lateinit var userServiceImpl: UserService
 
-    var mobile: String = ""
-    var verifyCode = ""
-    var pwd: String = ""
-    var pwdAgain: String = ""
+
+    private var mobile: String = ""
+    private var verifyCode = ""
+    private var pwd: String = ""
+    private var pwdAgain: String = ""
 
     /**
      * 从视图绑定中获取输入内容
@@ -65,6 +74,7 @@ class RegisterViewModel @Inject constructor() : BaseViewModel<UserRepository>() 
      */
     fun acceptVerifyCode(view: View) {
         (view as VerifyButton).requestSendVerifyNumber()
+
     }
 
     /**
@@ -73,6 +83,11 @@ class RegisterViewModel @Inject constructor() : BaseViewModel<UserRepository>() 
     fun register(view: View) {
 
         if (NetWorkUtils.isNetWorkAvailable(AMSystemApp.instance)) {
+            if (pwd == pwdAgain) {
+                userServiceImpl.register(AMSystemApp.instance,mobile,pwd)
+            }else{
+                Toast.makeText(AMSystemApp.instance,"两次密码不一致！",Toast.LENGTH_SHORT).show()
+            }
 
         }
     }

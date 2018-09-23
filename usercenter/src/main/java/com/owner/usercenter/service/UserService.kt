@@ -15,6 +15,7 @@
  */
 package com.owner.usercenter.service
 
+import android.content.Context
 import io.reactivex.Observable
 
 /**
@@ -27,7 +28,7 @@ interface UserService {
     /*
        注册方法
      */
-    fun register(name: String, pwd: String, verifyCode: String): Observable<Boolean>
+    fun register(context: Context,name: String, pwd: String)
 
 
 }

@@ -13,7 +13,14 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-
+//为了解决部分第三方库重复打包了META-INF的问题
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    lintOptions {
+        abortOnError false
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -35,6 +42,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // LeanCloud 基础包
+    api 'cn.leancloud.android:avoscloud-sdk:v4.7.3'
     //ViewModel
     api 'android.arch.lifecycle:extensions:1.1.0'
     // Anko Commons
@@ -54,7 +63,7 @@ dependencies {
     //Dagger2
     api "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
-   
+
     //RxLifecycle
     api "com.trello.rxlifecycle2:rxlifecycle-kotlin:$rx_lifecycle_version"
     api "com.trello.rxlifecycle2:rxlifecycle-components:$rx_lifecycle_version"

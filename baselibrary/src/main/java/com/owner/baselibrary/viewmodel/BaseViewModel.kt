@@ -37,10 +37,7 @@ import javax.inject.Singleton
  * Created by Liuyong on 2018-09-16.It's AMSystem
  *@description:
  */
-abstract class BaseViewModel<R : BaseRepository> : ViewModel(), Observable {
-
-    @Inject
-    lateinit var repository: R
+abstract class BaseViewModel : ViewModel(), Observable {
 
     /**
      * 实现Observable接口部分

@@ -17,6 +17,7 @@ package com.owner.baselibrary.common
 
 import android.app.Application
 import android.content.Context
+import com.avos.avoscloud.AVOSCloud
 import com.owner.baselibrary.injection.component.AppComponent
 import com.owner.baselibrary.injection.component.DaggerAppComponent
 import com.owner.baselibrary.injection.module.ApiModule
@@ -24,6 +25,7 @@ import com.owner.baselibrary.injection.module.AppModule
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import io.reactivex.plugins.RxJavaPlugins
+import retrofit2.Retrofit
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -42,17 +44,20 @@ class AMSystemApp : Application() {
     lateinit var refWatcher: RefWatcher
 
 
+    lateinit var appComponent: AppComponent
+
     companion object {
         lateinit var instance: AMSystemApp
             private set
 
-        lateinit var appComponent: AppComponent
         /*
             静态方法，获取RefWatcher
          */
         fun getRefWatcher(context: Context): RefWatcher {
             return instance.refWatcher
         }
+
+
     }
 
     override fun onCreate() {
@@ -62,9 +67,13 @@ class AMSystemApp : Application() {
      */
         appComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(this))
+                .apiModule(ApiModule())
                 .build()
-        instance = this
 
+        instance = this
+        // 初始化参数依次为 this, AppId, AppKey
+        AVOSCloud.initialize(this, "NNsHKVMl4HG7DWLoqp3NsUjB-gzGzoHsz", "NKAMBzaJ248RQB4i5qPOCkIB")
+        AVOSCloud.setDebugLogEnabled(true)//开启调试日志
         //初始化Timber日志管理工具
         Timber.plant(Timber.DebugTree())
         RxJavaPlugins.setErrorHandler { Timber.e(it) }

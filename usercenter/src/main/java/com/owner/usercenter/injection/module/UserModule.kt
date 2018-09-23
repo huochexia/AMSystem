@@ -15,9 +15,16 @@
  */
 package com.owner.usercenter.injection.module
 
+import android.arch.lifecycle.ViewModelProviders
+import android.support.v7.app.AppCompatActivity
+import com.owner.baselibrary.data.respository.BaseRepository
+import com.owner.baselibrary.injection.qualifier.ActivityContext
 import com.owner.baselibrary.injection.scope.PerComponentScope
+import com.owner.usercenter.data.UserRepository
 import com.owner.usercenter.service.UserService
 import com.owner.usercenter.service.impl.UserServiceImpl
+import com.owner.usercenter.viewmodel.RegisterViewModel
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
@@ -27,11 +34,24 @@ import dagger.Provides
  *@description:
  */
 @Module
+
 class UserModule {
 
     @Provides
     @PerComponentScope
-    fun provideRegisterServiceImpl(serviceImpl: UserServiceImpl): UserService{
+    fun provideRegisterServiceImpl(serviceImpl: UserServiceImpl): UserService {
         return serviceImpl
     }
+
+    @Provides
+    @PerComponentScope
+    fun provideRepositoryImpl(userRepository: UserRepository): BaseRepository {
+        return userRepository
+    }
+//
+//    @Provides
+//    @PerComponentScope
+//    fun provideRegisterViewModel(@ActivityContext activity:AppCompatActivity): RegisterViewModel {
+//        return ViewModelProviders.of(activity).get(RegisterViewModel::class.java)
+//    }
 }

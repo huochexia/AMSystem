@@ -15,6 +15,9 @@
  */
 package com.owner.usercenter.service.impl
 
+import android.content.Context
+import com.owner.baselibrary.data.respository.BaseRepository
+import com.owner.usercenter.data.UserRepository
 import com.owner.usercenter.service.UserService
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -25,12 +28,15 @@ import javax.inject.Inject
  *@description:
  */
 class UserServiceImpl @Inject constructor(): UserService {
+
+    @Inject
+    lateinit var userRepository:BaseRepository
     /*
        注册
      */
-    override fun register(name: String, pwd: String, verifyCode: String): Observable<Boolean> {
+    override fun register(context: Context,name: String, pwd: String) {
 
-        return Observable.just(true)
+        (userRepository as UserRepository).register(context,name,pwd)
     }
 
 }

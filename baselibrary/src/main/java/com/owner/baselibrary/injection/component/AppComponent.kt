@@ -15,6 +15,7 @@
  */
 package com.owner.baselibrary.injection.component
 
+import android.app.Application
 import android.content.Context
 import com.owner.baselibrary.injection.module.ApiModule
 import com.owner.baselibrary.injection.module.AppModule

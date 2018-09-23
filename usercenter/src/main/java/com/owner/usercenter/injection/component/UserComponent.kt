@@ -15,7 +15,9 @@
  */
 package com.owner.usercenter.injection.component
 
+import android.support.v7.app.AppCompatActivity
 import com.owner.baselibrary.injection.component.ActivityComponent
+import com.owner.baselibrary.injection.qualifier.ActivityContext
 import com.owner.baselibrary.injection.scope.ActivityScope
 import com.owner.baselibrary.injection.scope.PerComponentScope
 import com.owner.usercenter.injection.module.UserModule

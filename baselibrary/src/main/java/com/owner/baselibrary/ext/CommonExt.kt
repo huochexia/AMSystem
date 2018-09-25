@@ -22,12 +22,27 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import com.owner.baselibrary.widgets.DefaultTextWatcher
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+
 
 /**
  *
  * Created by Liuyong on 2018-09-21.It's AMSystem
  *@description:
  */
+
+/**
+ * Observable扩展,组合线程调度
+ */
+
+fun <T> Observable<T>.execute(): Observable<T> {
+    return this.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+}
+
+
 /**
  * Button扩展方法，判断按钮是否可用
  */
@@ -40,6 +55,7 @@ fun Button.enabled(et: EditText, method: () -> Boolean) {
     })
 
 }
+
 /**
  * 用于管理Fragment的扩展函数
  * Created by Liuyong on 2018-09-01.

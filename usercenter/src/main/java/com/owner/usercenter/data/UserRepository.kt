@@ -16,36 +16,43 @@
 package com.owner.usercenter.data
 
 import android.content.Context
+import android.databinding.ObservableInt
 import android.widget.Toast
 import com.avos.avoscloud.*
 import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.data.respository.BaseRepository
 import io.reactivex.Observable
+import com.avos.avoscloud.AVException
+import com.avos.avoscloud.AVUser
+import com.avos.avoscloud.LogInCallback
+import com.owner.baselibrary.data.net.RetrofitFactory
+import com.owner.baselibrary.data.protocol.BaseResp
+import com.owner.usercenter.data.api.UserApi
+import com.owner.usercenter.data.protocol.LoginReq
+import com.owner.usercenter.data.protocol.RegisterReq
+
 
 /**
  *
  * Created by Liuyong on 2018-09-22.It's AMSystem
  *@description:
  */
-class UserRepository :BaseRepository {
+class UserRepository : BaseRepository {
     /*
        注册
      */
 
-    fun register(context: Context,mobile:String,pwd:String) {
-        var user = AVUser()
-        user.username = mobile
-        user.setPassword(pwd)
-        user.signUpInBackground(object : SignUpCallback() {
-            override fun done(p0: AVException?) {
-                if (p0 == null) {
-                    Toast.makeText(context,"注册成功！", Toast.LENGTH_SHORT).show()
-                } else {
-                    when (p0.code) {
-                        202 -> Toast.makeText(context,"该用户已存在！", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        })
+    fun register(name: String, pwd: String) :Observable<BaseResp<String>> {
+
+        return RetrofitFactory.instance.create(UserApi::class.java)
+                .registerApi(RegisterReq(name,pwd))
+    }
+
+    /*
+       登录
+     */
+    fun login(name: String, pwd: String) :Observable<BaseResp<AVUser>> {
+       return RetrofitFactory.instance.create(UserApi::class.java)
+               .loginApi(LoginReq(name,pwd))
     }
 }

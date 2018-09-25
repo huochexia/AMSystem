@@ -13,28 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.usercenter.service
-
-import android.content.Context
-import android.databinding.ObservableInt
-import com.avos.avoscloud.AVUser
-import io.reactivex.Observable
+package com.owner.baselibrary.data.protocol
 
 /**
- *
- * Created by Liuyong on 2018-09-21.It's AMSystem
+ *[status]网络返回的状态码如200，[msg]是对应的信息如OK，[data]是json体
+ * Created by Liuyong on 2018-09-24.It's AMSystem
  *@description:
  */
-interface UserService {
-
-    /*
-       注册方法
-     */
-    fun register(name: String, pwd: String) : Observable<String>
-    /*
-       登录方法
-     */
-    fun login(name:String,pwd:String):Observable<AVUser>
-
-
-}
+class BaseResp<out T>(val status:Int,val msg:String,val data:T)

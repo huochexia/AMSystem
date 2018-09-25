@@ -15,8 +15,7 @@
  */
 package com.owner.usercenter.service.impl
 
-import android.content.Context
-import com.owner.baselibrary.data.respository.BaseRepository
+import com.avos.avoscloud.AVUser
 import com.owner.usercenter.data.UserRepository
 import com.owner.usercenter.service.UserService
 import io.reactivex.Observable
@@ -29,13 +28,24 @@ import io.reactivex.Observable
 class UserServiceImpl : UserService {
 
 
-    lateinit var userRepository: UserRepository
+    private val userRepository = UserRepository()
     /*
        注册
      */
-    override fun register(context: Context, name: String, pwd: String) {
-        userRepository = UserRepository()
-        userRepository.register(context, name, pwd)
+    override fun register(name: String, pwd: String): Observable<String> {
+        return userRepository.register(name, pwd)
+                .flatMap {
+                    if (it.status != 200) {
+
+                    }
+                    Observable.just(it.data)
+                }
+    }
+
+    override fun login(name: String, pwd: String):Observable<AVUser> {
+        return userRepository.login(name, pwd).flatMap {
+            Observable.just(it.data)
+        }
     }
 
 }

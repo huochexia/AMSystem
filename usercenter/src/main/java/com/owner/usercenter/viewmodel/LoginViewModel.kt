@@ -15,6 +15,7 @@
  */
 package com.owner.usercenter.viewmodel
 
+import android.databinding.ObservableInt
 import android.view.View
 import android.widget.Toast
 import com.owner.baselibrary.common.AMSystemApp
@@ -26,22 +27,21 @@ import com.owner.usercenter.service.impl.UserServiceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import rx.Scheduler
 
 /**
  *
  * Created by Liuyong on 2018-09-18.It's AMSystem
  *@description:
  */
-class RegisterViewModel : BaseViewModel() {
+class LoginViewModel : BaseViewModel() {
 
 
     lateinit var userServiceImpl: UserService
+    //登录结果，通过它驱动视图变化
+     var result = ObservableInt(-2)
 
     private var mobile: String = ""
-    private var verifyCode = ""
     private var pwd: String = ""
-    private var pwdAgain: String = ""
 
     /**
      * 从视图绑定中获取输入内容
@@ -50,44 +50,26 @@ class RegisterViewModel : BaseViewModel() {
         mobile = s.toString()
     }
 
-    fun getVerifyCode(s: CharSequence, s1: Int, o: Int, k: Int) {
-        verifyCode = s.toString()
-    }
-
     fun getPwd(s: CharSequence, s1: Int, o: Int, k: Int) {
         pwd = s.toString()
     }
 
-    fun getPwdAgain(s: CharSequence, s1: Int, o: Int, k: Int) {
-        pwdAgain = s.toString()
-    }
-
-    /**
-     * 获取验证码
-     */
-    fun acceptVerifyCode(view: View) {
-        (view as VerifyButton).requestSendVerifyNumber()
-
-    }
 
     /**
      * 注册按钮
      */
-    fun register(view: View) {
+    fun login(view: View) {
 
         if (NetWorkUtils.isNetWorkAvailable(AMSystemApp.instance)) {
-            if (pwd == pwdAgain) {
-                userServiceImpl = UserServiceImpl()
-                userServiceImpl.register(mobile,pwd).subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeBy {
-                            println(it)
-                        }
-            }else{
-                Toast.makeText(AMSystemApp.instance,"两次密码不一致！",Toast.LENGTH_SHORT).show()
-            }
-
+             userServiceImpl  = UserServiceImpl()
+            userServiceImpl.login(mobile,pwd).observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribeBy {
+                        println(it?.username)
+                    }
         }
     }
+
+
 
 }

@@ -23,9 +23,29 @@ package com.owner.baselibrary.common
 class BaseConstant {
     companion object {
         /*
+          Api id name
+         */
+        const val APP_ID_NAME ="X-LC-Id"
+        /*
+          Api id value
+         */
+        const val APP_ID_VALUE ="eb6OvQD44jgIpIRr0gJsL9vy-gzGzoHsz"
+        /*
+          Client Key Name
+         */
+        const val CLIENT_KEY_NAME ="X-LC-Key"
+        /*
+        Client Key Value
+         */
+        const val CLIENT_KEY_VALUE = "AyLPzud6p97mJDlNNRx2syzX"
+        /*
         Api访问网址
          */
-        const val BASE_URL = ""
+        const val SERVER_ADDRESS = "https://nnshkvml.api.lncld.net/"
+        /*
+          网络访问缓存
+         */
+        const val CACHE_SIZE :Long= 10*1024*1024
         /*
          SharedPreferences所有表表名
          */
@@ -34,5 +54,6 @@ class BaseConstant {
         //Token Key,在做网络请求时，这个值通常是放在Header当中的，我们retrofit工厂是在base中，
         // 所以将它设在base中
         const val KEY_SP_TOKEN = "token"
+
     }
 }

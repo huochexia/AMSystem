@@ -13,28 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.usercenter.service
-
-import android.content.Context
-import android.databinding.ObservableInt
-import com.avos.avoscloud.AVUser
-import io.reactivex.Observable
+package com.owner.baselibrary.rx
 
 /**
  *
- * Created by Liuyong on 2018-09-21.It's AMSystem
+ * Created by Liuyong on 2018-09-09.It's MVVMKotlinMall
  *@description:
  */
-interface UserService {
-
-    /*
-       注册方法
-     */
-    fun register(name: String, pwd: String) : Observable<String>
-    /*
-       登录方法
-     */
-    fun login(name:String,pwd:String):Observable<AVUser>
-
-
-}
+class BaseException(val status:Int,val msg:String):Throwable()

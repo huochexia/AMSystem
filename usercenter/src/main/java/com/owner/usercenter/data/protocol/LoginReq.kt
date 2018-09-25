@@ -13,28 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.usercenter.service
-
-import android.content.Context
-import android.databinding.ObservableInt
-import com.avos.avoscloud.AVUser
-import io.reactivex.Observable
+package com.owner.usercenter.data.protocol
 
 /**
- *
- * Created by Liuyong on 2018-09-21.It's AMSystem
+ *用户登录请求对象，用户名和密码是必须的
+ * Created by Liuyong on 2018-09-24.It's AMSystem
  *@description:
  */
-interface UserService {
-
-    /*
-       注册方法
-     */
-    fun register(name: String, pwd: String) : Observable<String>
-    /*
-       登录方法
-     */
-    fun login(name:String,pwd:String):Observable<AVUser>
-
-
-}
+data class LoginReq (val name:String, val pwd:String)

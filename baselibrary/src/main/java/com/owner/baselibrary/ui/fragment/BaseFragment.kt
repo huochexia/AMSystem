@@ -21,7 +21,6 @@ import android.support.v4.app.Fragment
 import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.squareup.leakcanary.RefWatcher
-import javax.inject.Inject
 
 /**
  *
@@ -33,7 +32,7 @@ abstract class BaseFragment<B:ViewDataBinding,VM:BaseViewModel>: Fragment() {
     protected lateinit var binding:B
 
     protected lateinit var viewModel:VM
-    @Inject
+
     protected lateinit var refWatcher: RefWatcher
 
 

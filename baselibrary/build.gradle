@@ -35,6 +35,7 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     api "com.android.support:appcompat-v7:$support_version"
     api "com.android.support:support-v4:$support_version"
     api "com.android.support:recyclerview-v7:$support_version"
@@ -58,8 +59,7 @@ dependencies {
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.okhttp3:logging-interceptor:$ok_http_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    api "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
-
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     //Dagger2暂时放弃使用
 //    api "com.google.dagger:dagger:$dagger_version"
 //    kapt "com.google.dagger:dagger-compiler:$dagger_version"

@@ -17,6 +17,7 @@ package com.owner.baselibrary.common
 
 import android.app.Application
 import android.content.Context
+import android.content.ContextWrapper
 import com.avos.avoscloud.AVOSCloud
 import com.squareup.leakcanary.RefWatcher
 import io.reactivex.plugins.RxJavaPlugins
@@ -50,7 +51,7 @@ class AMSystemApp : Application() {
         super.onCreate()
         instance = this
         // 初始化参数依次为 this, AppId, AppKey
-        AVOSCloud.initialize(this, "NNsHKVMl4HG7DWLoqp3NsUjB-gzGzoHsz", "NKAMBzaJ248RQB4i5qPOCkIB")
+        AVOSCloud.initialize(this,BaseConstant.APP_ID_VALUE, BaseConstant.CLIENT_KEY_VALUE)
         AVOSCloud.setDebugLogEnabled(true)//开启调试日志
         //初始化Timber日志管理工具
         Timber.plant(Timber.DebugTree())
@@ -59,3 +60,8 @@ class AMSystemApp : Application() {
 
 
 }
+
+/**
+ * 通过单例方式获取Application的Context
+ */
+object AppContext:ContextWrapper(AMSystemApp.instance)

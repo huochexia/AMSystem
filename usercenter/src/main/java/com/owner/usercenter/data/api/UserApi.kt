@@ -13,28 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.usercenter.service
+package com.owner.usercenter.data.api
 
-import android.content.Context
-import android.databinding.ObservableInt
 import com.avos.avoscloud.AVUser
+import com.owner.baselibrary.common.BaseConstant
+import com.owner.baselibrary.data.protocol.BaseResp
+import com.owner.usercenter.data.protocol.LoginReq
+import com.owner.usercenter.data.protocol.RegisterReq
 import io.reactivex.Observable
+import retrofit2.http.Body
+import retrofit2.http.Headers
+import retrofit2.http.POST
 
 /**
- *
- * Created by Liuyong on 2018-09-21.It's AMSystem
+ *  访问用户Api
+ * Created by Liuyong on 2018-09-24.It's AMSystem
  *@description:
  */
-interface UserService {
+interface UserApi {
 
-    /*
-       注册方法
+    /**
+     * "@Body"注解的目的是将RegisterReq对象转换成Json字符串
      */
-    fun register(name: String, pwd: String) : Observable<String>
-    /*
-       登录方法
+
+    @POST("1.1/users")
+    fun registerApi(@Body req: RegisterReq): Observable<BaseResp<String>>
+    /**
+     * 登录
      */
-    fun login(name:String,pwd:String):Observable<AVUser>
-
-
+    @POST("1.1/login")
+    fun loginApi(@Body req: LoginReq) : Observable<BaseResp<AVUser>>
 }

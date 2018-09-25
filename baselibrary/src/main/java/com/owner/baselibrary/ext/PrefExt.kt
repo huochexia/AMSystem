@@ -13,28 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.usercenter.service
+package com.owner.baselibrary.ext
 
-import android.content.Context
-import android.databinding.ObservableInt
-import com.avos.avoscloud.AVUser
-import io.reactivex.Observable
+import com.owner.baselibrary.common.AppContext
+import com.owner.baselibrary.utils.Preference
+import kotlin.reflect.jvm.jvmName
 
 /**
  *
- * Created by Liuyong on 2018-09-21.It's AMSystem
+ * Created by Liuyong on 2018-09-25.It's AMSystem
  *@description:
  */
-interface UserService {
 
-    /*
-       注册方法
-     */
-    fun register(name: String, pwd: String) : Observable<String>
-    /*
-       登录方法
-     */
-    fun login(name:String,pwd:String):Observable<AVUser>
-
-
-}
+inline  fun <reified R,T> R.pref(default:T) = Preference(AppContext,"",default,R::class.jvmName)

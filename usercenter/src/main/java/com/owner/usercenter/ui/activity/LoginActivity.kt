@@ -6,12 +6,15 @@ import android.databinding.Observable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.avos.avoscloud.AVOSCloud
 import com.owner.amsystem.R
 import com.owner.amsystem.databinding.ActivityLoginBinding
 import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.common.AppManager
+import com.owner.baselibrary.common.BaseConstant
 import com.owner.baselibrary.ext.enabled
 import com.owner.baselibrary.ui.activity.BaseActivity
+import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
@@ -22,27 +25,26 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         binding.vm = viewModel
         initView()
         binding.mHeaderBar.getRightView().setOnClickListener(this)
 
-        viewModel.result.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when (viewModel.result.get()) {
-                    210 -> {
-                        toast("用户名与密码不匹配！")
-                        viewModel.result.set(-2)//需要还原原值，否则连续出现同一个值无法触发事件
+        with(viewModel.result) {
+            addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    when (get()) {
+                        UserConstant.NET_NOUSER -> toast("网络不可用")
+                        210 -> toast("用户名与密码不匹配！")
+                        211 -> toast("用户不存在！")
                     }
-                    211 -> {
-                        toast("用户不存在！")
-                        viewModel.result.set(-2)
-                    }
+                    set(-2)//需要还原原值，否则连续出现同一个值无法触发事件
                 }
-            }
-
-        })
+            })
+        }
     }
 
     /**
@@ -51,6 +53,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
     fun initView() {
         mLoginBtn.enabled(mMobileEt) { isEnable() }
         mLoginBtn.enabled(mPwdEt) { isEnable() }
+        if (binding.mHeaderBar.getRightView() != null)
+            binding.mHeaderBar.getRightView().visibility = View.VISIBLE
+
     }
 
     /*

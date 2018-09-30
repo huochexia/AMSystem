@@ -13,11 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.usercenter.data.protocol
+package com.owner.usercenter.common
 
 /**
- *用户注册对象，用户名和密码是必须的，可以增加其他属性比如手机
- * Created by Liuyong on 2018-09-24.It's AMSystem
+ *
+ * Created by Liuyong on 2018-09-30.It's AMSystem
  *@description:
  */
-data class RegisterReq (val name:String,val pwd:String)
+class UserConstant {
+    companion object {
+        const val NET_NOUSER = 0
+        const val TWO_PASSWORD_NO_SAME = 1
+        const val USERNAME_TAKEN = 202
+        const val REGISTER_SUCCESS = 888
+    }
+}

@@ -18,6 +18,7 @@ package com.owner.baselibrary.viewmodel
 import android.arch.lifecycle.ViewModel
 import android.databinding.Observable
 import android.databinding.PropertyChangeRegistry
+import com.owner.baselibrary.data.respository.BaseRepository
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -29,12 +30,16 @@ import io.reactivex.disposables.CompositeDisposable
  * Created by Liuyong on 2018-09-16.It's AMSystem
  *@description:
  */
-abstract class BaseViewModel : ViewModel(), Observable {
+abstract class BaseViewModel<repository:BaseRepository> : ViewModel(), Observable {
 
     /**
      * 管理Rxjava的Observable对象
      */
     val compositeDisposable = CompositeDisposable()
+    /**
+     *
+     */
+    lateinit var  repository :BaseRepository
     /**
      * 实现Observable接口部分
      */

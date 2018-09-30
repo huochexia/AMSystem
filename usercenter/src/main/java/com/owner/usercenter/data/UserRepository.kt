@@ -15,21 +15,7 @@
  */
 package com.owner.usercenter.data
 
-import android.content.Context
-import android.databinding.ObservableInt
-import android.widget.Toast
-import com.avos.avoscloud.*
-import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.data.respository.BaseRepository
-import io.reactivex.Observable
-import com.avos.avoscloud.AVException
-import com.avos.avoscloud.AVUser
-import com.avos.avoscloud.LogInCallback
-import com.owner.baselibrary.data.net.RetrofitFactory
-import com.owner.baselibrary.data.protocol.BaseResp
-import com.owner.usercenter.data.api.UserApi
-import com.owner.usercenter.data.protocol.LoginReq
-import com.owner.usercenter.data.protocol.RegisterReq
 
 
 /**
@@ -38,21 +24,5 @@ import com.owner.usercenter.data.protocol.RegisterReq
  *@description:
  */
 class UserRepository : BaseRepository {
-    /*
-       注册
-     */
 
-    fun register(name: String, pwd: String) :Observable<BaseResp<String>> {
-
-        return RetrofitFactory.instance.create(UserApi::class.java)
-                .registerApi(RegisterReq(name,pwd))
-    }
-
-    /*
-       登录
-     */
-    fun login(name: String, pwd: String) :Observable<BaseResp<AVUser>> {
-       return RetrofitFactory.instance.create(UserApi::class.java)
-               .loginApi(LoginReq(name,pwd))
-    }
 }

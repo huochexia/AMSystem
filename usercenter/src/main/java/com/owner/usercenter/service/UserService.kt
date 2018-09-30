@@ -27,14 +27,7 @@ import io.reactivex.Observable
  */
 interface UserService {
 
-    /*
-       注册方法
-     */
-    fun register(name: String, pwd: String) : Observable<String>
-    /*
-       登录方法
-     */
-    fun login(name:String,pwd:String):Observable<AVUser>
+
 
 
 }

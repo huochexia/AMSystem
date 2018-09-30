@@ -28,24 +28,5 @@ import io.reactivex.Observable
 class UserServiceImpl : UserService {
 
 
-    private val userRepository = UserRepository()
-    /*
-       注册
-     */
-    override fun register(name: String, pwd: String): Observable<String> {
-        return userRepository.register(name, pwd)
-                .flatMap {
-                    if (it.status != 200) {
-
-                    }
-                    Observable.just(it.data)
-                }
-    }
-
-    override fun login(name: String, pwd: String):Observable<AVUser> {
-        return userRepository.login(name, pwd).flatMap {
-            Observable.just(it.data)
-        }
-    }
 
 }

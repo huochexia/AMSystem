@@ -27,7 +27,7 @@ import com.squareup.leakcanary.RefWatcher
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseFragment<B:ViewDataBinding,VM:BaseViewModel>: Fragment() {
+abstract class BaseFragment<B:ViewDataBinding,VM:BaseViewModel<*>>: Fragment() {
 
     protected lateinit var binding:B
 

@@ -29,7 +29,7 @@ class BaseConstant {
         /*
           Api id value
          */
-        const val APP_ID_VALUE ="eb6OvQD44jgIpIRr0gJsL9vy-gzGzoHsz"
+        const val APP_ID_VALUE ="NNsHKVMl4HG7DWLoqp3NsUjB-gzGzoHsz"
         /*
           Client Key Name
          */
@@ -37,7 +37,7 @@ class BaseConstant {
         /*
         Client Key Value
          */
-        const val CLIENT_KEY_VALUE = "AyLPzud6p97mJDlNNRx2syzX"
+        const val CLIENT_KEY_VALUE = "NKAMBzaJ248RQB4i5qPOCkIB"
         /*
         Api访问网址
          */

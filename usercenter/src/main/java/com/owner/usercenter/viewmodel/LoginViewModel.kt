@@ -17,28 +17,25 @@ package com.owner.usercenter.viewmodel
 
 import android.databinding.ObservableInt
 import android.view.View
-import android.widget.Toast
+import com.avos.avoscloud.AVException
+import com.avos.avoscloud.AVUser
+import com.avos.avoscloud.LogInCallback
 import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
-import com.owner.baselibrary.widgets.VerifyButton
-import com.owner.usercenter.service.UserService
-import com.owner.usercenter.service.impl.UserServiceImpl
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import com.owner.usercenter.common.UserConstant
+import com.owner.usercenter.data.UserRepository
+
 
 /**
  *
  * Created by Liuyong on 2018-09-18.It's AMSystem
  *@description:
  */
-class LoginViewModel : BaseViewModel() {
+class LoginViewModel : BaseViewModel<UserRepository>() {
 
-
-    lateinit var userServiceImpl: UserService
     //登录结果，通过它驱动视图变化
-     var result = ObservableInt(-2)
+    var result = ObservableInt(-2)
 
     private var mobile: String = ""
     private var pwd: String = ""
@@ -59,17 +56,18 @@ class LoginViewModel : BaseViewModel() {
      * 注册按钮
      */
     fun login(view: View) {
-
         if (NetWorkUtils.isNetWorkAvailable(AMSystemApp.instance)) {
-             userServiceImpl  = UserServiceImpl()
-            userServiceImpl.login(mobile,pwd).observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribeBy {
-                        println(it?.username)
+            AVUser.logInInBackground(mobile, pwd, object : LogInCallback<AVUser>() {
+                override fun done(avUser: AVUser?, e: AVException?) {
+                    if (e != null) {
+                        result.set(e.code)
                     }
+                }
+            })
+        } else {
+            result.set(UserConstant.NET_NOUSER)
         }
     }
-
 
 
 }

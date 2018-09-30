@@ -15,34 +15,39 @@
  */
 package com.owner.usercenter.viewmodel
 
+import android.databinding.ObservableField
+import android.databinding.ObservableInt
 import android.view.View
 import android.widget.Toast
+import com.avos.avoscloud.AVException
+import com.avos.avoscloud.AVUser
+import com.avos.avoscloud.SignUpCallback
 import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.owner.baselibrary.widgets.VerifyButton
+import com.owner.usercenter.common.UserConstant
+import com.owner.usercenter.data.UserRepository
 import com.owner.usercenter.service.UserService
 import com.owner.usercenter.service.impl.UserServiceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import rx.Scheduler
+import timber.log.Timber
 
 /**
  *
  * Created by Liuyong on 2018-09-18.It's AMSystem
  *@description:
  */
-class RegisterViewModel : BaseViewModel() {
-
-
-    lateinit var userServiceImpl: UserService
+class RegisterViewModel : BaseViewModel<UserRepository>() {
 
     private var mobile: String = ""
     private var verifyCode = ""
     private var pwd: String = ""
     private var pwdAgain: String = ""
-
+    var result = ObservableInt(-1)
     /**
      * 从视图绑定中获取输入内容
      */
@@ -77,16 +82,24 @@ class RegisterViewModel : BaseViewModel() {
 
         if (NetWorkUtils.isNetWorkAvailable(AMSystemApp.instance)) {
             if (pwd == pwdAgain) {
-                userServiceImpl = UserServiceImpl()
-                userServiceImpl.register(mobile,pwd).subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeBy {
-                            println(it)
+                val user = AVUser()
+                user.username = mobile
+                user.setPassword(pwd)
+                user.signUpInBackground(object : SignUpCallback() {
+                    override fun done(e: AVException?) {
+                        if (e == null) {
+                            result.set(UserConstant.REGISTER_SUCCESS)
+                        } else {
+                            result.set(e.code)
                         }
-            }else{
-                Toast.makeText(AMSystemApp.instance,"两次密码不一致！",Toast.LENGTH_SHORT).show()
-            }
+                    }
 
+                })
+            } else {
+                result.set(UserConstant.TWO_PASSWORD_NO_SAME)
+            }
+        } else {
+            result.set(UserConstant.NET_NOUSER)
         }
     }
 

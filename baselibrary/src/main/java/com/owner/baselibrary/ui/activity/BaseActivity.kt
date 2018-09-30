@@ -29,7 +29,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : RxAppCompatActivity() {
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel<*>> : RxAppCompatActivity() {
 
     //为子类提供binding
     protected lateinit var binding: B

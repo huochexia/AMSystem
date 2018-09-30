@@ -48,14 +48,12 @@ class RetrofitFactory private constructor() {
             .build()
 
     private fun provideInterceptor() : Interceptor{
-        var sessionToken by pref("")
         return Interceptor{chain ->
             val request = chain.request()
             chain.proceed(request).newBuilder()
-                    .addHeader(BaseConstant.APP_ID_NAME,BaseConstant.APP_ID_VALUE)
-                    .addHeader(BaseConstant.CLIENT_KEY_NAME,BaseConstant.CLIENT_KEY_VALUE)
+                    .addHeader(BaseConstant.APP_ID_NAME,"NNsHKVMl4HG7DWLoqp3NsUjB-gzGzoHsz")
+                    .addHeader(BaseConstant.CLIENT_KEY_NAME,"NKAMBzaJ248RQB4i5qPOCkIB")
                     .addHeader("Content-Type", "application/json")
-                    .addHeader("sessionToken",sessionToken)
                     .build()
         }
 
@@ -64,8 +62,8 @@ class RetrofitFactory private constructor() {
         return OkHttpClient.Builder()
                 .addNetworkInterceptor(provideInterceptor())
                 .addInterceptor(initLogInterceptor())
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
                 .build()
     }
 

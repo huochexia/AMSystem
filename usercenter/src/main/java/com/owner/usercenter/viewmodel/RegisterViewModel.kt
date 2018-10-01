@@ -88,7 +88,7 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
                 user.signUpInBackground(object : SignUpCallback() {
                     override fun done(e: AVException?) {
                         if (e == null) {
-                            result.set(UserConstant.REGISTER_SUCCESS)
+                            result.set(UserConstant.ACTION_SUCCESS)
                         } else {
                             result.set(e.code)
                         }

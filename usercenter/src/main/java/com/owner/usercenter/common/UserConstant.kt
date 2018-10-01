@@ -25,6 +25,7 @@ class UserConstant {
         const val NET_NOUSER = 0
         const val TWO_PASSWORD_NO_SAME = 1
         const val USERNAME_TAKEN = 202
-        const val REGISTER_SUCCESS = 888
+        const val ACTION_SUCCESS = 888
+        const val INVALID_VERIFY_CODE = 127
     }
 }

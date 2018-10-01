@@ -18,6 +18,7 @@ package com.owner.baselibrary.common
 import android.app.Application
 import android.content.Context
 import android.content.ContextWrapper
+import android.support.multidex.MultiDexApplication
 import com.avos.avoscloud.AVOSCloud
 import com.squareup.leakcanary.RefWatcher
 import io.reactivex.plugins.RxJavaPlugins
@@ -25,12 +26,12 @@ import timber.log.Timber
 
 
 /**
- * 基本应用程序: 单例模式
+ * 基本应用程序: 单例模式.因为编辑是方法会超过65535，所以这里需要继承MultiDexApplication
  * 初始化工作：RefWatcher,Timber
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-class AMSystemApp : Application() {
+class AMSystemApp : MultiDexApplication() {
     /*
        定义内存泄露管理工具
      */

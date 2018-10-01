@@ -31,7 +31,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
         binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         binding.vm = viewModel
         initView()
+        //该视图属于嵌套，所以不能用绑定事件
         binding.mHeaderBar.getRightView().setOnClickListener(this)
+        //该事件只是一个跳转，所以直接在视图中实现，没有使用绑定
+        binding.mForgetPwdTv.setOnClickListener(this)
 
         with(viewModel.result) {
             addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
@@ -71,6 +74,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
         when (v) {
             binding.mHeaderBar.getRightView() -> startActivity<RegisterActivity>()
             binding.mForgetPwdTv -> {
+                startActivity<ForgetPwdActivity>()
             }
         }
     }

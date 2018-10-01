@@ -16,7 +16,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
     }
 //为了解决部分第三方库重复打包了META-INF的问题
     packagingOptions {

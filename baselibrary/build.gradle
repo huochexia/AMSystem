@@ -11,7 +11,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
     }
 //为了解决部分第三方库重复打包了META-INF的问题
     packagingOptions {
@@ -40,6 +40,7 @@ dependencies {
     api "com.android.support:support-v4:$support_version"
     api "com.android.support:recyclerview-v7:$support_version"
     api 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:multidex:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

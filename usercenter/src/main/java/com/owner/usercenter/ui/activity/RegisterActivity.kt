@@ -35,7 +35,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
                         UserConstant.NET_NOUSER -> toast("网络不可用")
                         UserConstant.TWO_PASSWORD_NO_SAME -> toast("两次密码不一致")
                         UserConstant.USERNAME_TAKEN -> toast("用户名已存在")
-                        UserConstant.REGISTER_SUCCESS -> {
+                        UserConstant.ACTION_SUCCESS -> {
                             //注册成功后，直接登录
                             AVUser.logInInBackground(mMobileEt.text.toString(),
                                     mPwdEt.text.toString(),object :LogInCallback<AVUser>(){

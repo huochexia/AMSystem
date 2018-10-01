@@ -12,7 +12,9 @@ import com.owner.amsystem.databinding.ActivityLoginBinding
 import com.owner.baselibrary.common.AMSystemApp
 import com.owner.baselibrary.common.AppManager
 import com.owner.baselibrary.common.BaseConstant
+import com.owner.baselibrary.common.Setting
 import com.owner.baselibrary.ext.enabled
+import com.owner.baselibrary.ext.pref
 import com.owner.baselibrary.ui.activity.BaseActivity
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.viewmodel.LoginViewModel
@@ -25,7 +27,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
@@ -54,6 +55,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
      * 初始化图
      */
     fun initView() {
+        //从本地获取上次登录成功的手机号
+        mMobileEt.setText(Setting.lastSignUpUser)
         mLoginBtn.enabled(mMobileEt) { isEnable() }
         mLoginBtn.enabled(mPwdEt) { isEnable() }
         if (binding.mHeaderBar.getRightView() != null)

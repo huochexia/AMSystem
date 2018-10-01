@@ -11,6 +11,7 @@ import com.owner.baselibrary.ui.activity.BaseActivity
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.viewmodel.ResetPwdViewModel
 import kotlinx.android.synthetic.main.activity_reset_pwd.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class ResetPwdActivity : BaseActivity<ActivityResetPwdBinding, ResetPwdViewModel>() {
@@ -34,7 +35,7 @@ class ResetPwdActivity : BaseActivity<ActivityResetPwdBinding, ResetPwdViewModel
                         UserConstant.INVALID_VERIFY_CODE ->  toast("验证码无效")
                         UserConstant.ACTION_SUCCESS -> {
                             toast("密码重置成功")
-                            finish()
+                            startActivity<LoginActivity>()
                         }
                     }
                     //恢复原值，为下一次变化准备

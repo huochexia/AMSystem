@@ -15,12 +15,16 @@
  */
 package com.owner.usercenter.viewmodel
 
+import android.databinding.Bindable
 import android.databinding.ObservableInt
 import android.view.View
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.AVUser
 import com.avos.avoscloud.LogInCallback
+import com.owner.baselibrary.BR
 import com.owner.baselibrary.common.AMSystemApp
+import com.owner.baselibrary.common.Setting
+import com.owner.baselibrary.ext.pref
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.owner.usercenter.common.UserConstant
@@ -37,7 +41,8 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
     //登录结果，通过它驱动视图变化
     var result = ObservableInt(-2)
 
-    private var mobile: String = ""
+    private var mobile: String by pref("")
+
     private var pwd: String = ""
 
     /**
@@ -61,7 +66,11 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
                 override fun done(avUser: AVUser?, e: AVException?) {
                     if (e != null) {
                         result.set(e.code)
+                        }else{
+                        //将成功用户保存本地
+                        Setting.lastSignUpUser = mobile
                     }
+
                 }
             })
         } else {

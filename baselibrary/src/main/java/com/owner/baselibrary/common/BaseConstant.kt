@@ -42,6 +42,7 @@ class BaseConstant {
         Api访问网址
          */
         const val SERVER_ADDRESS = "https://nnshkvml.api.lncld.net/"
+
         /*
           网络访问缓存
          */

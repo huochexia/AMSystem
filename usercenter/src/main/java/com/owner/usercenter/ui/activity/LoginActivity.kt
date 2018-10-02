@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.avos.avoscloud.AVOSCloud
+import com.bigkoo.alertview.AlertView
 import com.owner.amsystem.R
 import com.owner.amsystem.databinding.ActivityLoginBinding
 import com.owner.baselibrary.common.AMSystemApp
@@ -42,10 +43,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     when (get()) {
                         UserConstant.NET_NOUSER -> toast("网络不可用")
-                        210 -> toast("用户名与密码不匹配！")
+
+                        210 -> toast("用户名与密码不一致")
+
                         211 -> toast("用户不存在！")
+
                     }
-                    set(-2)//需要还原原值，否则连续出现同一个值无法触发事件
+                    //需要还原原值，否则连续出现同一个值无法触发事件
+                    set(-2)
                 }
             })
         }
@@ -54,7 +59,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
     /**
      * 初始化图
      */
-    fun initView() {
+    private fun initView() {
         //从本地获取上次登录成功的手机号
         mMobileEt.setText(Setting.lastSignUpUser)
         mLoginBtn.enabled(mMobileEt) { isEnable() }
@@ -67,7 +72,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
     /*
      *判断输入是否完成
      */
-    fun isEnable(): Boolean {
+    private fun isEnable(): Boolean {
         return !mMobileEt.text.isNullOrEmpty() &&
                 !mPwdEt.text.isNullOrEmpty()
 
@@ -81,6 +86,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
             }
         }
     }
+
 
     /*
         点击返回的初始时间

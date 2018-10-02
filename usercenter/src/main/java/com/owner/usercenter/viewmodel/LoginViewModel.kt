@@ -29,6 +29,7 @@ import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.data.UserRepository
+import com.owner.usercenter.service.impl.UserServiceImpl
 
 
 /**
@@ -36,7 +37,7 @@ import com.owner.usercenter.data.UserRepository
  * Created by Liuyong on 2018-09-18.It's AMSystem
  *@description:
  */
-class LoginViewModel : BaseViewModel<UserRepository>() {
+class LoginViewModel : BaseViewModel<UserServiceImpl>() {
 
     //登录结果，通过它驱动视图变化
     var result = ObservableInt(-2)

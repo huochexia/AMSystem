@@ -23,6 +23,7 @@ import com.avos.avoscloud.AVException
 import com.avos.avoscloud.UpdatePasswordCallback
 import com.avos.avoscloud.AVUser
 import com.owner.usercenter.common.UserConstant
+import com.owner.usercenter.service.impl.UserServiceImpl
 
 
 /**
@@ -30,7 +31,7 @@ import com.owner.usercenter.common.UserConstant
  * Created by Liuyong on 2018-09-12.It's MVVMKotlinMall
  *@description:
  */
-class ResetPwdViewModel: BaseViewModel<BaseRepository>() {
+class ResetPwdViewModel: BaseViewModel<UserServiceImpl>() {
 
     lateinit var verifyCode:String
     var result = ObservableInt(-1)

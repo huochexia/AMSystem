@@ -13,28 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.usercenter.data
+package com.owner.baselibrary.service.impl
 
-import com.owner.baselibrary.data.net.RetrofitFactory
-import com.owner.baselibrary.data.protocol.BaseResp
 import com.owner.baselibrary.data.respository.BaseRepository
-import com.owner.usercenter.data.api.UserApiService
-import com.owner.usercenter.data.protocol.RegisterReq
-import io.reactivex.Observable
-import retrofit2.Response
-
+import com.owner.baselibrary.service.BaseService
 
 /**
- *  通过Retrofit从服务器端获得数据
- * Created by Liuyong on 2018-09-22.It's AMSystem
+ *
+ * Created by Liuyong on 2018-10-02.It's AMSystem
  *@description:
  */
-class UserRepository : BaseRepository {
-    /**
-     * 注册
-     */
-    fun register(username: String, pwd: String, phone: String):Observable<BaseResp<String>> {
-        return RetrofitFactory.instance.create(UserApiService::class.java)
-                .registerApi(RegisterReq(username,pwd,phone))
-    }
+abstract class BaseServiceImpl<repository:BaseRepository>:BaseService {
+    lateinit var repository: BaseRepository
 }

@@ -28,22 +28,21 @@
                     android:layout_height="@dimen/common_line_height"
                     android:layout_weight="1.0"
                     android:background="@null"
-                    android:drawableLeft="@mipmap/icon_phone"
+                    android:drawableLeft="@mipmap/icon_user_name"
                     android:drawablePadding="@dimen/common_padding_small"
-                    android:hint="请输入手机号码"
-                    android:inputType="phone"
+                    android:hint="请输入用户姓名"
                     android:paddingLeft="@dimen/common_padding_small"
-                    android:onTextChanged="@{vm::getMobile}"/>
+                    android:onTextChanged="@{vm::getUserName}"/>
 
-                <View style="@style/DividerFixedWidth.MarginTopBottom" />
+                <!--<View style="@style/DividerFixedWidth.MarginTopBottom" />-->
 
-                <com.owner.baselibrary.widgets.VerifyButton
-                    android:id="@+id/mVerifyCodeBtn"
-                    style="@style/WrapMatch"
-                    android:background="@null"
-                    android:text="获取验证码"
-                    android:textColor="@color/common_blue"
-                    android:onClick="@{vm::acceptVerifyCode}"/>
+                <!--<com.owner.baselibrary.widgets.VerifyButton-->
+                    <!--android:id="@+id/mVerifyCodeBtn"-->
+                    <!--style="@style/WrapMatch"-->
+                    <!--android:background="@null"-->
+                    <!--android:text="获取验证码"-->
+                    <!--android:textColor="@color/common_blue"-->
+                    <!--android:onClick="@{vm::acceptVerifyCode}"/>-->
             </LinearLayout>
 
             <View style="@style/DividerFixedHeight" />
@@ -53,12 +52,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_line_height"
                 android:background="@null"
-                android:drawableLeft="@mipmap/icon_verify_code"
+                android:drawableLeft="@mipmap/icon_phone"
                 android:drawablePadding="@dimen/common_padding_small"
-                android:hint="请输入短信验证码"
+                android:hint="请输入手机号"
                 android:inputType="number"
                 android:paddingLeft="@dimen/common_padding_small"
-                android:onTextChanged="@{vm::getVerifyCode}"/>
+                android:onTextChanged="@{vm::getMobile}"/>
 
             <View style="@style/DividerFixedHeight" />
 

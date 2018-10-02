@@ -70,9 +70,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
     /**
      * 判断四个输入框都不为空时
      */
-    fun isBtnEnable(): Boolean {
+    private fun isBtnEnable(): Boolean {
         return mMobileEt.text.isNullOrEmpty().not() &&
-                mVerifyCodeBtn.text.isNullOrEmpty().not() &&
                 mPwdEt.text.isNullOrEmpty().not() &&
                 mPwdConfirmEt.text.isNullOrEmpty().not()
     }

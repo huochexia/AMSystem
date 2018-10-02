@@ -30,7 +30,9 @@ import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.data.UserRepository
 import com.owner.usercenter.service.UserService
 import com.owner.usercenter.service.impl.UserServiceImpl
+import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import rx.Scheduler
@@ -41,10 +43,14 @@ import timber.log.Timber
  * Created by Liuyong on 2018-09-18.It's AMSystem
  *@description:
  */
-class RegisterViewModel : BaseViewModel<UserRepository>() {
+class RegisterViewModel : BaseViewModel<UserServiceImpl>() {
+
+    init {
+        service = UserServiceImpl()
+    }
 
     private var mobile: String = ""
-    private var verifyCode = ""
+    private var userName = ""
     private var pwd: String = ""
     private var pwdAgain: String = ""
     var result = ObservableInt(-1)
@@ -55,8 +61,8 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
         mobile = s.toString()
     }
 
-    fun getVerifyCode(s: CharSequence, s1: Int, o: Int, k: Int) {
-        verifyCode = s.toString()
+    fun getUserName(s: CharSequence, s1: Int, o: Int, k: Int) {
+        userName = s.toString()
     }
 
     fun getPwd(s: CharSequence, s1: Int, o: Int, k: Int) {
@@ -68,22 +74,43 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
     }
 
     /**
-     * 获取验证码
+     * 注册按钮，使用Api方式
      */
-    fun acceptVerifyCode(view: View) {
-        (view as VerifyButton).requestSendVerifyNumber()
-
-    }
-
-    /**
-     * 注册按钮
-     */
+//    fun register1(view: View) {
+//        val userServiceImpl = UserServiceImpl()
+//        val disposable =userServiceImpl.register(userName,pwd,mobile).subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(object :Observer<Boolean>{
+//                    override fun onComplete() {
+//
+//                    }
+//
+//                    override fun onSubscribe(d: Disposable) {
+//
+//                    }
+//
+//                    override fun onNext(t: Boolean) {
+//                        if (t) {
+//                            println("success")
+//                        } else {
+//                            println("failure")
+//                        }
+//
+//                    }
+//
+//                    override fun onError(e: Throwable) {
+//                        println(e.message)
+//                    }
+//                })
+//
+//    }
     fun register(view: View) {
 
         if (NetWorkUtils.isNetWorkAvailable(AMSystemApp.instance)) {
             if (pwd == pwdAgain) {
                 val user = AVUser()
-                user.username = mobile
+                user.username = userName
+                user.mobilePhoneNumber = mobile
                 user.setPassword(pwd)
                 user.signUpInBackground(object : SignUpCallback() {
                     override fun done(e: AVException?) {

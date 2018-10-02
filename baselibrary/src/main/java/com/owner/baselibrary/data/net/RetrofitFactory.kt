@@ -40,39 +40,55 @@ class RetrofitFactory private constructor() {
             RetrofitFactory()
         }
     }
-    private val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(BaseConstant.SERVER_ADDRESS)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(initClient())
-            .build()
 
-    private fun provideInterceptor() : Interceptor{
-        return Interceptor{chain ->
+    private val interceptor: Interceptor
+    private val retrofit: Retrofit
+
+    init {
+        //通用拦截
+        interceptor = Interceptor { chain ->
             val request = chain.request()
-            chain.proceed(request).newBuilder()
-                    .addHeader(BaseConstant.APP_ID_NAME,"NNsHKVMl4HG7DWLoqp3NsUjB-gzGzoHsz")
-                    .addHeader(BaseConstant.CLIENT_KEY_NAME,"NKAMBzaJ248RQB4i5qPOCkIB")
-                    .addHeader("Content-Type", "application/json")
+                    .newBuilder()
+                    .addHeader(BaseConstant.APP_ID_NAME, BaseConstant.APP_ID_VALUE)
+                    .addHeader(BaseConstant.CLIENT_KEY_NAME, BaseConstant.CLIENT_KEY_VALUE)
+                    .addHeader("Content_Type", "application/json")
+                    .addHeader("charset", "UTF-8")
                     .build()
+            chain.proceed(request)
         }
+        retrofit = Retrofit.Builder()
+                .baseUrl(BaseConstant.SERVER_ADDRESS)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(initClient())
+                .build()
 
     }
+
+    /*
+      OKHttp创建
+     */
     private fun initClient(): OkHttpClient {
         return OkHttpClient.Builder()
-                .addNetworkInterceptor(provideInterceptor())
                 .addInterceptor(initLogInterceptor())
+                .addNetworkInterceptor(interceptor)
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .build()
     }
 
+    /*
+      日志拦截器
+     */
     private fun initLogInterceptor(): Interceptor {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return interceptor
     }
 
+    /*
+       实例化具体Api接口
+     */
     fun <T> create(service: Class<T>): T {
         return retrofit.create(service)
     }

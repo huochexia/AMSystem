@@ -30,6 +30,10 @@ android {
     dataBinding {
         enabled = true
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
@@ -86,4 +90,12 @@ dependencies {
     //leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    //BottomNavigation
+    api "com.ashokvarma.android:bottom-navigation-bar:2.0.5"
+    //图片轮播Banner
+    api 'com.youth.banner:banner:1.4.10'
+    //MultiType,在这个包里已经引入的support包，所以这里使用exclude 忽略它
+    api ('me.drakeet.multitype:multitype:3.3.0',{exclude group: 'com.android.support'})
+//三角标签api
+    api 'com.github.shts:TriangleLabelView:1.1.2'
 }

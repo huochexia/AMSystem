@@ -7,11 +7,11 @@ import android.os.Bundle
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.AVUser
 import com.avos.avoscloud.LogInCallback
-import com.owner.amsystem.R
-import com.owner.amsystem.databinding.ActivityRegisterBinding
+import com.owner.usercenter.databinding.ActivityRegisterBinding
 import com.owner.baselibrary.common.AppManager
 import com.owner.baselibrary.ext.enabled
 import com.owner.baselibrary.ui.activity.BaseActivity
+import com.owner.usercenter.R
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.viewmodel.RegisterViewModel
 import kotlinx.android.synthetic.main.activity_register.*

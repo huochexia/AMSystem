@@ -4,10 +4,10 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.databinding.Observable
 import android.os.Bundle
-import com.owner.amsystem.R
-import com.owner.amsystem.databinding.ActivityResetPwdBinding
+import com.owner.usercenter.databinding.ActivityResetPwdBinding
 import com.owner.baselibrary.ext.enabled
 import com.owner.baselibrary.ui.activity.BaseActivity
+import com.owner.usercenter.R
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.viewmodel.ResetPwdViewModel
 import kotlinx.android.synthetic.main.activity_reset_pwd.*

@@ -3,10 +3,10 @@ package com.owner.usercenter.ui.activity
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import com.owner.amsystem.R
-import com.owner.amsystem.databinding.ActivityForgetPwdBinding
+import com.owner.usercenter.databinding.ActivityForgetPwdBinding
 import com.owner.baselibrary.ext.enabled
 import com.owner.baselibrary.ui.activity.BaseActivity
+import com.owner.usercenter.R
 import com.owner.usercenter.viewmodel.ForgetPwdViewModel
 import kotlinx.android.synthetic.main.activity_forget_pwd.*
 

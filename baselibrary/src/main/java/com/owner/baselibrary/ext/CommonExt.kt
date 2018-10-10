@@ -85,3 +85,15 @@ fun AppCompatActivity.removeFragment(fragment: Fragment) {
         remove(fragment)
     }
 }
+
+fun AppCompatActivity.hideFragment(fragment: Fragment) {
+    supportFragmentManager.inTransaction {
+        hide(fragment)
+    }
+}
+
+fun AppCompatActivity.showFragment(fragment: Fragment) {
+    supportFragmentManager.inTransaction {
+        show(fragment)
+    }
+}

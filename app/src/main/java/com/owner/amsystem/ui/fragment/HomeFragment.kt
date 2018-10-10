@@ -15,9 +15,8 @@
  */
 package com.owner.amsystem.ui.fragment
 
-import android.content.Context
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +39,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = HomeViewModel()
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
@@ -77,7 +76,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeViewModel>() {
         mHomeBanner.setImageLoader(BannerImageLoader())
         mHomeBanner.setImages(viewModel.banner)
         mHomeBanner.setBannerAnimation(Transformer.Accordion)
-        mHomeBanner.setDelayTime(2000)
+        mHomeBanner.setDelayTime(10000)
         mHomeBanner.setIndicatorGravity(BannerConfig.CENTER)
         mHomeBanner.start()
     }

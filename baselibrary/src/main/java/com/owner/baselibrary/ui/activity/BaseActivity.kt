@@ -23,13 +23,12 @@ import com.squareup.leakcanary.RefWatcher
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 
 /**
- * 抽象类，因为没有实现MvvmView接口的方法
- * 实现Fragment注入器接口，管理Activity出入栈
+ * 基础类，继承RxAppCompatActivity,管理Rxjava，使用管理Activity出入栈
  *  提供了ViewDataBinding对象和 注入ViewModel，与ViewModel建立联系
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel<*>> : RxAppCompatActivity() {
+open class BaseActivity<B : ViewDataBinding, VM : BaseViewModel<*>> : RxAppCompatActivity() {
 
     //为子类提供binding
     protected lateinit var binding: B

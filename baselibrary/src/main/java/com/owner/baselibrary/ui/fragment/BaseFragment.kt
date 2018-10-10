@@ -23,11 +23,11 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.squareup.leakcanary.RefWatcher
 
 /**
- *
+ *基础Fragment模板类，绑定ViewDataBinding和ViewModel两个类。
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-abstract class BaseFragment<B:ViewDataBinding,VM:BaseViewModel<*>>: Fragment() {
+open class BaseFragment<B:ViewDataBinding,VM:BaseViewModel<*>>: Fragment() {
 
     protected lateinit var binding:B
 
@@ -43,13 +43,9 @@ abstract class BaseFragment<B:ViewDataBinding,VM:BaseViewModel<*>>: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initInjection()
+
     }
 
-    /**
-     * 子类完成自己的依赖注入
-     */
-   abstract  fun initInjection()
 
     override fun onDestroy() {
         super.onDestroy()

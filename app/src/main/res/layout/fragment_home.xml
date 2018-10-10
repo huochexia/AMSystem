@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <data>
+        <variable
+            name="vm"
+            type="com.owner.amsystem.viewmodel.HomeViewModel" />
+    </data>
+
+    <LinearLayout
+        style="@style/MatchMatch.Vertical">
+
+        <LinearLayout
+            style="@style/SearchHeaderStyle"
+            android:paddingLeft="@dimen/common_padding">
+
+            <EditText
+                android:id="@+id/mSearchEt"
+                style="@style/SearchHeaderEtStyle"
+                android:editable="false"
+                android:hint="搜索资产" />
+
+            <ImageView
+                android:id="@+id/mScanIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_scan" />
+        </LinearLayout>
+
+        <com.youth.banner.Banner
+            android:id="@+id/mHomeBanner"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+
+        <me.crosswall.lib.coverflow.core.PagerContainer
+            android:id="@+id/mTopicContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_header_corner_bg">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/mTopicPager"
+                android:layout_width="200dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:overScrollMode="never" />
+
+        </me.crosswall.lib.coverflow.core.PagerContainer>
+    </LinearLayout>
+</layout>

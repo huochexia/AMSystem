@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="setvm"
+            type="com.owner.amsystem.viewmodel.SettingViewModel" />
+    </data>
+
+    <LinearLayout style="@style/MatchMatch.Vertical">
+
+        <com.owner.baselibrary.widgets.HeaderBar
+            style="@style/MatchWrap"
+            app:titleText="设置" />
+
+        <TextView
+            android:id="@+id/mUserProtocolTv"
+            style="@style/SettingItemStyle"
+            android:text="修改个人信息" />
+
+        <TextView
+            android:id="@+id/mFeedBackTv"
+            style="@style/SettingItemStyle"
+            android:text="反馈意见" />
+
+        <TextView
+            android:id="@+id/mAboutTv"
+            style="@style/SettingItemStyle"
+            android:text="关于" />
+
+        <Button
+            android:id="@+id/mLogoutBtn"
+            style="@style/FullBtnStyle"
+            android:enabled="true"
+            android:text="退出登录" />
+    </LinearLayout>
+</layout>

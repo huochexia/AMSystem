@@ -15,45 +15,40 @@
  */
 package com.owner.usercenter.viewmodel
 
-import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import android.view.View
-import android.widget.Toast
-import com.avos.avoscloud.AVException
-import com.avos.avoscloud.AVUser
-import com.avos.avoscloud.SignUpCallback
-import com.owner.baselibrary.common.AMSystemApp
+import com.owner.baselibrary.common.BaseConstant
+import com.owner.baselibrary.ext.execute
+import com.owner.baselibrary.ext.pref
+import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
-import com.owner.baselibrary.widgets.VerifyButton
 import com.owner.usercenter.common.UserConstant
-import com.owner.usercenter.data.UserRepository
-import com.owner.usercenter.service.UserService
-import com.owner.usercenter.service.impl.UserServiceImpl
+import com.owner.usercenter.model.network.entities.RegisterReq
+import com.owner.usercenter.model.network.entities.RegisterResp
+import com.owner.usercenter.model.network.service.UserService
+import com.owner.usercenter.model.repository.UserRepository
+import com.owner.usercenter.model.repository.impl.UserRepositoryImpl
 import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
-import rx.Scheduler
-import timber.log.Timber
+import retrofit2.Response
 
 /**
  *
  * Created by Liuyong on 2018-09-18.It's AMSystem
  *@description:
  */
-class RegisterViewModel : BaseViewModel<UserServiceImpl>() {
-
-    init {
-        service = UserServiceImpl()
-    }
+class RegisterViewModel : BaseViewModel<UserRepository>() {
 
     private var mobile: String = ""
     private var userName = ""
     private var pwd: String = ""
     private var pwdAgain: String = ""
     var result = ObservableInt(-1)
+    init {
+        repo = UserRepositoryImpl()
+    }
     /**
      * 从视图绑定中获取输入内容
      */
@@ -76,58 +71,29 @@ class RegisterViewModel : BaseViewModel<UserServiceImpl>() {
     /**
      * 注册按钮，使用Api方式
      */
-//    fun register1(view: View) {
-//        val userServiceImpl = UserServiceImpl()
-//        val disposable =userServiceImpl.register(userName,pwd,mobile).subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(object :Observer<Boolean>{
-//                    override fun onComplete() {
-//
-//                    }
-//
-//                    override fun onSubscribe(d: Disposable) {
-//
-//                    }
-//
-//                    override fun onNext(t: Boolean) {
-//                        if (t) {
-//                            println("success")
-//                        } else {
-//                            println("failure")
-//                        }
-//
-//                    }
-//
-//                    override fun onError(e: Throwable) {
-//                        println(e.message)
-//                    }
-//                })
-//
-//    }
     fun register(view: View) {
-
-        if (NetWorkUtils.isNetWorkAvailable(AMSystemApp.instance)) {
+        if (NetWorkUtils.isNetWorkAvailable(view.context)) {
             if (pwd == pwdAgain) {
-                val user = AVUser()
-                user.username = userName
-                user.mobilePhoneNumber = mobile
-                user.setPassword(pwd)
-                user.signUpInBackground(object : SignUpCallback() {
-                    override fun done(e: AVException?) {
-                        if (e == null) {
-                            result.set(UserConstant.ACTION_SUCCESS)
-                        } else {
-                            result.set(e.code)
-                        }
-                    }
+                val disposable = repo.register(userName, pwd, mobile)
+                        .execute()
+                        .subscribeBy {
+                            if (it.isSuccessful) {
+                                val token = it.body()?.sessionToken
+                                AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN,token!!)
 
-                })
+                            } else {
+                                println("error:"+it.errorBody()?.string())
+                            }
+                        }
+                compositeDisposable.add(disposable)
             } else {
                 result.set(UserConstant.TWO_PASSWORD_NO_SAME)
             }
         } else {
             result.set(UserConstant.NET_NOUSER)
         }
+
+
     }
 
 }

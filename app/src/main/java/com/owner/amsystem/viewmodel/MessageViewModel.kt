@@ -15,7 +15,7 @@
  */
 package com.owner.amsystem.viewmodel
 
-import com.owner.baselibrary.service.BaseService
+import com.owner.amsystem.model.repository.MainRepository
 import com.owner.baselibrary.viewmodel.BaseViewModel
 
 /**
@@ -23,7 +23,7 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
  * Created by Liuyong on 2018-10-10.It's AMSystem
  *@description:
  */
-class MessageViewModel :BaseViewModel<BaseService>(){
+class MessageViewModel :BaseViewModel<MainRepository>(){
 
 
 }

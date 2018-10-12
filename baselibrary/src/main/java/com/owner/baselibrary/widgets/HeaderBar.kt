@@ -58,6 +58,7 @@ class HeaderBar  @JvmOverloads constructor(
         rightText?.let {
             mRightTv.text = it
         }
+        //左键默认退出Activity
         mLeftIv.setOnClickListener {
             if (context is Activity) {
                 (context as Activity).finish()

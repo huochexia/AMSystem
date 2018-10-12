@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.owner.baselibrary.ext
 
 import android.content.Context
 import com.owner.baselibrary.common.AppContext
+import com.owner.baselibrary.common.BaseConstant
 import java.lang.IllegalArgumentException
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -27,10 +29,15 @@ import kotlin.reflect.jvm.jvmName
  * Created by Liuyong on 2018-09-25.It's AMSystem
  *@description:
  */
-
+/**
+ * 使用时，可以设置[name]="",这样将使用属性名做为Key。增加这个参数是为了可以使用其他定义的名字
+ */
 inline  fun <reified R,T> R.pref(default:T) = Preference(AppContext,"",default,R::class.jvmName)
 
-class Preference<T>(val context: Context, val name: String, val default: T, val prefName: String = "default_ams")
+/**
+ * 自定义类，实现对SharedPreferences操用的功能
+ */
+class Preference<T>(val context: Context, val name: String, val default: T, val prefName: String = BaseConstant.TABLE_PREFS)
     : ReadWriteProperty<Any?, T> {
 
     private val prefs by lazy {

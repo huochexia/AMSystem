@@ -15,7 +15,7 @@
  */
 package com.owner.amsystem.viewmodel
 
-import com.owner.baselibrary.service.BaseService
+import com.owner.amsystem.model.repository.MainRepository
 import com.owner.baselibrary.viewmodel.BaseViewModel
 
 /**
@@ -23,7 +23,7 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
  * Created by Liuyong on 2018-10-10.It's AMSystem
  *@description:
  */
-class HomeViewModel:BaseViewModel<BaseService>() {
+class HomeViewModel:BaseViewModel<MainRepository>() {
     //模拟Banner数据
     val HOME_BANNER_ONE = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502876108368&di=cd9725c81901f6d7499edd76cf2e68e5&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F17%2F37%2F20%2F80Q58PICe3W_1024.jpg"
     val HOME_BANNER_TWO = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502882008108&di=d0cf4a8536aefa5df791716c1053ca66&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01e9495812c7f9a84a0d304fbc135b.jpg"

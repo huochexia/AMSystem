@@ -1,5 +1,5 @@
 <resources>
-    <!-- "我的" 订单标签样式 -->
+    <!-- "我的" 标签样式 -->
     <style name="MeOrderLabelStyle">
         <item name="android:textSize">@dimen/text_small_size</item>
         <item name="android:gravity">center</item>

@@ -17,13 +17,12 @@ package com.owner.usercenter.viewmodel
 
 import android.databinding.ObservableInt
 import android.view.View
-import com.owner.baselibrary.data.respository.BaseRepository
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.UpdatePasswordCallback
 import com.avos.avoscloud.AVUser
 import com.owner.usercenter.common.UserConstant
-import com.owner.usercenter.service.impl.UserServiceImpl
+import com.owner.usercenter.model.repository.UserRepository
 
 
 /**
@@ -31,7 +30,7 @@ import com.owner.usercenter.service.impl.UserServiceImpl
  * Created by Liuyong on 2018-09-12.It's MVVMKotlinMall
  *@description:
  */
-class ResetPwdViewModel: BaseViewModel<UserServiceImpl>() {
+class ResetPwdViewModel: BaseViewModel<UserRepository>() {
 
     lateinit var verifyCode:String
     var result = ObservableInt(-1)

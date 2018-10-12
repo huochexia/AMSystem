@@ -19,11 +19,10 @@ import android.view.View
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.AVUser
 import com.avos.avoscloud.RequestMobileCodeCallback
-import com.owner.baselibrary.data.respository.BaseRepository
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.owner.baselibrary.widgets.VerifyButton
-import com.owner.usercenter.service.impl.UserServiceImpl
-import com.owner.usercenter.ui.activity.ResetPwdActivity
+import com.owner.usercenter.model.repository.UserRepository
+import com.owner.usercenter.view.activity.ResetPwdActivity
 import org.jetbrains.anko.startActivity
 
 
@@ -32,7 +31,7 @@ import org.jetbrains.anko.startActivity
  * Created by Liuyong on 2018-09-12.It's MVVMKotlinMall
  *@description:
  */
-class ForgetPwdViewModel: BaseViewModel<UserServiceImpl>() {
+class ForgetPwdViewModel: BaseViewModel<UserRepository>() {
 
     var mobile = ""
     var verifyCode = ""

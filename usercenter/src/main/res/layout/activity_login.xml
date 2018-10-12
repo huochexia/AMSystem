@@ -33,7 +33,7 @@
                 android:hint="请输入手机号码"
                 android:inputType="phone"
                 android:paddingLeft="@dimen/common_padding_small"
-                android:onTextChanged="@{vm::getMobile}"/>
+                android:onTextChanged="@{vm::getUserName}"/>
 
             <View style="@style/DividerFixedHeight" />
 

@@ -18,8 +18,7 @@ package com.owner.baselibrary.viewmodel
 import android.arch.lifecycle.ViewModel
 import android.databinding.Observable
 import android.databinding.PropertyChangeRegistry
-import com.owner.baselibrary.data.respository.BaseRepository
-import com.owner.baselibrary.service.BaseService
+import com.owner.baselibrary.model.respository.BaseRepository
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -29,20 +28,20 @@ import io.reactivex.disposables.CompositeDisposable
  * UI的变化也会更新ViewModel中的数据
  * 2、持有BaseService对象。ViewModel通过Service向Repository获取数据流，Repository向网络服务器端请求
  * 数据。
- * 数据流：UI--->[ViewModel]--->[Service]--->[Repository] --->[Service] --->[ViewModel] --->UI
+ * 数据流：UI--->[ViewModel]--->[Repository] --->[Service]--->[Repository] --->[ViewModel] --->UI
  * Created by Liuyong on 2018-09-16.It's AMSystem
  *@description:
  */
-abstract class BaseViewModel<service:BaseService> : ViewModel(), Observable {
+abstract class BaseViewModel<R:BaseRepository>: ViewModel(), Observable {
 
     /**
      * 管理Rxjava的Observable对象
      */
     val compositeDisposable = CompositeDisposable()
     /**
-     *
+     * 数据仓库
      */
-    lateinit var  service: BaseService
+    lateinit var repo:R
     /**
      * 实现Observable接口部分
      */

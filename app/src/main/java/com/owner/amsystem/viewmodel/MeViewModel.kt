@@ -15,13 +15,40 @@
  */
 package com.owner.amsystem.viewmodel
 
-import com.owner.baselibrary.service.BaseService
+import android.view.View
+import com.owner.amsystem.model.repository.MainRepository
+import com.owner.amsystem.view.activity.SettingActivity
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.owner.provideslib.common.isLogined
+import com.owner.usercenter.view.activity.LoginActivity
+import org.jetbrains.anko.startActivity
 
 /**
  *
  * Created by Liuyong on 2018-10-10.It's AMSystem
  *@description:
  */
-class MeViewModel:BaseViewModel<BaseService>(){
+class MeViewModel:BaseViewModel<MainRepository>(){
+    /**
+     * 启动个人设置
+     */
+    fun startSettingActivity(view: View) {
+
+        val context = view.context
+        context.startActivity<SettingActivity>()
+    }
+
+    /**
+     * 启动登录界面
+     */
+    fun startUserInfoOrLogin(view: View) {
+        if (isLogined()) {
+            //如果是登录状态，进入用户信息界面
+            println("User is login!")
+        } else {
+            //如果没有登录，则进入登录界面
+            view.context.startActivity<LoginActivity>()
+        }
+
+    }
 }

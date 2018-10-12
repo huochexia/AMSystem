@@ -4,7 +4,11 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -40,4 +44,6 @@ dependencies {
     if (isUserCenter.toBoolean()) {
         api project(':usercenter')
     }
+    //ARouter
+    kapt 'com.alibaba:arouter-compiler:1.2.1'
 }

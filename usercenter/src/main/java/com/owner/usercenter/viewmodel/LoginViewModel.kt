@@ -75,7 +75,6 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
                         if (it.isSuccessful) {
                             AppPrefsUtils.putString("username", it.body()?.username!!)
                             AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN, it.body()?.sessionToken!!)
-                            Toast.makeText(view.context, "success", Toast.LENGTH_SHORT).show()
                             ARouter.getInstance().build(RouterPath.App.PATH_MAIN).navigation()
                         } else {
                             println(it.errorBody()?.string())

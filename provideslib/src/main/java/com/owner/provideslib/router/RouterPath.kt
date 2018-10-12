@@ -26,4 +26,10 @@ object RouterPath {
            const val PATH_MAIN = "/app/main"
        }
     }
+
+    class UserCenter {
+        companion object {
+            const val PATH_USER_INFO="/usercenter/userinfo"
+        }
+    }
 }

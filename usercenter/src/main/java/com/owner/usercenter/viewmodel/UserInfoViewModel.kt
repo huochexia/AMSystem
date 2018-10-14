@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.amsystem.viewmodel
+package com.owner.usercenter.viewmodel
 
-import com.owner.amsystem.model.repository.MainRepository
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.owner.usercenter.model.repository.UserRepository
 
 /**
  *
- * Created by Liuyong on 2018-10-10.It's AMSystem
+ * Created by Liuyong on 2018-10-12.It's AMSystem
  *@description:
  */
-class SettingViewModel : BaseViewModel<MainRepository>(){
-
-
+class UserInfoViewModel :BaseViewModel<UserRepository>(){
 }

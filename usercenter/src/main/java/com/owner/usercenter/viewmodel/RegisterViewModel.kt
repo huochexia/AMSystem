@@ -17,12 +17,14 @@ package com.owner.usercenter.viewmodel
 
 import android.databinding.ObservableInt
 import android.view.View
+import android.widget.Toast
 import com.owner.baselibrary.common.BaseConstant
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.ext.pref
 import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.owner.provideslib.exception.ExceptionMsg
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.model.network.entities.RegisterReq
 import com.owner.usercenter.model.network.entities.RegisterResp
@@ -32,6 +34,7 @@ import com.owner.usercenter.model.repository.impl.UserRepositoryImpl
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
+import org.json.JSONObject
 import retrofit2.Response
 
 /**
@@ -82,7 +85,10 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
                                 AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN,token!!)
 
                             } else {
-                                println("error:"+it.errorBody()?.string())
+                                val error = it.errorBody()?.string()
+                                val json = JSONObject(error)
+                                Toast.makeText(view.context, ExceptionMsg.getError(json.getInt("code"))
+                                        , Toast.LENGTH_SHORT).show()
                             }
                         }
                 compositeDisposable.add(disposable)

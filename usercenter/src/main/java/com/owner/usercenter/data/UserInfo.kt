@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.amsystem.viewmodel
-
-import com.owner.amsystem.model.repository.MainRepository
-import com.owner.baselibrary.viewmodel.BaseViewModel
+package com.owner.usercenter.data
 
 /**
  *
- * Created by Liuyong on 2018-10-10.It's AMSystem
+ * Created by Liuyong on 2018-10-14.It's AMSystem
  *@description:
  */
-class SettingViewModel : BaseViewModel<MainRepository>(){
-
-
-}
+data class UserInfo (val token:String?,
+                     val userName:String?,
+                     val userMobile:String?)

@@ -20,18 +20,19 @@ import android.view.View
 import android.widget.Toast
 import com.alibaba.android.arouter.launcher.ARouter
 import com.owner.baselibrary.common.AMSystemApp
-import com.owner.baselibrary.common.BaseConstant
 import com.owner.baselibrary.ext.execute
-import com.owner.baselibrary.ext.pref
-import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.owner.provideslib.exception.ExceptionMsg
 import com.owner.provideslib.router.RouterPath
 import com.owner.usercenter.common.UserConstant
+import com.owner.usercenter.model.network.entities.LoginResp
 import com.owner.usercenter.model.repository.UserRepository
 import com.owner.usercenter.model.repository.impl.UserRepositoryImpl
+import com.owner.usercenter.utils.UserUtils
 import io.reactivex.rxkotlin.subscribeBy
-import org.jetbrains.anko.startActivity
+import org.json.JSONObject
+import retrofit2.Response
 
 
 /**
@@ -73,17 +74,28 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
                     .execute()
                     .subscribeBy {
                         if (it.isSuccessful) {
-                            AppPrefsUtils.putString("username", it.body()?.username!!)
-                            AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN, it.body()?.sessionToken!!)
-                            ARouter.getInstance().build(RouterPath.App.PATH_MAIN).navigation()
+                            loginSuccess(it)
                         } else {
-                            println(it.errorBody()?.string())
+                            val error = it.errorBody()?.string()
+                            val json = JSONObject(error)
+                            Toast.makeText(view.context,ExceptionMsg.getError(json.getInt("code"))
+                                    ,Toast.LENGTH_SHORT).show()
+
                         }
                     }
             compositeDisposable.add(disposable)
         } else {
             result.set(UserConstant.NET_NOUSER)
         }
+    }
+
+    /**
+     * 登录成功
+     */
+    private fun loginSuccess(resp: Response<LoginResp>) {
+        val userInfo = UserUtils.respToUserInfo(resp.body()!!)
+        UserUtils.putUserInfo(userInfo)
+        ARouter.getInstance().build(RouterPath.App.PATH_MAIN).navigation()
     }
 
 

@@ -30,7 +30,7 @@ data class LoginReq(val username: String, val password: String)
  */
 data class LoginResp(val sessionToken: String,
                      val username: String,
-                     val phone: String,
+                     val mobilePhoneNumber: String,
                      val objectId: String,
                      val emailVerified: Boolean,
                      val mobilePhoneVerified: Boolean)

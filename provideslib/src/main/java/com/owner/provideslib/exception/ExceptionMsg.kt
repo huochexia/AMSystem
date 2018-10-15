@@ -60,6 +60,8 @@ object ExceptionMsg {
             252 ->return "无效的微信授权信息"
             603 -> return "无效的短信验证码"
             503 -> return "应用被临时禁用或者进入只读状态"
+            1001-> return "两次密码不一致"
+            1002-> return "网络不可用"
             else -> return "未知错误"
         }
     }

@@ -35,7 +35,7 @@ class UserRepositoryImpl:UserRepository {
      * 注册请求
      */
     override fun register(username: String, password: String, phone: String): Observable<Response<RegisterResp>> {
-        return UserService.register(RegisterReq(username,password,phone))
+        return UserService.register(RegisterReq(username,password,phone,""))
     }
 
     override fun login(username: String, pwd: String): Observable<Response<LoginResp>> {

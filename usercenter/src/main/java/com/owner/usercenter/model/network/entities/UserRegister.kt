@@ -23,7 +23,7 @@ package com.owner.usercenter.model.network.entities
 /*
   注册请求体
  */
-data class RegisterReq(val username:String,val password:String,val mobilePhoneNumber:String )
+data class RegisterReq(val username:String,val password:String,val mobilePhoneNumber:String ,val avatar:String)
 /*
   注册成功响应体
  */

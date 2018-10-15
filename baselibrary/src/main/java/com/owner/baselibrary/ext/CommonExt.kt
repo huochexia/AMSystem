@@ -19,6 +19,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -27,6 +28,8 @@ import com.owner.baselibrary.widgets.DefaultTextWatcher
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.io.File
+import java.lang.Exception
 
 
 /**
@@ -63,4 +66,21 @@ fun Button.enabled(et: EditText, method: () -> Boolean) {
  */
 fun ImageView.loadUrl(url: String) {
     GlideUtils.loadUrlImage(context,url,this)
+}
+
+/**
+ * 路径判断，如果不是子目录，判断是不是文件，如果是文件则删除后创建
+ */
+fun File.ensureDir():Boolean{
+    try {
+        if (!isDirectory) {
+            if (isFile) {
+                delete()
+            }
+            return mkdirs()
+        }
+    } catch (e: Exception) {
+        Log.w("FileExt",e.message)
+    }
+    return false
 }

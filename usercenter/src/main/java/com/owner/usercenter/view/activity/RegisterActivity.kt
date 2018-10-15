@@ -4,12 +4,14 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.databinding.Observable
 import android.os.Bundle
+import android.widget.Toast
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.AVUser
 import com.avos.avoscloud.LogInCallback
 import com.owner.usercenter.databinding.ActivityRegisterBinding
 import com.owner.baselibrary.ext.enabled
 import com.owner.baselibrary.view.activity.BaseActivity
+import com.owner.provideslib.exception.ExceptionMsg
 import com.owner.usercenter.R
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.viewmodel.RegisterViewModel
@@ -28,31 +30,17 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
         initView()
         //通过ViewModel中数据的变化驱动视图显示内容
         with(viewModel.result) {
-            addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            addOnPropertyChangedCallback(object :Observable.OnPropertyChangedCallback(){
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     when (get()) {
-                        UserConstant.NET_NOUSER -> toast("网络不可用")
-                        UserConstant.TWO_PASSWORD_NO_SAME -> toast("两次密码不一致")
-                        UserConstant.USERNAME_TAKEN -> toast("用户名已存在")
-                        UserConstant.ACTION_SUCCESS -> {
-                            //注册成功后，直接登录
-                            AVUser.logInInBackground(mMobileEt.text.toString(),
-                                    mPwdEt.text.toString(),object :LogInCallback<AVUser>(){
-                                override fun done(p0: AVUser?, p1: AVException?) {
-                                    toast("登录成功")
-                                    finish()
-//                                    AppManager.instance.finishAllActivity()
-//                                    startActivity<>()
-                                }
-                            })
-                        }
+                        UserConstant.RESULT_INIT_VALUE->{}
+                        UserConstant.ACTION_SUCCESS -> finish()
+                        else->toast(ExceptionMsg.getError(get()))
                     }
-                    //为了保证数据变化驱动，所以要每次变化后还原原值
-                    set(-1)
+                    set(UserConstant.RESULT_INIT_VALUE)//需要还原，防止连续发生同样的问题时，数据没有变化，不能触发事件
                 }
             })
         }
-
     }
 
     /**

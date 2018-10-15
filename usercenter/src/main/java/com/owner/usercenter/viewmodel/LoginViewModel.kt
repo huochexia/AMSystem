@@ -47,7 +47,7 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
     }
 
     //登录结果，通过它驱动视图变化
-    var result = ObservableInt(-2)
+    var result = ObservableInt(UserConstant.RESULT_INIT_VALUE)
 
     private var mUserName: String = ""
 
@@ -73,19 +73,26 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
             val disposable = repo.login(mUserName, mPwd)
                     .execute()
                     .subscribeBy {
-                        if (it.isSuccessful) {
-                            loginSuccess(it)
-                        } else {
-                            val error = it.errorBody()?.string()
-                            val json = JSONObject(error)
-                            Toast.makeText(view.context,ExceptionMsg.getError(json.getInt("code"))
-                                    ,Toast.LENGTH_SHORT).show()
-
-                        }
+                        getResult(it, view)
                     }
             compositeDisposable.add(disposable)
         } else {
-            result.set(UserConstant.NET_NOUSER)
+            result.set(UserConstant.NET_NO)
+        }
+    }
+
+    /**
+     * 得到网络响应结果
+     */
+    private fun getResult(it: Response<LoginResp>, view: View) {
+        if (it.isSuccessful) {
+            loginSuccess(it)
+        } else {
+            val error = it.errorBody()?.string()
+            val json = JSONObject(error)
+            println("error:"+json.getInt("code"))
+            result.set(json.getInt("code"))
+
         }
     }
 
@@ -96,6 +103,7 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
         val userInfo = UserUtils.respToUserInfo(resp.body()!!)
         UserUtils.putUserInfo(userInfo)
         ARouter.getInstance().build(RouterPath.App.PATH_MAIN).navigation()
+
     }
 
 

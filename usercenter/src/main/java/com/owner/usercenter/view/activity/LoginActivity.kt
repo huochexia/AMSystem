@@ -5,11 +5,14 @@ import android.databinding.DataBindingUtil
 import android.databinding.Observable
 import android.os.Bundle
 import android.view.View
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.owner.usercenter.databinding.ActivityLoginBinding
 import com.owner.baselibrary.common.AppManager
 import com.owner.baselibrary.common.Setting
 import com.owner.baselibrary.ext.enabled
 import com.owner.baselibrary.view.activity.BaseActivity
+import com.owner.provideslib.exception.ExceptionMsg
+import com.owner.provideslib.router.RouterPath
 import com.owner.usercenter.R
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.viewmodel.LoginViewModel
@@ -17,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
+@Route(path = RouterPath.UserCenter.PATH_USER_LOGIN)
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View.OnClickListener {
 
 
@@ -36,15 +40,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
             addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     when (get()) {
-                        UserConstant.NET_NOUSER -> toast("网络不可用")
-
-                        210 -> toast("用户名与密码不一致")
-
-                        211 -> toast("用户不存在！")
-
+                        UserConstant.RESULT_INIT_VALUE -> {}
+                        else -> toast(ExceptionMsg.getError(get()))
                     }
                     //需要还原原值，否则连续出现同一个值无法触发事件
-                    set(-2)
+                    set(UserConstant.RESULT_INIT_VALUE)
                 }
             })
         }

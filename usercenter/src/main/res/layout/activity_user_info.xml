@@ -35,7 +35,7 @@
             android:src="@drawable/icon_arrow" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/mUserIconIv"
+            android:id="@+id/mUserAvatarIv"
             android:layout_width="@dimen/common_icon_width"
             android:layout_height="@dimen/common_icon_height"
             android:layout_centerVertical="true"

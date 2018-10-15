@@ -44,12 +44,8 @@ class MeViewModel:BaseViewModel<MainRepository>(){
      * 启动登录界面
      */
     fun startUserInfoOrLogin(view: View) {
-        if (isLogined()) {
-            //如果是登录状态，进入用户信息界面
-            ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_INFO).navigation()
-        } else {
-            //如果没有登录，则进入登录界面
-            view.context.startActivity<LoginActivity>()
+        if (!isLogined()) {
+           ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_LOGIN).navigation()
         }
 
     }

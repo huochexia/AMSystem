@@ -7,12 +7,14 @@ import android.os.Bundle
 import com.owner.usercenter.databinding.ActivityResetPwdBinding
 import com.owner.baselibrary.ext.enabled
 import com.owner.baselibrary.view.activity.BaseActivity
+import com.owner.provideslib.exception.ExceptionMsg
 import com.owner.usercenter.R
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.viewmodel.ResetPwdViewModel
 import kotlinx.android.synthetic.main.activity_reset_pwd.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import java.lang.Exception
 
 class ResetPwdActivity : BaseActivity<ActivityResetPwdBinding, ResetPwdViewModel>() {
 
@@ -31,15 +33,16 @@ class ResetPwdActivity : BaseActivity<ActivityResetPwdBinding, ResetPwdViewModel
             addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     when (get()) {
+                        UserConstant.RESULT_INIT_VALUE->{}
                         UserConstant.TWO_PASSWORD_NO_SAME -> toast("两次密码不一致")
-                        UserConstant.INVALID_VERIFY_CODE ->  toast("验证码无效")
                         UserConstant.ACTION_SUCCESS -> {
                             toast("密码重置成功")
                             startActivity<LoginActivity>()
                         }
+                        else -> toast(ExceptionMsg.getError(get()))
                     }
                     //恢复原值，为下一次变化准备
-                    set(-1)
+                    set(UserConstant.RESULT_INIT_VALUE)
                 }
             })
         }

@@ -15,8 +15,11 @@
  */
 package com.owner.amsystem.viewmodel
 
+import android.view.View
+import com.alibaba.android.arouter.launcher.ARouter
 import com.owner.amsystem.model.repository.MainRepository
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.owner.provideslib.router.RouterPath
 
 /**
  *
@@ -25,5 +28,10 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
  */
 class SettingViewModel : BaseViewModel<MainRepository>(){
 
-
+    /**
+     * 修改个人信息
+     */
+    fun updateUserInfo(view: View) {
+        ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_INFO).navigation()
+    }
 }

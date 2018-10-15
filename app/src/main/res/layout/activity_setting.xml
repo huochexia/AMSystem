@@ -18,7 +18,8 @@
         <TextView
             android:id="@+id/mUserProtocolTv"
             style="@style/SettingItemStyle"
-            android:text="修改个人信息" />
+            android:text="修改个人信息"
+            android:onClick="@{setvm::updateUserInfo}"/>
 
         <TextView
             android:id="@+id/mFeedBackTv"

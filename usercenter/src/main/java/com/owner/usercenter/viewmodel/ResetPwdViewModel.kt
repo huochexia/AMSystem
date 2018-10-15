@@ -33,7 +33,7 @@ import com.owner.usercenter.model.repository.UserRepository
 class ResetPwdViewModel: BaseViewModel<UserRepository>() {
 
     lateinit var verifyCode:String
-    var result = ObservableInt(-1)
+    var result = ObservableInt(UserConstant.RESULT_INIT_VALUE)
     var pwd = ""
     var pwdAgain = ""
 

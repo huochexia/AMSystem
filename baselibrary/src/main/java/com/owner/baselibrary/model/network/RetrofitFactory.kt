@@ -15,12 +15,15 @@
  */
 package com.owner.baselibrary.model.network
 
+import com.owner.baselibrary.common.AppContext
 import com.owner.baselibrary.common.BaseConstant
+import com.owner.baselibrary.ext.ensureDir
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 /**
@@ -38,6 +41,12 @@ class RetrofitFactory private constructor() {
 
     private val interceptor: Interceptor
     private val retrofit: Retrofit
+
+    private val cacheFile by lazy {
+        File(AppContext.cacheDir,"webServiceApi").apply {
+            ensureDir()
+        }
+    }
 
     init {
         //通用拦截
@@ -67,8 +76,10 @@ class RetrofitFactory private constructor() {
         return OkHttpClient.Builder()
                 .addInterceptor(initLogInterceptor())
                 .addNetworkInterceptor(interceptor)
+                .cache(Cache(cacheFile,1024*1024))
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60,TimeUnit.SECONDS)
                 .build()
     }
 

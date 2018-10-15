@@ -15,9 +15,11 @@
  */
 package com.owner.usercenter.viewmodel
 
+import android.databinding.ObservableBoolean
 import android.databinding.ObservableInt
 import android.view.View
 import android.widget.Toast
+import com.alibaba.android.arouter.launcher.ARouter
 import com.owner.baselibrary.common.BaseConstant
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.ext.pref
@@ -25,6 +27,7 @@ import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.owner.provideslib.exception.ExceptionMsg
+import com.owner.provideslib.router.RouterPath
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.model.network.entities.RegisterReq
 import com.owner.usercenter.model.network.entities.RegisterResp
@@ -48,10 +51,14 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
     private var userName = ""
     private var pwd: String = ""
     private var pwdAgain: String = ""
+
+    //通过修改这个可观察变量的值，驱动视图显示相应的提示内容
     var result = ObservableInt(-1)
+
     init {
         repo = UserRepositoryImpl()
     }
+
     /**
      * 从视图绑定中获取输入内容
      */
@@ -80,26 +87,29 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
                 val disposable = repo.register(userName, pwd, mobile)
                         .execute()
                         .subscribeBy {
-                            if (it.isSuccessful) {
-                                val token = it.body()?.sessionToken
-                                AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN,token!!)
-
-                            } else {
-                                val error = it.errorBody()?.string()
-                                val json = JSONObject(error)
-                                Toast.makeText(view.context, ExceptionMsg.getError(json.getInt("code"))
-                                        , Toast.LENGTH_SHORT).show()
-                            }
+                            getResult(it)
                         }
                 compositeDisposable.add(disposable)
             } else {
                 result.set(UserConstant.TWO_PASSWORD_NO_SAME)
             }
         } else {
-            result.set(UserConstant.NET_NOUSER)
+            result.set(UserConstant.NET_NO)
         }
 
+    }
 
+    /**
+     * 得到结果
+     */
+    private fun getResult(it: Response<RegisterResp>) {
+        if (it.isSuccessful) {
+            result.set(UserConstant.ACTION_SUCCESS)
+        } else {
+            val error = it.errorBody()?.string()
+            val json = JSONObject(error)
+            result.set(json.getInt("code"))
+        }
     }
 
 }

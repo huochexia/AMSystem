@@ -20,12 +20,11 @@ package com.owner.usercenter.common
  * Created by Liuyong on 2018-09-30.It's AMSystem
  *@description:
  */
-class UserConstant {
-    companion object {
-        const val NET_NOUSER = 0
-        const val TWO_PASSWORD_NO_SAME = 1
-        const val USERNAME_TAKEN = 202
-        const val ACTION_SUCCESS = 888
-        const val INVALID_VERIFY_CODE = 127
-    }
+object UserConstant {
+
+    const val TWO_PASSWORD_NO_SAME = 1001
+    const val NET_NO = 1002
+    const val ACTION_SUCCESS = 666
+    const val RESULT_INIT_VALUE = -1//结果初始值
+
 }

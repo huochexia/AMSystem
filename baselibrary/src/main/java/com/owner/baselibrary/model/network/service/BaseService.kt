@@ -13,30 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.usercenter.viewmodel
+package com.owner.baselibrary.model.network.service
 
+import com.owner.baselibrary.model.network.RetrofitFactory
+import com.owner.baselibrary.model.network.entites.UploadImageReq
 import com.owner.baselibrary.model.network.entites.UploadImageResp
-import com.owner.baselibrary.viewmodel.BaseViewModel
-import com.owner.usercenter.model.repository.UserRepository
-import com.owner.usercenter.model.repository.impl.UserRepositoryImpl
 import io.reactivex.Observable
 import retrofit2.Response
+import retrofit2.http.*
 import java.io.File
 
 /**
- *
- * Created by Liuyong on 2018-10-12.It's AMSystem
+ *  上传图像
+ * Created by Liuyong on 2018-10-16.It's AMSystem
  *@description:
  */
-class UserInfoViewModel :BaseViewModel<UserRepository>(){
-     init {
-         repo = UserRepositoryImpl()
-     }
 
-    /**
-     * 上传头像
-     */
-    fun uploadAvatar(avatar: File):Observable<Response<UploadImageResp>> {
-        return  repo.uploadAvatar(avatar)
-    }
+interface UploadTakePhoto {
+
+
+    @Headers("Content-Type: image/png")
+    @POST("1.1/files/{filename}")
+    fun uploadImage(@Path("filename") filename:String, @Body req:UploadImageReq ): Observable<Response<UploadImageResp>>
 }
+
+object BaseService : UploadTakePhoto by  RetrofitFactory.instance.create(UploadTakePhoto::class.java)

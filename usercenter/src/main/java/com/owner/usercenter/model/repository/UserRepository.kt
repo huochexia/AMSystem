@@ -15,11 +15,13 @@
  */
 package com.owner.usercenter.model.repository
 
+import com.owner.baselibrary.model.network.entites.UploadImageResp
 import com.owner.baselibrary.model.respository.BaseRepository
 import com.owner.usercenter.model.network.entities.LoginResp
 import com.owner.usercenter.model.network.entities.RegisterResp
 import io.reactivex.Observable
 import retrofit2.Response
+import java.io.File
 
 /**
  *
@@ -35,4 +37,8 @@ interface UserRepository : BaseRepository {
       登录
      */
     fun login(username:String,pwd:String):Observable<Response<LoginResp>>
+    /*
+      上传头像
+     */
+    fun uploadAvatar(avatar: File):Observable<Response<UploadImageResp>>
 }

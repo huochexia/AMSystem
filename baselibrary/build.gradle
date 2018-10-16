@@ -85,7 +85,8 @@ dependencies {
 
     //Alert View
     api "com.bigkoo:alertview:$alert_view_version"
-
+    //Logger
+    api 'com.orhanobut:logger:2.1.1'
     //Timer
     api 'com.jakewharton.timber:timber:4.6.1'
     //leakcanary

@@ -19,6 +19,8 @@ import com.jph.takephoto.model.TResult
 import com.jph.takephoto.permission.InvokeListener
 import com.jph.takephoto.permission.PermissionManager
 import com.jph.takephoto.permission.TakePhotoInvocationHandler
+import com.orhanobut.logger.Logger
+import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.utils.DateUtils
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.view.activity.BaseActivity
@@ -28,6 +30,8 @@ import com.owner.usercenter.R
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.databinding.ActivityUserInfoBinding
 import com.owner.usercenter.viewmodel.UserInfoViewModel
+import io.reactivex.Observable
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_user_info.*
 import org.jetbrains.anko.toast
 import java.io.File
@@ -43,7 +47,10 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        getTakePhoto().onCreate(savedInstanceState)
+        mTakePhoto = TakePhotoInvocationHandler.of(this)
+                .bind(TakePhotoImpl(this, this))
+                as TakePhoto
+        mTakePhoto.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(UserInfoViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_info)
         binding.infovm = viewModel
@@ -59,6 +66,9 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
         }
     }
 
+    /**
+     * 显示选择图片对话框
+     */
     private fun showAlertView() {
         AlertView("选择图片", "", "取消", null, arrayOf("拍照", "相册"), this,
                 AlertView.Style.ActionSheet, OnItemClickListener { _, position ->
@@ -75,12 +85,12 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
 
     override fun onSaveInstanceState(outState: Bundle?) {
         //TakePhoto的要求
-        getTakePhoto().onSaveInstanceState(outState)
+        mTakePhoto.onSaveInstanceState(outState)
         super.onSaveInstanceState(outState)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //TakePhoto的要求
-        getTakePhoto().onActivityResult(requestCode, resultCode, data)
+        mTakePhoto.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 
@@ -108,9 +118,17 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
      * TakeResultListener的方法，获取TakePhoto相关方法的结果
      */
     override fun takeSuccess(result: TResult?) {
-        Log.d("TakePhoto", result?.image?.originalPath)
+        Logger.d("TakePhoto", result?.image?.originalPath)
         Log.d("TakePhoto_comp", result?.image?.compressPath)
+        viewModel.uploadAvatar(File(result?.image?.compressPath)).execute()
+                .subscribeBy {
+                    if (it.isSuccessful) {
+                        val avatar = it.body()
+                        Log.d("avatar:", avatar?.url)
+                    } else {
 
+                    }
+                }
     }
 
     override fun takeCancel() {
@@ -125,11 +143,6 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
      * 获取TakePhoto
      */
     fun getTakePhoto(): TakePhoto {
-        if (mTakePhoto == null) {
-            mTakePhoto = TakePhotoInvocationHandler.of(this)
-                    .bind(TakePhotoImpl(this, this))
-                    as TakePhoto
-        }
         return mTakePhoto
     }
 

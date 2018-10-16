@@ -15,6 +15,9 @@
  */
 package com.owner.usercenter.model.repository.impl
 
+import com.owner.baselibrary.model.network.entites.UploadImageReq
+import com.owner.baselibrary.model.network.entites.UploadImageResp
+import com.owner.baselibrary.model.network.service.BaseService
 import com.owner.usercenter.model.network.entities.LoginReq
 import com.owner.usercenter.model.network.entities.LoginResp
 import com.owner.usercenter.model.network.entities.RegisterReq
@@ -23,22 +26,33 @@ import com.owner.usercenter.model.network.service.UserService
 import com.owner.usercenter.model.repository.UserRepository
 import io.reactivex.Observable
 import retrofit2.Response
+import java.io.File
 
 /**
  *
  * Created by Liuyong on 2018-10-12.It's AMSystem
  *@description:
  */
-class UserRepositoryImpl:UserRepository {
+class UserRepositoryImpl : UserRepository {
 
     /**
      * 注册请求
      */
     override fun register(username: String, password: String, phone: String): Observable<Response<RegisterResp>> {
-        return UserService.register(RegisterReq(username,password,phone,""))
+        return UserService.register(RegisterReq(username, password, phone, ""))
     }
 
+    /**
+     *登录请求
+     */
     override fun login(username: String, pwd: String): Observable<Response<LoginResp>> {
-        return UserService.login(LoginReq(username,pwd))
+        return UserService.login(LoginReq(username, pwd))
+    }
+
+    /**
+     * 上传头像
+     */
+    override fun uploadAvatar(avatar: File): Observable<Response<UploadImageResp>> {
+        return BaseService.uploadImage(avatar.name,UploadImageReq(avatar))
     }
 }

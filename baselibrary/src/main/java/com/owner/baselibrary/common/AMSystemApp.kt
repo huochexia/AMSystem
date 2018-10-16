@@ -21,6 +21,8 @@ import android.content.ContextWrapper
 import android.support.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
 import com.avos.avoscloud.AVOSCloud
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import io.reactivex.plugins.RxJavaPlugins
@@ -38,6 +40,7 @@ class AMSystemApp : MultiDexApplication() {
        定义内存泄露管理工具
      */
     lateinit var refWatcher: RefWatcher
+
     companion object {
         lateinit var instance: AMSystemApp
             private set
@@ -54,13 +57,15 @@ class AMSystemApp : MultiDexApplication() {
         super.onCreate()
 
         instance = this
+        //初始化Logger
+        Logger.addLogAdapter(AndroidLogAdapter())
         //初始化ARouter
         ARouter.openLog()
         ARouter.openDebug()
         ARouter.init(this)
 
         // 初始化参数依次为 this, AppId, AppKey
-        AVOSCloud.initialize(this,"NNsHKVMl4HG7DWLoqp3NsUjB-gzGzoHsz", "NKAMBzaJ248RQB4i5qPOCkIB")
+        AVOSCloud.initialize(this, "NNsHKVMl4HG7DWLoqp3NsUjB-gzGzoHsz", "NKAMBzaJ248RQB4i5qPOCkIB")
         AVOSCloud.setDebugLogEnabled(true)//开启调试日志
         //初始化Timber日志管理工具
         Timber.plant(Timber.DebugTree())
@@ -75,4 +80,4 @@ class AMSystemApp : MultiDexApplication() {
 /**
  * 通过单例方式获取Application的Context
  */
-object AppContext:ContextWrapper(AMSystemApp.instance)
+object AppContext : ContextWrapper(AMSystemApp.instance)

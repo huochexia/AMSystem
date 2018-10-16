@@ -81,21 +81,4 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
         }
     }
 
-
-    /*
-        点击返回的初始时间
-      */
-    private var pressTime: Long = 0
-
-    override fun onBackPressed() {
-
-        var time = System.currentTimeMillis()
-        if (time - pressTime > 2000) {
-            toast("再按一次退出应用程序")
-            pressTime = time
-        } else {
-            AppManager.instance.exitApp(this)
-        }
-
-    }
 }

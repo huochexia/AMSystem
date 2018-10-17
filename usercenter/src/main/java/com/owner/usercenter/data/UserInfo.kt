@@ -20,6 +20,8 @@ package com.owner.usercenter.data
  * Created by Liuyong on 2018-10-14.It's AMSystem
  *@description:
  */
-data class UserInfo (val token:String?,
-                     val userName:String?,
-                     val userMobile:String?)
+data class UserInfo(val token: String?,
+                    val userName: String?,
+                    val userMobile: String?,
+                    val userId: String?,
+                    val avatar: String?)

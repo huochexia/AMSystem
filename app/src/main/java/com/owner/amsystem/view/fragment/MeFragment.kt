@@ -15,6 +15,7 @@
  */
 package com.owner.amsystem.view.fragment
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,10 +24,8 @@ import android.view.ViewGroup
 import com.owner.amsystem.R
 import com.owner.amsystem.databinding.FragmentMeBinding
 import com.owner.amsystem.viewmodel.MeViewModel
-import com.owner.baselibrary.ext.loadUrl
-import com.owner.baselibrary.ext.pref
+import com.owner.baselibrary.utils.GlideUtils
 import com.owner.baselibrary.view.fragment.BaseFragment
-import com.owner.provideslib.common.isLogined
 import kotlinx.android.synthetic.main.fragment_me.*
 
 /**
@@ -39,6 +38,25 @@ class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MeViewModel::class.java)
+        //观察头像的变化
+        viewModel.avatar.observe(this, Observer {
+
+            if (it.isNullOrEmpty())
+            //这里不能使用setImageResource,它不显示图片
+                mUserAvatarIv.setBackgroundResource(R.drawable.icon_default_user)
+            else {
+                GlideUtils.loadImage(context!!, it!!, mUserAvatarIv)
+            }
+        })
+        //观察用户名的变化
+        viewModel.username.observe(this, Observer {
+            if (it.isNullOrEmpty()) {
+                mUserNameTv.text = getString(R.string.un_login_text)
+            } else {
+                mUserNameTv.text = it
+            }
+        })
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,22 +67,7 @@ class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
 
     override fun onStart() {
         super.onStart()
-        loadData()
+        viewModel.getSPData()
     }
-    /**
-     * 根据登录状态加载相关数据
-     */
-    private fun loadData() {
-        //利用通用方法先判断登录状态
-        if (isLogined()) {
-            val username by pref("")
-            mUserNameTv.text = username
-            val userAvatar by pref("")
-            if (userAvatar.isNotEmpty())
-                mUserAvatarIv.loadUrl(userAvatar)
-        } else {
-            mUserAvatarIv.setImageResource(R.mipmap.icon_default_user)
-            mUserNameTv.text = getString(R.string.un_login_text)
-        }
-    }
+
 }

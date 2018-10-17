@@ -6,7 +6,9 @@ import android.os.Bundle
 import com.owner.amsystem.R
 import com.owner.amsystem.databinding.ActivitySettingBinding
 import com.owner.amsystem.viewmodel.SettingViewModel
+import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.view.activity.BaseActivity
+import com.owner.provideslib.common.ProviderConstant
 import com.owner.usercenter.utils.UserUtils
 import kotlinx.android.synthetic.main.activity_setting.*
 
@@ -22,6 +24,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding, SettingViewModel>()
 
         mLogoutBtn.setOnClickListener {
             UserUtils.putUserInfo(null)
+            println("avatarSp :"+AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON))
             finish()
         }
     }

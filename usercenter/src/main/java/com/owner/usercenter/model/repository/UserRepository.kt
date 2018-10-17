@@ -19,6 +19,7 @@ import com.owner.baselibrary.model.network.entites.UploadImageResp
 import com.owner.baselibrary.model.respository.BaseRepository
 import com.owner.usercenter.model.network.entities.LoginResp
 import com.owner.usercenter.model.network.entities.RegisterResp
+import com.owner.usercenter.model.network.entities.UpdateAvatarResp
 import io.reactivex.Observable
 import retrofit2.Response
 import java.io.File
@@ -41,4 +42,8 @@ interface UserRepository : BaseRepository {
       上传头像
      */
     fun uploadAvatar(avatar: File):Observable<Response<UploadImageResp>>
+    /*
+      更新用户头像
+     */
+    fun updateAvatar(token:String,userId:String,avatar: String):Observable<Response<UpdateAvatarResp>>
 }

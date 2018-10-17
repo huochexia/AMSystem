@@ -11,6 +11,8 @@ class ProviderConstant {
         const val KEY_SP_USER_MOBILE = "user_mobile"
         //用户头像
         const val KEY_SP_USER_ICON = "user_avatar"
+        //用户ID
+        const val KEY_SP_USER_ID = "user_id"
 
     }
 

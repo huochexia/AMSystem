@@ -15,6 +15,7 @@
  */
 package com.owner.usercenter.viewmodel
 
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableInt
 import android.view.View
 import android.widget.Toast
@@ -42,8 +43,10 @@ import retrofit2.Response
  */
 class LoginViewModel : BaseViewModel<UserRepository>() {
 
+
     init {
         repo = UserRepositoryImpl()
+
     }
 
     //登录结果，通过它驱动视图变化
@@ -74,6 +77,7 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
                     .execute()
                     .subscribeBy {
                         getResult(it, view)
+
                     }
             compositeDisposable.add(disposable)
         } else {
@@ -90,7 +94,7 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
         } else {
             val error = it.errorBody()?.string()
             val json = JSONObject(error)
-            println("error:"+json.getInt("code"))
+
             result.set(json.getInt("code"))
 
         }

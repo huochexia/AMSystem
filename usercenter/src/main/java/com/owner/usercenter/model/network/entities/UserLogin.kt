@@ -32,6 +32,7 @@ data class LoginResp(val sessionToken: String,
                      val username: String,
                      val mobilePhoneNumber: String,
                      val objectId: String,
+                     val avatar:String,
                      val emailVerified: Boolean,
                      val mobilePhoneVerified: Boolean)
 

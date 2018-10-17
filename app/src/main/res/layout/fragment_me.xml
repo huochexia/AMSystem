@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -21,7 +22,8 @@
                 android:layout_height="@dimen/common_icon_height"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/common_margin"
-                android:src="@drawable/icon_default_user"
+                app:imageUrl="@{mevm.avatar}"
+                app:placeholder="@{@drawable/icon_default_user}"
                 android:onClick="@{mevm::startUserInfoOrLogin}"/>
 
             <TextView
@@ -29,7 +31,8 @@
                 style="@style/WrapWrap"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/common_margin"
-                android:text="@string/un_login_text"
+                app:textvalue="@{mevm.username}"
+                app:placeholder="@{@string/un_login_text}"
                 android:textColor="@color/common_white"
                 android:textSize="@dimen/text_big_size"
                 android:onClick="@{mevm::startUserInfoOrLogin}"/>

@@ -34,6 +34,8 @@ object UserUtils {
         AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN, userInfo?.token ?: "")
         AppPrefsUtils.putString(ProviderConstant.KEY_SP_USER_NAME, userInfo?.userName ?: "")
         AppPrefsUtils.putString(ProviderConstant.KEY_SP_USER_MOBILE, userInfo?.userMobile ?: "")
+        AppPrefsUtils.putString(ProviderConstant.KEY_SP_USER_ID,userInfo?.userId?:"")
+        AppPrefsUtils.putString(ProviderConstant.KEY_SP_USER_ICON,userInfo?.avatar?:"")
 
     }
 
@@ -41,6 +43,6 @@ object UserUtils {
        登录响应转换为用户信息
      */
     fun respToUserInfo(repo: LoginResp): UserInfo {
-        return UserInfo(repo.sessionToken,repo.username,repo.mobilePhoneNumber)
+        return UserInfo(repo.sessionToken,repo.username,repo.mobilePhoneNumber,repo.objectId,repo.avatar)
     }
 }

@@ -16,14 +16,10 @@
 package com.owner.usercenter.model.network.service
 
 import com.owner.baselibrary.model.network.RetrofitFactory
-import com.owner.usercenter.model.network.entities.LoginReq
-import com.owner.usercenter.model.network.entities.LoginResp
-import com.owner.usercenter.model.network.entities.RegisterReq
-import com.owner.usercenter.model.network.entities.RegisterResp
+import com.owner.usercenter.model.network.entities.*
 import io.reactivex.Observable
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * 这个文件包含与用户操作有关的API和一个用户操作的单例
@@ -41,7 +37,12 @@ interface UserApi {
      */
     @POST("1.1/login")
     fun login(@Body req:LoginReq):Observable<Response<LoginResp>>
-
+    /*
+      修改头像
+     */
+    @PUT("1.1/users/{id}")
+    fun updateAvatar(@Header("X-LC-Session") token:String,@Path("id") userId:String,
+                     @Body req:UpdateAvatarReq):Observable<Response<UpdateAvatarResp>>
 }
 
 /*

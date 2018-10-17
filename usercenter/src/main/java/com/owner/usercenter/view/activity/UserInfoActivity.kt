@@ -8,6 +8,9 @@ import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.avos.avoscloud.AVException
+import com.avos.avoscloud.AVFile
+import com.avos.avoscloud.SaveCallback
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.jph.takephoto.app.TakePhoto
@@ -20,19 +23,23 @@ import com.jph.takephoto.permission.InvokeListener
 import com.jph.takephoto.permission.PermissionManager
 import com.jph.takephoto.permission.TakePhotoInvocationHandler
 import com.orhanobut.logger.Logger
+import com.owner.baselibrary.common.BaseConstant
 import com.owner.baselibrary.ext.execute
+import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.utils.DateUtils
 import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.view.activity.BaseActivity
+import com.owner.provideslib.common.ProviderConstant
+import com.owner.provideslib.common.isLogined
 import com.owner.provideslib.exception.ExceptionMsg
 import com.owner.provideslib.router.RouterPath
 import com.owner.usercenter.R
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.databinding.ActivityUserInfoBinding
 import com.owner.usercenter.viewmodel.UserInfoViewModel
-import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_user_info.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.io.File
 
@@ -62,15 +69,34 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
             toast(ExceptionMsg.getError(UserConstant.NET_NO))
         }
         mUserAvatarIv.setOnClickListener {
-            showAlertView()
+            //如果是登录状态，则允许修改头像
+            if (isLogined()) {
+                showAlertView()
+            } else {
+                showLoginAlert()
+            }
+
         }
     }
 
     /**
-     * 显示选择图片对话框
+     * 显示是否登录对话框
+     */
+    private fun showLoginAlert() {
+        AlertView("您尚未登录，是否登录？", null, null, arrayOf("确定", "取消"), null, this,
+                AlertView.Style.Alert, OnItemClickListener { _, position ->
+            when (position) {
+                0 -> startActivity<LoginActivity>()
+            }
+
+        }).show()
+    }
+
+    /**
+     * 修改头像
      */
     private fun showAlertView() {
-        AlertView("选择图片", "", "取消", null, arrayOf("拍照", "相册"), this,
+        AlertView("选择图片", null, "取消", null, arrayOf("拍照", "相册"), this,
                 AlertView.Style.ActionSheet, OnItemClickListener { _, position ->
             mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
             when (position) {
@@ -83,11 +109,56 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
         }).show()
     }
 
+    /**
+     * TakeResultListener的方法，获取TakePhoto相关方法的结果
+     */
+    override fun takeSuccess(result: TResult?) {
+        Logger.d("TakePhoto", result?.image?.originalPath)
+        Log.d("TakePhoto_comp", result?.image?.compressPath)
+        val file = AVFile.withAbsoluteLocalPath("leacount.png",result?.image?.compressPath)
+        file.saveInBackground(object :SaveCallback(){
+            override fun done(p0: AVException?) {
+                AppPrefsUtils.putString(ProviderConstant.KEY_SP_USER_ICON,file.url.toString())
+                Logger.d("file:",file.url)
+            }
+
+        })
+//        viewModel.uploadAvatar(File(result?.image?.compressPath)).execute()
+//                .subscribeBy {
+//                    if (it.isSuccessful) {
+//                        val avatar = it.body()
+//                        Log.d("avatar:", avatar?.url)
+//                        viewModel.updateAvatar(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN),
+//                                AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID), avatar?.url
+//                                ?: "")
+//                                .execute()
+//                                .subscribeBy {
+//                                    if (it.isSuccessful) {
+//
+//                                    } else {
+//                                        Log.d("UpdateAvatar:", it.errorBody()?.string())
+//                                    }
+//                                }
+//                    } else {
+//
+//                    }
+//                }
+    }
+
+    override fun takeCancel() {
+
+    }
+
+    override fun takeFail(result: TResult?, msg: String?) {
+
+    }
+
     override fun onSaveInstanceState(outState: Bundle?) {
         //TakePhoto的要求
         mTakePhoto.onSaveInstanceState(outState)
         super.onSaveInstanceState(outState)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //TakePhoto的要求
         mTakePhoto.onActivityResult(requestCode, resultCode, data)
@@ -114,30 +185,6 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
         return type
     }
 
-    /**
-     * TakeResultListener的方法，获取TakePhoto相关方法的结果
-     */
-    override fun takeSuccess(result: TResult?) {
-        Logger.d("TakePhoto", result?.image?.originalPath)
-        Log.d("TakePhoto_comp", result?.image?.compressPath)
-        viewModel.uploadAvatar(File(result?.image?.compressPath)).execute()
-                .subscribeBy {
-                    if (it.isSuccessful) {
-                        val avatar = it.body()
-                        Log.d("avatar:", avatar?.url)
-                    } else {
-
-                    }
-                }
-    }
-
-    override fun takeCancel() {
-
-    }
-
-    override fun takeFail(result: TResult?, msg: String?) {
-
-    }
 
     /**
      * 获取TakePhoto

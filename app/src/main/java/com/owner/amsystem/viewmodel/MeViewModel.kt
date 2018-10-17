@@ -15,14 +15,16 @@
  */
 package com.owner.amsystem.viewmodel
 
+import android.arch.lifecycle.MutableLiveData
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.owner.amsystem.model.repository.MainRepository
 import com.owner.amsystem.view.activity.SettingActivity
+import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.owner.provideslib.common.ProviderConstant
 import com.owner.provideslib.common.isLogined
 import com.owner.provideslib.router.RouterPath
-import com.owner.usercenter.view.activity.LoginActivity
 import org.jetbrains.anko.startActivity
 
 /**
@@ -30,7 +32,26 @@ import org.jetbrains.anko.startActivity
  * Created by Liuyong on 2018-10-10.It's AMSystem
  *@description:
  */
-class MeViewModel:BaseViewModel<MainRepository>(){
+class MeViewModel : BaseViewModel<MainRepository>() {
+
+    var avatar = MutableLiveData<String>()
+    var username = MutableLiveData<String>()
+
+    /**
+     * 加载数据
+     */
+    init {
+        getSPData()
+    }
+
+    /**
+     * 从本地获取数据
+     */
+    fun getSPData() {
+        avatar.value = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
+        username.value = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_NAME)
+    }
+
     /**
      * 启动个人设置
      */
@@ -45,7 +66,7 @@ class MeViewModel:BaseViewModel<MainRepository>(){
      */
     fun startUserInfoOrLogin(view: View) {
         if (!isLogined()) {
-           ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_LOGIN).navigation()
+            ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_LOGIN).navigation()
         }
 
     }

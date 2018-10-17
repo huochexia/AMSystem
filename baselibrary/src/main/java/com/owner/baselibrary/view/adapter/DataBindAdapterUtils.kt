@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.amsystem.view.adapter
+package com.owner.baselibrary.view.adapter
 
 import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import android.widget.TextView
 import com.owner.baselibrary.utils.GlideUtils
 
 /**
@@ -27,13 +28,23 @@ import com.owner.baselibrary.utils.GlideUtils
  */
 class DataBindAdapterUtils {
     companion object {
-        @BindingAdapter(value = ["imageUrl","placeholder"], requireAll = false)
+        @BindingAdapter(value = ["imageUrl", "placeholder"], requireAll = false)
         @JvmStatic
         fun setImageUrl(imageView: ImageView, url: String?, placeholder: Drawable?) {
             if (url.isNullOrEmpty()) {
                 imageView.setImageDrawable(placeholder)
             } else {
                 GlideUtils.loadUrlImage(imageView.context, url!!, imageView)
+            }
+        }
+
+        @BindingAdapter(value = ["textvalue", "placeholder"], requireAll = false)
+        @JvmStatic
+        fun setTextValue(textView: TextView, value: String?, default: String?) {
+            if (value.isNullOrEmpty()) {
+                textView.text = default
+            } else {
+                textView.text = value
             }
         }
     }

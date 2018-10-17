@@ -6,15 +6,13 @@ import android.databinding.Observable
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.owner.usercenter.databinding.ActivityLoginBinding
-import com.owner.baselibrary.common.AppManager
-import com.owner.baselibrary.common.Setting
 import com.owner.baselibrary.ext.enabled
 import com.owner.baselibrary.view.activity.BaseActivity
 import com.owner.provideslib.exception.ExceptionMsg
 import com.owner.provideslib.router.RouterPath
 import com.owner.usercenter.R
 import com.owner.usercenter.common.UserConstant
+import com.owner.usercenter.databinding.ActivityLoginBinding
 import com.owner.usercenter.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
@@ -40,7 +38,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
             addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     when (get()) {
-                        UserConstant.RESULT_INIT_VALUE -> {}
+                        UserConstant.RESULT_INIT_VALUE -> {
+                        }
                         else -> toast(ExceptionMsg.getError(get()))
                     }
                     //需要还原原值，否则连续出现同一个值无法触发事件
@@ -55,7 +54,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
      */
     private fun initView() {
         //从本地获取上次登录成功的手机号
-        mMobileEt.setText(Setting.lastSignUpUser)
         mLoginBtn.enabled(mMobileEt) { isEnable() }
         mLoginBtn.enabled(mPwdEt) { isEnable() }
         if (binding.mHeaderBar.getRightView() != null)

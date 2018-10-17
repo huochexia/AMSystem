@@ -41,7 +41,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="20.0dip"
             android:layout_toLeftOf="@id/mArrowIv"
-            android:src="@drawable/icon_default_user" />
+            app:imageUrl="@{infovm.avatar}"
+            app:placeholder="@{@drawable/icon_default_user}"/>
     </RelativeLayout>
 
     <RelativeLayout style="@style/user_info_line_style">

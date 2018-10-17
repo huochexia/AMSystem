@@ -18,10 +18,7 @@ package com.owner.usercenter.model.repository.impl
 import com.owner.baselibrary.model.network.entites.UploadImageReq
 import com.owner.baselibrary.model.network.entites.UploadImageResp
 import com.owner.baselibrary.model.network.service.BaseService
-import com.owner.usercenter.model.network.entities.LoginReq
-import com.owner.usercenter.model.network.entities.LoginResp
-import com.owner.usercenter.model.network.entities.RegisterReq
-import com.owner.usercenter.model.network.entities.RegisterResp
+import com.owner.usercenter.model.network.entities.*
 import com.owner.usercenter.model.network.service.UserService
 import com.owner.usercenter.model.repository.UserRepository
 import io.reactivex.Observable
@@ -34,6 +31,7 @@ import java.io.File
  *@description:
  */
 class UserRepositoryImpl : UserRepository {
+
 
     /**
      * 注册请求
@@ -53,6 +51,14 @@ class UserRepositoryImpl : UserRepository {
      * 上传头像
      */
     override fun uploadAvatar(avatar: File): Observable<Response<UploadImageResp>> {
-        return BaseService.uploadImage(avatar.name,UploadImageReq(avatar))
+        return BaseService.uploadImage(avatar.name, UploadImageReq(avatar))
     }
+
+    /**
+     *更新头像
+     */
+    override fun updateAvatar(token: String, userId: String, avatar: String): Observable<Response<UpdateAvatarResp>> {
+        return UserService.updateAvatar(token,userId,UpdateAvatarReq(avatar))
+    }
+
 }

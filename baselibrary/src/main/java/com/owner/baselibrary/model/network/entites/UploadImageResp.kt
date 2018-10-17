@@ -24,4 +24,4 @@ import java.io.File
  */
 data class UploadImageResp (val url:String,val name:String)
 
-data class UploadImageReq(val imageFile:File)
+data class UploadImageReq(val imageFile:File,val _type:String="file")

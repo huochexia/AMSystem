@@ -19,6 +19,7 @@ import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.TextView
+import com.owner.baselibrary.ext.loadUrl
 import com.owner.baselibrary.utils.GlideUtils
 
 /**
@@ -34,7 +35,7 @@ class DataBindAdapterUtils {
             if (url.isNullOrEmpty()) {
                 imageView.setImageDrawable(placeholder)
             } else {
-                GlideUtils.loadUrlImage(imageView.context, url!!, imageView)
+               imageView.loadUrl(url!!)
             }
         }
 

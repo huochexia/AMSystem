@@ -1,5 +1,6 @@
 package com.owner.usercenter.view.activity
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -25,6 +26,7 @@ import com.jph.takephoto.permission.TakePhotoInvocationHandler
 import com.orhanobut.logger.Logger
 import com.owner.baselibrary.common.BaseConstant
 import com.owner.baselibrary.ext.execute
+import com.owner.baselibrary.ext.loadUrl
 import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.utils.DateUtils
 import com.owner.baselibrary.utils.NetWorkUtils
@@ -77,6 +79,13 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
             }
 
         }
+        viewModel.avatar.observe(this, Observer {
+            if (it.isNullOrEmpty()) {
+                mUserAvatarIv.setImageResource(R.drawable.icon_default_user)
+            } else {
+                mUserAvatarIv.loadUrl(it!!)
+            }
+        })
     }
 
     /**
@@ -113,36 +122,26 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
      * TakeResultListener的方法，获取TakePhoto相关方法的结果
      */
     override fun takeSuccess(result: TResult?) {
-        Logger.d("TakePhoto", result?.image?.originalPath)
-        Log.d("TakePhoto_comp", result?.image?.compressPath)
-        val file = AVFile.withAbsoluteLocalPath("leacount.png",result?.image?.compressPath)
+        //1、利用压缩文件生成AVFile
+        val file = AVFile.withAbsoluteLocalPath("${DateUtils.curTime}.png",result?.image?.compressPath)
+        //2、上传AVFile对象
         file.saveInBackground(object :SaveCallback(){
             override fun done(p0: AVException?) {
+                //3、将返回的头像Url保存本地
                 AppPrefsUtils.putString(ProviderConstant.KEY_SP_USER_ICON,file.url.toString())
-                Logger.d("file:",file.url)
+                //4、更新用户信息，将头像信息保存至用户信息中
+               val disposable= viewModel.updateAvatar(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN),
+                        AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID),file.url.toString()).execute()
+                        .subscribe{
+                            if (!it.isSuccessful) {
+                                Log.d("error:",it.errorBody()?.string())
+                            }
+                        }
+                viewModel.compositeDisposable.add(disposable)
             }
 
         })
-//        viewModel.uploadAvatar(File(result?.image?.compressPath)).execute()
-//                .subscribeBy {
-//                    if (it.isSuccessful) {
-//                        val avatar = it.body()
-//                        Log.d("avatar:", avatar?.url)
-//                        viewModel.updateAvatar(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN),
-//                                AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID), avatar?.url
-//                                ?: "")
-//                                .execute()
-//                                .subscribeBy {
-//                                    if (it.isSuccessful) {
-//
-//                                    } else {
-//                                        Log.d("UpdateAvatar:", it.errorBody()?.string())
-//                                    }
-//                                }
-//                    } else {
-//
-//                    }
-//                }
+
     }
 
     override fun takeCancel() {

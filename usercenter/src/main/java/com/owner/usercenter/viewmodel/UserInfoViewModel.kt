@@ -17,7 +17,9 @@ package com.owner.usercenter.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import com.owner.baselibrary.model.network.entites.UploadImageResp
+import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.owner.provideslib.common.ProviderConstant
 import com.owner.usercenter.model.network.entities.UpdateAvatarResp
 import com.owner.usercenter.model.repository.UserRepository
 import com.owner.usercenter.model.repository.impl.UserRepositoryImpl
@@ -32,11 +34,12 @@ import java.io.File
  */
 class UserInfoViewModel : BaseViewModel<UserRepository>() {
 
-    lateinit var avatar: MutableLiveData<String>
+    var avatar: MutableLiveData<String>
 
     init {
         repo = UserRepositoryImpl()
         avatar = MutableLiveData()
+        avatar.value = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
     }
 
     /**
@@ -50,7 +53,7 @@ class UserInfoViewModel : BaseViewModel<UserRepository>() {
      *更新用户头像
      */
     fun updateAvatar(token: String, userId: String, avatarUrl: String): Observable<Response<UpdateAvatarResp>> {
-        this.avatar.value = avatarUrl
+        this.avatar.value = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
         return repo.updateAvatar(token, userId, avatarUrl)
     }
 }

@@ -16,8 +16,10 @@
 package com.owner.amsystem.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
+import android.util.Log
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
+import com.orhanobut.logger.Logger
 import com.owner.amsystem.model.repository.MainRepository
 import com.owner.amsystem.view.activity.SettingActivity
 import com.owner.baselibrary.utils.AppPrefsUtils
@@ -48,8 +50,10 @@ class MeViewModel : BaseViewModel<MainRepository>() {
      * 从本地获取数据
      */
     fun getSPData() {
-        avatar.value = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
-        username.value = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_NAME)
+        val url = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
+        avatar.value = url
+        val name = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_NAME)
+        username.value = name
     }
 
     /**

@@ -35,7 +35,7 @@ import timber.log.Timber
  * Created by Liuyong on 2018-09-15.It's AMSystem
  *@description:
  */
-class AMSystemApp : MultiDexApplication() {
+class AMSystemApp : Application() {
     /*
        定义内存泄露管理工具
      */

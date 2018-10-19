@@ -102,13 +102,13 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
     /**
      * 得到结果
      */
-    private fun getResult(it: Response<RegisterResp>) {
-        if (it.isSuccessful) {
+    private fun getResult(it:RegisterResp) {
+        if (it.isSuccess()) {
             result.set(UserConstant.ACTION_SUCCESS)
         } else {
-            val error = it.errorBody()?.string()
-            val json = JSONObject(error)
-            result.set(json.getInt("code"))
+//            val error = it.errorBody()?.string()
+//            val json = JSONObject(error)
+            result.set(it.code)
         }
     }
 

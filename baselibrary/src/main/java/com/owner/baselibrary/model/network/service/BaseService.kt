@@ -34,7 +34,7 @@ interface UploadTakePhoto {
 
     @Headers("Content-Type: image/png")
     @POST("1.1/files/{filename}")
-    fun uploadImage(@Path("filename") filename:String, @Body req:UploadImageReq ): Observable<Response<UploadImageResp>>
+    fun uploadImage(@Path("filename") filename:String, @Body req:UploadImageReq ): Observable<UploadImageResp>
 }
 
 object BaseService : UploadTakePhoto by  RetrofitFactory.instance.create(UploadTakePhoto::class.java)

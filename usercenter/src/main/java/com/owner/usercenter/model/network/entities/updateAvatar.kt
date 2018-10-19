@@ -6,4 +6,9 @@ package com.owner.usercenter.model.network.entities
  */
 data class UpdateAvatarReq(val avatar: String)
 
-data class UpdateAvatarResp(val updateAt: String)
+data class UpdateAvatarResp(
+        val code: Int = 0,
+        val error: String?,
+        val updateAt: String?) {
+    fun isSuccess(): Boolean = code == 0 && updateAt.isNullOrEmpty().not()
+}

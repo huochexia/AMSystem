@@ -23,10 +23,21 @@ package com.owner.usercenter.model.network.entities
 /*
   注册请求体
  */
-data class RegisterReq(val username:String,val password:String,val mobilePhoneNumber:String ,val avatar:String)
+data class RegisterReq(val username: String,
+                       val password: String,
+                       val mobilePhoneNumber: String,
+                       val avatar: String)
+
 /*
   注册成功响应体
  */
-data class RegisterResp(val sessionToken:String,val createAt:String,val objectId:String)
+data class RegisterResp(val code: Int = 0,
+                        val error: String?,
+                        val sessionToken: String?,
+                        val createAt: String?,
+                        val objectId: String?) {
+
+    fun isSuccess(): Boolean = code == 0 && objectId.isNullOrEmpty().not()
+}
 
 

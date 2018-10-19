@@ -45,14 +45,14 @@ class UserInfoViewModel : BaseViewModel<UserRepository>() {
     /**
      * 上传头像
      */
-    fun uploadAvatar(avatar: File): Observable<Response<UploadImageResp>> {
+    fun uploadAvatar(avatar: File): Observable<UploadImageResp> {
         return repo.uploadAvatar(avatar)
     }
 
     /**
      *更新用户头像
      */
-    fun updateAvatar(token: String, userId: String, avatarUrl: String): Observable<Response<UpdateAvatarResp>> {
+    fun updateAvatar(token: String, userId: String, avatarUrl: String): Observable<UpdateAvatarResp> {
         this.avatar.value = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
         return repo.updateAvatar(token, userId, avatarUrl)
     }

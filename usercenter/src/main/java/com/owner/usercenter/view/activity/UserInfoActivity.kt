@@ -45,7 +45,10 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.io.File
 
-
+/**
+ * 对头像图片文件的上传使用的是LeanCloud提供的SDK[AVFile],对用户信息的更新即文件地址保存采用
+ * 的是RestApi
+ */
 @Route(path = RouterPath.UserCenter.PATH_USER_INFO)
 class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel>(),
         TakePhoto.TakeResultListener, InvokeListener {
@@ -133,8 +136,8 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
                val disposable= viewModel.updateAvatar(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN),
                         AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID),file.url.toString()).execute()
                         .subscribe{
-                            if (!it.isSuccessful) {
-                                Log.d("error:",it.errorBody()?.string())
+                            if (!it.isSuccess()) {
+                                Log.d("error:",it.error)
                             }
                         }
                 viewModel.compositeDisposable.add(disposable)

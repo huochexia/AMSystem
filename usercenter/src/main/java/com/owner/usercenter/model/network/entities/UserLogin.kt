@@ -28,11 +28,16 @@ data class LoginReq(val username: String, val password: String)
 /*
   网络响应对象
  */
-data class LoginResp(val sessionToken: String,
-                     val username: String,
-                     val mobilePhoneNumber: String,
-                     val objectId: String,
-                     val avatar:String,
+data class LoginResp(val code :Int = 0,
+                     val error:String?,
+                     val sessionToken: String?,
+                     val username: String?,
+                     val mobilePhoneNumber: String?,
+                     val objectId: String?,
+                     val avatar:String?,
                      val emailVerified: Boolean,
-                     val mobilePhoneVerified: Boolean)
+                     val mobilePhoneVerified: Boolean){
+
+    fun isSuccess() :Boolean = code == 0 && sessionToken.isNullOrEmpty().not()
+}
 

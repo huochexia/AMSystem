@@ -35,7 +35,7 @@ object BaseConstant {
      */
     const val CLIENT_KEY_NAME = "X-LC-Key"
     /*
-    Client Key Value
+      Client Key Value
      */
     const val CLIENT_KEY_VALUE = "NKAMBzaJ248RQB4i5qPOCkIB"
     /*

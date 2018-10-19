@@ -37,7 +37,7 @@ object ExceptionMsg {
             141 ->return "云引擎调用超时"
             142 ->return "云引擎校验错误"
             153 ->return "文件删除错误"
-            200 ->return "没有提供用户名，或者用户名为空"
+            200 ->return "网络请求不成功"
             201 ->return "没有提供密码，或者密码为空"
             202 ->return "用户名已经被占用"
             203 ->return "电子邮箱地址已经被占用"

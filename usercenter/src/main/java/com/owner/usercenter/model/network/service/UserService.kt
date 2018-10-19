@@ -31,18 +31,18 @@ interface UserApi {
       注册
      */
     @POST("1.1/users")
-    fun register(@Body req: RegisterReq): Observable<Response<RegisterResp>>
+    fun register(@Body req: RegisterReq): Observable<RegisterResp>
     /*
       登录
      */
     @POST("1.1/login")
-    fun login(@Body req:LoginReq):Observable<Response<LoginResp>>
+    fun login(@Body req:LoginReq):Observable<LoginResp>
     /*
       修改头像
      */
     @PUT("1.1/users/{id}")
     fun updateAvatar(@Header("X-LC-Session") token:String,@Path("id") userId:String,
-                     @Body req:UpdateAvatarReq):Observable<Response<UpdateAvatarResp>>
+                     @Body req:UpdateAvatarReq):Observable<UpdateAvatarResp>
 }
 
 /*

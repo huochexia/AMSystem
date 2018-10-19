@@ -36,28 +36,28 @@ class UserRepositoryImpl : UserRepository {
     /**
      * 注册请求
      */
-    override fun register(username: String, password: String, phone: String): Observable<Response<RegisterResp>> {
+    override fun register(username: String, password: String, phone: String): Observable<RegisterResp> {
         return UserService.register(RegisterReq(username, password, phone, ""))
     }
 
     /**
      *登录请求
      */
-    override fun login(username: String, pwd: String): Observable<Response<LoginResp>> {
+    override fun login(username: String, pwd: String): Observable<LoginResp> {
         return UserService.login(LoginReq(username, pwd))
     }
 
     /**
      * 上传头像
      */
-    override fun uploadAvatar(avatar: File): Observable<Response<UploadImageResp>> {
+    override fun uploadAvatar(avatar: File): Observable<UploadImageResp> {
         return BaseService.uploadImage(avatar.name, UploadImageReq(avatar))
     }
 
     /**
      *更新头像
      */
-    override fun updateAvatar(token: String, userId: String, avatar: String): Observable<Response<UpdateAvatarResp>> {
+    override fun updateAvatar(token: String, userId: String, avatar: String): Observable<UpdateAvatarResp> {
         return UserService.updateAvatar(token,userId,UpdateAvatarReq(avatar))
     }
 

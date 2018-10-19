@@ -33,17 +33,17 @@ interface UserRepository : BaseRepository {
     /*
       注册
      */
-    fun register(username:String,password:String,phone:String): Observable<Response<RegisterResp>>
+    fun register(username:String,password:String,phone:String): Observable<RegisterResp>
     /*
       登录
      */
-    fun login(username:String,pwd:String):Observable<Response<LoginResp>>
+    fun login(username:String,pwd:String):Observable<LoginResp>
     /*
       上传头像
      */
-    fun uploadAvatar(avatar: File):Observable<Response<UploadImageResp>>
+    fun uploadAvatar(avatar: File):Observable<UploadImageResp>
     /*
       更新用户头像
      */
-    fun updateAvatar(token:String,userId:String,avatar: String):Observable<Response<UpdateAvatarResp>>
+    fun updateAvatar(token:String,userId:String,avatar: String):Observable<UpdateAvatarResp>
 }

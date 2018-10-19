@@ -76,8 +76,11 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
             val disposable = repo.login(mUserName, mPwd)
                     .execute()
                     .subscribeBy {
-                        getResult(it, view)
-
+                        if (it.isSuccess()) {
+                            loginSuccess(it)
+                        } else {
+                            result.set(it.code)
+                        }
                     }
             compositeDisposable.add(disposable)
         } else {
@@ -86,25 +89,10 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
     }
 
     /**
-     * 得到网络响应结果
-     */
-    private fun getResult(it: Response<LoginResp>, view: View) {
-        if (it.isSuccessful) {
-            loginSuccess(it)
-        } else {
-            val error = it.errorBody()?.string()
-            val json = JSONObject(error)
-
-            result.set(json.getInt("code"))
-
-        }
-    }
-
-    /**
      * 登录成功
      */
-    private fun loginSuccess(resp: Response<LoginResp>) {
-        val userInfo = UserUtils.respToUserInfo(resp.body()!!)
+    private fun loginSuccess(resp: LoginResp) {
+        val userInfo = UserUtils.respToUserInfo(resp)
         UserUtils.putUserInfo(userInfo)
         ARouter.getInstance().build(RouterPath.App.PATH_MAIN).navigation()
 

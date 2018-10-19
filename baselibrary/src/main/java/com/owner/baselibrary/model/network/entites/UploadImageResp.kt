@@ -22,6 +22,12 @@ import java.io.File
  * Created by Liuyong on 2018-10-16.It's AMSystem
  *@description:
  */
-data class UploadImageResp (val url:String,val name:String)
+data class UploadImageReq(val imageFile: File, val _type: String = "file")
 
-data class UploadImageReq(val imageFile:File,val _type:String="file")
+data class UploadImageResp(
+        val code: Int = 0,
+        val error: String?,
+        val url: String?,
+        val name: String?) {
+    fun isSuccess(): Boolean = code == 0 && url.isNullOrEmpty().not()
+}

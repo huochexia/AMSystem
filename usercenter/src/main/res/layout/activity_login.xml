@@ -31,7 +31,6 @@
                 android:drawableLeft="@mipmap/icon_user_name"
                 android:drawablePadding="@dimen/common_padding_small"
                 android:hint="请输入手机号码"
-                android:inputType="phone"
                 android:paddingLeft="@dimen/common_padding_small"
                 android:onTextChanged="@{vm::getUserName}"/>
 

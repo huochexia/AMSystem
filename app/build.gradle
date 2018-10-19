@@ -10,11 +10,11 @@ kapt {
     }
 }
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.owner.amsystem"
         minSdkVersion 19
-        targetSdkVersion  27
+        targetSdkVersion  28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -43,6 +43,9 @@ dependencies {
     api project(':provideslib')
     if (isUserCenter.toBoolean()) {
         api project(':usercenter')
+    }
+    if(isAssertsParam.toBoolean()){
+        api project(':assertsparam')
     }
     //ARouter
     kapt 'com.alibaba:arouter-compiler:1.2.1'

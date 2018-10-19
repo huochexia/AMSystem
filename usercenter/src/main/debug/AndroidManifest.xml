@@ -26,7 +26,7 @@
         </activity>
         <activity android:name="com.owner.usercenter.view.activity.RegisterActivity" />
         <activity android:name="com.owner.usercenter.view.activity.ForgetPwdActivity" />
-        <activity android:name="com.owner.usercenter.view.activity.ResetPwdActivity"></activity>
+        <activity android:name="com.owner.usercenter.view.activity.ResetPwdActivity"/>
     </application>
 
 </manifest>

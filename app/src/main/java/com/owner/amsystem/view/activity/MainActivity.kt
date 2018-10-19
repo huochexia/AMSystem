@@ -1,11 +1,13 @@
 package com.owner.amsystem.view.activity
 
+import android.databinding.ViewDataBinding
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
+import com.avos.avoscloud.LogUtil
 import com.orhanobut.logger.Logger
 import com.owner.amsystem.R
 import com.owner.amsystem.view.fragment.AssertFragment
@@ -16,13 +18,15 @@ import com.owner.baselibrary.common.AppManager
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.ext.hideFragment
 import com.owner.baselibrary.ext.showFragment
+import com.owner.baselibrary.view.activity.BaseActivity
+import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import java.util.*
 
 @Route(path = RouterPath.App.PATH_MAIN)
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ViewDataBinding,BaseViewModel<*>>() {
 
     private var pressTime:Long = 0
     //Fragment 栈管理
@@ -36,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Logger.d("主界面","查出现两次")
+
         initFragment()
         initBottomNav()
         changeFragment(0)

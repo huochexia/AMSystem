@@ -78,4 +78,11 @@ class HeaderBar  @JvmOverloads constructor(
     fun getLeftView(): ImageView {
         return mLeftIv
     }
+
+    /*
+      对外提供标题
+     */
+    fun getTitleView(): TextView {
+        return mTitleTv
+    }
 }

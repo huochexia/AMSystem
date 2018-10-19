@@ -48,11 +48,11 @@ open class BaseFragment<B:ViewDataBinding,VM:BaseViewModel<*>>: Fragment() {
 
 
     override fun onDestroy() {
-        super.onDestroy()
         //使用RefWatcher监控Fragment
         val refWatcher = AMSystemApp.getRefWatcher(activity!!)
         refWatcher.watch(this)
         viewModel.compositeDisposable.clear()
+        super.onDestroy()
     }
 
 

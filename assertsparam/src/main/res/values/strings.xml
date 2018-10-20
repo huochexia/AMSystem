@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AssertsParam</string>
+    <string name="nav_bar_assert_location">位置</string>
+    <string name="nav_bar_assert_category">类别</string>
+    <string name="nav_bar_assert_department">部门</string>
+    <string name="nav_bar_assert_manager">管理人</string>
+</resources>

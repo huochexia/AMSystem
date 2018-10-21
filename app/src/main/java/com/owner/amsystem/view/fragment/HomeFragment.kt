@@ -17,6 +17,7 @@ package com.owner.amsystem.view.fragment
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeViewModel>() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         binding.vm = viewModel
+        (binding.mHomeDiscountRv.layoutManager as LinearLayoutManager).orientation = LinearLayoutManager.HORIZONTAL
         return binding.root
     }
 

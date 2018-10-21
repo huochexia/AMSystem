@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="topCateVM"
+            type="com.owner.assertsparam.data.CategoryInfo" />
+    </data>
+
+    <LinearLayout style="@style/MatchWrap">
+
+        <TextView
+            style="@style/MatchWrap"
+            android:background="@drawable/top_category_bg_selector"
+            android:gravity="center"
+            android:padding="@dimen/common_padding_middle"
+            android:textColor="@drawable/top_category_text_selector"
+            android:text="@{topCateVM.name}"/>
+    </LinearLayout>
+</layout>

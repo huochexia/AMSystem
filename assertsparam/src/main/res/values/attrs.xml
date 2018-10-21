@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    /*
+     * 字母索引
+     */
+    <declare-styleable name="CharIndexBar">
+        <attr name="textSize" />
+    </declare-styleable>
+</resources>

@@ -4,4 +4,11 @@
     <string name="nav_bar_assert_category">类别</string>
     <string name="nav_bar_assert_department">部门</string>
     <string name="nav_bar_assert_manager">管理人</string>
+    <string name="asserts_param_category">资产类别</string>
+    <string name="second_category">二级分类</string>
+    <string name="image_description">一级分类图片</string>
+    <string name="second_image_descriptiontodo">二级分类图片</string>
+
+    <string name="linear_layout_manager">android.support.v7.widget.LinearLayoutManager</string>
+    <string name="grid_layout_manager">android.support.v7.widget.GridLayoutManager</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.owner.amsystem.view.activity
 
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ViewDataBinding
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.owner.amsystem.view.fragment.AssertFragment
 import com.owner.amsystem.view.fragment.HomeFragment
 import com.owner.amsystem.view.fragment.MeFragment
 import com.owner.amsystem.view.fragment.MessageFragment
+import com.owner.amsystem.viewmodel.MainViewModel
 import com.owner.baselibrary.common.AppManager
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.ext.hideFragment
@@ -40,7 +42,7 @@ class MainActivity : BaseActivity<ViewDataBinding,BaseViewModel<*>>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         initFragment()
         initBottomNav()
         changeFragment(0)

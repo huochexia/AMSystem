@@ -20,6 +20,7 @@ import me.drakeet.multitype.MultiTypeAdapter;
  *
  * @description:
  */
+@SuppressWarnings("unchecked")
 public class BindingAdapterUtil {
 
     public static class BindableVariables extends BaseObservable {

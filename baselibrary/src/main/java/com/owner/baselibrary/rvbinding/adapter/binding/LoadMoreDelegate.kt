@@ -35,7 +35,7 @@ open class LoadMoreDelegate(private val loadMoreSubject: OnLoadMore) {
         class EndlessScrollListener(val layoutManager: LinearLayoutManager, private val loadMoreSubject: OnLoadMore)
             : RecyclerView.OnScrollListener() {
             val VISIBLE_THRESHOLD = 6
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy < 0) {
                     return
                 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="thirdCgVM"
+            type="com.owner.assertsparam.viewmodel.ThirdCategoryViewModel" />
+    </data>
+
+    <LinearLayout
+        style="@style/WrapWrap.Vertical"
+        android:layout_marginBottom="@dimen/common_margin">
+
+        <ImageView
+            android:id="@+id/mThirdCategoryIv"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:scaleType="fitXY"
+            android:onClick="@{thirdCgVM::onClick}"
+            app:imageUrl="@{thirdCgVM.imgUrl}"
+            app:placeholder="@{@drawable/placeholder}"/>
+
+        <TextView
+            android:id="@+id/mThirdCategoryNameTv"
+            style="@style/WrapWrap"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/common_margin_middle"
+            android:textSize="@dimen/text_small_size"
+            android:text="@{thirdCgVM.thirdCgName}" />
+    </LinearLayout>
+</layout>

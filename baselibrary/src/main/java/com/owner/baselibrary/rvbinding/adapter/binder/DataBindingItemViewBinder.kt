@@ -54,7 +54,7 @@ open class DataBindingItemViewBinder<T, DB : ViewDataBinding>(private val delega
      * 二级构造方法
      */
     constructor(factory: BiFunction<LayoutInflater, ViewGroup, DB>, binder: OnBindItem<T, DB>?)
-            : this(SimpeDelegate(factory, binder))
+            : this(SimpleDelegate(factory, binder))
 
     /**
      * 关键的构造方法，通过传入布局文件，调用DATaBindingUtil的inflater方法
@@ -79,7 +79,7 @@ open class DataBindingItemViewBinder<T, DB : ViewDataBinding>(private val delega
     }
 
     companion object {
-        class SimpeDelegate<T, DB : ViewDataBinding>(private val factory: BiFunction<LayoutInflater, ViewGroup, DB>,
+        class SimpleDelegate<T, DB : ViewDataBinding>(private val factory: BiFunction<LayoutInflater, ViewGroup, DB>,
                                                      private val binder: OnBindItem<T, DB>?) : Delegate<T, DB> {
 
 

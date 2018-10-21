@@ -104,5 +104,6 @@ dependencies {
     api 'com.github.crosswall:Android-Coverflow:release-v1.0.4'
     //ARouter
     api 'com.alibaba:arouter-api:1.4.0'
-
+    //MulitStateView多状态视图（正在加载，加载成功，加载失败）
+    api "com.github.Kennyc1012:MultiStateView:$multi_state_view_version"
 }

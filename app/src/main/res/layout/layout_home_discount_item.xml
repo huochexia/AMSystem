@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.owner.baselibrary.utils.ConverterKt"/>
+        <variable
+            name="data"
+            type="com.owner.amsystem.data.DiscountInfo" />
+    </data>
+
+    <LinearLayout
+        style="@style/WrapWrap.Vertical"
+        android:gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="71.0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/mGoodsIconIv"
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                app:imageUrl="@{data.imgUrl}"
+                app:placeholder="@{@drawable/placeholder}"
+                />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/mDiscountAfterTv"
+            style="@style/WrapWrap"
+            android:layout_marginTop="@dimen/common_margin_small"
+            android:text="@{ConverterKt.fromIntToString(data.discountAfter)}"
+            android:textColor="@color/common_red"
+            android:textSize="@dimen/text_small_size" />
+
+        <TextView
+            android:id="@+id/mDiscountBeforeTv"
+            style="@style/WrapWrap"
+            android:text="@{ConverterKt.fromIntToString(data.discountBefore)}"
+            android:textColor="@color/common_disable"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+</layout>

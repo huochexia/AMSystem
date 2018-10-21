@@ -18,7 +18,7 @@ package com.owner.baselibrary.common
 import android.app.Application
 import android.content.Context
 import android.content.ContextWrapper
-import android.support.multidex.MultiDexApplication
+//import android.support.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
 import com.avos.avoscloud.AVOSCloud
 import com.orhanobut.logger.AndroidLogAdapter

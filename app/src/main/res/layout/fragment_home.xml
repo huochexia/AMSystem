@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="vm"
             type="com.owner.amsystem.viewmodel.HomeViewModel" />
     </data>
 
-    <LinearLayout
-        style="@style/MatchMatch.Vertical">
+    <LinearLayout style="@style/MatchMatch.Vertical">
 
         <LinearLayout
             style="@style/SearchHeaderStyle"
@@ -32,6 +33,19 @@
             android:layout_width="match_parent"
             android:layout_height="150dp" />
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mHomeDiscountRv"
+            style="@style/commonRecyclerView"
+            android:layout_height="wrap_content"
+            android:background="@color/common_white"
+            android:paddingLeft="@dimen/common_padding"
+            android:paddingRight="@dimen/common_padding"
+            android:paddingBottom="@dimen/common_padding_small"
+            app:items="@{vm.infoList}"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:itemLayout="@{@layout/layout_home_discount_item}"
+            app:onBindItem="@{vm::onBindItem}"
+            />
 
         <me.crosswall.lib.coverflow.core.PagerContainer
             android:id="@+id/mTopicContainer"

@@ -8,6 +8,7 @@ import com.owner.assertsparam.R
 
 
 /**
+ * 资产参数设置模块底部导航栏
  * Created by Administrator on 2018/10/19 0019
  */
 class AssertsParamBottomNavBar @JvmOverloads constructor(

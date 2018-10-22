@@ -15,10 +15,10 @@
  */
 package com.owner.assertsparam.viewmodel
 
-import android.databinding.ObservableArrayList
-import android.databinding.ViewDataBinding
+import android.view.View
+import android.widget.Toast
+import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.model.repository.AssertsParamRepository
-import com.owner.assertsparam.model.repository.impl.AssertsParamRepositoryImpl
 import com.owner.baselibrary.viewmodel.BaseViewModel
 
 /**
@@ -26,8 +26,15 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
  * Created by Liuyong on 2018-10-20.It's AMSystem
  *@description:
  */
-class TopCategoryViewModel(val name:String) : BaseViewModel<AssertsParamRepository>() {
+class TopCgItemViewModel(var info: CategoryInfo) : BaseViewModel<AssertsParamRepository>() {
 
+    fun onClick(view: View) {
+        view.isSelected = true
+        Toast.makeText(view.context, info.name, Toast.LENGTH_SHORT).show()
+    }
 
-
+    fun onLongClick(view: View): Boolean {
+        Toast.makeText(view.context, "长按" + info.name, Toast.LENGTH_SHORT).show()
+        return true
+    }
 }

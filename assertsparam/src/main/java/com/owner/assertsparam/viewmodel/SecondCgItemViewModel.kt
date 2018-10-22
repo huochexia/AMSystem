@@ -15,28 +15,27 @@
  */
 package com.owner.assertsparam.viewmodel
 
+import android.databinding.ObservableArrayList
 import android.databinding.ViewDataBinding
-import android.view.View
-import android.widget.ImageView
+import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.model.repository.AssertsParamRepository
-import com.owner.assertsparam.model.repository.impl.AssertsParamRepositoryImpl
 import com.owner.baselibrary.viewmodel.BaseViewModel
 
 /**
- *
+ * 二级分类ViewModel
  * Created by Liuyong on 2018-10-20.It's AMSystem
- *@description:
+ * @description:
  */
-class ThirdCategoryViewModel : BaseViewModel<AssertsParamRepository>(){
+class SecondCgItemViewModel : BaseViewModel<AssertsParamRepository>() {
 
 
-    lateinit var imgUrl:String
-    lateinit var thirdCgName :String
 
-    /*
-      绑定事件
+     var secondCgList= ObservableArrayList<CategoryInfo>()
+
+    /**
+     * 绑定事件
      */
-    fun onClick(view: View) {
+    fun onBindItem(binding: ViewDataBinding, data: Any, position: Int) {
 
     }
 }

@@ -13,12 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.assertsparam.data
+package com.owner.assertsparam.viewmodel
+
+import android.databinding.ViewDataBinding
+import android.view.View
+import android.widget.ImageView
+import com.owner.assertsparam.model.repository.AssertsParamRepository
+import com.owner.assertsparam.model.repository.impl.AssertsParamRepositoryImpl
+import com.owner.baselibrary.viewmodel.BaseViewModel
 
 /**
  *
  * Created by Liuyong on 2018-10-20.It's AMSystem
  *@description:
  */
-class ThirdCategoryInfo {
+class ThirdCgItemViewModel : BaseViewModel<AssertsParamRepository>(){
+
+
+    lateinit var imgUrl:String
+    lateinit var thirdCgName :String
+
+    /*
+      绑定事件
+     */
+    fun onClick(view: View) {
+
+    }
 }

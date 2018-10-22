@@ -15,11 +15,11 @@
  */
 package com.owner.assertsparam.viewmodel
 
-import android.databinding.ObservableArrayList
-import android.databinding.ViewDataBinding
+import android.arch.lifecycle.MutableLiveData
+import android.view.View
+import android.widget.Toast
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.model.repository.AssertsParamRepository
-import com.owner.assertsparam.model.repository.impl.AssertsParamRepositoryImpl
 import com.owner.baselibrary.viewmodel.BaseViewModel
 
 /**
@@ -27,27 +27,33 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
  * Created by Liuyong on 2018-10-20.It's AMSystem
  *@description:
  */
-class CategoryViewModel : BaseViewModel<AssertsParamRepository>() {
+class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
 
-    var topCgList=  ObservableArrayList<Any>()
+    var topCgList = mutableListOf<CategoryInfo>()
+
+    lateinit var selectedCg : MutableLiveData<Int>
+
     init {
-        val top1 =CategoryInfo("桌子",0,0)
+        val top1 = CategoryInfo(1, "桌子", 0)
 
-        val top2 =CategoryInfo( "办公家具",1,0)
+        val top2 = CategoryInfo(2, "办公家具", 1)
 
-        val top3 =CategoryInfo("学员公寓家俱",2,0)
+        val top3 = CategoryInfo(3, "学员公寓家俱", 2)
 
         topCgList.add(top1)
         topCgList.add(top2)
         topCgList.add(top3)
-
+        selectedCg = MutableLiveData()
     }
 
-
-    fun onBindItem(binding: ViewDataBinding, data: Any, position: Int) {
-        binding.root.setOnClickListener{
-            println("This is top category!!")
+    fun topItemOnClick(view: View, item: CategoryInfo) {
+        //还原所有分类值
+        topCgList.forEach {
+            it.isSelected = false
         }
+        selectedCg.value=3
+        Toast.makeText(view.context, item.name, Toast.LENGTH_SHORT).show()
     }
+
 
 }

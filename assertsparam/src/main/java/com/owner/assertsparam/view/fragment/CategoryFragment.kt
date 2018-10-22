@@ -15,32 +15,43 @@
  */
 package com.owner.assertsparam.view.fragment
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.owner.assertsparam.R
 import com.owner.assertsparam.databinding.FragementCategoryBinding
-import com.owner.assertsparam.viewmodel.CategoryViewModel
-import com.owner.assertsparam.viewmodel.SecondCategoryViewModel
-import com.owner.assertsparam.viewmodel.TopCategoryViewModel
+import com.owner.assertsparam.view.adapter.TopCgAdapter
+import com.owner.assertsparam.viewmodel.CategoryFgViewModel
 import com.owner.baselibrary.view.fragment.BaseFragment
-import com.owner.baselibrary.viewmodel.BaseViewModel
+import kotlinx.android.synthetic.main.fragement_category.*
 
 /**
  *
  * Created by Liuyong on 2018-10-20.It's AMSystem
  *@description:
  */
-class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryViewModel>() {
+class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewModel>() {
+
+    lateinit var adapter: TopCgAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(CategoryFgViewModel::class.java)
+        viewModel.selectedCg.observe(this, Observer {
+            viewModel.topCgList.forEach {
+                it.isSelected=true
+            }
+
+            Toast.makeText(context, "changed", Toast.LENGTH_LONG).show()
+            adapter.notifyDataSetChanged()
+
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,7 +59,14 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryViewMode
         val binding = DataBindingUtil.inflate<FragementCategoryBinding>(
                 inflater, R.layout.fragement_category, container, false)
         binding.categoryVM = viewModel
-        (binding.mTopCategoryRv.layoutManager as LinearLayoutManager).orientation = LinearLayoutManager.VERTICAL
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view,savedInstanceState)
+        mTopCategoryRv.layoutManager = LinearLayoutManager(context)
+        adapter = TopCgAdapter(viewModel.topCgList)
+        mTopCategoryRv.adapter =adapter
+
     }
 }

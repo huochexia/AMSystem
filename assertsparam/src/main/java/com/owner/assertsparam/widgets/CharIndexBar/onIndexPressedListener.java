@@ -1,4 +1,4 @@
-package com.owner.assertsparam.Interface;
+package com.owner.assertsparam.widgets.CharIndexBar;
 
 /**
  * 人员列表中，导航栏被按下事件监听接口

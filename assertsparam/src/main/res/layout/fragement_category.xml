@@ -5,7 +5,7 @@
     <data>
         <variable
             name="categoryVM"
-            type="com.owner.assertsparam.viewmodel.CategoryViewModel"/>
+            type="com.owner.assertsparam.viewmodel.CategoryFgViewModel"/>
 
     </data>
 
@@ -34,10 +34,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/mTopCategoryRv"
                     style="@style/commonRecyclerView"
-                    app:items="@{categoryVM.topCgList}"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                    app:itemLayout="@{@layout/layout_top_category_item}"
-                    app:onBindItem="@{categoryVM::onBindItem}"/>
+                   />
             </LinearLayout>
 
             <LinearLayout
@@ -51,7 +48,6 @@
                     android:id="@+id/mSecondCategoryIv"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:contentDescription="@string/second_image_descriptiontodo"
                     android:scaleType="fitXY"
                     android:src="@mipmap/category_banner" />
 

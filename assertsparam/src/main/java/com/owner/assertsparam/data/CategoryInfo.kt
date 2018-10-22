@@ -16,8 +16,17 @@
 package com.owner.assertsparam.data
 
 /**
- *
+ * 类别信息
+ * @name ：类别名称
+ * @id ：自身ID值
+ * @parentId ：所属类别ID，一级类别父ID为0
+ * @imageUrl：类别图片网络地址，默认为空字符串。因为一级，二级类别没有图片
+ * @isSelected:是否被选择，这个属性不存储于网络
  * Created by Liuyong on 2018-10-21.It's AMSystem
  *@description:
  */
-data class CategoryInfo (val name:String,val id:Int,val parentId:Int)
+data class CategoryInfo(val id: Int,
+                        val name: String,
+                        val parentId: Int,
+                        val imageUrl: String = "",
+                        var isSelected: Boolean = false)

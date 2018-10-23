@@ -6,29 +6,33 @@ import android.view.ViewGroup
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.LayoutTopCategoryItemBinding
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
-import com.owner.assertsparam.viewmodel.TopCgItemViewModel
 
 /**
- * Adapter
+ * Adapter,除了传入数据列表以外，还需要传入CategoryFgViewModel对象，因为项目布局中要引入该对象。布局
+ * 中引入这个对象是为了实现点击项目时视图响应该点击事件。点击事件处理项目选中后的变化
  * Created by Administrator on 2018/10/22 0022
  */
-class TopCgAdapter(var topCgList: MutableList<CategoryInfo>) : RecyclerView.Adapter<TopCgAdapter.TopCgViewHolder>() {
+class TopCgAdapter( private val mCategoryVM:CategoryFgViewModel )
+    : RecyclerView.Adapter<TopCgAdapter.TopCgViewHolder>() {
+
+    private val dataList = mCategoryVM.topCgList
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopCgViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return TopCgViewHolder.create(inflater, parent)
     }
 
-    override fun getItemCount(): Int = topCgList.size
+    override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: TopCgViewHolder, position: Int) {
-        val categoryItem = topCgList[position]
-        holder.bindToData(categoryItem)
+        val categoryItem = dataList[position]
+        holder.bindToData(categoryItem,mCategoryVM)
     }
 
     /**
      * ViewHolder
      */
-    class TopCgViewHolder(val mBinding: LayoutTopCategoryItemBinding) : RecyclerView.ViewHolder(mBinding.root) {
+    class TopCgViewHolder(private val mBinding: LayoutTopCategoryItemBinding) : RecyclerView.ViewHolder(mBinding.root) {
 
         companion object {
             /*
@@ -43,15 +47,14 @@ class TopCgAdapter(var topCgList: MutableList<CategoryInfo>) : RecyclerView.Adap
         /*
           与数据源绑定
          */
-        fun bindToData(topCategory: CategoryInfo) {
-            if (mBinding.categoryVM == null)
-                mBinding.categoryVM = CategoryFgViewModel()
-            if (mBinding.topCateVM == null) {
-                mBinding.topCateVM = TopCgItemViewModel(topCategory)
-            } else {
-                mBinding.topCateVM?.info = topCategory
-            }
+        fun bindToData(topCategory: CategoryInfo,categoryFgViewModel: CategoryFgViewModel) {
+            //绑定CategoryInfo对象
+            mBinding.category= topCategory
+            //设置TextView当前状态
             mBinding.mTopCategoryNameTv.isSelected = topCategory.isSelected
+            //绑定CategoryFgViewModel对象
+            mBinding.categoryVM = categoryFgViewModel
+            //必须执行此方法
             mBinding.executePendingBindings()
         }
     }

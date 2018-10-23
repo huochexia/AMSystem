@@ -1,5 +1,6 @@
 package com.owner.usercenter.view.activity
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.databinding.Observable
@@ -27,20 +28,11 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
         viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
         binding.vm = viewModel
+        viewModel.error.observe(this, Observer {
+            toast(it?:"错误信息不明确！")
+        })
         initView()
-        //通过ViewModel中数据的变化驱动视图显示内容
-        with(viewModel.result) {
-            addOnPropertyChangedCallback(object :Observable.OnPropertyChangedCallback(){
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    when (get()) {
-                        UserConstant.RESULT_INIT_VALUE->{}
-                        UserConstant.ACTION_SUCCESS -> finish()
-                        else->toast(ExceptionMsg.getError(get()))
-                    }
-                    set(UserConstant.RESULT_INIT_VALUE)//需要还原，防止连续发生同样的问题时，数据没有变化，不能触发事件
-                }
-            })
-        }
+
     }
 
     /**

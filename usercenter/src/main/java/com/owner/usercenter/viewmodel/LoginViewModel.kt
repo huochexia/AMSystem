@@ -50,7 +50,7 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
     }
 
     //登录结果，通过它驱动视图变化
-    var result = ObservableInt(UserConstant.RESULT_INIT_VALUE)
+    var result = MutableLiveData<String>()
 
     private var mUserName: String = ""
 
@@ -79,12 +79,12 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
                         if (it.isSuccess()) {
                             loginSuccess(it)
                         } else {
-                            result.set(it.code)
+                            result.value = ExceptionMsg.getError(it.code)
                         }
                     }
             compositeDisposable.add(disposable)
         } else {
-            result.set(UserConstant.NET_NO)
+            result.value =ExceptionMsg.getError(UserConstant.NET_NO)
         }
     }
 

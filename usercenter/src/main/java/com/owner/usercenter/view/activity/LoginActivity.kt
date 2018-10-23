@@ -1,5 +1,6 @@
 package com.owner.usercenter.view.activity
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.databinding.Observable
@@ -28,25 +29,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         binding.vm = viewModel
+        viewModel.result.observe(this, Observer {
+            toast(it ?: "错误信息不明确！")
+        })
         initView()
         //该视图属于嵌套，所以不能用绑定事件
         binding.mHeaderBar.getRightView().setOnClickListener(this)
         //该事件只是一个跳转，所以直接在视图中实现，没有使用绑定
         binding.mForgetPwdTv.setOnClickListener(this)
-
-        with(viewModel.result) {
-            addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    when (get()) {
-                        UserConstant.RESULT_INIT_VALUE -> {
-                        }
-                        else -> toast(ExceptionMsg.getError(get()))
-                    }
-                    //需要还原原值，否则连续出现同一个值无法触发事件
-                    set(UserConstant.RESULT_INIT_VALUE)
-                }
-            })
-        }
     }
 
     /**

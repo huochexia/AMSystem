@@ -24,6 +24,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bigkoo.alertview.AlertView
+import com.bigkoo.alertview.OnItemClickListener
 import com.owner.assertsparam.R
 import com.owner.assertsparam.databinding.FragementCategoryBinding
 import com.owner.assertsparam.view.adapter.TopCgAdapter
@@ -43,15 +45,13 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CategoryFgViewModel::class.java)
-        viewModel.selectedCg.observe(this, Observer {
-            viewModel.topCgList.forEach {
-                it.isSelected=true
-            }
 
-            Toast.makeText(context, "changed", Toast.LENGTH_LONG).show()
+        //设置LiveData对象变化监听器
+        viewModel.selectedCg.observe(this, Observer {
             adapter.notifyDataSetChanged()
 
         })
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -63,10 +63,18 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view,savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         mTopCategoryRv.layoutManager = LinearLayoutManager(context)
-        adapter = TopCgAdapter(viewModel.topCgList)
-        mTopCategoryRv.adapter =adapter
+        adapter = TopCgAdapter(viewModel)
+        mTopCategoryRv.adapter = adapter
 
+        mTopCategoryBtn.setOnClickListener {
+            AlertView.Builder().setContext(context)
+                    .setStyle(AlertView.Style.ActionSheet)
+                    .setCancelText("取消")
+                    .setDestructive("增加","修改","删除")
+                    .setOnItemClickListener { _, _ -> }
+                    .build().show()
+        }
     }
 }

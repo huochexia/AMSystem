@@ -15,6 +15,7 @@
  */
 package com.owner.usercenter.viewmodel
 
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableInt
 import android.view.View
@@ -53,7 +54,7 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
     private var pwdAgain: String = ""
 
     //通过修改这个可观察变量的值，驱动视图显示相应的提示内容
-    var result = ObservableInt(-1)
+    val error = MutableLiveData<String>()
 
     init {
         repo = UserRepositoryImpl()
@@ -91,10 +92,10 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
                         }
                 compositeDisposable.add(disposable)
             } else {
-                result.set(UserConstant.TWO_PASSWORD_NO_SAME)
+                error.value = ExceptionMsg.getError(UserConstant.TWO_PASSWORD_NO_SAME)
             }
         } else {
-            result.set(UserConstant.NET_NO)
+            error.value = ExceptionMsg.getError(UserConstant.NET_NO)
         }
 
     }
@@ -102,14 +103,13 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
     /**
      * 得到结果
      */
-    private fun getResult(it:RegisterResp) {
+    private fun getResult(it: RegisterResp) {
         if (it.isSuccess()) {
-            result.set(UserConstant.ACTION_SUCCESS)
+            error.value= ExceptionMsg.getError(UserConstant.ACTION_SUCCESS)
         } else {
-//            val error = it.errorBody()?.string()
-//            val json = JSONObject(error)
-            result.set(it.code)
+            error.value = ExceptionMsg.getError(it.code)
         }
+
     }
 
 }

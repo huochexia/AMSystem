@@ -15,9 +15,13 @@
  */
 package com.owner.assertsparam.viewmodel
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.databinding.Bindable
 import android.view.View
 import android.widget.Toast
+import com.orhanobut.logger.Logger
+import com.owner.assertsparam.BR
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.model.repository.AssertsParamRepository
 import com.owner.baselibrary.viewmodel.BaseViewModel
@@ -31,7 +35,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
 
     var topCgList = mutableListOf<CategoryInfo>()
 
-    lateinit var selectedCg : MutableLiveData<Int>
+    var isVisiable = MutableLiveData<Boolean>()
 
     init {
         val top1 = CategoryInfo(1, "桌子", 0)
@@ -43,17 +47,19 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         topCgList.add(top1)
         topCgList.add(top2)
         topCgList.add(top3)
-        selectedCg = MutableLiveData()
+        isVisiable.value = false
     }
 
-    fun topItemOnClick(view: View, item: CategoryInfo) {
-        //还原所有分类值
+    var selectedCg = MutableLiveData<CategoryInfo>()
+    fun topItemOnClick(item: CategoryInfo) {
+        //取消所有选择
         topCgList.forEach {
             it.isSelected = false
         }
-        selectedCg.value=3
-        Toast.makeText(view.context, item.name, Toast.LENGTH_SHORT).show()
-    }
+        //将当前项目设定为选择状态
+        item.isSelected = true
+        selectedCg.value = item
 
+    }
 
 }

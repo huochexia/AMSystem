@@ -4,25 +4,29 @@
     <data>
 
         <variable
-            name="topCateVM"
-            type="com.owner.assertsparam.viewmodel.TopCgItemViewModel" />
+            name="category"
+            type="com.owner.assertsparam.data.CategoryInfo" />
+
         <variable
             name="categoryVM"
-            type="com.owner.assertsparam.viewmodel.CategoryFgViewModel"/>
+            type="com.owner.assertsparam.viewmodel.CategoryFgViewModel" />
     </data>
 
-    <LinearLayout style="@style/MatchWrap">
+    <LinearLayout
+        style="@style/MatchWrap"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/mTopCategoryNameTv"
             style="@style/MatchWrap"
             android:background="@drawable/top_category_bg_selector"
             android:gravity="center"
+            android:onClick="@{()->categoryVM.topItemOnClick(category)}"
             android:padding="@dimen/common_padding_middle"
-            android:textColor="@drawable/top_category_text_selector"
-            android:text="@{topCateVM.info.name}"
-            android:onClick="@{(view)->categoryVM.topItemOnClick(view,topCateVM.info)}"
-            android:onLongClick="@{topCateVM::onLongClick}"
-            />
+            android:text="@{category.name}"
+            android:textColor="@drawable/top_category_text_selector" />
+
+
     </LinearLayout>
+
 </layout>

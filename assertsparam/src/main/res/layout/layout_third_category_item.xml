@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
-            name="thirdCgVM"
-            type="com.owner.assertsparam.viewmodel.ThirdCgItemViewModel" />
+            name="category"
+            type="com.owner.assertsparam.data.CategoryInfo"/>
+        <variable
+            name="categoryFgVM"
+            type="com.owner.assertsparam.viewmodel.CategoryFgViewModel" />
     </data>
 
     <LinearLayout
@@ -18,9 +20,7 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:scaleType="fitXY"
-            android:onClick="@{thirdCgVM::onClick}"
-            app:imageUrl="@{thirdCgVM.imgUrl}"
-            app:placeholder="@{@drawable/placeholder}"/>
+            app:imageUrl="@{category.imageUrl}"/>
 
         <TextView
             android:id="@+id/mThirdCategoryNameTv"
@@ -28,6 +28,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/common_margin_middle"
             android:textSize="@dimen/text_small_size"
-            android:text="@{thirdCgVM.thirdCgName}" />
+            android:text="@{category.name}" />
     </LinearLayout>
 </layout>

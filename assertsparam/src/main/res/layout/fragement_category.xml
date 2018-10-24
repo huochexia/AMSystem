@@ -53,7 +53,8 @@
 
                 <com.kennyc.view.MultiStateView
                     android:id="@+id/mMultiStateView"
-                    style="@style/MultiStateStyle">
+                    style="@style/MultiStateStyle"
+                    app:msv_viewState="@{categoryVM.viewState}">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/mSecondCategoryRv"

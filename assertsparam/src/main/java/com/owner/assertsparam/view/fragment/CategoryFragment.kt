@@ -23,10 +23,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.EditText
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.owner.assertsparam.R
+import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.FragementCategoryBinding
 import com.owner.assertsparam.view.adapter.TopCgAdapter
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
@@ -40,7 +41,11 @@ import kotlinx.android.synthetic.main.fragement_category.*
  */
 class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewModel>() {
 
+
     lateinit var adapter: TopCgAdapter
+    lateinit var alertView: AlertView
+    //输入方法管理
+//    lateinit var imm: InputMethodManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +56,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             adapter.notifyDataSetChanged()
 
         })
-
+//        imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -70,11 +75,60 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
 
         mTopCategoryBtn.setOnClickListener {
             AlertView.Builder().setContext(context)
-                    .setStyle(AlertView.Style.ActionSheet)
-                    .setCancelText("取消")
-                    .setDestructive("增加","修改","删除")
-                    .setOnItemClickListener { _, _ -> }
-                    .build().show()
+                    .setStyle(AlertView.Style.Alert)
+                    .setDestructive("增加", "修改", "删除")
+                    .setOnItemClickListener { _, position ->
+                        when (position) {
+                            0 -> addCategory()
+                        }
+                    }
+                    .build().setCancelable(true).show()
+//            addCategory()
         }
     }
+
+    /**
+     * 增加类别
+     */
+    fun addCategory() {
+        alertView = AlertView("增加类别", null, "取消", null,
+                arrayOf("完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position -> })
+        val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
+        val editV = extView.findViewById<EditText>(R.id.mCgNameEt)
+//        editV.setOnFocusChangeListener { view, b ->
+//            val isOpen = imm.isActive
+//            if (isOpen && b) {
+//                alterView.setMarginBottom(120)
+//            } else {
+//                alterView.setMarginBottom(0)
+//            }
+//        }
+        alertView.addExtView(extView).show()
+    }
+
+    /**
+     * 修改类别
+     */
+    fun updateCategory(cateName: String) {
+        alertView = AlertView("增加类别", null, "取消", null,
+                arrayOf("完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position -> })
+        val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
+        val editV = extView.findViewById<EditText>(R.id.mCgNameEt)
+        editV.setText(cateName)
+        alertView.addExtView(extView).show()
+    }
+
+    /**
+     * 修改类别
+     */
+    fun deleteCategory(category: CategoryInfo) {
+        alertView = AlertView("增加类别", null, "取消", null,
+                arrayOf("确定"), context, AlertView.Style.Alert, OnItemClickListener { o, position -> })
+
+        alertView.show()
+    }
+
+
 }
+
+

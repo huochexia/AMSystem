@@ -19,6 +19,7 @@ import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.TextView
+import com.kennyc.view.MultiStateView
 import com.owner.baselibrary.ext.loadUrl
 import com.owner.baselibrary.utils.GlideUtils
 
@@ -47,6 +48,15 @@ class DataBindAdapterUtils {
             } else {
                 textView.text = value
             }
+        }
+
+        /*
+           变换多状态视图界面
+         */
+        @BindingAdapter("msv_viewState")
+        @JvmStatic
+        fun setViewState(view: MultiStateView, state: Int) {
+            view.viewState = state
         }
     }
 }

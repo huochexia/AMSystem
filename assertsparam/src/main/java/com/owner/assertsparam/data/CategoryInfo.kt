@@ -25,8 +25,10 @@ package com.owner.assertsparam.data
  * Created by Liuyong on 2018-10-21.It's AMSystem
  *@description:
  */
-data class CategoryInfo(val id: Int,
+data class CategoryInfo(val id: String,
                         val name: String,
-                        val parentId: Int,
+                        val parentId: String,
                         val imageUrl: String = "",
-                        var isSelected: Boolean = false)
+                        var isSelected: Boolean = false,//选择状态
+                        var isLongOnClick: Boolean = false//长按状态
+)

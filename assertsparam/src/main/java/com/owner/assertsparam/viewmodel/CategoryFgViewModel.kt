@@ -33,7 +33,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
 
     var topCgList = mutableListOf<CategoryInfo>()
 
-    var isVisiable = MutableLiveData<Boolean>()
+
     /*
        多状态视图参数，此处只能用这种形式，因为布局中属性值是Int类。如果用observableInt或者是LiveData<Int>
        都会给该值增加封装，造成databinding失败
@@ -46,33 +46,82 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         }
 
     init {
-        val top1 = CategoryInfo(1, "桌子", 0)
+        val top1 = CategoryInfo("1", "桌子", "0")
 
-        val top2 = CategoryInfo(2, "办公家具", 1)
+        val top2 = CategoryInfo("2", "办公家具", "1")
 
-        val top3 = CategoryInfo(3, "学员公寓家俱", 2)
+        val top3 = CategoryInfo("3", "学员公寓家俱", "2")
 
         topCgList.add(top1)
         topCgList.add(top2)
         topCgList.add(top3)
-        isVisiable.value = false
-    }
 
+    }
+    //存储用户当前选择的类别对象，并触发刷新事件
     var selectedCg = MutableLiveData<CategoryInfo>()
 
     /**
      * 一级列表项目点击事件
      */
     fun topItemOnClick(item: CategoryInfo) {
-        //取消所有选择
+        //取消所有选择和长按状态
         topCgList.forEach {
             it.isSelected = false
+            it.isLongOnClick = false
         }
         //将当前项目设定为选择状态
         item.isSelected = true
         selectedCg.value = item
-        //模拟改变当前视图
-        viewState = MultiStateView.VIEW_STATE_LOADING
+
     }
 
+    /**
+     * 一级列表项目长按事件
+     */
+    fun topItemLongClick(item: CategoryInfo): Boolean {
+        topCgList.forEach {
+            it.isLongOnClick = false
+            it.isSelected = false
+        }
+        item.isSelected = true
+        item.isLongOnClick = true
+        selectedCg.value = item
+
+        return true
+    }
+    //显示修改对话框
+    var updateAlert = MutableLiveData<CategoryInfo>()
+    /**
+     * 启动修改类别对话框
+     */
+    fun updateAlert(category: CategoryInfo) {
+        category.isLongOnClick = false
+        selectedCg.value = category
+        updateAlert.value = category
+    }
+
+    /**
+     * 执行修改操作
+     */
+    fun updateCategory(category: CategoryInfo) {
+
+    }
+
+    //显示删除对话框
+    var deleteAlert = MutableLiveData<CategoryInfo>()
+    /**
+     * 启动删除类别对话框
+     */
+    fun deleteAlert(category: CategoryInfo) {
+        category.isLongOnClick = false
+        selectedCg.value = category
+        deleteAlert.value = category
+    }
+
+    /**
+     *  执行删除操作
+     */
+    fun deleteCategory(category: CategoryInfo) {
+
+    }
 }

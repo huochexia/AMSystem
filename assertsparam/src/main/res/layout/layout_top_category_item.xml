@@ -22,11 +22,42 @@
             android:background="@drawable/top_category_bg_selector"
             android:gravity="center"
             android:onClick="@{()->categoryVM.topItemOnClick(category)}"
+            android:onLongClick="@{()->categoryVM.topItemLongClick(category)}"
             android:padding="@dimen/common_padding_middle"
             android:text="@{category.name}"
             android:textColor="@drawable/top_category_text_selector" />
 
+        <LinearLayout
+            android:id="@+id/mEditCgLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                style="@style/MatchWrap"
+                android:layout_marginStart="@dimen/common_margin_middle"
+                android:layout_marginEnd="@dimen/common_margin_middle"
+                android:background="@color/common_blue"
+                android:gravity="center"
+                android:paddingTop="@dimen/common_padding_middle"
+                android:text="修改"
+                android:onClick="@{()->categoryVM.updateAlert(category)}"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                style="@style/MatchWrap"
+                android:layout_marginStart="@dimen/common_margin_middle"
+                android:layout_marginEnd="@dimen/common_margin_middle"
+                android:background="@color/common_blue"
+                android:gravity="center"
+                android:paddingTop="@dimen/common_padding_middle"
+                android:text="删除"
+                android:onClick="@{()->categoryVM.deleteAlert(category)}"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 </layout>

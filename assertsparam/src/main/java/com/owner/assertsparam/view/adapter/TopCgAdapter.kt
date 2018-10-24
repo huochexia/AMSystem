@@ -2,6 +2,7 @@ package com.owner.assertsparam.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.LayoutTopCategoryItemBinding
@@ -12,7 +13,7 @@ import com.owner.assertsparam.viewmodel.CategoryFgViewModel
  * 中引入这个对象是为了实现点击项目时视图响应该点击事件。点击事件处理项目选中后的变化
  * Created by Administrator on 2018/10/22 0022
  */
-class TopCgAdapter( private val mCategoryVM:CategoryFgViewModel )
+class TopCgAdapter(private val mCategoryVM: CategoryFgViewModel)
     : RecyclerView.Adapter<TopCgAdapter.TopCgViewHolder>() {
 
     private val dataList = mCategoryVM.topCgList
@@ -26,8 +27,10 @@ class TopCgAdapter( private val mCategoryVM:CategoryFgViewModel )
 
     override fun onBindViewHolder(holder: TopCgViewHolder, position: Int) {
         val categoryItem = dataList[position]
-        holder.bindToData(categoryItem,mCategoryVM)
+        holder.bindToData(categoryItem, mCategoryVM)
+
     }
+
 
     /**
      * ViewHolder
@@ -47,15 +50,27 @@ class TopCgAdapter( private val mCategoryVM:CategoryFgViewModel )
         /*
           与数据源绑定
          */
-        fun bindToData(topCategory: CategoryInfo,categoryFgViewModel: CategoryFgViewModel) {
+        fun bindToData(topCategory: CategoryInfo, categoryFgViewModel: CategoryFgViewModel) {
             //绑定CategoryInfo对象
-            mBinding.category= topCategory
+            mBinding.category = topCategory
             //设置TextView当前状态
             mBinding.mTopCategoryNameTv.isSelected = topCategory.isSelected
             //绑定CategoryFgViewModel对象
             mBinding.categoryVM = categoryFgViewModel
             //必须执行此方法
             mBinding.executePendingBindings()
+            setVisibleEditLL(topCategory.isLongOnClick)
+        }
+
+        /*
+            设置编辑界面的可见性
+         */
+        fun setVisibleEditLL(visible: Boolean) {
+            if (visible) {
+                mBinding.mEditCgLl.visibility = View.VISIBLE
+            } else {
+                mBinding.mEditCgLl.visibility = View.GONE
+            }
         }
     }
 }

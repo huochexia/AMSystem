@@ -24,11 +24,11 @@
                 style="@style/MatchMatch.Vertical"
                 android:layout_weight="5">
 
-                <Button
+                <ImageButton
                     android:id="@+id/mTopCategoryBtn"
                     style="@style/MatchWrap"
                     android:padding="@dimen/common_padding"
-                    android:text="编辑" />
+                    android:src="@drawable/ic_add_category" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/mTopCategoryRv"

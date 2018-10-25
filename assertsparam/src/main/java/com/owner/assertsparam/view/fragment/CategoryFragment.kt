@@ -17,22 +17,22 @@ package com.owner.assertsparam.view.fragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.FragementCategoryBinding
+import com.owner.assertsparam.view.adapter.SecondCgAdapter
 import com.owner.assertsparam.view.adapter.TopCgAdapter
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
+import com.owner.baselibrary.utils.hideSoftInput
 import com.owner.baselibrary.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragement_category.*
 
@@ -44,27 +44,25 @@ import kotlinx.android.synthetic.main.fragement_category.*
 class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewModel>() {
 
 
-    lateinit var adapter: TopCgAdapter
-    lateinit var alertView: AlertView
-    //输入方法管理
-    lateinit var imm: InputMethodManager
+    private lateinit var topAdapter: TopCgAdapter
+    private lateinit var secondAdapter: SecondCgAdapter
+    private lateinit var alertView: AlertView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CategoryFgViewModel::class.java)
 
-        //设置LiveData对象变化监听器
-        viewModel.selectedCg.observe(this, Observer {
-            adapter.notifyDataSetChanged()
+        //观察状态信息的变化，做出相应的响应
+        viewModel.action.observe(this, Observer {
+            topAdapter.notifyDataSetChanged()
+            when (it?.first) {
+                CategoryFgViewModel.KEY_SELECTED_ACTION -> setSecondCgList(it.second)
+                CategoryFgViewModel.KEY_UPDATE_ACTION -> updateCategory(it.second)
+                CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second)
+            }
+        })
 
-        })
-        viewModel.updateAlert.observe(this, Observer {
-            updateCategory(it!!)
-        })
-        viewModel.deleteAlert.observe(this, Observer {
-            deleteCategory(it!!)
-        })
-        imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -78,32 +76,46 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mTopCategoryRv.layoutManager = LinearLayoutManager(context)
-        adapter = TopCgAdapter(viewModel)
-        mTopCategoryRv.adapter = adapter
+        initTopCgList()
+//        initSecondCgList()
 
+    }
+
+
+    /**
+     * 初始化一级列表
+     */
+    private fun initTopCgList() {
+        mTopCategoryRv.layoutManager = LinearLayoutManager(context)
+        topAdapter = TopCgAdapter(viewModel)
+        mTopCategoryRv.adapter = topAdapter
         mTopCategoryBtn.setOnClickListener {
             addCategory()
         }
     }
 
     /**
+     * 设置二级列表
+     */
+    private fun setSecondCgList(category: CategoryInfo) {
+        mSecondCategoryRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        secondAdapter = SecondCgAdapter(category,viewModel)
+        mSecondCategoryRv.adapter = secondAdapter
+    }
+
+    /**
      * 增加类别
      */
     fun addCategory() {
-        alertView = AlertView("增加类别", null, "取消", null,
-                arrayOf("完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position -> })
-        val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
-        val editV = extView.findViewById<View>(R.id.mCgNameEt)
-        //对话框随着输入法的出现上移
-        editV.setOnFocusChangeListener { view, b ->
-            val isOpen = imm.isActive
-            if (isOpen && b) {
-                alertView.setMarginBottom(120)
-            } else {
-                alertView.setMarginBottom(0)
+        alertView = AlertView("增加类别", null, null, null,
+                arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
+            activity?.hideSoftInput()
+            when (position) {
+
             }
-        }
+        })
+        val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
+        val editV = extView.findViewById<EditText>(R.id.mCgNameEt)
         alertView.addExtView(extView).show()
     }
 
@@ -111,10 +123,11 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      * 显示修改类别对话框
      */
     fun updateCategory(category: CategoryInfo) {
-        alertView = AlertView("增加类别", null, "取消", null,
-                arrayOf("完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
+        alertView = AlertView("修改类别", null, null, null,
+                arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
+            activity?.hideSoftInput()
             when (position) {
-                0 -> viewModel.updateCategory(category)
+                1 -> viewModel.updateCategory(category)
             }
         })
         val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
@@ -127,8 +140,9 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      * 显示删除类别对话框
      */
     fun deleteCategory(category: CategoryInfo) {
-        alertView = AlertView("删除类别", null, "取消", null,
-                arrayOf("确定"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
+        alertView = AlertView("删除类别", null, null, null,
+                arrayOf("取消", "确定"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
+            activity?.hideSoftInput()
             when (position) {
                 0 -> viewModel.deleteCategory(category)
             }

@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="category"
             type="com.owner.assertsparam.data.CategoryInfo" />
@@ -31,7 +30,8 @@
             android:id="@+id/mEditCgLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 style="@style/MatchWrap"

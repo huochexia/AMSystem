@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="category"
             type="com.owner.assertsparam.data.CategoryInfo"/>
+
         <variable
             name="categoryFgVM"
-            type="com.owner.assertsparam.viewmodel.CategoryFgViewModel" />
+            type="com.owner.assertsparam.viewmodel.CategoryFgViewModel"/>
     </data>
 
     <LinearLayout
         style="@style/WrapWrap.Vertical"
         android:layout_marginBottom="@dimen/common_margin">
 
-        <ImageView
-            android:id="@+id/mThirdCategoryIv"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:scaleType="fitXY"
-            app:imageUrl="@{category.imageUrl}"/>
+        <RelativeLayout
+            android:layout_width="71.0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/mThirdCategoryIv"
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                app:imageUrl="@{category.imageUrl}"/>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/mThirdCategoryNameTv"
             style="@style/WrapWrap"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/common_margin_middle"
-            android:textSize="@dimen/text_small_size"
-            android:text="@{category.name}" />
+            android:text="@{category.name}"
+            android:textSize="@dimen/text_small_size"/>
     </LinearLayout>
 </layout>

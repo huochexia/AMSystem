@@ -16,20 +16,21 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            style="@style/WrapWrap.Vertical"
+            style="@style/MatchWrap.Vertical"
             android:layout_marginBottom="@dimen/common_margin">
 
             <TextView
                 android:id="@+id/mSecondCategoryNameTv"
                 style="@style/WrapWrap"
                 android:layout_marginTop="@dimen/common_margin_middle"
-                android:text="@string/second_category"
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:text="@{category.name}"
                 android:textColor="@color/common_black"
                 android:textSize="@dimen/text_small_size"
                 android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/mSecondCategoryRv"
+                android:id="@+id/mThirdCategoryRv"
                 style="@style/commonRecyclerView" />
         </LinearLayout>
     </android.support.v7.widget.CardView>

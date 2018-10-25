@@ -35,7 +35,7 @@ class TopCgAdapter(private val mCategoryVM: CategoryFgViewModel)
     /**
      * ViewHolder
      */
-    class TopCgViewHolder(private val mBinding: LayoutTopCategoryItemBinding) : RecyclerView.ViewHolder(mBinding.root) {
+    class TopCgViewHolder( val mBinding: LayoutTopCategoryItemBinding) : RecyclerView.ViewHolder(mBinding.root) {
 
         companion object {
             /*
@@ -48,18 +48,20 @@ class TopCgAdapter(private val mCategoryVM: CategoryFgViewModel)
         }
 
         /*
-          与数据源绑定
+          与数据源绑定,对视图组件状态的改变,依据item的值发生变化，对应的属性发生改变。遵从“数据
+          驱动视图”的原则。
          */
         fun bindToData(topCategory: CategoryInfo, categoryFgViewModel: CategoryFgViewModel) {
             //绑定CategoryInfo对象
             mBinding.category = topCategory
-            //设置TextView当前状态
+            //依据item中isSelected的值，设置TextView当前状态
             mBinding.mTopCategoryNameTv.isSelected = topCategory.isSelected
+            //依据item中isLongOnClick的值，设置视图的可视性
+            setVisibleEditLL(topCategory.isLongOnClick)
             //绑定CategoryFgViewModel对象
             mBinding.categoryVM = categoryFgViewModel
             //必须执行此方法
             mBinding.executePendingBindings()
-            setVisibleEditLL(topCategory.isLongOnClick)
         }
 
         /*

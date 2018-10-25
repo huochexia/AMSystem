@@ -53,9 +53,14 @@ dependencies {
     api 'cn.leancloud.android:avoscloud-sdk:v4.7.3'
     //ViewModel
     api 'android.arch.lifecycle:extensions:1.1.0'
+
     // Anko Commons
     api "org.jetbrains.anko:anko-commons:$anko_version"
+    api "org.jetbrains.anko:anko-sdk15:$anko_version"
+    api "org.jetbrains.anko:anko-sdk15-listeners:$anko_version"
 
+    api "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+    api "org.jetbrains.anko:anko-appcompat-v7-listeners:$anko_version"
     //Rx
     api "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
     api "io.reactivex.rxjava2:rxandroid:$rx_android_version"

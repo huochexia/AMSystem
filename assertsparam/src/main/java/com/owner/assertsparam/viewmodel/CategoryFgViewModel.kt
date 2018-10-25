@@ -31,16 +31,15 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
 
     companion object {
         const val KEY_SELECTED_ACTION = "selecte"
-        const val KEY_UPDATE_ACTION = "update"
-        const val KEY_DELETE_ACTION = "delete"
+        const val KEY_UPDATE_TOP_ACTION = "update"
+        const val KEY_DELETE_TOP_ACTION = "delete"
     }
     //点击事件行为，选择、修改、删除
     var action = MutableLiveData<Pair<String, CategoryInfo>>()
-    //一级类别
+    //一级类别数据列表
     var topCgList = mutableListOf<CategoryInfo>()
-    //二级和三级类别库
+    //二级和三级类别数据表
     var secondAndThirdCgList = mutableListOf<CategoryInfo>()
-    var thirdCgList = mutableListOf<CategoryInfo>()
 
 
     /*
@@ -54,10 +53,13 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
             notifyPropertyChanged(BR.viewState)
         }
 
+    /**
+     * 模拟数据
+     */
     init {
-        val top1 = CategoryInfo("1", "电教设备", "0")
-        val top2 = CategoryInfo("2", "办公家具", "0")
-        val top3 = CategoryInfo("3", "学员公寓家俱", "0")
+        val top1 = CategoryInfo("1", "电教设备" )
+        val top2 = CategoryInfo("2", "办公家具")
+        val top3 = CategoryInfo("3", "学员公寓家俱")
         val second1 = CategoryInfo("11","电脑主机","1")
         val second2 = CategoryInfo("12","电脑显示器","1")
         val second3 = CategoryInfo("21","桌子","2")
@@ -82,24 +84,41 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
 
     }
 
-    //存储用户当前选择的类别对象，并触发刷新事件
-    var selectedCg = MutableLiveData<CategoryInfo>()
+    /**
+     * 列表项目点击事件
+     */
+    fun itemOnClick(item: CategoryInfo) {
+        //如果是一级分类，设置一级分类项目状态
+        if (item.parentId == "") {
+            setTopCgState(item)
+            //加载二级列表数据
+            loadSecondCategory(item.id)
+        } else {
+            //点击二级或三级任意一个时，还原其选择状态
+            secondAndThirdCgList.forEach{
+                it.isLongOnClick = false
+                it.isSelected = false
+            }
+        }
+        action.value = Pair(KEY_SELECTED_ACTION, item)
+    }
 
     /**
-     * 一级列表项目点击事件
+     * 设置一级分类选择时的状态
      */
-    fun topItemOnClick(item: CategoryInfo) {
+    private fun setTopCgState(item: CategoryInfo) {
         //还原所有选择和长按状态
         topCgList.forEach {
             it.isSelected = false
             it.isLongOnClick = false
         }
+        //还原二级和三级，因为在二级或三级中改变状态后，点击一级要做还原
+        secondAndThirdCgList.forEach {
+            it.isSelected = false
+            it.isLongOnClick = false
+        }
         //将当前项目设定为选择状态
         item.isSelected = true
-        action.value = Pair(KEY_SELECTED_ACTION,item)
-        //加载二级列表数据
-        loadSecondCategory(item.id)
-
     }
 
     /**
@@ -111,9 +130,23 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
     }
 
     /**
-     * 一级列表项目长按事件
+     * 列表项目长按事件
      */
-    fun topItemLongClick(item: CategoryInfo): Boolean {
+    fun itemLongClick(item: CategoryInfo): Boolean {
+        //如果是一级分类
+        if (item.parentId == "") {
+            setTopCgLongState(item)
+        } else {
+            setSecondCgLongState(item)
+        }
+        action.value = Pair(KEY_SELECTED_ACTION,item)
+        return true
+    }
+
+    /**
+     * 设置一级分类项目长按时状态
+     */
+    private fun setTopCgLongState(item: CategoryInfo) {
         //还原所有选择和长按状态
         topCgList.forEach {
             it.isLongOnClick = false
@@ -121,8 +154,16 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         }
         item.isSelected = true
         item.isLongOnClick = true
-        action.value = Pair(KEY_SELECTED_ACTION,item)
-        return true
+    }
+    /**
+     * 设置二级分类项目长按时状态
+     */
+    private fun setSecondCgLongState(item: CategoryInfo) {
+        //还原所有选择和长按状态
+        secondAndThirdCgList.forEach {
+            it.isLongOnClick = false
+        }
+        item.isLongOnClick = true
     }
 
     /**
@@ -130,7 +171,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      */
     fun updateAlert(category: CategoryInfo) {
         category.isLongOnClick = false
-        action.value = Pair(KEY_UPDATE_ACTION, category)
+        action.value = Pair(KEY_UPDATE_TOP_ACTION, category)
     }
 
     /**
@@ -145,7 +186,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      */
     fun deleteAlert(category: CategoryInfo) {
         category.isLongOnClick = false
-        action.value = Pair(KEY_DELETE_ACTION,category)
+        action.value = Pair(KEY_DELETE_TOP_ACTION,category)
     }
 
     /**

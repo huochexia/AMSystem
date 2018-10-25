@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    >
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="category"
             type="com.owner.assertsparam.data.CategoryInfo"/>
+
         <variable
             name="categoryVM"
-            type="com.owner.assertsparam.viewmodel.CategoryFgViewModel" />
+            type="com.owner.assertsparam.viewmodel.CategoryFgViewModel"/>
     </data>
 
     <android.support.v7.widget.CardView
@@ -19,19 +21,44 @@
             style="@style/MatchWrap.Vertical"
             android:layout_marginBottom="@dimen/common_margin">
 
-            <TextView
-                android:id="@+id/mSecondCategoryNameTv"
-                style="@style/WrapWrap"
-                android:layout_marginTop="@dimen/common_margin_middle"
-                android:layout_marginBottom="@dimen/common_margin_middle"
-                android:text="@{category.name}"
-                android:textColor="@color/common_black"
-                android:textSize="@dimen/text_small_size"
-                android:textStyle="bold" />
+            <RelativeLayout
+                style="@style/MatchWrap" >
+                <TextView
+                    android:id="@+id/mSecondCategoryNameTv"
+                    style="@style/WrapWrap"
+                    android:layout_marginTop="@dimen/common_margin_middle"
+                    android:layout_marginBottom="@dimen/common_margin_middle"
+                    android:text="@{category.name}"
+                    android:textColor="@color/common_black"
+                    android:textSize="@dimen/text_small_size"
+                    android:textStyle="bold"
+                    android:onClick="@{()->categoryVM.itemOnClick(category)}"
+                    android:onLongClick="@{()->categoryVM.itemLongClick(category)}"/>
+                <RelativeLayout
+                    android:id="@+id/mEditSecondCgll"
+                    style="@style/MatchWrap"
+                    android:layout_centerVertical="true"
+                    android:visibility="visible">
+                    <ImageView
+                        android:id="@+id/mUpdateSecondCgIv"
+                        style="@style/WrapWrap"
+                        android:src="@drawable/ic_edit_black_24dp"
+                        android:layout_toLeftOf="@+id/mDeleteSecondCgIv"
+                        android:onClick="@{()->categoryVM.updateAlert(category)}"/>
+                    <ImageView
+                        android:id="@+id/mDeleteSecondCgIv"
+                        style="@style/WrapWrap"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/common_margin_middle"
+                        android:src="@drawable/ic_delete_black_24dp"
+                        android:onClick="@{()->categoryVM.deleteAlert(category)}"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mThirdCategoryRv"
-                style="@style/commonRecyclerView" />
+                style="@style/commonRecyclerView"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

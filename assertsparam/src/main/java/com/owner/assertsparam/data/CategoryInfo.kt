@@ -27,7 +27,7 @@ package com.owner.assertsparam.data
  */
 data class CategoryInfo(val id: String,
                         val name: String,
-                        val parentId: String,
+                        val parentId: String="",
                         val imageUrl: String = "",
                         var isSelected: Boolean = false,//选择状态
                         var isLongOnClick: Boolean = false//长按状态

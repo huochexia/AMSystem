@@ -9,9 +9,11 @@ import com.owner.assertsparam.viewmodel.CategoryFgViewModel
 
 /**
  * 三级分类适配器
+ * @secondCategory:二级分类，通过它的Id从列表中筛选出它的子分类
  * Created by Administrator on 2018/10/25 0025
  */
-class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCategoryVM: CategoryFgViewModel) : RecyclerView.Adapter<ThirdCgAdapter.ThirdViewHolder>() {
+class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCategoryVM: CategoryFgViewModel)
+    : RecyclerView.Adapter<ThirdCgAdapter.ThirdViewHolder>() {
 
     private  var thirdCgList = mutableListOf<CategoryInfo>()
     //筛选三级类别

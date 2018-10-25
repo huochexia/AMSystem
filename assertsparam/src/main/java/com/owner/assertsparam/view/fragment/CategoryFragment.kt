@@ -55,11 +55,16 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
 
         //观察状态信息的变化，做出相应的响应
         viewModel.action.observe(this, Observer {
-            topAdapter.notifyDataSetChanged()
+            //如果parentId为空，则是一级分类
+            if (it?.second!!.parentId == "") {
+                topAdapter.notifyDataSetChanged()
+                initSecondCgList(it.second)
+            } else {
+                secondAdapter.notifyDataSetChanged()
+            }
             when (it?.first) {
-                CategoryFgViewModel.KEY_SELECTED_ACTION -> setSecondCgList(it.second)
-                CategoryFgViewModel.KEY_UPDATE_ACTION -> updateCategory(it.second)
-                CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second)
+                CategoryFgViewModel.KEY_UPDATE_TOP_ACTION -> updateCategory(it.second)
+                CategoryFgViewModel.KEY_DELETE_TOP_ACTION -> deleteCategory(it.second)
             }
         })
 
@@ -77,8 +82,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTopCgList()
-//        initSecondCgList()
-
+        initSecondCgList(null)
     }
 
 
@@ -97,9 +101,9 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     /**
      * 设置二级列表
      */
-    private fun setSecondCgList(category: CategoryInfo) {
+    private fun initSecondCgList(category: CategoryInfo?) {
         mSecondCategoryRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        secondAdapter = SecondCgAdapter(category,viewModel)
+        secondAdapter = SecondCgAdapter(category, viewModel)
         mSecondCategoryRv.adapter = secondAdapter
     }
 

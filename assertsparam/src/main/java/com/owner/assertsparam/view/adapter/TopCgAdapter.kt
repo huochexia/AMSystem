@@ -67,7 +67,7 @@ class TopCgAdapter(private val mCategoryVM: CategoryFgViewModel)
         /*
             设置编辑界面的可见性
          */
-        fun setVisibleEditLL(visible: Boolean) {
+        private fun setVisibleEditLL(visible: Boolean) {
             if (visible) {
                 mBinding.mEditCgLl.visibility = View.VISIBLE
             } else {

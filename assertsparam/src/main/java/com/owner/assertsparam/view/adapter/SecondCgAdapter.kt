@@ -46,15 +46,14 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
     /**
      * ViewHolder 嵌套类
      */
-    class SecondViewHolder(val mBinding: LayoutSecondCategoryItemBinding)
+    class SecondViewHolder(val context: Context,val mBinding: LayoutSecondCategoryItemBinding)
         : RecyclerView.ViewHolder(mBinding.root) {
 
         companion object {
-            lateinit var context: Context
             fun create(inflater: LayoutInflater, parent: ViewGroup): SecondViewHolder {
-                val binding = LayoutSecondCategoryItemBinding.inflate(inflater, parent, false)
-                 context = parent.context
-                return SecondViewHolder(binding)
+                val binding = LayoutSecondCategoryItemBinding.
+                        inflate(inflater, parent, false)
+                 return SecondViewHolder(parent.context,binding)
             }
         }
 
@@ -70,7 +69,7 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
          * 构造三级分类的适配器
          */
         private fun setThirdCgList(category: CategoryInfo, viewModel: CategoryFgViewModel) {
-            val glm = GridLayoutManager(SecondViewHolder.context,3)
+            val glm = GridLayoutManager(context,3)
             mBinding.mThirdCategoryRv.layoutManager = glm
             mBinding.mThirdCategoryRv.adapter = ThirdCgAdapter(category,viewModel)
         }

@@ -17,8 +17,10 @@ package com.owner.assertsparam.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.Bindable
+import com.orhanobut.logger.Logger
 import com.owner.assertsparam.BR
 import com.owner.assertsparam.data.CategoryInfo
+import com.owner.assertsparam.data.Footer
 import com.owner.assertsparam.model.repository.AssertsParamRepository
 import com.owner.baselibrary.viewmodel.BaseViewModel
 
@@ -30,9 +32,10 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
 class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
 
     companion object {
-        const val KEY_SELECTED_ACTION = "selecte"
-        const val KEY_UPDATE_TOP_ACTION = "update"
-        const val KEY_DELETE_TOP_ACTION = "delete"
+        const val KEY_SELECTED_ACTION = "select"
+        const val KEY_UPDATE_ACTION = "update"
+        const val KEY_DELETE_ACTION = "delete"
+        const val KEY_ADD_THIRD_ACTION ="add_third_category"
     }
     //点击事件行为，选择、修改、删除
     var action = MutableLiveData<Pair<String, CategoryInfo>>()
@@ -171,7 +174,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      */
     fun updateAlert(category: CategoryInfo) {
         category.isLongOnClick = false
-        action.value = Pair(KEY_UPDATE_TOP_ACTION, category)
+        action.value = Pair(KEY_UPDATE_ACTION, category)
     }
 
     /**
@@ -186,13 +189,27 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      */
     fun deleteAlert(category: CategoryInfo) {
         category.isLongOnClick = false
-        action.value = Pair(KEY_DELETE_TOP_ACTION,category)
+        action.value = Pair(KEY_DELETE_ACTION,category)
     }
 
     /**
      *  对数据库执行删除操作
      */
     fun deleteCategory(category: CategoryInfo) {
+
+    }
+
+    /**
+     *  增加三级类别
+     */
+    fun addThirdAlert(footer: Footer) {
+        action.value = Pair(KEY_ADD_THIRD_ACTION,footer.category)
+    }
+
+    /**
+     * 将三级类别增加到数据库中
+     */
+    fun addThirdCategory(category: CategoryInfo) {
 
     }
 }

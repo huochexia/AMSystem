@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.LayoutSecondCategoryItemBinding
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
+import com.owner.assertsparam.viewmodel.ThirdCgMoreView
 
 /**
  * 二级分类适配器
@@ -19,6 +20,7 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
     : RecyclerView.Adapter<SecondCgAdapter.SecondViewHolder>() {
 
     private val secondCgList = mutableListOf<CategoryInfo>()
+
     init {
         secondCgList.clear()
         if (topCategory != null) {
@@ -40,20 +42,21 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
 
     override fun onBindViewHolder(holder: SecondViewHolder, position: Int) {
         val category = secondCgList[position]
-        holder.bindData(category,mCategoryVM)
+        holder.bindData(category, mCategoryVM)
     }
 
     /**
      * ViewHolder 嵌套类
      */
-    class SecondViewHolder(val context: Context,val mBinding: LayoutSecondCategoryItemBinding)
+    class SecondViewHolder(val context: Context, val mBinding: LayoutSecondCategoryItemBinding)
         : RecyclerView.ViewHolder(mBinding.root) {
+
+        lateinit var moreView:ThirdCgMoreView
 
         companion object {
             fun create(inflater: LayoutInflater, parent: ViewGroup): SecondViewHolder {
-                val binding = LayoutSecondCategoryItemBinding.
-                        inflate(inflater, parent, false)
-                 return SecondViewHolder(parent.context,binding)
+                val binding = LayoutSecondCategoryItemBinding.inflate(inflater, parent, false)
+                return SecondViewHolder(parent.context, binding)
             }
         }
 
@@ -62,17 +65,22 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
             mBinding.categoryVM = viewModel
             mBinding.executePendingBindings()
             setVisibleEditLL(category.isLongOnClick)
-            setThirdCgList(category,viewModel)
+            setThirdCgList(category, viewModel)
         }
 
         /**
          * 构造三级分类的适配器
          */
         private fun setThirdCgList(category: CategoryInfo, viewModel: CategoryFgViewModel) {
-            val glm = GridLayoutManager(context,3)
+            val glm = GridLayoutManager(context, 3)
             mBinding.mThirdCategoryRv.layoutManager = glm
-            mBinding.mThirdCategoryRv.adapter = ThirdCgAdapter(category,viewModel)
+            if (mBinding.thirdCg == null){
+                moreView = ThirdCgMoreView()
+                mBinding.thirdCg = moreView
+            }
+            mBinding.mThirdCategoryRv.adapter = ThirdCgAdapter(category, viewModel,moreView)
         }
+
         /*
             设置编辑界面的可见性
          */

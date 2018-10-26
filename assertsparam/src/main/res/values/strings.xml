@@ -11,4 +11,6 @@
 
     <string name="linear_layout_manager">android.support.v7.widget.LinearLayoutManager</string>
     <string name="grid_layout_manager">android.support.v7.widget.GridLayoutManager</string>
+    <string name="more">更多...</string>
+    <string name="pick_up">收起</string>
 </resources>

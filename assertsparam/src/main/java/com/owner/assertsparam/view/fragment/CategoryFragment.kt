@@ -65,7 +65,8 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     private lateinit var mTempFile: File
     private lateinit var invokeParam: InvokeParam
 
-    private lateinit var currentTopCategory:CategoryInfo
+    private lateinit var currentTopCategory: CategoryInfo
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CategoryFgViewModel::class.java)
@@ -74,6 +75,11 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         viewModel.action.observe(this, Observer {
             //如果parentId为空，则是一级分类
             executeAction(it)
+        })
+        //观察显示更多三级分类事件
+        viewModel.moreList.observe(this, Observer {
+
+            secondAdapter.notifyDataSetChanged()
         })
         mTakePhoto = TakePhotoInvocationHandler.of(this)
                 .bind(TakePhotoImpl(this, this))
@@ -98,9 +104,10 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     }
 
     /**
-     *
+     *对由ViewModel发生的事件进行筛分，对应处理
      */
     private fun executeAction(it: Pair<String, CategoryInfo>?) {
+        //如果是一级分类
         if (it?.second!!.parentId == "") {
             currentTopCategory = it.second
             topAdapter.notifyDataSetChanged()
@@ -111,7 +118,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         when (it?.first) {
             CategoryFgViewModel.KEY_UPDATE_ACTION -> updateCategory(it.second)
             CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second)
-            CategoryFgViewModel.KEY_ADD_THIRD_ACTION -> addCategory(it.second)
+            CategoryFgViewModel.KEY_ADD_THIRD_ACTION -> showPhotoAlert(it.second)
         }
     }
 
@@ -228,6 +235,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
 //            }
 //
 //        })
+
     }
 
     override fun takeCancel() {

@@ -78,8 +78,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginLeft="@dimen/common_margin_middle"
                     android:gravity="center_vertical"
-                    android:onClick="@{()->categoryVM.unwindMoreThird(thirdCg)}"
-                    android:text="@string/more"
+                    android:onClick="@{()->categoryVM.expandThirdCategory(thirdCg)}"
+                    android:text="@{thirdCg.expanded?@string/pick_up:@string/more}"
                     android:visibility="@{thirdCg.more?View.VISIBLE:View.GONE}"/>
             </RelativeLayout>
         </LinearLayout>

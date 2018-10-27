@@ -55,9 +55,8 @@
                     style="@style/MatchWrap"
                     android:drawableLeft="@drawable/ic_add_category"
                     android:layout_marginTop="@dimen/common_margin_middle"
-                    android:text="添加类别"
-                    android:gravity="center_vertical"
-                    android:visibility="@{categoryVM.visibleAdd?View.VISIBLE:View.GONE}"/>
+                    android:text="@{}"
+                    android:gravity="center_vertical"/>
                 <com.kennyc.view.MultiStateView
                     android:id="@+id/mMultiStateView"
                     style="@style/MultiStateStyle"

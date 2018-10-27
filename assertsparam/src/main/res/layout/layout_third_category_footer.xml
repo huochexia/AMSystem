@@ -9,7 +9,7 @@
             type="com.owner.assertsparam.data.Footer" />
 
         <variable
-            name="categoryFgVM"
+            name="categoryVM"
             type="com.owner.assertsparam.viewmodel.CategoryFgViewModel" />
     </data>
 
@@ -23,6 +23,6 @@
             android:layout_height="83dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_add_category"
-            android:onClick="@{()->categoryFgVM.addThirdAlert(data)}"/>
+            android:onClick="@{}"/>
     </LinearLayout>
 </layout>

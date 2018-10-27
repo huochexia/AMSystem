@@ -65,8 +65,6 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     private lateinit var mTempFile: File
     private lateinit var invokeParam: InvokeParam
 
-    private lateinit var currentTopCategory: CategoryInfo
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CategoryFgViewModel::class.java)
@@ -74,11 +72,10 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         //观察状态信息的变化，做出相应的响应
         viewModel.action.observe(this, Observer {
             //如果parentId为空，则是一级分类
-            executeAction(it)
+            executeAction(it!!)
         })
-        //观察显示更多三级分类事件
-        viewModel.moreList.observe(this, Observer {
-
+        //观察是否展开显示更多三级分类状态
+        viewModel.expandList.observe(this, Observer {
             secondAdapter.notifyDataSetChanged()
         })
         mTakePhoto = TakePhotoInvocationHandler.of(this)
@@ -106,19 +103,19 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     /**
      *对由ViewModel发生的事件进行筛分，对应处理
      */
-    private fun executeAction(it: Pair<String, CategoryInfo>?) {
-        //如果是一级分类
-        if (it?.second!!.parentId == "") {
-            currentTopCategory = it.second
+    private fun executeAction(it: Pair<String, CategoryInfo?>) {
+
+        //判断是否是一级分类
+        if (it.second!!.parentId == "") {
             topAdapter.notifyDataSetChanged()
             initSecondCgList(it.second)
         } else {
             secondAdapter.notifyDataSetChanged()
         }
-        when (it?.first) {
-            CategoryFgViewModel.KEY_UPDATE_ACTION -> updateCategory(it.second)
-            CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second)
-            CategoryFgViewModel.KEY_ADD_THIRD_ACTION -> showPhotoAlert(it.second)
+        when (it.first) {
+            CategoryFgViewModel.KEY_UPDATE_ACTION -> updateCategory(it.second as CategoryInfo)
+            CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second as CategoryInfo)
+            CategoryFgViewModel.KEY_ADD_ACTION -> addCategory(it.second)
         }
     }
 
@@ -132,13 +129,10 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         mTopCategoryBtn.setOnClickListener {
             addCategory(null)
         }
-        mAddSecondCgTv.setOnClickListener {
-            addCategory(currentTopCategory)
-        }
     }
 
     /**
-     * 设置二级列表
+     * 初始化二级分类列表
      */
     private fun initSecondCgList(category: CategoryInfo?) {
         mSecondCategoryRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

@@ -20,7 +20,6 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
     : RecyclerView.Adapter<SecondCgAdapter.SecondViewHolder>() {
 
     private val secondCgList = mutableListOf<CategoryInfo>()
-
     init {
         secondCgList.clear()
         if (topCategory != null) {
@@ -35,7 +34,7 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
 
     override fun onCreateViewHolder(parent: ViewGroup, ViewType: Int): SecondViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return SecondViewHolder.create(inflater, parent)
+        return  SecondViewHolder.create(inflater, parent)
     }
 
     override fun getItemCount(): Int = secondCgList.size
@@ -52,7 +51,7 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
         : RecyclerView.ViewHolder(mBinding.root) {
 
         lateinit var moreView:ThirdCgMoreView
-
+        lateinit var thirdCgAdapter: ThirdCgAdapter
         companion object {
             fun create(inflater: LayoutInflater, parent: ViewGroup): SecondViewHolder {
                 val binding = LayoutSecondCategoryItemBinding.inflate(inflater, parent, false)
@@ -74,11 +73,13 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
         private fun setThirdCgList(category: CategoryInfo, viewModel: CategoryFgViewModel) {
             val glm = GridLayoutManager(context, 3)
             mBinding.mThirdCategoryRv.layoutManager = glm
+            //为每个item构建一个
             if (mBinding.thirdCg == null){
                 moreView = ThirdCgMoreView()
                 mBinding.thirdCg = moreView
             }
-            mBinding.mThirdCategoryRv.adapter = ThirdCgAdapter(category, viewModel,moreView)
+            thirdCgAdapter = ThirdCgAdapter(category, viewModel,moreView)
+            mBinding.mThirdCategoryRv.adapter = thirdCgAdapter
         }
 
         /*

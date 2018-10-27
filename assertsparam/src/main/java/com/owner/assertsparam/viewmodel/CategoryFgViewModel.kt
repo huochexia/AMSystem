@@ -34,13 +34,14 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         const val KEY_SELECTED_ACTION = "select"
         const val KEY_UPDATE_ACTION = "update"
         const val KEY_DELETE_ACTION = "delete"
-        const val KEY_ADD_THIRD_ACTION = "add_third_category"
-        const val KEY_UNWIND_MORE = "more"
+        const val KEY_ADD_ACTION ="add"
+
     }
 
-    //点击事件行为，选择、修改、删除
-    var action = MutableLiveData<Pair<String, CategoryInfo>>()
-    var moreList = MutableLiveData<ThirdCgMoreView>()
+    //点击事件行为，选择、增加、修改、删除.因为增加一级分类时没有父类，所以CategoryInfo可能为空对象
+    var action = MutableLiveData<Pair<String, CategoryInfo?>>()
+    //是否展开三级列表的状态
+    var expandList = MutableLiveData<Boolean>()
     //一级类别数据列表
     var topCgList = mutableListOf<CategoryInfo>()
     //二级和三级类别数据表
@@ -56,15 +57,6 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         set(value) {
             field = value
             notifyPropertyChanged(BR.viewState)
-        }
-    /*
-      用于判断是否显示二级分类的增加功能
-     */
-    @get:Bindable
-    var isVisibleAdd = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.visibleAdd)
         }
 
     /**
@@ -115,7 +107,6 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         //如果是一级分类，设置一级分类项目状态
         if (item.parentId == "") {
             setTopCgState(item)
-            isVisibleAdd = true
             //加载二级列表数据
             loadSecondCategory(item.id)
         } else {
@@ -125,6 +116,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
                 it.isSelected = false
             }
         }
+        //通知视图状态改变
         action.value = Pair(KEY_SELECTED_ACTION, item)
     }
 
@@ -192,11 +184,28 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         item.isLongOnClick = true
     }
 
-    fun unwindMoreThird(moreView: ThirdCgMoreView) {
-        moreView.isMore = false
-        moreList.value= moreView
+    /**
+     * 展开和收缩三级分类列表
+     */
+    fun expandThirdCategory(moreView: ThirdCgMoreView) {
+        moreView.isExpanded = !moreView.isExpanded
+        expandList.value = moreView.isExpanded
     }
 
+    /**
+     * 发送增加请求
+     * @category：是父类，可以为null。因为一级分类无父类
+     */
+    fun addAlert(category: CategoryInfo?) {
+        action.value = Pair(KEY_ADD_ACTION,category)
+    }
+
+    /**
+     * 对数据库执行保存操作
+     */
+    fun addCategory(category: CategoryInfo) {
+
+    }
     /**
      * 启动修改类别对话框
      */
@@ -227,17 +236,4 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
 
     }
 
-    /**
-     *  增加三级类别
-     */
-    fun addThirdAlert(footer: Footer) {
-        action.value = Pair(KEY_ADD_THIRD_ACTION, footer.category)
-    }
-
-    /**
-     * 将三级类别增加到数据库中
-     */
-    fun addThirdCategory(category: CategoryInfo) {
-
-    }
 }

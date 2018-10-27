@@ -35,8 +35,13 @@ class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCate
         //将Footer对象加入列表
         thirdCgAllList.add(thirdCgAllList
                 .size, Footer(secondCategory))
-        //2、如果全部内容列表大于4（即四个分类一个Footer），收缩内容。
-        if (thirdCgAllList.size > 4) {
+        //2、如果全部内容列表大于4（即四个分类一个Footer），显示更多信息。
+        thirdCgMore.isMore = thirdCgAllList.size > 4
+        //3、判断是否展开更多内容。如果为大于4个且展开显示全部，如果大于4个且收缩，则显示前4个。
+        //否则即小于等于4个，显示全部
+        if (thirdCgMore.isMore && thirdCgMore.isExpanded) {
+            showAllList()
+        }else if (thirdCgMore.isMore && !thirdCgMore.isExpanded) {
             showSubList()
         } else {
             showAllList()
@@ -69,7 +74,6 @@ class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCate
      * 显示全部内容
      */
     fun showAllList() {
-        thirdCgMore.isMore = false
         thirdCgSubList.clear()
         thirdCgSubList.addAll(thirdCgAllList)
         notifyDataSetChanged()
@@ -79,7 +83,6 @@ class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCate
      * 显示部分内容
      */
     fun showSubList() {
-        thirdCgMore.isMore = true
         thirdCgSubList.clear()
         thirdCgSubList = thirdCgAllList.subList(0, 3)
         notifyDataSetChanged()

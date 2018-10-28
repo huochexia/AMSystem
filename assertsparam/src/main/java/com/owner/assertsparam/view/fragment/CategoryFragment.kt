@@ -27,6 +27,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.jph.takephoto.app.TakePhoto
@@ -45,6 +46,7 @@ import com.owner.assertsparam.databinding.FragementCategoryBinding
 import com.owner.assertsparam.view.adapter.SecondCgAdapter
 import com.owner.assertsparam.view.adapter.TopCgAdapter
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
+import com.owner.baselibrary.ext.loadUrl
 import com.owner.baselibrary.utils.DateUtils
 import com.owner.baselibrary.utils.hideSoftInput
 import com.owner.baselibrary.view.fragment.BaseFragment
@@ -70,7 +72,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     //定义总资产分类对象
     private val category=CategoryInfo("","资产分类")
     //当前选择的一级分类
-    lateinit var currentTopCategory : CategoryInfo
+    private lateinit var currentTopCategory : CategoryInfo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CategoryFgViewModel::class.java)
@@ -125,6 +127,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second )
             CategoryFgViewModel.KEY_ADD_ACTION -> addCategory(it.second)
             CategoryFgViewModel.KEY_ADD_THIRD_ACTION->addThirdCategory(it.second)
+            CategoryFgViewModel.KEY_UPDATE_THIRD_ACTION-> updateThirdCategory(it.second)
         }
     }
 
@@ -151,7 +154,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      * @parent:父类
      *
      */
-    fun addCategory(parent: CategoryInfo) {
+    private fun addCategory(parent: CategoryInfo) {
         alertView = AlertView("增加类别", null, null, null,
                 arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
             activity?.hideSoftInput()
@@ -167,7 +170,13 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         alertView.addExtView(extView).show()
     }
 
-    fun addThirdCategory(third: CategoryInfo) {
+    /**
+     * 增加三级分类
+     */
+    private fun addThirdCategory(parent: CategoryInfo) {
+        //刷新列表，目的是取消之前做过的长按状态
+        secondAdapter.notifyDataSetChanged()
+
         alertView = AlertView("增加类别",null,null,null,
                 arrayOf("取消","完成"),context,AlertView.Style.Alert, OnItemClickListener{
                  o, position ->
@@ -178,6 +187,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             }
         })
         val editView = LayoutInflater.from(context).inflate(R.layout.layout_add_third_category,null)
+        val imageView = editView.find<ImageView>(R.id.mPictureIv)
         val editV = editView.find<EditText>(R.id.mThirdCgNameEt)
         val takePhoto = editView.find<Button>(R.id.mPictureBtn)
         val camera = editView.find<Button>(R.id.mCameraBtn)
@@ -193,6 +203,42 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         alertView.addExtView(editView).show()
 
     }
+    /**
+     * 修改三级分类
+     */
+    private fun updateThirdCategory(category: CategoryInfo) {
+        //刷新列表，目的是取消之前做过的长按状态
+        secondAdapter.notifyDataSetChanged()
+
+        alertView = AlertView("修改类别",null,null,null,
+                arrayOf("取消","完成"),context,AlertView.Style.Alert, OnItemClickListener{
+                 o, position ->
+                    activity?.hideSoftInput()
+            when (position) {
+                0 ->{}
+                1->{}
+            }
+        })
+        val editView = LayoutInflater.from(context).inflate(R.layout.layout_add_third_category,null)
+        val imageView = editView.find<ImageView>(R.id.mPictureIv)
+        imageView.loadUrl(category.imageUrl)
+        val editV = editView.find<EditText>(R.id.mThirdCgNameEt)
+        editV.setText(category.name)
+        val takePhoto = editView.find<Button>(R.id.mPictureBtn)
+        val camera = editView.find<Button>(R.id.mCameraBtn)
+        camera.setOnClickListener{
+            mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
+            createTempFile()
+            mTakePhoto.onPickFromCapture(Uri.fromFile(mTempFile))
+        }
+        takePhoto.setOnClickListener {
+            mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
+            mTakePhoto.onPickFromGallery()
+        }
+        alertView.addExtView(editView).show()
+
+    }
+
     /**
      * 显示修改类别对话框
      */

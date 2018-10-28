@@ -4,11 +4,13 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.owner.assertsparam.BR
 import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.data.Footer
+import com.owner.assertsparam.databinding.LayoutThirdCategoryItemBinding
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
 import com.owner.assertsparam.viewmodel.ThirdCgMoreView
 
@@ -100,12 +102,25 @@ class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCate
         fun bindData(data: Any, viewModel: CategoryFgViewModel) {
             if (data is CategoryInfo) {
                 mBinding.setVariable(BR.data, data)
+                setVisibleEditLL(data.isLongOnClick)
             }
             if (data is Footer) {
                 mBinding.setVariable(BR.data, data)
             }
             mBinding.setVariable(BR.categoryFgVM, viewModel)
             mBinding.executePendingBindings()
+        }
+        /*
+           设置编辑界面的可见性
+        */
+        private fun setVisibleEditLL(visible: Boolean) {
+            if (mBinding is LayoutThirdCategoryItemBinding) {
+                if (visible) {
+                    mBinding.mEditThirdCgll.visibility = View.VISIBLE
+                } else {
+                    mBinding.mEditThirdCgll.visibility = View.GONE
+                }
+            }
         }
     }
 }

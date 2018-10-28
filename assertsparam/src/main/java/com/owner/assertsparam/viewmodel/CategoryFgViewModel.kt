@@ -36,7 +36,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         const val KEY_DELETE_ACTION = "delete"
         const val KEY_ADD_ACTION = "add"
         const val KEY_ADD_THIRD_ACTION ="add_third"
-
+        const val KEY_UPDATE_THIRD_ACTION ="update_third"
     }
 
     //点击事件行为，选择、增加、修改、删除.
@@ -173,7 +173,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         if (item.parentId == "") {
             setTopCgLongState(item)
         } else {
-            setSecondCgLongState(item)
+            setSecondOrThirdLongState(item)
         }
         action.value = Pair(KEY_SELECTED_ACTION, item)
         return true
@@ -195,13 +195,14 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
     /**
      * 设置二级分类项目长按时状态
      */
-    private fun setSecondCgLongState(item: CategoryInfo) {
+    private fun setSecondOrThirdLongState(item: CategoryInfo) {
         //还原所有选择和长按状态
         secondAndThirdCgList.forEach {
             it.isLongOnClick = false
         }
         item.isLongOnClick = true
     }
+
 
     /**
      * 展开和收缩三级分类列表
@@ -246,6 +247,9 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      * 发送增加三级分类请求
      */
     fun addThirdAlert(second:Footer) {
+        secondAndThirdCgList.forEach {
+            it.isLongOnClick = false
+        }
        action.value = Pair(KEY_ADD_THIRD_ACTION,second.category)
     }
 
@@ -257,13 +261,20 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
     }
 
     /**
-     * 启动修改类别对话框
+     * 启动修改一级或二级分类对话框
      */
     fun updateAlert(category: CategoryInfo) {
         category.isLongOnClick = false
         action.value = Pair(KEY_UPDATE_ACTION, category)
     }
 
+    /**
+     * 启动修改三级分类对话框
+     */
+    fun updateThirdAlert(third: CategoryInfo) {
+        third.isLongOnClick = false
+        action.value = Pair(KEY_UPDATE_THIRD_ACTION,third)
+    }
     /**
      * 对数据库执行修改操作
      */

@@ -155,18 +155,21 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      *
      */
     private fun addCategory(parent: CategoryInfo) {
+        val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
+        val editV = extView.findViewById<EditText>(R.id.mCgNameEt)
         alertView = AlertView("增加类别", null, null, null,
                 arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
             activity?.hideSoftInput()
             when (position) {
-                0 -> {
-                }
-                1 -> {}
+               1 -> {
+                   val name = editV.text.toString()
+                   val newCg = CategoryInfo("",name,parent.id)
+                   viewModel.addCategory(newCg)
+               }
 
             }
         })
-        val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
-        val editV = extView.findViewById<EditText>(R.id.mCgNameEt)
+
         alertView.addExtView(extView).show()
     }
 

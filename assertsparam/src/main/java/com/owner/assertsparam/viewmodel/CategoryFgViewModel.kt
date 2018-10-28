@@ -21,6 +21,8 @@ import com.owner.assertsparam.BR
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.data.Footer
 import com.owner.assertsparam.model.repository.AssertsParamRepository
+import com.owner.assertsparam.model.repository.impl.APRepositoryImpl
+import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.viewmodel.BaseViewModel
 
 /**
@@ -80,6 +82,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      * 模拟数据
      */
     init {
+        repo = APRepositoryImpl()
         val top1 = CategoryInfo("1", "电教设备")
         val top2 = CategoryInfo("2", "办公家具")
         val top3 = CategoryInfo("3", "学员公寓家俱")
@@ -256,7 +259,9 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
     /**
      * 对数据库执行保存操作
      */
-    fun addCategory(new: CategoryInfo) {
+    fun addCategory(newCg: CategoryInfo) {
+        repo.createCategory(newCg.name,newCg.parentId,newCg.imageUrl).execute()
+                .subscribe()
 
     }
 

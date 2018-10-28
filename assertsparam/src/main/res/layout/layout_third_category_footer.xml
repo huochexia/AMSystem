@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -9,7 +8,7 @@
             type="com.owner.assertsparam.data.Footer" />
 
         <variable
-            name="categoryVM"
+            name="categoryFgVM"
             type="com.owner.assertsparam.viewmodel.CategoryFgViewModel" />
     </data>
 
@@ -23,6 +22,6 @@
             android:layout_height="83dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_add_category"
-            android:onClick="@{}"/>
+            android:onClick="@{()->categoryFgVM.addThirdAlert(data)}"/>
     </LinearLayout>
 </layout>

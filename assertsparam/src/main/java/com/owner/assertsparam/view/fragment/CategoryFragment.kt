@@ -25,6 +25,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
@@ -39,6 +40,7 @@ import com.jph.takephoto.permission.PermissionManager
 import com.jph.takephoto.permission.TakePhotoInvocationHandler
 import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
+import com.owner.assertsparam.data.Footer
 import com.owner.assertsparam.databinding.FragementCategoryBinding
 import com.owner.assertsparam.view.adapter.SecondCgAdapter
 import com.owner.assertsparam.view.adapter.TopCgAdapter
@@ -47,6 +49,7 @@ import com.owner.baselibrary.utils.DateUtils
 import com.owner.baselibrary.utils.hideSoftInput
 import com.owner.baselibrary.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragement_category.*
+import org.jetbrains.anko.find
 import java.io.File
 
 /**
@@ -64,7 +67,10 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     private lateinit var mTakePhoto: TakePhoto
     private lateinit var mTempFile: File
     private lateinit var invokeParam: InvokeParam
-
+    //定义总资产分类对象
+    private val category=CategoryInfo("","资产分类")
+    //当前选择的一级分类
+    lateinit var currentTopCategory : CategoryInfo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CategoryFgViewModel::class.java)
@@ -90,32 +96,35 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         val binding = DataBindingUtil.inflate<FragementCategoryBinding>(
                 inflater, R.layout.fragement_category, container, false)
         binding.categoryVM = viewModel
-
+        //绑定总资产对象
+        binding.category = category
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTopCgList()
-        initSecondCgList(null)
+        initSecondCgList(category)
     }
 
     /**
      *对由ViewModel发生的事件进行筛分，对应处理
      */
-    private fun executeAction(it: Pair<String, CategoryInfo?>) {
+    private fun executeAction(it: Pair<String, CategoryInfo>) {
 
         //判断是否是一级分类
         if (it.second!!.parentId == "") {
             topAdapter.notifyDataSetChanged()
             initSecondCgList(it.second)
+            currentTopCategory = it.second
         } else {
             secondAdapter.notifyDataSetChanged()
         }
         when (it.first) {
-            CategoryFgViewModel.KEY_UPDATE_ACTION -> updateCategory(it.second as CategoryInfo)
-            CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second as CategoryInfo)
+            CategoryFgViewModel.KEY_UPDATE_ACTION -> updateCategory(it.second )
+            CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second )
             CategoryFgViewModel.KEY_ADD_ACTION -> addCategory(it.second)
+            CategoryFgViewModel.KEY_ADD_THIRD_ACTION->addThirdCategory(it.second)
         }
     }
 
@@ -126,33 +135,30 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         mTopCategoryRv.layoutManager = LinearLayoutManager(context)
         topAdapter = TopCgAdapter(viewModel)
         mTopCategoryRv.adapter = topAdapter
-        mTopCategoryBtn.setOnClickListener {
-            addCategory(null)
-        }
     }
 
     /**
      * 初始化二级分类列表
      */
-    private fun initSecondCgList(category: CategoryInfo?) {
+    private fun initSecondCgList(category: CategoryInfo) {
         mSecondCategoryRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         secondAdapter = SecondCgAdapter(category, viewModel)
         mSecondCategoryRv.adapter = secondAdapter
     }
 
     /**
-     * 增加类别,要判断是不是一级
+     * 增加类别，在这里生成一个新子类。这里形成比在ViewModel中放便些
+     * @parent:父类
+     *
      */
-    fun addCategory(category: CategoryInfo?) {
+    fun addCategory(parent: CategoryInfo) {
         alertView = AlertView("增加类别", null, null, null,
                 arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
             activity?.hideSoftInput()
             when (position) {
                 0 -> {
                 }
-                1 -> if (category != null) {
-                    val parentId = category.id
-                }
+                1 -> {}
 
             }
         })
@@ -161,6 +167,32 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         alertView.addExtView(extView).show()
     }
 
+    fun addThirdCategory(third: CategoryInfo) {
+        alertView = AlertView("增加类别",null,null,null,
+                arrayOf("取消","完成"),context,AlertView.Style.Alert, OnItemClickListener{
+                 o, position ->
+                    activity?.hideSoftInput()
+            when (position) {
+                0 ->{}
+                1->{}
+            }
+        })
+        val editView = LayoutInflater.from(context).inflate(R.layout.layout_add_third_category,null)
+        val editV = editView.find<EditText>(R.id.mThirdCgNameEt)
+        val takePhoto = editView.find<Button>(R.id.mPictureBtn)
+        val camera = editView.find<Button>(R.id.mCameraBtn)
+        camera.setOnClickListener{
+            mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
+            createTempFile()
+            mTakePhoto.onPickFromCapture(Uri.fromFile(mTempFile))
+        }
+        takePhoto.setOnClickListener {
+            mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
+            mTakePhoto.onPickFromGallery()
+        }
+        alertView.addExtView(editView).show()
+
+    }
     /**
      * 显示修改类别对话框
      */

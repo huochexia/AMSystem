@@ -7,7 +7,9 @@
         <variable
             name="categoryVM"
             type="com.owner.assertsparam.viewmodel.CategoryFgViewModel" />
-
+        <variable
+            name="category"
+            type="com.owner.assertsparam.data.CategoryInfo"/>
     </data>
 
     <LinearLayout style="@style/MatchMatch.Vertical.Common">
@@ -24,11 +26,13 @@
                 style="@style/MatchMatch.Vertical"
                 android:layout_weight="5">
 
-                <ImageButton
-                    android:id="@+id/mTopCategoryBtn"
+                <TextView
                     style="@style/MatchWrap"
                     android:padding="@dimen/common_padding"
-                    android:src="@drawable/ic_add_category" />
+                    android:text="@{category.name}"
+                    android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{()->categoryVM.addTopAlert(category)}"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/mTopCategoryRv"
@@ -53,10 +57,12 @@
                 <TextView
                     android:id="@+id/mAddSecondCgTv"
                     style="@style/MatchWrap"
-                    android:drawableLeft="@drawable/ic_add_category"
+                    android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
                     android:layout_marginTop="@dimen/common_margin_middle"
-                    android:text="@{}"
-                    android:gravity="center_vertical"/>
+                    android:text="@{categoryVM.currentTopCategory.name}"
+                    android:onClick="@{()->categoryVM.addSecondAlert()}"
+                    android:gravity="center_vertical"
+                    android:visibility="@{categoryVM.visibleTop?View.VISIBLE:View.GONE}"/>
                 <com.kennyc.view.MultiStateView
                     android:id="@+id/mMultiStateView"
                     style="@style/MultiStateStyle"

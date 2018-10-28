@@ -28,10 +28,7 @@ class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCate
     init {
         //1、清空列表防止重复，筛选出三级分类
         thirdCgAllList.clear()
-        mCategoryVM.secondAndThirdCgList.forEach {
-            if (it.parentId == secondCategory.id)
-                thirdCgAllList.add(it)
-        }
+        thirdCgAllList.addAll(mCategoryVM.getSubCategory(secondCategory))
         //将Footer对象加入列表
         thirdCgAllList.add(thirdCgAllList
                 .size, Footer(secondCategory))
@@ -41,7 +38,7 @@ class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCate
         //否则即小于等于4个，显示全部
         if (thirdCgMore.isMore && thirdCgMore.isExpanded) {
             showAllList()
-        }else if (thirdCgMore.isMore && !thirdCgMore.isExpanded) {
+        } else if (thirdCgMore.isMore && !thirdCgMore.isExpanded) {
             showSubList()
         } else {
             showAllList()

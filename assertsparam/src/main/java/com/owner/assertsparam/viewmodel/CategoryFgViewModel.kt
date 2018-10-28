@@ -34,20 +34,37 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         const val KEY_SELECTED_ACTION = "select"
         const val KEY_UPDATE_ACTION = "update"
         const val KEY_DELETE_ACTION = "delete"
-        const val KEY_ADD_ACTION ="add"
+        const val KEY_ADD_ACTION = "add"
+        const val KEY_ADD_THIRD_ACTION ="add_third"
 
     }
 
-    //点击事件行为，选择、增加、修改、删除.因为增加一级分类时没有父类，所以CategoryInfo可能为空对象
-    var action = MutableLiveData<Pair<String, CategoryInfo?>>()
-    //是否展开三级列表的状态
+    //点击事件行为，选择、增加、修改、删除.
+    var action = MutableLiveData<Pair<String, CategoryInfo>>()
+    //是否展开三级分类列表的状态
     var expandList = MutableLiveData<Boolean>()
-    //一级类别数据列表
+    //一级分类数据列表
     var topCgList = mutableListOf<CategoryInfo>()
-    //二级和三级类别数据表
+    //二级和三级分类数据表
     var secondAndThirdCgList = mutableListOf<CategoryInfo>()
-
-
+    /*
+        显示当前一级分类
+     */
+    @get:Bindable
+    var currentTopCategory = CategoryInfo("", "")
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.currentTopCategory)
+        }
+    /*
+       是否显示当前一级分类
+     */
+    @get:Bindable
+    var isVisibleTop = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.visibleTop)
+        }
     /*
        多状态视图参数，此处只能用这种形式，因为布局中属性值是Int类。如果用observableInt或者是LiveData<Int>
        都会给该值增加封装，造成databinding失败
@@ -105,10 +122,12 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      */
     fun itemOnClick(item: CategoryInfo) {
         //如果是一级分类，设置一级分类项目状态
-        if (item.parentId == "") {
+        if (item.parentId == "" && item.id != "") {
             setTopCgState(item)
             //加载二级列表数据
             loadSecondCategory(item.id)
+            currentTopCategory = item
+            isVisibleTop = true
         } else {
             //点击二级或三级任意一个时，还原其选择状态
             secondAndThirdCgList.forEach {
@@ -193,19 +212,50 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
     }
 
     /**
-     * 发送增加请求
-     * @category：是父类，可以为null。因为一级分类无父类
+     * 获取子分类
      */
-    fun addAlert(category: CategoryInfo?) {
-        action.value = Pair(KEY_ADD_ACTION,category)
+    fun getSubCategory(parent: CategoryInfo): MutableList<CategoryInfo> {
+        val subList = mutableListOf<CategoryInfo>()
+        secondAndThirdCgList.forEach {
+            if (it.parentId == parent.id) {
+                subList.add(it)
+            }
+        }
+        return subList
+    }
+
+    /**
+     * 发送增加一级分类请求
+     *
+     */
+    fun addTopAlert(top: CategoryInfo) {
+        //如果是总分类，还原最初始状态
+        isVisibleTop = false
+        setTopCgState(top)
+        action.value = Pair(KEY_ADD_ACTION, top)
+    }
+
+    /**
+     * 发送增加二级分类请求
+     */
+    fun addSecondAlert() {
+        action.value = Pair(KEY_ADD_ACTION,currentTopCategory)
+    }
+
+    /**
+     * 发送增加三级分类请求
+     */
+    fun addThirdAlert(second:Footer) {
+       action.value = Pair(KEY_ADD_THIRD_ACTION,second.category)
     }
 
     /**
      * 对数据库执行保存操作
      */
-    fun addCategory(category: CategoryInfo) {
+    fun addCategory(new: CategoryInfo) {
 
     }
+
     /**
      * 启动修改类别对话框
      */

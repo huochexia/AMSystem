@@ -34,11 +34,15 @@
                     android:gravity="center_vertical"
                     android:onClick="@{()->categoryVM.addTopAlert(category)}"/>
 
+                <com.kennyc.view.MultiStateView
+                    android:id="@+id/mMultiStateTopView"
+                    style="@style/MultiStateStyle"
+                    app:msv_viewState="@{categoryVM.mTopViewState}">
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/mTopCategoryRv"
                     style="@style/commonRecyclerView" />
 
-
+                </com.kennyc.view.MultiStateView>
             </LinearLayout>
 
             <LinearLayout
@@ -66,7 +70,7 @@
                 <com.kennyc.view.MultiStateView
                     android:id="@+id/mMultiStateView"
                     style="@style/MultiStateStyle"
-                    app:msv_viewState="@{categoryVM.viewState}">
+                    app:msv_viewState="@{categoryVM.mSecondViewState}">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/mSecondCategoryRv"

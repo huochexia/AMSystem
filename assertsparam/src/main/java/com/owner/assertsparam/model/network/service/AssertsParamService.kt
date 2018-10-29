@@ -18,9 +18,12 @@ package com.owner.assertsparam.model.network.service
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.model.network.entites.CreateCgReq
 import com.owner.assertsparam.model.network.entites.CreateCgResp
+import com.owner.assertsparam.model.network.entites.GetCategoryList
 import com.owner.baselibrary.model.network.RetrofitFactory
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 import retrofit2.Response
+import retrofit2.adapter.rxjava2.Result
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -42,7 +45,7 @@ interface AssertsParamApi {
        获取分类
      */
     @GET("1.1/classes/Category")
-    fun getCategory(@Query("parentId") parentId:String):Observable<Response<List<CategoryInfo>?>>
+    fun getCategory(@Query("parentId") parentId:String):Observable<GetCategoryList>
 
 }
 

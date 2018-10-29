@@ -15,6 +15,7 @@
  */
 package com.owner.assertsparam.data
 
+import com.google.gson.annotations.SerializedName
 import com.owner.assertsparam.model.network.entites.CreateCgResp
 import com.owner.baselibrary.ext.PoKo
 

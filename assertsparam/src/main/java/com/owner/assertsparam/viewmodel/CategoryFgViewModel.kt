@@ -37,14 +37,17 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         const val KEY_UPDATE_ACTION = "update"
         const val KEY_DELETE_ACTION = "delete"
         const val KEY_ADD_ACTION = "add"
-        const val KEY_ADD_THIRD_ACTION ="add_third"
-        const val KEY_UPDATE_THIRD_ACTION ="update_third"
+        const val KEY_ADD_THIRD_ACTION = "add_third"
+        const val KEY_UPDATE_THIRD_ACTION = "update_third"
+        const val KEY_REFRESH_LIST = "refresh"
     }
 
     //点击事件行为，选择、增加、修改、删除.
     var action = MutableLiveData<Pair<String, CategoryInfo>>()
     //是否展开三级分类列表的状态
     var expandList = MutableLiveData<Boolean>()
+    //刷新列表
+    var refreshList = MutableLiveData<Pair<String, Int>>()
     //一级分类数据列表
     var topCgList = mutableListOf<CategoryInfo>()
     //二级和三级分类数据表
@@ -78,45 +81,54 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
             notifyPropertyChanged(BR.viewState)
         }
 
-    /**
-     * 模拟数据
-     */
+
     init {
         repo = APRepositoryImpl()
-        val top1 = CategoryInfo("1", "电教设备")
-        val top2 = CategoryInfo("2", "办公家具")
-        val top3 = CategoryInfo("3", "学员公寓家俱")
-        val second1 = CategoryInfo("11", "电脑主机", "1")
-        val second2 = CategoryInfo("12", "电脑显示器", "1")
-        val second3 = CategoryInfo("21", "桌子", "2")
-        val second4 = CategoryInfo("22", "柜子", "3")
-        val third1 = CategoryInfo("111", "清华同方", "11", "https://img14.360buyimg.com/n0/jfs/t3157/231/5756125504/98807/97ab361d/588084a1N06efb01d.jpg")
-        val third2 = CategoryInfo("112", "联想", "11", "https://img10.360buyimg.com/n7/jfs/t5905/106/1120548052/61075/6eafa3a5/592f8f7bN763e3d30.jpg")
-        val third3 = CategoryInfo("113", "IBM", "11", "https://img10.360buyimg.com/n7/jfs/t5905/106/1120548052/61075/6eafa3a5/592f8f7bN763e3d30.jpg")
-        val third4 = CategoryInfo("114", "SONY", "12", "https://img10.360buyimg.com/n7/jfs/t5584/99/6135095454/371625/423b9ba5/59681d91N915995a7.jpg")
-        val third5 = CategoryInfo("211", "三星", "12", "https://img10.360buyimg.com/n7/jfs/t5584/99/6135095454/371625/423b9ba5/59681d91N915995a7.jpg")
-        val third7 = CategoryInfo("212", "ThinkVision", "12", "https://img14.360buyimg.com/n1/s190x190_jfs/t7525/189/155179632/395056/e200017f/598fb8a4N7800dee6.jpg")
-        val third8 = CategoryInfo("212", "ThinkVision", "12", "https://img14.360buyimg.com/n1/s190x190_jfs/t7525/189/155179632/395056/e200017f/598fb8a4N7800dee6.jpg")
-        val third9 = CategoryInfo("212", "ThinkVision", "12", "https://img14.360buyimg.com/n1/s190x190_jfs/t7525/189/155179632/395056/e200017f/598fb8a4N7800dee6.jpg")
-        val third10 = CategoryInfo("212", "ThinkVision", "12", "https://img14.360buyimg.com/n1/s190x190_jfs/t7525/189/155179632/395056/e200017f/598fb8a4N7800dee6.jpg")
-        val third11 = CategoryInfo("212", "ThinkVision", "22", "https://img14.360buyimg.com/n1/s190x190_jfs/t7525/189/155179632/395056/e200017f/598fb8a4N7800dee6.jpg")
-        topCgList.add(top1)
-        topCgList.add(top2)
-        topCgList.add(top3)
-        secondAndThirdCgList.add(second1)
-        secondAndThirdCgList.add(second2)
-        secondAndThirdCgList.add(second3)
-        secondAndThirdCgList.add(second4)
-        secondAndThirdCgList.add(third1)
-        secondAndThirdCgList.add(third2)
-        secondAndThirdCgList.add(third3)
-        secondAndThirdCgList.add(third4)
-        secondAndThirdCgList.add(third5)
-        secondAndThirdCgList.add(third7)
-        secondAndThirdCgList.add(third8)
-        secondAndThirdCgList.add(third9)
-        secondAndThirdCgList.add(third10)
-        secondAndThirdCgList.add(third11)
+        val disposable = repo.getCategory("0").execute()
+                .subscribe{
+                    if (it.isSuccessful) {
+                        topCgList.clear()
+                        topCgList.addAll(it.body()!!)
+                    }
+                }
+        compositeDisposable.add(disposable)
+//        /**
+//         * 模拟数据
+//         */
+//        val top1 = CategoryInfo("1", "电教设备")
+//        val top2 = CategoryInfo("2", "办公家具")
+//        val top3 = CategoryInfo("3", "学员公寓家俱")
+//        val second1 = CategoryInfo("11", "电脑主机", "1")
+//        val second2 = CategoryInfo("12", "电脑显示器", "1")
+//        val second3 = CategoryInfo("21", "桌子", "2")
+//        val second4 = CategoryInfo("22", "柜子", "3")
+//        val third1 = CategoryInfo("111", "清华同方", "11", "https://img14.360buyimg.com/n0/jfs/t3157/231/5756125504/98807/97ab361d/588084a1N06efb01d.jpg")
+//        val third2 = CategoryInfo("112", "联想", "11", "https://img10.360buyimg.com/n7/jfs/t5905/106/1120548052/61075/6eafa3a5/592f8f7bN763e3d30.jpg")
+//        val third3 = CategoryInfo("113", "IBM", "11", "https://img10.360buyimg.com/n7/jfs/t5905/106/1120548052/61075/6eafa3a5/592f8f7bN763e3d30.jpg")
+//        val third4 = CategoryInfo("114", "SONY", "12", "https://img10.360buyimg.com/n7/jfs/t5584/99/6135095454/371625/423b9ba5/59681d91N915995a7.jpg")
+//        val third5 = CategoryInfo("211", "三星", "12", "https://img10.360buyimg.com/n7/jfs/t5584/99/6135095454/371625/423b9ba5/59681d91N915995a7.jpg")
+//        val third7 = CategoryInfo("212", "ThinkVision", "12", "https://img14.360buyimg.com/n1/s190x190_jfs/t7525/189/155179632/395056/e200017f/598fb8a4N7800dee6.jpg")
+//        val third8 = CategoryInfo("212", "ThinkVision", "12", "https://img14.360buyimg.com/n1/s190x190_jfs/t7525/189/155179632/395056/e200017f/598fb8a4N7800dee6.jpg")
+//        val third9 = CategoryInfo("212", "ThinkVision", "12", "https://img14.360buyimg.com/n1/s190x190_jfs/t7525/189/155179632/395056/e200017f/598fb8a4N7800dee6.jpg")
+//        val third10 = CategoryInfo("212", "ThinkVision", "12", "https://img14.360buyimg.com/n1/s190x190_jfs/t7525/189/155179632/395056/e200017f/598fb8a4N7800dee6.jpg")
+//        val third11 = CategoryInfo("212", "ThinkVision", "22", "https://img14.360buyimg.com/n1/s190x190_jfs/t7525/189/155179632/395056/e200017f/598fb8a4N7800dee6.jpg")
+//        topCgList.add(top1)
+//        topCgList.add(top2)
+//        topCgList.add(top3)
+//        secondAndThirdCgList.add(second1)
+//        secondAndThirdCgList.add(second2)
+//        secondAndThirdCgList.add(second3)
+//        secondAndThirdCgList.add(second4)
+//        secondAndThirdCgList.add(third1)
+//        secondAndThirdCgList.add(third2)
+//        secondAndThirdCgList.add(third3)
+//        secondAndThirdCgList.add(third4)
+//        secondAndThirdCgList.add(third5)
+//        secondAndThirdCgList.add(third7)
+//        secondAndThirdCgList.add(third8)
+//        secondAndThirdCgList.add(third9)
+//        secondAndThirdCgList.add(third10)
+//        secondAndThirdCgList.add(third11)
 
     }
 
@@ -125,10 +137,10 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      */
     fun itemOnClick(item: CategoryInfo) {
         //如果是一级分类，设置一级分类项目状态
-        if (item.parentId == "" && item.id != "") {
+        if (item.parentId == "0" ) {
             setTopCgState(item)
             //加载二级列表数据
-            loadSecondCategory(item.id)
+            loadSecondCategory(item.objectId)
             currentTopCategory = item
             isVisibleTop = true
         } else {
@@ -173,7 +185,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      */
     fun itemLongClick(item: CategoryInfo): Boolean {
         //如果是一级分类
-        if (item.parentId == "") {
+        if (item.parentId == "0") {
             setTopCgLongState(item)
         } else {
             setSecondOrThirdLongState(item)
@@ -221,7 +233,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
     fun getSubCategory(parent: CategoryInfo): MutableList<CategoryInfo> {
         val subList = mutableListOf<CategoryInfo>()
         secondAndThirdCgList.forEach {
-            if (it.parentId == parent.id) {
+            if (it.parentId == parent.objectId) {
                 subList.add(it)
             }
         }
@@ -243,26 +255,38 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      * 发送增加二级分类请求
      */
     fun addSecondAlert() {
-        action.value = Pair(KEY_ADD_ACTION,currentTopCategory)
+        action.value = Pair(KEY_ADD_ACTION, currentTopCategory)
     }
 
     /**
      * 发送增加三级分类请求
      */
-    fun addThirdAlert(second:Footer) {
+    fun addThirdAlert(second: Footer) {
         secondAndThirdCgList.forEach {
             it.isLongOnClick = false
         }
-       action.value = Pair(KEY_ADD_THIRD_ACTION,second.category)
+        action.value = Pair(KEY_ADD_THIRD_ACTION, second.category)
     }
 
     /**
      * 对数据库执行保存操作
      */
     fun addCategory(newCg: CategoryInfo) {
-        repo.createCategory(newCg.name,newCg.parentId,newCg.imageUrl).execute()
-                .subscribe()
 
+        val disposable = repo.createCategory(newCg.name, newCg.parentId, newCg.imageUrl).execute()
+                .subscribe({
+                    val category = CategoryInfo.create(it)
+                    if (category.parentId == "0"){
+                        topCgList.add(category)
+                        refreshList.value = Pair(KEY_REFRESH_LIST, 0)
+                    }else
+                        secondAndThirdCgList.add(category)
+                        refreshList.value = Pair(KEY_REFRESH_LIST,1)
+                }, {
+                }, {
+
+                })
+        compositeDisposable.add(disposable)
     }
 
     /**
@@ -278,8 +302,9 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      */
     fun updateThirdAlert(third: CategoryInfo) {
         third.isLongOnClick = false
-        action.value = Pair(KEY_UPDATE_THIRD_ACTION,third)
+        action.value = Pair(KEY_UPDATE_THIRD_ACTION, third)
     }
+
     /**
      * 对数据库执行修改操作
      */

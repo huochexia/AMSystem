@@ -16,7 +16,10 @@ import com.owner.assertsparam.viewmodel.CategoryFgViewModel
 class TopCgAdapter(private val mCategoryVM: CategoryFgViewModel)
     : RecyclerView.Adapter<TopCgAdapter.TopCgViewHolder>() {
 
-    private val dataList = mCategoryVM.topCgList
+    private lateinit var  dataList :MutableList<CategoryInfo>
+    init {
+        dataList = mCategoryVM.topCgList
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopCgViewHolder {
         val inflater = LayoutInflater.from(parent.context)

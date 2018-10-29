@@ -15,6 +15,9 @@
  */
 package com.owner.assertsparam.data
 
+import com.owner.assertsparam.model.network.entites.CreateCgResp
+import com.owner.baselibrary.ext.PoKo
+
 /**
  * 类别信息
  * @name ：类别名称
@@ -25,10 +28,17 @@ package com.owner.assertsparam.data
  * Created by Liuyong on 2018-10-21.It's AMSystem
  *@description:
  */
-data class CategoryInfo(val id: String,
+@PoKo
+data class CategoryInfo(val objectId: String,
                         val name: String,
-                        val parentId: String="",
+                        val parentId: String = "",
                         val imageUrl: String = "",
                         var isSelected: Boolean = false,//选择状态
                         var isLongOnClick: Boolean = false//长按状态
-)
+) {
+    companion object {
+        fun create(resp: CreateCgResp): CategoryInfo {
+            return CategoryInfo(resp.objectId, resp.name, resp.parentId, resp.imageUrl)
+        }
+    }
+}

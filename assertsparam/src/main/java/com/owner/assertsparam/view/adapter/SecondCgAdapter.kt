@@ -24,7 +24,7 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
         secondCgList.clear()
         if (topCategory != null) {
             mCategoryVM.secondAndThirdCgList.forEach {
-                if (it.parentId == topCategory.id) {
+                if (it.parentId == topCategory.objectId) {
                     secondCgList.add(it)
                 }
             }

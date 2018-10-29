@@ -70,7 +70,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     private lateinit var mTempFile: File
     private lateinit var invokeParam: InvokeParam
     //定义总资产分类对象
-    private val category=CategoryInfo("","资产分类")
+    private val category=CategoryInfo("0","资产分类")
     //当前选择的一级分类
     private lateinit var currentTopCategory : CategoryInfo
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +81,12 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         viewModel.action.observe(this, Observer {
             //如果parentId为空，则是一级分类
             executeAction(it!!)
+        })
+        viewModel.refreshList.observe(this, Observer {
+            when (it?.second) {
+                0 ->topAdapter.notifyDataSetChanged()
+                1-> secondAdapter.notifyDataSetChanged()
+            }
         })
         //观察是否展开显示更多三级分类状态
         viewModel.expandList.observe(this, Observer {
@@ -115,7 +121,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     private fun executeAction(it: Pair<String, CategoryInfo>) {
 
         //判断是否是一级分类
-        if (it.second!!.parentId == "") {
+        if (it.second!!.parentId=="") {
             topAdapter.notifyDataSetChanged()
             initSecondCgList(it.second)
             currentTopCategory = it.second
@@ -163,7 +169,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             when (position) {
                1 -> {
                    val name = editV.text.toString()
-                   val newCg = CategoryInfo("",name,parent.id)
+                   val newCg = CategoryInfo("",name,parent.objectId)
                    viewModel.addCategory(newCg)
                }
 

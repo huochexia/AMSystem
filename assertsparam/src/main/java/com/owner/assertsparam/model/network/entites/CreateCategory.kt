@@ -20,11 +20,11 @@ package com.owner.assertsparam.model.network.entites
  * Created by Liuyong on 2018-10-28.It's AMSystem
  *@description:
  */
-data class createCgReq(val name:String,
+data class CreateCgReq(val name:String,
                        val parentId:String,
                        val imageUrl:String="")
 
-data class createCgResp(val code:Int,
+data class CreateCgResp(val code:Int,
                         val error:String?,
                         val objectId:String,
                         val name:String,

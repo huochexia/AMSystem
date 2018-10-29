@@ -15,12 +15,16 @@
  */
 package com.owner.assertsparam.model.network.service
 
-import com.owner.assertsparam.model.network.entites.createCgReq
-import com.owner.assertsparam.model.network.entites.createCgResp
+import com.owner.assertsparam.data.CategoryInfo
+import com.owner.assertsparam.model.network.entites.CreateCgReq
+import com.owner.assertsparam.model.network.entites.CreateCgResp
 import com.owner.baselibrary.model.network.RetrofitFactory
 import io.reactivex.Observable
+import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 /**
  *
@@ -28,12 +32,18 @@ import retrofit2.http.POST
  *@description:
  */
 
-interface AssetsParamApi {
+interface AssertsParamApi {
     /*
        创建分类对象
      */
     @POST(value = "1.1/classes/Category?fetchWhenSave=true")
-    fun createCategory(@Body request:createCgReq):Observable<createCgResp>
+    fun createCategory(@Body request: CreateCgReq):Observable<CreateCgResp>
+    /*
+       获取分类
+     */
+    @GET("1.1/classes/Category")
+    fun getCategory(@Query("parentId") parentId:String):Observable<Response<List<CategoryInfo>?>>
+
 }
 
-object AssetsParamService : AssetsParamApi by RetrofitFactory.instance.create(AssetsParamApi::class.java)
+object AssertsParamService : AssertsParamApi by RetrofitFactory.instance.create(AssertsParamApi::class.java)

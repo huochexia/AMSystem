@@ -18,9 +18,26 @@ package com.owner.assertsparam.model.network.entites
 import com.owner.assertsparam.data.CategoryInfo
 
 /**
- *@results：必须和Json中的字段名一致
- * Created by Liuyong on 2018-10-29.It's AMSystem
+ * 生成分类对象的网络请求体和响应体
+ * Created by Liuyong on 2018-10-28.It's AMSystem
  *@description:
  */
+/*
+生成分类对象
+ */
+data class CreateCgReq(val name:String,
+                       val parentId:String,
+                       val imageUrl:String="")
 
+data class CreateCgResp(val code:Int,
+                        val error:String?,
+                        val objectId:String,
+                        val name:String,
+                        val parentId: String,
+                        val imageUrl: String="")
+/*
+  获取分类对象，响应体，对应Json中的results字段
+ */
+
+data class QueryCategoryReq(val parentId: String)
 data class GetCategoryList (val results:List<CategoryInfo>)

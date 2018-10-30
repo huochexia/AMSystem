@@ -105,7 +105,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      * 初始化一级分类列表
      */
     fun initTopCategory() {
-         val disposable = repo.getCategory("0").execute()
+         val disposable = repo.getCategory("5bd6bac1ac502e0061f74acd").execute()
                  .subscribe({
                     topCgList.addAll(it.results)
                  },{

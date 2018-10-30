@@ -121,7 +121,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     private fun executeAction(it: Pair<String, CategoryInfo>) {
 
         //判断是否是一级分类
-        if (it.second!!.parentId=="") {
+        if (it.second!!.parentId=="0") {
             topAdapter.notifyDataSetChanged()
             initSecondCgList(it.second)
             currentTopCategory = it.second

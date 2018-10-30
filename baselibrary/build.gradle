@@ -41,7 +41,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     api "com.android.support:appcompat-v7:$support_version"
-    api"com.android.support:design:$support_version"
+    api "com.android.support:design:$support_version"
     api "com.android.support:support-v4:$support_version"
     api "com.android.support:recyclerview-v7:$support_version"
     api "com.android.support:cardview-v7:$support_version"
@@ -50,8 +50,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
     // LeanCloud 基础包
     api 'cn.leancloud.android:avoscloud-sdk:v4.7.3'
+
     //ViewModel
     api 'android.arch.lifecycle:extensions:1.1.0'
 
@@ -59,9 +61,9 @@ dependencies {
     api "org.jetbrains.anko:anko-commons:$anko_version"
     api "org.jetbrains.anko:anko-sdk15:$anko_version"
     api "org.jetbrains.anko:anko-sdk15-listeners:$anko_version"
-
     api "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
     api "org.jetbrains.anko:anko-appcompat-v7-listeners:$anko_version"
+
     //Rx
     api "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
     api "io.reactivex.rxjava2:rxandroid:$rx_android_version"
@@ -72,9 +74,12 @@ dependencies {
     api "com.squareup.okhttp3:logging-interceptor:$ok_http_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
     api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+
     //Dagger2暂时放弃使用
-//    api "com.google.dagger:dagger:$dagger_version"
-//    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    //    api "com.google.dagger:dagger:$dagger_version"
+
+    //    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     //RxLifecycle
     api "com.trello.rxlifecycle2:rxlifecycle-kotlin:$rx_lifecycle_version"
@@ -91,25 +96,36 @@ dependencies {
 
     //Alert View
     api "com.bigkoo:alertview:$alert_view_version"
+
     //Logger
     api 'com.orhanobut:logger:2.1.1'
+
     //Timer
     api 'com.jakewharton.timber:timber:4.6.1'
+
     //leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
     //BottomNavigation
-    api "com.ashokvarma.android:bottom-navigation-bar:2.0.5"
+    api 'com.ashokvarma.android:bottom-navigation-bar:2.0.5'
+
     //图片轮播Banner
     api 'com.youth.banner:banner:1.4.10'
+
     //MultiType,在这个包里已经引入的support包，所以这里使用exclude 忽略它
-    api ('me.drakeet.multitype:multitype:3.3.0',{exclude group: 'com.android.support'})
+    api('me.drakeet.multitype:multitype:3.3.0', { exclude group: 'com.android.support' })
+
     //三角标签api
     api 'com.github.shts:TriangleLabelView:1.1.2'
+
     //画廊
     api 'com.github.crosswall:Android-Coverflow:release-v1.0.4'
+
     //ARouter
     api 'com.alibaba:arouter-api:1.4.0'
+
     //MulitStateView多状态视图（正在加载，加载成功，加载失败）
     api "com.github.Kennyc1012:MultiStateView:$multi_state_view_version"
+    implementation files('libs/pinyin4j-2.5.0.jar')
 }

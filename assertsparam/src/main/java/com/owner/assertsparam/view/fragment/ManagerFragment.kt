@@ -18,6 +18,7 @@ package com.owner.assertsparam.view.fragment
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -26,6 +27,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.owner.assertsparam.R
 import com.owner.assertsparam.databinding.FragmentManagerBinding
+import com.owner.assertsparam.utils.TitleItemDecoration
 import com.owner.assertsparam.view.adapter.ManagerAdapter
 import com.owner.assertsparam.viewmodel.ManagerViewModel
 import com.owner.baselibrary.view.fragment.BaseFragment
@@ -39,7 +41,8 @@ import kotlinx.android.synthetic.main.fragment_manager.*
 class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>() {
 
     lateinit var mAdapter: ManagerAdapter
-    lateinit var managerLL: LinearLayoutManager
+    private lateinit var managerLL: LinearLayoutManager
+    private lateinit var mDecoration: TitleItemDecoration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +50,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         mAdapter = ManagerAdapter(viewModel)
         managerLL = LinearLayoutManager(context)
         managerLL.orientation = LinearLayoutManager.VERTICAL
+        mDecoration = TitleItemDecoration(context!!, viewModel.getSortList())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -61,6 +65,10 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         super.onViewCreated(view, savedInstanceState)
         mManagerRcv.adapter = mAdapter
         mManagerRcv.layoutManager = managerLL
+
+        mManagerRcv.addItemDecoration(mDecoration)
+        mManagerRcv.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
         //设置右侧SideBar触摸监听
         mSideBar.setOnTouchLetterChangeListener {
             //该字母首次出现的位置

@@ -29,6 +29,6 @@ data class Manager(val name: String,
                    val phone: String,
                    val avatar: String = "") {
 
-    var letters: String = PinyinUtils.getFirstSpell(name)
+    var letters: String = PinyinUtils.getFirstSpell(name).toUpperCase().toCharArray()[0].toString()
 
 }

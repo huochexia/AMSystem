@@ -50,8 +50,7 @@ class TitleItemDecoration(context: Context, private val mData: List<Manager>) : 
                 if (position == 0) {//等于0的时候绘制title
                     drawTitle(c, left, right, child, params, position)
                 } else {
-                    if (null != mData[position].letters && mData[position]
-                                    .letters != mData[position - 1].letters) {
+                    if (mData[position].letters != mData[position - 1].letters) {
                         //字母不为空，并且不等于前一个，也要title
                         drawTitle(c, left, right, child, params, position)
                     }

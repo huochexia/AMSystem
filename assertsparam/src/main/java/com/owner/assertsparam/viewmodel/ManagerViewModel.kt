@@ -15,10 +15,10 @@
  */
 package com.owner.assertsparam.viewmodel
 
-import android.text.TextUtils
 import com.owner.assertsparam.data.Manager
+import com.owner.assertsparam.model.repository.AssertsParamRepository
+import com.owner.assertsparam.model.repository.impl.APRepositoryImpl
 import com.owner.assertsparam.utils.PinyinComparator
-import com.owner.baselibrary.model.respository.BaseRepository
 import com.owner.baselibrary.utils.PinyinUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import java.util.*
@@ -28,28 +28,31 @@ import java.util.*
  * Created by Liuyong on 2018-10-30.It's AMSystem
  *@description:
  */
-class ManagerViewModel : BaseViewModel<BaseRepository>() {
-    private var mComparator = PinyinComparator()
-    val mManagerList = mutableListOf<Manager>()
+class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
 
-   init {
-       val user1=Manager("张三","客房部",phone = "18932902193")
-       val user2=Manager("李三","客房部",phone = "18932902193")
-       val user3=Manager("王三","客房部",phone = "18932902193")
-       val user4=Manager("刘二","客房部",phone = "18932902193")
-       val user5=Manager("刘三","工程",phone = "18932902193")
-       val user6=Manager("赵四","会服部",phone = "18932902193")
-       val user7=Manager("陈小","客房部",phone = "18932902193")
-       val user8=Manager("张三","客房部",phone = "18932902193")
-       mManagerList.add(user1)
-       mManagerList.add(user2)
-       mManagerList.add(user3)
-       mManagerList.add(user4)
-       mManagerList.add(user5)
-       mManagerList.add(user6)
-       mManagerList.add(user7)
-       mManagerList.add(user8)
-   }
+    private var mComparator = PinyinComparator()
+    private val mManagerList: MutableList<Manager>
+    private var mSortList = mutableListOf<Manager>()
+
+    init {
+        repo = APRepositoryImpl()
+        mManagerList = fillData(repo)
+
+    }
+
+    /**
+     * 将原始列表进行排序后，复制到用于显示的列表中，保存原始列表用于查找
+     * 因为显示用的列表在过程中会不断变化。
+     */
+    fun getSortList(): MutableList<Manager> {
+        Collections.sort(mManagerList, mComparator)
+        mSortList.addAll(mManagerList)
+        return mSortList
+    }
+
+    private fun fillData(repo: AssertsParamRepository): MutableList<Manager> {
+        return repo.getManager()
+    }
 
     /**
      * 根据输入框中的值来过滤数据并更新RecyclerView
@@ -58,8 +61,7 @@ class ManagerViewModel : BaseViewModel<BaseRepository>() {
      */
     fun filterData(filterStr: String) {
         var filterDateList = mutableListOf<Manager>()
-
-        if (TextUtils.isEmpty(filterStr)) {
+        if (filterStr.isNullOrEmpty()) {
             filterDateList = mManagerList
         } else {
             filterDateList.clear()
@@ -77,8 +79,8 @@ class ManagerViewModel : BaseViewModel<BaseRepository>() {
 
         // 根据a-z进行排序
         Collections.sort(filterDateList, mComparator)
-        mManagerList.clear()
-        mManagerList.addAll(filterDateList)
+        mSortList.clear()
+        mSortList.addAll(filterDateList)
     }
 
 }

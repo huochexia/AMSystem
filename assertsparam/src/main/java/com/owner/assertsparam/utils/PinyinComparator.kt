@@ -15,7 +15,7 @@ class PinyinComparator : Comparator<Manager> {
         } else if (o1.letters == "#" || o2.letters == "@") {
             -1
         } else {
-            o1.letters!!.compareTo(o2.letters!!)
+            o1.letters.compareTo(o2.letters)
         }
     }
 

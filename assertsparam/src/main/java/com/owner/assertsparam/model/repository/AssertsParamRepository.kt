@@ -1,6 +1,7 @@
 package com.owner.assertsparam.model.repository
 
 import com.owner.assertsparam.data.CategoryInfo
+import com.owner.assertsparam.data.Manager
 import com.owner.assertsparam.model.network.entites.CreateCgResp
 import com.owner.assertsparam.model.network.entites.GetCategoryList
 import com.owner.baselibrary.model.respository.BaseRepository
@@ -21,4 +22,12 @@ interface AssertsParamRepository:BaseRepository {
       按父类ID查找子分类
      */
     fun getCategory(parentId: String):Observable<GetCategoryList>
+
+    /*
+      获取管理人员列表
+     */
+    fun getManager(): MutableList<Manager>
+
+
+
 }

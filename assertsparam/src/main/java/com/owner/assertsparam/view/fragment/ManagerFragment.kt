@@ -15,15 +15,74 @@
  */
 package com.owner.assertsparam.view.fragment
 
+import android.arch.lifecycle.ViewModelProviders
+import android.databinding.DataBindingUtil
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.owner.assertsparam.R
 import com.owner.assertsparam.databinding.FragmentManagerBinding
+import com.owner.assertsparam.view.adapter.ManagerAdapter
 import com.owner.assertsparam.viewmodel.ManagerViewModel
 import com.owner.baselibrary.view.fragment.BaseFragment
+import kotlinx.android.synthetic.main.fragment_manager.*
 
 /**
  *
  * Created by Liuyong on 2018-10-30.It's AMSystem
  *@description:
  */
-class ManagerFragment:BaseFragment<FragmentManagerBinding,ManagerViewModel>() {
+class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>() {
 
+    lateinit var mAdapter: ManagerAdapter
+    lateinit var managerLL: LinearLayoutManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(ManagerViewModel::class.java)
+        mAdapter = ManagerAdapter(viewModel)
+        managerLL = LinearLayoutManager(context)
+        managerLL.orientation = LinearLayoutManager.VERTICAL
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        val binding = DataBindingUtil.inflate<FragmentManagerBinding>(
+                inflater, R.layout.fragment_manager, container, false)
+        binding.managerVm = viewModel
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mManagerRcv.adapter = mAdapter
+        mManagerRcv.layoutManager = managerLL
+        //设置右侧SideBar触摸监听
+        mSideBar.setOnTouchLetterChangeListener {
+            //该字母首次出现的位置
+            val position = mAdapter.getPositionForSection(it.toCharArray()[0].toInt())
+            if (position != -1) {
+                managerLL.scrollToPositionWithOffset(position, 0)
+            }
+        }
+        mFilterEt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                viewModel.filterData(p0.toString())
+                mAdapter.notifyDataSetChanged()
+            }
+
+        })
+    }
 }

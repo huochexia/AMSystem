@@ -13,8 +13,7 @@
         style="@style/MatchMatch.Vertical">
 
         <com.owner.baselibrary.widgets.HeaderBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/MatchWrap"
             app:titleText="管理人员" />
 
         <LinearLayout
@@ -29,82 +28,38 @@
                 android:padding="@dimen/common_margin_small">
 
                 <com.owner.baselibrary.widgets.ClearEditText
-                    android:id="@+id/filter_edit"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/mFilterEt"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dip"
                     android:background="@null"
+                    android:drawableLeft="@mipmap/search"
                     android:gravity="center_vertical"
                     android:hint="搜索联系人"
                     android:singleLine="true"
                     android:textSize="15.0dip" />
 
-                <Button
-                    android:id="@+id/btnSearch"
-                    style="@style/WrapWrap"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/common_margin_middle"
-                    android:background="@mipmap/search"
-                    android:visibility="gone" />
             </RelativeLayout>
         </LinearLayout>
 
         <FrameLayout style="@style/MatchMatch">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/country_lvcountry"
+                android:id="@+id/mManagerRcv"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center" />
 
-            <TextView
-                android:id="@+id/title_layout_no_friends"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="right|top"
-                android:background="#E0E0E0"
-                android:gravity="center_vertical"
-                android:text="没有匹配的联系人"
-                android:textColor="#454545"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/title_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="right|top"
-                android:background="#ff303030"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/title_layout_catalog"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="#E0E0E0"
-                    android:paddingLeft="5dip"
-                    android:paddingTop="5dip"
-                    android:paddingBottom="5dip"
-                    android:textColor="#454545" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/dialog"
-                android:layout_width="80.0dip"
-                android:layout_height="80.0dip"
-                android:layout_gravity="center"
-                android:background="#557D7D7D"
-                android:gravity="center"
-                android:padding="20dp"
-                android:textColor="#ffffffff"
-                android:textSize="30.0dip"
-                android:visibility="invisible" />
-
-            <com.owner.assertsparam.widgets.CharIndexBar.CharIndexBar
-                android:id="@+id/mCharBar"
-                android:layout_width="30.0dp"
+            <com.goldenstraw.charsidebar.WaveSideBar
+                android:id="@+id/mSideBar"
+                android:layout_width="200dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="right|center" />
+                android:layout_gravity="right"
+                app:chooseTextColor="@android:color/white"
+                app:textColor="#969696"
+                app:textSize="10sp"
+                app:hintTextSize="32sp"
+                app:radius="20dp"
+                app:circleRadius="24dp"/>
         </FrameLayout>
 
     </LinearLayout>

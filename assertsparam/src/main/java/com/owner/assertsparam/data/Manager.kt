@@ -15,7 +15,7 @@
  */
 package com.owner.assertsparam.data
 
-import kotlin.reflect.jvm.internal.impl.types.DisjointKeysUnionTypeSubstitution
+import com.owner.baselibrary.utils.PinyinUtils
 
 /**
  *管理员
@@ -23,9 +23,12 @@ import kotlin.reflect.jvm.internal.impl.types.DisjointKeysUnionTypeSubstitution
  * Created by Liuyong on 2018-10-30.It's AMSystem
  *@description:
  */
-data class Manager (val name:String,
-                    val letters:String,
-                    val department:String,
-                    val duty:String,
-                    val phone:String,
-                    val avatar:String="")
+data class Manager(val name: String,
+                   val department: String,
+                   val duty: String = "",
+                   val phone: String,
+                   val avatar: String = "") {
+
+    var letters: String = PinyinUtils.getFirstSpell(name)
+
+}

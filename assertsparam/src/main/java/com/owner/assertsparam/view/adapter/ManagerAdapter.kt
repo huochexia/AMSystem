@@ -32,6 +32,7 @@ class ManagerAdapter(val mManagerVM: ManagerViewModel) : RecyclerView.Adapter<Ma
     var managerList = mutableListOf<Manager>()
 
     init {
+        managerList = mManagerVM.mManagerList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManagerViewHolder {

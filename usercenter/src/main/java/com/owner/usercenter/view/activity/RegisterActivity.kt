@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil
 import android.databinding.Observable
 import android.os.Bundle
 import android.widget.Toast
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.AVUser
 import com.avos.avoscloud.LogInCallback
@@ -13,12 +14,13 @@ import com.owner.usercenter.databinding.ActivityRegisterBinding
 import com.owner.baselibrary.ext.enabled
 import com.owner.baselibrary.view.activity.BaseActivity
 import com.owner.provideslib.exception.ExceptionMsg
+import com.owner.provideslib.router.RouterPath
 import com.owner.usercenter.R
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.viewmodel.RegisterViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.toast
-
+@Route(path = RouterPath.UserCenter.PATH_USER_REGISTER)
 class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel>() {
 
 

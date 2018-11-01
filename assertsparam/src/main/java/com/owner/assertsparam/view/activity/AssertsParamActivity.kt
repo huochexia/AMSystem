@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.owner.assertsparam.R
 import com.owner.assertsparam.view.fragment.CategoryFragment
@@ -15,10 +16,12 @@ import com.owner.baselibrary.ext.hideFragment
 import com.owner.baselibrary.ext.showFragment
 import com.owner.baselibrary.view.activity.BaseActivity
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.activity_asserts_param.*
 import java.util.*
 
-class AssertsParamActivity : BaseActivity<ViewDataBinding,BaseViewModel<*>>() {
+@Route(path = RouterPath.AssertsParam.PATH_ASSERTSPARAM_MAIN)
+class AssertsParamActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>() {
     //Fragment 栈管理
     private val mStack = Stack<Fragment>()
 
@@ -32,9 +35,9 @@ class AssertsParamActivity : BaseActivity<ViewDataBinding,BaseViewModel<*>>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_asserts_param)
         viewModel = ViewModelProviders.of(this).get(AssertsParaViewModel::class.java)
-
         initFragment()
         initBottomNav()
+        changeFragment(0)
 
     }
 

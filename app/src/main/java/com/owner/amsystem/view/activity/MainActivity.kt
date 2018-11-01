@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.avos.avoscloud.LogUtil
 import com.orhanobut.logger.Logger
@@ -34,7 +35,7 @@ class MainActivity : BaseActivity<ViewDataBinding,BaseViewModel<*>>() {
     //Fragment 栈管理
     private val mStack = Stack<Fragment>()
 
-    private val homeFragment by lazy { HomeFragment() }
+    private val homeFragment = HomeFragment()
     private val assertFragment by lazy { AssertFragment() }
     private val messageFragment by lazy { MessageFragment() }
     private val meFragment by lazy { MeFragment() }
@@ -43,6 +44,10 @@ class MainActivity : BaseActivity<ViewDataBinding,BaseViewModel<*>>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        assertSetBtn.setOnClickListener {
+            ARouter.getInstance().build(RouterPath.AssertsParam.PATH_ASSERTSPARAM_MAIN).navigation()
+        }
+
         initFragment()
         initBottomNav()
         changeFragment(0)

@@ -8,7 +8,11 @@
         android:id="@+id/mContainer"
         style="@style/MatchMatch"
         android:layout_weight="1" />
-
+    <Button
+        android:id="@+id/assertSetBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="基础设置"/>
     <com.owner.baselibrary.widgets.CustomBottomNavBar
         android:id="@+id/mBottomNavBar"
         android:layout_width="match_parent"

@@ -13,8 +13,10 @@
         style="@style/MatchMatch.Vertical">
 
         <com.owner.baselibrary.widgets.HeaderBar
+            android:id="@+id/mHeaderBar"
             style="@style/MatchWrap"
-            app:titleText="管理人员" />
+            app:titleText="管理人员"
+            app:rightText="增加"/>
 
         <LinearLayout
             android:id="@+id/mSearchll"

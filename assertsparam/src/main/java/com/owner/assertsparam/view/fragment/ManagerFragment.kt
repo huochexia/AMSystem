@@ -25,12 +25,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.launcher.ARouter
 import com.owner.assertsparam.R
 import com.owner.assertsparam.databinding.FragmentManagerBinding
 import com.owner.assertsparam.utils.TitleItemDecoration
 import com.owner.assertsparam.view.adapter.ManagerAdapter
 import com.owner.assertsparam.viewmodel.ManagerViewModel
 import com.owner.baselibrary.view.fragment.BaseFragment
+import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_manager.*
 
 /**
@@ -63,6 +65,10 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mHeaderBar.getRightView().visibility = View.VISIBLE
+        mHeaderBar.getRightView().setOnClickListener {
+            ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER).navigation()
+        }
         mManagerRcv.adapter = mAdapter
         mManagerRcv.layoutManager = managerLL
 

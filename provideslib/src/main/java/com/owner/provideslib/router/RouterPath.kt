@@ -31,6 +31,12 @@ object RouterPath {
         companion object {
             const val PATH_USER_INFO="/usercenter/userinfo"
             const val PATH_USER_LOGIN="/usercenter/login"
+            const val PATH_USER_REGISTER="/usercenter/register"
+        }
+    }
+    class AssertsParam{
+        companion object {
+            const val PATH_ASSERTSPARAM_MAIN="/assertsparam/main"
         }
     }
 }

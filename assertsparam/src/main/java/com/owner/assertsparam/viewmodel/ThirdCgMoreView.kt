@@ -24,4 +24,5 @@ class ThirdCgMoreView : BaseObservable() {
         notifyPropertyChanged(BR.expanded)
     }
 
+
 }

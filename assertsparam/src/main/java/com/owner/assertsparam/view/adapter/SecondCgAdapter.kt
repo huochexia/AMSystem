@@ -16,20 +16,13 @@ import com.owner.assertsparam.viewmodel.ThirdCgMoreView
  * @topCategory:一级分类，通过它的Id，筛选它的子类
  * Created by Administrator on 2018/10/25 0025
  */
-class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCategoryVM: CategoryFgViewModel)
+class SecondCgAdapter(private val topCategory: CategoryInfo, val mCategoryVM: CategoryFgViewModel)
     : RecyclerView.Adapter<SecondCgAdapter.SecondViewHolder>() {
 
     private val secondCgList = mutableListOf<CategoryInfo>()
-    init {
-        secondCgList.clear()
-        if (topCategory != null) {
-            mCategoryVM.secondAndThirdCgList.forEach {
-                if (it.parentId == topCategory.objectId) {
-                    secondCgList.add(it)
-                }
-            }
-        }
 
+    init {
+       updateList()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, ViewType: Int): SecondViewHolder {
@@ -44,6 +37,18 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
         holder.bindData(category, mCategoryVM)
     }
 
+    /**
+     * 因为传入Adapter的参数是ViewModel，而不是数据列表，对ViewModel中数据列表的变更不会影响到
+     * Adapter中的列表，所以需要对外公开一个更新列表的方法
+     */
+    fun updateList() {
+        secondCgList.clear()
+        mCategoryVM.secondAndThirdCgList.forEach {
+            if (it.parentId == topCategory.objectId) {
+                secondCgList.add(it)
+            }
+        }
+    }
     /**
      * ViewHolder 嵌套类
      */
@@ -74,9 +79,9 @@ class SecondCgAdapter(private val topCategory: CategoryInfo?, private val mCateg
             val glm = GridLayoutManager(context, 3)
             mBinding.mThirdCategoryRv.layoutManager = glm
             //为每个item构建一个
-            if (mBinding.thirdCg == null){
+            if (mBinding.thirdCgMore == null) {
                 moreView = ThirdCgMoreView()
-                mBinding.thirdCg = moreView
+                mBinding.thirdCgMore = moreView
             }
             thirdCgAdapter = ThirdCgAdapter(category, viewModel,moreView)
             mBinding.mThirdCategoryRv.adapter = thirdCgAdapter

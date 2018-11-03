@@ -32,7 +32,7 @@ class DataBindAdapterUtils {
     companion object {
         @BindingAdapter(value = ["imageUrl", "placeholder"], requireAll = false)
         @JvmStatic
-        fun setImageUrl(imageView: ImageView, url: String?, placeholder: Drawable?) {
+        fun setImageUrl(imageView: ImageView, url: String?, placeholder: Drawable) {
             if (url.isNullOrEmpty()) {
                 imageView.setImageDrawable(placeholder)
             } else {

@@ -1,9 +1,10 @@
 package com.owner.assertsparam.model.repository.impl
 
+import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.data.Manager
+import com.owner.assertsparam.model.network.entites.CategoryList
 import com.owner.assertsparam.model.network.entites.CreateCgReq
 import com.owner.assertsparam.model.network.entites.CreateCgResp
-import com.owner.assertsparam.model.network.entites.GetCategoryList
 import com.owner.assertsparam.model.network.service.AssertsParamService
 import com.owner.assertsparam.model.repository.AssertsParamRepository
 import io.reactivex.Observable
@@ -47,11 +48,11 @@ class APRepositoryImpl : AssertsParamRepository {
         return mManagerList
     }
 
-    override fun getCategory(parentId: String): Observable<GetCategoryList> {
-        return AssertsParamService.getCategory(parentId)
+    override fun getCategory(parentId: String): Observable<CategoryList> {
+        return AssertsParamService.getCategory("{\"parentId\":\"$parentId\"}")
     }
 
-    override fun createCategory(name: String, parentId: String, imageUrl: String): Observable<CreateCgResp> {
+    override fun createCategory(name: String, parentId: String, imageUrl: String): Observable<CategoryInfo> {
         return AssertsParamService.createCategory(CreateCgReq(name, parentId, imageUrl))
     }
 

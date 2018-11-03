@@ -1,60 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/mPictureIv"
-        android:layout_width="71dp"
-        android:layout_height="83dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/placeholder"/>
+    <data>
+        <variable
+            name="thirdvm"
+            type="com.owner.assertsparam.view.fragment.CategoryFragment" />
+    </data>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        style="@style/MatchWrap.Horizontal"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mPictureIv">
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="获取图片：" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/mPictureBtn"
-            style="@style/WrapWrap"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/common_margin_middle"
-            android:drawableLeft="@mipmap/ic_picture_library"
-            android:text="相册" />
+            <TextView
+                style="@style/WrapWrap"
+                android:layout_marginStart="@dimen/common_padding_middle"
+                android:text="分类名称：" />
 
-        <Button
-            android:id="@+id/mCameraBtn"
-            style="@style/WrapWrap"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/common_margin_middle"
-            android:drawableLeft="@mipmap/ic_camera"
-            android:text="拍照" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/mThirdCgNameEt"
+                style="@style/MatchWrap"
+                android:hint="请输入类别的名字" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/mThirdCgNameEt"
-        style="@style/MatchWrap"
-        android:layout_marginTop="8dp"
-        android:hint="请输入类别的名字"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/mPictureIv"
+            android:layout_width="71dp"
+            android:layout_height="83dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:imageUrl="@{thirdvm.thirdCgImage}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:placeholder="@{@drawable/no_picture}" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            style="@style/MatchWrap.Horizontal"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mPictureIv">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="获取图片：" />
+
+            <Button
+                android:id="@+id/mPictureBtn"
+                style="@style/WrapWrap"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/common_margin_middle"
+                android:drawableLeft="@mipmap/ic_picture_library"
+                android:enabled="false"
+                android:text="相册" />
+
+            <Button
+                android:id="@+id/mCameraBtn"
+                style="@style/WrapWrap"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/common_margin_middle"
+                android:drawableLeft="@mipmap/ic_camera"
+                android:enabled="false"
+                android:text="拍照" />
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

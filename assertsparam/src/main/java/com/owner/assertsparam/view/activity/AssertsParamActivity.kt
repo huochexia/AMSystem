@@ -49,7 +49,7 @@ class AssertsParamActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>() {
         addFragment(categoryFragment, R.id.mFgContainer)
         addFragment(departmentFragment, R.id.mFgContainer)
         addFragment(managerFragment, R.id.mFgContainer)
-        //依次入栈
+//        依次入栈
         mStack.add(locationFragment)
         mStack.add(categoryFragment)
         mStack.add(departmentFragment)

@@ -19,6 +19,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -59,6 +61,27 @@ fun Button.enabled(et: EditText, method: () -> Boolean) {
         }
     })
 
+}
+/**
+ * EditView扩展方法，获取输入的内容
+ */
+fun EditText.getContent():String {
+    var content=""
+    val et = this
+    et.addTextChangedListener(object :TextWatcher{
+        override fun afterTextChanged(p0: Editable?) {
+
+        }
+
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+           content = p0.toString()
+        }
+    })
+    return content
 }
 
 /**

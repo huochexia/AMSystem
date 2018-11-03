@@ -15,8 +15,10 @@
  */
 package com.owner.assertsparam.view.fragment
 
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
@@ -28,6 +30,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import com.avos.avoscloud.AVException
+import com.avos.avoscloud.AVFile
+import com.avos.avoscloud.SaveCallback
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.jph.takephoto.app.TakePhoto
@@ -41,11 +46,13 @@ import com.jph.takephoto.permission.PermissionManager
 import com.jph.takephoto.permission.TakePhotoInvocationHandler
 import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
-import com.owner.assertsparam.data.Footer
 import com.owner.assertsparam.databinding.FragementCategoryBinding
+import com.owner.assertsparam.databinding.LayoutAddThirdCategoryBinding
 import com.owner.assertsparam.view.adapter.SecondCgAdapter
 import com.owner.assertsparam.view.adapter.TopCgAdapter
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
+import com.owner.baselibrary.ext.enabled
+import com.owner.baselibrary.ext.getContent
 import com.owner.baselibrary.ext.loadUrl
 import com.owner.baselibrary.utils.DateUtils
 import com.owner.baselibrary.utils.hideSoftInput
@@ -72,20 +79,28 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     //定义总资产分类对象
     private val category=CategoryInfo("0","资产分类")
     //当前选择的一级分类
-    private lateinit var currentTopCategory : CategoryInfo
+    private var currentTopCategory = CategoryInfo("", "")
+    //临时分类对象
+    private var tempCategory = CategoryInfo("", "")
+    var thirdCgImage = MutableLiveData<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CategoryFgViewModel::class.java)
 
-        //观察状态信息的变化，做出相应的响应
+        //观察行为信息的变化，做出相应的响应
         viewModel.action.observe(this, Observer {
             //如果parentId为空，则是一级分类
             executeAction(it!!)
         })
+        //观察刷新列表请求
         viewModel.refreshList.observe(this, Observer {
             when (it?.second) {
                 0 ->topAdapter.notifyDataSetChanged()
-                1-> secondAdapter.notifyDataSetChanged()
+                1 -> {
+                    secondAdapter.updateList()
+                    secondAdapter.notifyDataSetChanged()
+                }
             }
         })
         //观察是否展开显示更多三级分类状态
@@ -111,24 +126,16 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initTopCgList()
-        initSecondCgList(category)
+        loadTopCgList()
+        mSecondCategoryRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 
     /**
      *对由ViewModel发生的事件进行筛分，对应处理
      */
     private fun executeAction(it: Pair<String, CategoryInfo>) {
-
-        //判断是否是一级分类
-        if (it.second!!.parentId=="0") {
-            topAdapter.notifyDataSetChanged()
-            initSecondCgList(it.second)
-            currentTopCategory = it.second
-        } else {
-            secondAdapter.notifyDataSetChanged()
-        }
         when (it.first) {
+            CategoryFgViewModel.KEY_SELECTED_ACTION -> selectCategory(it.second)
             CategoryFgViewModel.KEY_UPDATE_ACTION -> updateCategory(it.second )
             CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second )
             CategoryFgViewModel.KEY_ADD_ACTION -> addCategory(it.second)
@@ -137,24 +144,41 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         }
     }
 
+
     /**
-     * 初始化一级列表
+     * 加载一级列表
      */
-    private fun initTopCgList() {
+    private fun loadTopCgList() {
         mTopCategoryRv.layoutManager = LinearLayoutManager(context)
         topAdapter = TopCgAdapter(viewModel)
         mTopCategoryRv.adapter = topAdapter
     }
 
     /**
-     * 初始化二级分类列表
+     * 加载二级分类列表
      */
-    private fun initSecondCgList(category: CategoryInfo) {
-        mSecondCategoryRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    private fun loadSecondCgList(category: CategoryInfo) {
         secondAdapter = SecondCgAdapter(category, viewModel)
         mSecondCategoryRv.adapter = secondAdapter
+        secondAdapter.notifyDataSetChanged()
     }
 
+    /**
+     * 选择分类
+     */
+    private fun selectCategory(category: CategoryInfo) {
+        //判断是否是一级分类
+        if (category.parentId == "0") {
+            topAdapter.notifyDataSetChanged()
+            //避免选择当前已选择一级分类时重新获取二级分类。
+            if (currentTopCategory.objectId != category.objectId) {
+                loadSecondCgList(category)//加载二级分类
+                currentTopCategory = category//指定当前一级分类
+            }
+        } else {
+            secondAdapter.notifyDataSetChanged()
+        }
+    }
     /**
      * 增加类别，在这里生成一个新子类。这里形成比在ViewModel中放便些
      * @parent:父类
@@ -164,15 +188,17 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
         val editV = extView.findViewById<EditText>(R.id.mCgNameEt)
         alertView = AlertView("增加类别", null, null, null,
-                arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
+                arrayOf("取消", "完成"), context, AlertView.Style.Alert,
+                OnItemClickListener { _, position ->
             activity?.hideSoftInput()
             when (position) {
                1 -> {
-                   val name = editV.text.toString()
-                   val newCg = CategoryInfo("",name,parent.objectId)
-                   viewModel.addCategory(newCg)
+                   if (editV.text.isNullOrEmpty().not()) {
+                       val name = editV.text.toString().trim()
+                       val newCg = CategoryInfo("", name, parent.objectId)
+                       viewModel.addCategory(newCg)
+                   }
                }
-
             }
         })
 
@@ -185,22 +211,43 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     private fun addThirdCategory(parent: CategoryInfo) {
         //刷新列表，目的是取消之前做过的长按状态
         secondAdapter.notifyDataSetChanged()
-
-        alertView = AlertView("增加类别",null,null,null,
-                arrayOf("取消","完成"),context,AlertView.Style.Alert, OnItemClickListener{
-                 o, position ->
-                    activity?.hideSoftInput()
+        val (editView, editV) = initDialog()
+        thirdCgImage.value = parent.imageUrl
+        alertView = AlertView("增加分类", null, null, null,
+                arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { _, position ->
+            activity?.hideSoftInput()
             when (position) {
-                0 ->{}
-                1->{}
+                1 -> {
+                    tempCategory.name = editV.getContent()
+                    tempCategory.parentId = parent.objectId
+                    viewModel.addCategory(tempCategory)
+                }
             }
         })
-        val editView = LayoutInflater.from(context).inflate(R.layout.layout_add_third_category,null)
+        alertView.addExtView(editView).show()
+
+    }
+
+    /**
+     * 初始化对话框内容
+     */
+    private fun initDialog(): Pair<View, EditText> {
+        val binding = LayoutAddThirdCategoryBinding.inflate(layoutInflater, null)
+        binding.thirdvm = this
+        val editView = LayoutInflater.from(context).inflate(R.layout.layout_add_third_category, null)
+
         val imageView = editView.find<ImageView>(R.id.mPictureIv)
-        val editV = editView.find<EditText>(R.id.mThirdCgNameEt)
-        val takePhoto = editView.find<Button>(R.id.mPictureBtn)
-        val camera = editView.find<Button>(R.id.mCameraBtn)
-        camera.setOnClickListener{
+        thirdCgImage.observe(this, Observer {
+            imageView.loadUrl(it!!)
+        })
+        val editV = editView.findViewById<EditText>(R.id.mThirdCgNameEt)
+        val takePhoto = editView.findViewById<Button>(R.id.mPictureBtn)
+        takePhoto.enabled(editV) { !editV.text.isNullOrEmpty() }
+
+        val camera = editView.findViewById<Button>(R.id.mCameraBtn)
+        camera.enabled(editV) { !editV.text.isNullOrEmpty() }
+
+        camera.setOnClickListener {
             mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
             createTempFile()
             mTakePhoto.onPickFromCapture(Uri.fromFile(mTempFile))
@@ -209,9 +256,9 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
             mTakePhoto.onPickFromGallery()
         }
-        alertView.addExtView(editView).show()
-
+        return Pair(editView, editV)
     }
+
     /**
      * 修改三级分类
      */
@@ -279,43 +326,18 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         alertView.show()
     }
 
-    /**
-     * 增加三级类别时对话框，拍照或从相像中获取
-     */
-    private fun showPhotoAlert(second: CategoryInfo) {
-        AlertView("选择图片", null, "取消", null, arrayOf("拍照", "相册"), context,
-                AlertView.Style.ActionSheet, OnItemClickListener { _, position ->
-            mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
-            when (position) {
-                0 -> {
-                    createTempFile()
-                    mTakePhoto.onPickFromCapture(Uri.fromFile(mTempFile))
-                }
-                1 -> mTakePhoto.onPickFromGallery()
-            }
-        }).show()
-    }
-
     override fun takeSuccess(result: TResult?) {
-//        //1、利用压缩文件生成AVFile
-//        val file = AVFile.withAbsoluteLocalPath("${DateUtils.curTime}.png",result?.image?.compressPath)
-//        //2、上传AVFile对象
-//        file.saveInBackground(object : SaveCallback(){
-//            override fun done(p0: AVException?) {
-//                //3、将返回的头像Url保存本地
-//                AppPrefsUtils.putString(ProviderConstant.KEY_SP_USER_ICON,file.url.toString())
-//                //4、更新用户信息，将头像信息保存至用户信息中
-//                val disposable= viewModel.updateAvatar(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN),
-//                        AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID),file.url.toString()).execute()
-//                        .subscribe{
-//                            if (!it.isSuccess()) {
-//                                Log.d("error:",it.error)
-//                            }
-//                        }
-//                viewModel.compositeDisposable.add(disposable)
-//            }
-//
-//        })
+        //1、利用压缩文件生成AVFile
+        val file = AVFile.withAbsoluteLocalPath("${DateUtils.curTime}.png", result?.image?.compressPath)
+        //2、上传AVFile对象
+        file.saveInBackground(object : SaveCallback() {
+            override fun done(p0: AVException?) {
+                thirdCgImage.value = file.url
+                tempCategory.imageUrl = file.url
+
+            }
+
+        })
 
     }
 
@@ -325,6 +347,17 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     override fun takeFail(result: TResult?, msg: String?) {
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        //TakePhoto的要求
+        mTakePhoto.onSaveInstanceState(outState)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //TakePhoto的要求
+        mTakePhoto.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
     /**
      * TakePhoto对权限设置针对6.0 和7.0版动态权限的获取
      */
@@ -345,7 +378,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     /**
      * 为照像创建临时文件
      */
-    fun createTempFile() {
+    private fun createTempFile() {
         val tempFileName = "${DateUtils.curTime}.png"
         if (Environment.MEDIA_MOUNTED == (Environment.getExternalStorageState())) {
             this.mTempFile = File(Environment.getExternalStorageDirectory(), tempFileName)

@@ -13,7 +13,7 @@
             name="categoryVM"
             type="com.owner.assertsparam.viewmodel.CategoryFgViewModel"/>
         <variable
-            name="thirdCg"
+            name="thirdCgMore"
             type="com.owner.assertsparam.viewmodel.ThirdCgMoreView"/>
     </data>
 
@@ -78,9 +78,9 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginLeft="@dimen/common_margin_middle"
                     android:gravity="center_vertical"
-                    android:onClick="@{()->categoryVM.expandThirdCategory(thirdCg)}"
-                    android:text="@{thirdCg.expanded?@string/pick_up:@string/more}"
-                    android:visibility="@{thirdCg.more?View.VISIBLE:View.GONE}"/>
+                    android:onClick="@{()->categoryVM.expandThirdCategory(thirdCgMore)}"
+                    android:text="@{thirdCgMore.expanded?@string/pick_up:@string/more}"
+                    android:visibility="@{thirdCgMore.more?View.VISIBLE:View.GONE}"/>
             </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

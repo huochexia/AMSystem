@@ -32,7 +32,7 @@
                     android:onLongClick="@{()->categoryFgVM.itemLongClick(data)}"
                     android:scaleType="fitXY"
                     app:imageUrl="@{data.imageUrl}"
-                    app:placeholder="@{@drawable/placeholder}"/>
+                    app:placeholder="@{@drawable/no_picture}"/>
             </RelativeLayout>
 
             <TextView

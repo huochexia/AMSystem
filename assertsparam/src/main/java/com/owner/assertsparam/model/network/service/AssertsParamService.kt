@@ -16,10 +16,7 @@
 package com.owner.assertsparam.model.network.service
 
 import com.owner.assertsparam.data.CategoryInfo
-import com.owner.assertsparam.model.network.entites.CreateCgReq
-import com.owner.assertsparam.model.network.entites.CreateCgResp
-import com.owner.assertsparam.model.network.entites.GetCategoryList
-import com.owner.assertsparam.model.network.entites.QueryCategoryReq
+import com.owner.assertsparam.model.network.entites.*
 import com.owner.baselibrary.model.network.RetrofitFactory
 import io.reactivex.Observable
 import okhttp3.ResponseBody
@@ -38,12 +35,12 @@ interface AssertsParamApi {
        创建分类对象
      */
     @POST(value = "1.1/classes/Category?fetchWhenSave=true")
-    fun createCategory(@Body request: CreateCgReq):Observable<CreateCgResp>
+    fun createCategory(@Body request: CreateCgReq):Observable<CategoryInfo>
     /*
        获取分类
      */
     @GET("1.1/classes/Category")
-    fun getCategory(@Query("where") parentId:String):Observable<GetCategoryList>
+    fun getCategory(@Query("where") condition:String):Observable<CategoryList>
 
 }
 

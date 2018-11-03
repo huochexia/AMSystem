@@ -30,10 +30,10 @@ import com.owner.baselibrary.ext.PoKo
  *@description:
  */
 @PoKo
-data class CategoryInfo(val objectId: String,
-                        val name: String,
-                        val parentId: String = "",
-                        val imageUrl: String = "",
+data class CategoryInfo(var objectId: String,
+                        var name: String,
+                        var parentId: String = "",
+                        var imageUrl: String = "",
                         var isSelected: Boolean = false,//选择状态
                         var isLongOnClick: Boolean = false//长按状态
 ) {

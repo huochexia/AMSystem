@@ -58,15 +58,25 @@
                     android:layout_height="80dp"
                     android:scaleType="fitXY"
                     android:src="@mipmap/category_banner" />
-                <TextView
-                    android:id="@+id/mAddSecondCgTv"
-                    style="@style/MatchWrap"
-                    android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
-                    android:layout_marginTop="@dimen/common_margin_middle"
-                    android:text="@{categoryVM.currentTopCategory.name}"
+
+                <LinearLayout
+                    style="@style/MatchWrap.Horizontal"
+                    android:layout_marginTop="@dimen/common_margin_small"
                     android:onClick="@{()->categoryVM.addSecondAlert()}"
-                    android:gravity="center_vertical"
-                    android:visibility="@{categoryVM.visibleTop?View.VISIBLE:View.GONE}"/>
+                    android:visibility="@{categoryVM.visibleTop?View.VISIBLE:View.GONE}">
+
+                    <TextView
+                        android:id="@+id/mAddSecondCgTv"
+                        style="@style/WrapWrap"
+                        android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
+                        android:gravity="center_vertical"
+                        android:text="@{categoryVM.currentTopCategory.name}" />
+                    <TextView
+                        style="@style/WrapWrap"
+                        android:layout_gravity="center_vertical"
+                        android:text="的分类" />
+                </LinearLayout>
+
                 <com.kennyc.view.MultiStateView
                     android:id="@+id/mMultiStateView"
                     style="@style/MultiStateStyle"

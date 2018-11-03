@@ -37,7 +37,6 @@ class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
     init {
         repo = APRepositoryImpl()
         mManagerList = fillData(repo)
-
     }
 
     /**
@@ -46,6 +45,7 @@ class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
      */
     fun getSortList(): MutableList<Manager> {
         Collections.sort(mManagerList, mComparator)
+        mSortList.clear()//必须清空，因为下面使用的是增加，如果不清空，该方法多次调时会出现重复数据
         mSortList.addAll(mManagerList)
         return mSortList
     }

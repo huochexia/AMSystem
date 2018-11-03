@@ -15,7 +15,6 @@
         <com.owner.baselibrary.widgets.HeaderBar
             android:id="@+id/mHeaderBar"
             style="@style/MatchWrap"
-            app:rightText="注册"
             app:titleText="登录" />
 
         <LinearLayout

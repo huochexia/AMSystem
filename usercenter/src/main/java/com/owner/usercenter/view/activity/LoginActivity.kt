@@ -46,8 +46,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
         //从本地获取上次登录成功的手机号
         mLoginBtn.enabled(mMobileEt) { isEnable() }
         mLoginBtn.enabled(mPwdEt) { isEnable() }
-        if (binding.mHeaderBar.getRightView() != null)
-            binding.mHeaderBar.getRightView().visibility = View.VISIBLE
+//        if (binding.mHeaderBar.getRightView() != null)
+//            binding.mHeaderBar.getRightView().visibility = View.VISIBLE
 
     }
 
@@ -62,7 +62,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), View
 
     override fun onClick(v: View) {
         when (v) {
-            binding.mHeaderBar.getRightView() -> startActivity<RegisterActivity>()
+//            binding.mHeaderBar.getRightView() -> startActivity<RegisterActivity>()
             binding.mForgetPwdTv -> {
                 startActivity<ForgetPwdActivity>()
             }

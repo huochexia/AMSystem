@@ -87,7 +87,7 @@ class SecondCgAdapter(private val topCategory: CategoryInfo, val mCategoryVM: Ca
             mBinding.mThirdCategoryRv.adapter = thirdCgAdapter
         }
 
-        /*
+        /**
             设置编辑界面的可见性
          */
         private fun setVisibleEditLL(visible: Boolean) {

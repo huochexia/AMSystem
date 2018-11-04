@@ -268,34 +268,29 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      * 修改三级分类
      */
     private fun updateThirdCategory(category: CategoryInfo) {
+        //因为拍照或相册操作成功后，会把imageUrl先写入tempCategory当中
+        //为了防止将其他操作保存在tempCategory中的imageUrl写入这个category当中，所以先进行清空处理
+        tempCategory = CategoryInfo("", "")
         //刷新列表，目的是取消之前做过的长按状态
         secondAdapter.notifyDataSetChanged()
-
+        val (editView, editV) = initDialog()
+        editV.setText(category.name)
+        thirdCgImage.value = category.imageUrl
         alertView = AlertView("修改类别",null,null,null,
                 arrayOf("取消","完成"),context,AlertView.Style.Alert, OnItemClickListener{
                  o, position ->
                     activity?.hideSoftInput()
             when (position) {
-                0 ->{}
-                1->{}
+                1 -> {
+                    category.name = editV.text.toString()
+                    //要判一下图片是否发生改变,不为空说明进行了图片操作
+                    if (tempCategory.imageUrl != "")
+                        category.imageUrl = tempCategory.imageUrl
+                    viewModel.updateCategory(category)
+                    secondAdapter.notifyDataSetChanged()
+                }
             }
         })
-        val editView = LayoutInflater.from(context).inflate(R.layout.layout_add_third_category,null)
-        val imageView = editView.find<ImageView>(R.id.mPictureIv)
-        imageView.loadUrl(category.imageUrl)
-        val editV = editView.find<EditText>(R.id.mThirdCgNameEt)
-        editV.setText(category.name)
-        val takePhoto = editView.find<Button>(R.id.mPictureBtn)
-        val camera = editView.find<Button>(R.id.mCameraBtn)
-        camera.setOnClickListener{
-            mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
-            createTempFile()
-            mTakePhoto.onPickFromCapture(Uri.fromFile(mTempFile))
-        }
-        takePhoto.setOnClickListener {
-            mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
-            mTakePhoto.onPickFromGallery()
-        }
         alertView.addExtView(editView).show()
 
     }

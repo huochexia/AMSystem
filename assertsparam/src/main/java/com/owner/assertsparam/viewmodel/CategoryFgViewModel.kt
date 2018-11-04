@@ -25,6 +25,7 @@ import com.owner.assertsparam.model.repository.AssertsParamRepository
 import com.owner.assertsparam.model.repository.impl.APRepositoryImpl
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import io.reactivex.Observable
 
 
 /**
@@ -92,25 +93,10 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
 
     init {
         repo = APRepositoryImpl()
-        initTopCategory()
+        loadTopCategory()
     }
 
-    /**
-     * 初始化一级分类列表
-     */
-    fun initTopCategory() {
-        val disposable = repo.getCategory("0").execute()
-                 .subscribe({
-                     topCgList.addAll(it.results)
-                 },{
-                     mTopViewState = MultiStateView.VIEW_STATE_ERROR
-                 },{
-                     mTopViewState = MultiStateView.VIEW_STATE_CONTENT
-                 },{
-                     mTopViewState = MultiStateView.VIEW_STATE_LOADING
-                 })
-        compositeDisposable.add(disposable)
-    }
+
     /**
      * 列表项目点击事件
      */
@@ -156,27 +142,6 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         item.isSelected = true
     }
 
-    /**
-     * 加载二级分类
-     * @id : 二级分类的parentId
-     */
-    private fun loadSecondCategory(item: CategoryInfo) {
-        val disposable = repo.getCategory(item.objectId).execute()
-                .subscribe({
-                    secondAndThirdCgList = it.results
-                }, {
-                    mSecondViewState = MultiStateView.VIEW_STATE_ERROR
-                }, {
-                    mSecondViewState = MultiStateView.VIEW_STATE_CONTENT
-                    //通知视图状态改变
-                    action.value = Pair(KEY_SELECTED_ACTION, item)
-                }, {
-                    mSecondViewState = MultiStateView.VIEW_STATE_LOADING
-                })
-        currentTopCategory = item
-        isVisibleTop = true
-        compositeDisposable.add(disposable)
-    }
 
     /**
      * 列表项目长按事件
@@ -243,6 +208,58 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         return subList
     }
 
+    /**
+     * 加载一级分类列表
+     */
+    private fun loadTopCategory() {
+        val disposable = repo.getCategory("0").execute()
+                .subscribe({
+                    topCgList.addAll(it.results)
+                }, {
+                    mTopViewState = MultiStateView.VIEW_STATE_ERROR
+                }, {
+                    mTopViewState = MultiStateView.VIEW_STATE_CONTENT
+                }, {
+                    mTopViewState = MultiStateView.VIEW_STATE_LOADING
+                })
+        compositeDisposable.add(disposable)
+    }
+
+    /**
+     * 加载一级分类的二级以及其下的三级分类。
+     * 原理：分别产生两个列表流，一个是二级分类，然后利用二级分类得到三级分类，最后合并两个列表流
+     * @item: 一级分类
+     */
+    private fun loadSecondCategory(item: CategoryInfo) {
+        secondAndThirdCgList.clear()
+        //二级分类数据流
+        val secondList = repo.getCategory(item.objectId).flatMap {
+            Observable.fromIterable(it.results)
+        }
+        //三级分类数据流
+        val thirdList = secondList.flatMap {
+            repo.getCategory(it.objectId)
+        }.flatMap {
+            Observable.fromIterable(it.results)
+        }
+        //合并数据流
+        val disposable = Observable.merge(secondList, thirdList).execute()
+                .subscribe({
+                    secondAndThirdCgList.add(it)
+                }, {
+                    mSecondViewState = MultiStateView.VIEW_STATE_ERROR
+                }, {
+                    mSecondViewState = MultiStateView.VIEW_STATE_CONTENT
+                    //通知视图状态改变
+                    action.value = Pair(KEY_SELECTED_ACTION, item)
+
+                }, {
+                    mSecondViewState = MultiStateView.VIEW_STATE_LOADING
+                })
+        currentTopCategory = item
+        isVisibleTop = true
+        compositeDisposable.add(disposable)
+    }
     /**
      * 发送增加一级分类请求
      *
@@ -316,7 +333,8 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      * 对数据库执行修改操作
      */
     fun updateCategory(category: CategoryInfo) {
-
+        val disposable=repo.updateCategory(category).execute()
+                .subscribe()
     }
 
     /**
@@ -331,7 +349,9 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      *  对数据库执行删除操作
      */
     fun deleteCategory(category: CategoryInfo) {
-
+        val disposable=repo.deleteCategory(category.objectId).execute()
+                .subscribe()
+        compositeDisposable.add(disposable)
     }
 
 }

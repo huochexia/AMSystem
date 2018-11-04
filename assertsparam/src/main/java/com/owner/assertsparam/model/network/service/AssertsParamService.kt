@@ -21,7 +21,6 @@ import com.owner.baselibrary.model.network.RetrofitFactory
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.adapter.rxjava2.Result
 import retrofit2.http.*
 
 /**
@@ -40,8 +39,17 @@ interface AssertsParamApi {
        获取分类
      */
     @GET("1.1/classes/Category")
-    fun getCategory(@Query("where") condition:String):Observable<CategoryList>
-
+    fun getCategory(@Query("where") condition:String):Observable<QueryCategoryResp>
+    /*
+      删除分类
+     */
+    @DELETE(value="1.1/classes/Category/{id}")
+    fun deleteCategory(@Path("id") objectId:String):Observable<ResponseBody>
+    /*
+      修改分类
+     */
+    @PUT(value = "1.1/classes/Category/{id}")
+    fun updateCategory(@Path("id") objectId: String,@Body request: CategoryInfo):Observable<ResponseBody>
 }
 
 object AssertsParamService : AssertsParamApi by RetrofitFactory.instance.create(AssertsParamApi::class.java)

@@ -2,17 +2,19 @@ package com.owner.assertsparam.model.repository.impl
 
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.data.Manager
-import com.owner.assertsparam.model.network.entites.CategoryList
+import com.owner.assertsparam.model.network.entites.QueryCategoryResp
 import com.owner.assertsparam.model.network.entites.CreateCgReq
-import com.owner.assertsparam.model.network.entites.CreateCgResp
 import com.owner.assertsparam.model.network.service.AssertsParamService
 import com.owner.assertsparam.model.repository.AssertsParamRepository
 import io.reactivex.Observable
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 /**
  * Created by Administrator on 2018/10/19 0019
  */
 class APRepositoryImpl : AssertsParamRepository {
+
     override fun getManager(): MutableList<Manager> {
         val mManagerList = mutableListOf<Manager>()
         // 根据a-z进行排序
@@ -48,12 +50,19 @@ class APRepositoryImpl : AssertsParamRepository {
         return mManagerList
     }
 
-    override fun getCategory(parentId: String): Observable<CategoryList> {
+    override fun getCategory(parentId: String): Observable<QueryCategoryResp> {
         return AssertsParamService.getCategory("{\"parentId\":\"$parentId\"}")
     }
 
     override fun createCategory(name: String, parentId: String, imageUrl: String): Observable<CategoryInfo> {
         return AssertsParamService.createCategory(CreateCgReq(name, parentId, imageUrl))
+    }
+
+    override fun deleteCategory(objectId: String) :Observable<ResponseBody>{
+        return AssertsParamService.deleteCategory(objectId)
+    }
+    override fun updateCategory(category: CategoryInfo): Observable<ResponseBody> {
+        return AssertsParamService.updateCategory(category.objectId,category)
     }
 
 }

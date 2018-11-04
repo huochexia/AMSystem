@@ -52,7 +52,6 @@ import com.owner.assertsparam.view.adapter.SecondCgAdapter
 import com.owner.assertsparam.view.adapter.TopCgAdapter
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
 import com.owner.baselibrary.ext.enabled
-import com.owner.baselibrary.ext.getContent
 import com.owner.baselibrary.ext.loadUrl
 import com.owner.baselibrary.utils.DateUtils
 import com.owner.baselibrary.utils.hideSoftInput
@@ -81,7 +80,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     //当前选择的一级分类
     private var currentTopCategory = CategoryInfo("", "")
     //临时分类对象
-    private var tempCategory = CategoryInfo("", "")
+    lateinit var tempCategory: CategoryInfo
     var thirdCgImage = MutableLiveData<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -209,6 +208,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      * 增加三级分类
      */
     private fun addThirdCategory(parent: CategoryInfo) {
+        tempCategory = CategoryInfo("", "")
         //刷新列表，目的是取消之前做过的长按状态
         secondAdapter.notifyDataSetChanged()
         val (editView, editV) = initDialog()
@@ -218,7 +218,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             activity?.hideSoftInput()
             when (position) {
                 1 -> {
-                    tempCategory.name = editV.getContent()
+                    tempCategory.name = editV.text.toString()
                     tempCategory.parentId = parent.objectId
                     viewModel.addCategory(tempCategory)
                 }
@@ -238,9 +238,14 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
 
         val imageView = editView.find<ImageView>(R.id.mPictureIv)
         thirdCgImage.observe(this, Observer {
-            imageView.loadUrl(it!!)
+            if (it.isNullOrEmpty()) {
+                imageView.setImageResource(R.drawable.pictures_no)
+            } else {
+                imageView.loadUrl(it!!)
+            }
         })
         val editV = editView.findViewById<EditText>(R.id.mThirdCgNameEt)
+
         val takePhoto = editView.findViewById<Button>(R.id.mPictureBtn)
         takePhoto.enabled(editV) { !editV.text.isNullOrEmpty() }
 
@@ -298,17 +303,28 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     /**
      * 显示修改类别对话框
      */
-    fun updateCategory(category: CategoryInfo) {
-        alertView = AlertView("修改类别", null, null, null,
-                arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
-            activity?.hideSoftInput()
-            when (position) {
-                1 -> viewModel.updateCategory(category)
-            }
-        })
+    private fun updateCategory(category: CategoryInfo) {
         val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
         val editV = extView.findViewById<EditText>(R.id.mCgNameEt)
         editV.setText(category.name)
+        alertView = AlertView("修改类别", null, null, null,
+                arrayOf("取消", "完成"), context, AlertView.Style.Alert,
+                OnItemClickListener { o, position ->
+                    activity?.hideSoftInput()
+                    when (position) {
+                        1 -> {
+                            category.name = editV.text.toString()
+                            viewModel.updateCategory(category)
+                            if (category.parentId == "0") {
+                                mAddSecondCgTv.text = category.name
+                                category.isLongOnClick = false
+                                topAdapter.notifyDataSetChanged()
+                            } else {
+                                secondAdapter.notifyDataSetChanged()
+                            }
+                        }
+                    }
+                })
         alertView.addExtView(extView).show()
     }
 
@@ -317,10 +333,22 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      */
     fun deleteCategory(category: CategoryInfo) {
         alertView = AlertView("删除类别", null, null, null,
-                arrayOf("取消", "确定"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
+                arrayOf("取消", "确定"), context, AlertView.Style.Alert,
+                OnItemClickListener { _, position ->
             activity?.hideSoftInput()
             when (position) {
-                0 -> viewModel.deleteCategory(category)
+                1 -> {
+                    if (category.parentId == "0") {
+                        viewModel.topCgList.remove(category)
+                        viewModel.isVisibleTop = false
+                        topAdapter.notifyDataSetChanged()
+                    } else {
+                        viewModel.secondAndThirdCgList.remove(category)
+                        secondAdapter.updateList()
+                        secondAdapter.notifyDataSetChanged()
+                    }
+                    viewModel.deleteCategory(category)
+                }
             }
         })
         alertView.show()
@@ -334,9 +362,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             override fun done(p0: AVException?) {
                 thirdCgImage.value = file.url
                 tempCategory.imageUrl = file.url
-
             }
-
         })
 
     }

@@ -62,27 +62,6 @@ fun Button.enabled(et: EditText, method: () -> Boolean) {
     })
 
 }
-/**
- * EditView扩展方法，获取输入的内容
- */
-fun EditText.getContent():String {
-    var content=""
-    val et = this
-    et.addTextChangedListener(object :TextWatcher{
-        override fun afterTextChanged(p0: Editable?) {
-
-        }
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-           content = p0.toString()
-        }
-    })
-    return content
-}
 
 /**
  * ImageView扩展方法，通过Url加载网络图片

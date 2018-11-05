@@ -23,12 +23,13 @@ import com.owner.baselibrary.utils.PinyinUtils
  * Created by Liuyong on 2018-10-30.It's AMSystem
  *@description:
  */
-data class Manager(val name: String,
-                   val department: String,
+data class Manager(val objectId:String,
+                   val username: String,
+                   val department: String="",
                    val duty: String = "",
-                   val phone: String,
+                   val mobilePhoneNumber: String="",
                    val avatar: String = "") {
 
-    var letters: String = PinyinUtils.getFirstSpell(name).toUpperCase().toCharArray()[0].toString()
+    var letters: String = PinyinUtils.getFirstSpell(username).toUpperCase().toCharArray()[0].toString()
 
 }

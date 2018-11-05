@@ -25,9 +25,9 @@ class AssertsParamActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>() {
     //Fragment 栈管理
     private val mStack = Stack<Fragment>()
 
-    private val locationFragment by lazy { ManagerFragment() }
+    private val locationFragment by lazy { Fragment() }
     private val categoryFragment by lazy { CategoryFragment() }
-    private val departmentFragment by lazy { ManagerFragment() }
+    private val departmentFragment by lazy { Fragment() }
     private val managerFragment by lazy { ManagerFragment() }
 
     @SuppressLint("CheckResult")

@@ -15,10 +15,14 @@
  */
 package com.owner.assertsparam.viewmodel
 
+import android.databinding.Bindable
+import com.kennyc.view.MultiStateView
+import com.owner.assertsparam.BR
 import com.owner.assertsparam.data.Manager
 import com.owner.assertsparam.model.repository.AssertsParamRepository
 import com.owner.assertsparam.model.repository.impl.APRepositoryImpl
 import com.owner.assertsparam.utils.PinyinComparator
+import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.utils.PinyinUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import java.util.*
@@ -31,12 +35,17 @@ import java.util.*
 class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
 
     private var mComparator = PinyinComparator()
-    private val mManagerList: MutableList<Manager>
+    private var mManagerList = mutableListOf<Manager>()
     private var mSortList = mutableListOf<Manager>()
-
+    @get:Bindable
+    var mManagerViewState = MultiStateView.VIEW_STATE_EMPTY
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.mManagerViewState)
+        }
     init {
         repo = APRepositoryImpl()
-        mManagerList = fillData(repo)
+        fillData()
     }
 
     /**
@@ -50,8 +59,19 @@ class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
         return mSortList
     }
 
-    private fun fillData(repo: AssertsParamRepository): MutableList<Manager> {
-        return repo.getManager()
+     fun fillData() {
+        val disposable = repo.getManager().execute()
+                .subscribe({
+                    mManagerList.addAll(it.results)
+                }, {
+                    mManagerViewState=MultiStateView.VIEW_STATE_ERROR
+                }, {
+                    mManagerViewState = MultiStateView.VIEW_STATE_CONTENT
+
+                }, {
+                    mManagerViewState = MultiStateView.VIEW_STATE_LOADING
+                })
+        compositeDisposable.add(disposable)
     }
 
     /**
@@ -66,7 +86,7 @@ class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
         } else {
             filterDateList.clear()
             for (manager in mManagerList) {
-                val name = manager.name
+                val name = manager.username
                 if (name.indexOf(filterStr) != -1 ||
                         PinyinUtils.getFirstSpell(name).startsWith(filterStr)
                         //不区分大小写

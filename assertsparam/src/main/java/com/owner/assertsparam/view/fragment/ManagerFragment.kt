@@ -49,10 +49,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ManagerViewModel::class.java)
-        mAdapter = ManagerAdapter(viewModel)
-        managerLL = LinearLayoutManager(context)
-        managerLL.orientation = LinearLayoutManager.VERTICAL
-        mDecoration = TitleItemDecoration(context!!, viewModel.getSortList())
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,6 +57,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         val binding = DataBindingUtil.inflate<FragmentManagerBinding>(
                 inflater, R.layout.fragment_manager, container, false)
         binding.managerVm = viewModel
+        viewModel.fillData()
         return binding.root
     }
 
@@ -69,11 +67,8 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         mHeaderBar.getRightView().setOnClickListener {
             ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER).navigation()
         }
-        mManagerRcv.adapter = mAdapter
-        mManagerRcv.layoutManager = managerLL
 
-        mManagerRcv.addItemDecoration(mDecoration)
-        mManagerRcv.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        loadManagerList()
 
         //设置右侧SideBar触摸监听
         mSideBar.setOnTouchLetterChangeListener {
@@ -98,5 +93,21 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
             }
 
         })
+    }
+
+    /**
+     * 加载管理员列表
+     */
+    private fun loadManagerList() {
+        mAdapter = ManagerAdapter(viewModel)
+        mManagerRcv.adapter = mAdapter
+
+        managerLL = LinearLayoutManager(context)
+        managerLL.orientation = LinearLayoutManager.VERTICAL
+        mManagerRcv.layoutManager = managerLL
+
+        mDecoration = TitleItemDecoration(context!!, viewModel.getSortList())
+        mManagerRcv.addItemDecoration(mDecoration)
+        mManagerRcv.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 }

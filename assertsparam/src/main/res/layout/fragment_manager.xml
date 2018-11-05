@@ -5,18 +5,18 @@
 
         <variable
             name="managerVm"
-            type="com.owner.assertsparam.viewmodel.ManagerViewModel" />
+            type="com.owner.assertsparam.viewmodel.ManagerViewModel"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        style="@style/MatchMatch.Vertical">
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  style="@style/MatchMatch.Vertical">
 
         <com.owner.baselibrary.widgets.HeaderBar
             android:id="@+id/mHeaderBar"
             style="@style/MatchWrap"
-            app:titleText="管理人员"
-            app:rightText="增加"/>
+            app:rightText="增加"
+            app:titleText="管理人员"/>
 
         <LinearLayout
             android:id="@+id/mSearchll"
@@ -38,18 +38,24 @@
                     android:gravity="center_vertical"
                     android:hint="搜索联系人"
                     android:singleLine="true"
-                    android:textSize="15.0dip" />
+                    android:textSize="15.0dip"/>
 
             </RelativeLayout>
         </LinearLayout>
 
         <FrameLayout style="@style/MatchMatch">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mManagerRcv"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center" />
+            <com.kennyc.view.MultiStateView
+                android:id="@+id/mMultiStateView"
+                style="@style/MultiStateStyle"
+                app:msv_viewState="@{managerVm.MManagerViewState}">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mManagerRcv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"/>
+            </com.kennyc.view.MultiStateView>
 
             <com.goldenstraw.charsidebar.WaveSideBar
                 android:id="@+id/mSideBar"
@@ -57,11 +63,11 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
                 app:chooseTextColor="@android:color/white"
-                app:textColor="#969696"
-                app:textSize="10sp"
+                app:circleRadius="24dp"
                 app:hintTextSize="32sp"
                 app:radius="20dp"
-                app:circleRadius="24dp"/>
+                app:textColor="#969696"
+                app:textSize="10sp"/>
         </FrameLayout>
 
     </LinearLayout>

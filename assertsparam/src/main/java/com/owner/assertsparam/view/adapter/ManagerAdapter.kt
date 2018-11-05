@@ -27,14 +27,18 @@ import com.owner.assertsparam.viewmodel.ManagerViewModel
  * Created by Liuyong on 2018-10-30.It's AMSystem
  *@description:
  */
-class ManagerAdapter(val mManagerVM: ManagerViewModel) : RecyclerView.Adapter<ManagerAdapter.ManagerViewHolder>() {
+class ManagerAdapter(private val mManagerVM: ManagerViewModel) : RecyclerView.Adapter<ManagerAdapter.ManagerViewHolder>() {
 
     var managerList = mutableListOf<Manager>()
 
     init {
-        managerList = mManagerVM.getSortList()
+       updateList()
     }
 
+    fun updateList() {
+        managerList.clear()
+        managerList.addAll(mManagerVM.getSortList())
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManagerViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ManagerViewHolder.create(inflater, parent)
@@ -46,10 +50,7 @@ class ManagerAdapter(val mManagerVM: ManagerViewModel) : RecyclerView.Adapter<Ma
         holder.bindData(managerList[position], mManagerVM)
     }
 
-    fun updateList(list: MutableList<Manager>) {
-        managerList = list
-        notifyDataSetChanged()
-    }
+
 
     /**
      * 根据当前位置获取分类的首字母的char ascii值

@@ -16,6 +16,7 @@
 package com.owner.assertsparam.model.network.service
 
 import com.owner.assertsparam.data.CategoryInfo
+import com.owner.assertsparam.data.Manager
 import com.owner.assertsparam.model.network.entites.*
 import com.owner.baselibrary.model.network.RetrofitFactory
 import io.reactivex.Observable
@@ -50,6 +51,12 @@ interface AssertsParamApi {
      */
     @PUT(value = "1.1/classes/Category/{id}")
     fun updateCategory(@Path("id") objectId: String,@Body request: CategoryInfo):Observable<ResponseBody>
+
+    /*
+      获取管理人员
+     */
+    @GET("1.1/users")
+    fun getManager():Observable<QueryManagerResp>
 }
 
 object AssertsParamService : AssertsParamApi by RetrofitFactory.instance.create(AssertsParamApi::class.java)

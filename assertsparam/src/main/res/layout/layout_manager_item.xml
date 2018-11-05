@@ -36,7 +36,7 @@
                 style="@style/WrapWrap"
                 android:textSize="16dp"
                 tools:text ="姓名"
-                android:text="@{manager.name}"/>
+                android:text="@{manager.username}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

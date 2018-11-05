@@ -15,6 +15,7 @@
  */
 package com.owner.assertsparam.viewmodel
 
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.Bindable
 import com.kennyc.view.MultiStateView
 import com.owner.assertsparam.BR
@@ -37,6 +38,7 @@ class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
     private var mComparator = PinyinComparator()
     private var mManagerList = mutableListOf<Manager>()
     private var mSortList = mutableListOf<Manager>()
+    var refresh = MutableLiveData<String>()
     @get:Bindable
     var mManagerViewState = MultiStateView.VIEW_STATE_EMPTY
         set(value) {
@@ -67,7 +69,7 @@ class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
                     mManagerViewState=MultiStateView.VIEW_STATE_ERROR
                 }, {
                     mManagerViewState = MultiStateView.VIEW_STATE_CONTENT
-
+                    refresh.value="refresh"
                 }, {
                     mManagerViewState = MultiStateView.VIEW_STATE_LOADING
                 })

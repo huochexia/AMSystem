@@ -15,7 +15,6 @@
  */
 package com.owner.assertsparam.data
 
-import com.google.gson.annotations.SerializedName
 import com.owner.assertsparam.model.network.entites.CreateCgResp
 import com.owner.baselibrary.ext.PoKo
 
@@ -33,10 +32,9 @@ import com.owner.baselibrary.ext.PoKo
 data class CategoryInfo(var objectId: String,
                         var name: String,
                         var parentId: String = "",
-                        var imageUrl: String = "",
-                        var isSelected: Boolean = false,//选择状态
-                        var isLongOnClick: Boolean = false//长按状态
-) {
+                        var imageUrl: String = "") {
+    var isSelected: Boolean = false//选择状态
+    var isLongOnClick: Boolean = false//长按状态
     companion object {
         fun create(resp: CreateCgResp): CategoryInfo {
             return CategoryInfo(resp.objectId, resp.name, resp.parentId, resp.imageUrl)

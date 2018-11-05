@@ -15,7 +15,6 @@
  */
 package com.owner.assertsparam.data
 
-import com.owner.baselibrary.utils.PinyinUtils
 
 /**
  *管理员
@@ -26,10 +25,7 @@ import com.owner.baselibrary.utils.PinyinUtils
 data class Manager(val objectId:String,
                    val username: String,
                    val department: String="",
-                   val duty: String = "",
-                   val mobilePhoneNumber: String="",
-                   val avatar: String = "") {
-
-    var letters: String = PinyinUtils.getFirstSpell(username).toUpperCase().toCharArray()[0].toString()
-
-}
+                   val duty: String?,
+                   val mobilePhoneNumber: String,
+                   val avatar: String ,
+                   var letters: String)

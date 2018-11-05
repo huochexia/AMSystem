@@ -6,6 +6,7 @@ package com.owner.provideslib.exception
 object ExceptionMsg {
     fun getError(code: Int): String {
         when (code) {
+            666->return "success"
             1 -> return "服务器内部错误或者参数错误"
             100 -> return "网络故障"
             101 -> return "对象不存在，或者密码不正确"

@@ -26,7 +26,8 @@ package com.owner.usercenter.model.network.entities
 data class RegisterReq(val username: String,
                        val password: String,
                        val mobilePhoneNumber: String,
-                       val avatar: String)
+                       val avatar: String,
+                       val letters:String)
 
 /*
   注册成功响应体

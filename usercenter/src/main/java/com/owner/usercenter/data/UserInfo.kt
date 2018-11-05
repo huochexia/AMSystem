@@ -24,4 +24,5 @@ data class UserInfo(val token: String?,
                     val userName: String?,
                     val userMobile: String?,
                     val userId: String?,
-                    val avatar: String?)
+                    val avatar: String?,
+                    val letters:String="")

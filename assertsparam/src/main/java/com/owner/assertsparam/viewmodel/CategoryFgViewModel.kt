@@ -335,6 +335,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
     fun updateCategory(category: CategoryInfo) {
         val disposable=repo.updateCategory(category).execute()
                 .subscribe()
+        compositeDisposable.add(disposable)
     }
 
     /**

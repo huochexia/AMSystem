@@ -15,6 +15,7 @@
  */
 package com.owner.assertsparam.view.fragment
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -49,7 +50,10 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ManagerViewModel::class.java)
-
+        viewModel.refresh.observe(this, Observer {
+            mAdapter.updateList()
+            mAdapter.notifyDataSetChanged()
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,7 +61,6 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         val binding = DataBindingUtil.inflate<FragmentManagerBinding>(
                 inflater, R.layout.fragment_manager, container, false)
         binding.managerVm = viewModel
-        viewModel.fillData()
         return binding.root
     }
 

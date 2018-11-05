@@ -283,6 +283,8 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             when (position) {
                 1 -> {
                     category.name = editV.text.toString()
+                    category.isSelected = false
+                    category.isLongOnClick = false
                     //要判一下图片是否发生改变,不为空说明进行了图片操作
                     if (tempCategory.imageUrl != "")
                         category.imageUrl = tempCategory.imageUrl
@@ -313,6 +315,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
                             if (category.parentId == "0") {
                                 mAddSecondCgTv.text = category.name
                                 category.isLongOnClick = false
+                                category.isSelected = false
                                 topAdapter.notifyDataSetChanged()
                             } else {
                                 secondAdapter.notifyDataSetChanged()

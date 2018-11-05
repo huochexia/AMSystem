@@ -29,7 +29,7 @@ import com.owner.assertsparam.viewmodel.ManagerViewModel
  */
 class ManagerAdapter(private val mManagerVM: ManagerViewModel) : RecyclerView.Adapter<ManagerAdapter.ManagerViewHolder>() {
 
-    var managerList = mutableListOf<Manager>()
+    private var managerList = mutableListOf<Manager>()
 
     init {
        updateList()

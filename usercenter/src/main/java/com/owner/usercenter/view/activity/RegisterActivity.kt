@@ -31,7 +31,12 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
         binding.vm = viewModel
         viewModel.error.observe(this, Observer {
-            toast(it?:"错误信息不明确！")
+            if (it == "success") {
+                finish()
+            }else{
+              toast(it?:"错误信息不明确！")
+            }
+
         })
         initView()
 

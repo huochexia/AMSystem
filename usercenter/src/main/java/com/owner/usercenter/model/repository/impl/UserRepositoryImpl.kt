@@ -18,6 +18,7 @@ package com.owner.usercenter.model.repository.impl
 import com.owner.baselibrary.model.network.entites.UploadImageReq
 import com.owner.baselibrary.model.network.entites.UploadImageResp
 import com.owner.baselibrary.model.network.service.BaseService
+import com.owner.baselibrary.utils.PinyinUtils
 import com.owner.usercenter.model.network.entities.*
 import com.owner.usercenter.model.network.service.UserService
 import com.owner.usercenter.model.repository.UserRepository
@@ -37,7 +38,8 @@ class UserRepositoryImpl : UserRepository {
      * 注册请求
      */
     override fun register(username: String, password: String, phone: String): Observable<RegisterResp> {
-        return UserService.register(RegisterReq(username, password, phone, ""))
+        val letters = PinyinUtils.getFirstSpell(username).toUpperCase().toCharArray()[0].toString()
+        return UserService.register(RegisterReq(username, password, phone, "",letters))
     }
 
     /**

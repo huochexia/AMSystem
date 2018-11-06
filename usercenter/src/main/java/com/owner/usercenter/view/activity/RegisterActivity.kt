@@ -2,6 +2,7 @@ package com.owner.usercenter.view.activity
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.Observable
 import android.os.Bundle
@@ -30,13 +31,17 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
         viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
         binding.vm = viewModel
+        //观察错误信息
         viewModel.error.observe(this, Observer {
-            if (it == "success") {
-                finish()
-            }else{
-              toast(it?:"错误信息不明确！")
-            }
 
+               toast(it?:"错误信息不明确！")
+        })
+        //得到返回用户
+        viewModel.userId.observe(this, Observer {
+            val intent =Intent()
+            intent.putExtra("userID",it)
+            setResult(2,intent)
+            finish()
         })
         initView()
 

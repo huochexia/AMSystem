@@ -53,10 +53,16 @@ interface AssertsParamApi {
     fun updateCategory(@Path("id") objectId: String,@Body request: CategoryInfo):Observable<ResponseBody>
 
     /*
-      获取管理人员
+      获取所有管理人员
      */
     @GET("1.1/users")
-    fun getManager():Observable<QueryManagerResp>
+    fun getAllManager():Observable<QueryManagerResp>
+    /*
+     获取某个管理员
+     */
+    @GET("1.1/users/{id}")
+    fun getManager(@Path("id") userId:String):Observable<Manager>
+
 }
 
 object AssertsParamService : AssertsParamApi by RetrofitFactory.instance.create(AssertsParamApi::class.java)

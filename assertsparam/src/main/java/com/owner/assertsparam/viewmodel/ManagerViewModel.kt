@@ -38,21 +38,24 @@ class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
     private var mComparator = PinyinComparator()
     private var mManagerList = mutableListOf<Manager>()
     private var mSortList = mutableListOf<Manager>()
+
     var refresh = MutableLiveData<String>()
+
     @get:Bindable
     var mManagerViewState = MultiStateView.VIEW_STATE_EMPTY
         set(value) {
             field = value
             notifyPropertyChanged(BR.mManagerViewState)
         }
+
     init {
         repo = APRepositoryImpl()
         fillData()
     }
 
     /**
-     * 将原始列表进行排序后，复制到用于显示的列表中，保存原始列表用于查找
-     * 因为显示用的列表在过程中会不断变化。
+     * 将原始列表进行排序后，复制到用于显示的列表中，保存原始列表用于查找。查询是在原表中进行，显示
+     * 的是查找结果。 因为显示用的列表在过程中会不断变化。
      */
     fun getSortList(): MutableList<Manager> {
         Collections.sort(mManagerList, mComparator)
@@ -61,19 +64,33 @@ class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
         return mSortList
     }
 
-     fun fillData() {
-        val disposable = repo.getManager().execute()
+    private fun fillData() {
+        val disposable = repo.getAllManager().execute()
                 .subscribe({
                     mManagerList.addAll(it.results)
                 }, {
-                    mManagerViewState=MultiStateView.VIEW_STATE_ERROR
+                    mManagerViewState = MultiStateView.VIEW_STATE_ERROR
                 }, {
                     mManagerViewState = MultiStateView.VIEW_STATE_CONTENT
-                    refresh.value="refresh"
+                    refresh.value = "refresh"
+
                 }, {
                     mManagerViewState = MultiStateView.VIEW_STATE_LOADING
                 })
         compositeDisposable.add(disposable)
+    }
+
+    /**
+     * 通过Id获取用户
+     */
+    fun getManager(userId: String) {
+
+        val disposable = repo.getManager(userId).execute()
+                .subscribe {
+                    mManagerList.add(it)
+                    refresh.value = "refresh"
+                }
+
     }
 
     /**

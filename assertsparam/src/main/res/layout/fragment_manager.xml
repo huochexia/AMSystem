@@ -57,7 +57,7 @@
                     android:layout_gravity="center"/>
             </com.kennyc.view.MultiStateView>
 
-            <com.goldenstraw.charsidebar.WaveSideBar
+            <com.owner.charsidebar.WaveSideBar
                 android:id="@+id/mSideBar"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"

@@ -17,6 +17,7 @@ package com.owner.assertsparam.view.fragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -51,8 +52,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ManagerViewModel::class.java)
         viewModel.refresh.observe(this, Observer {
-            mAdapter.updateList()
-            mAdapter.notifyDataSetChanged()
+            mAdapter.updateList(viewModel.getSortList())
         })
     }
 
@@ -68,7 +68,8 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         super.onViewCreated(view, savedInstanceState)
         mHeaderBar.getRightView().visibility = View.VISIBLE
         mHeaderBar.getRightView().setOnClickListener {
-            ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER).navigation()
+            //通过ARouter启动UserCenter模块中的RegisterActivity,并要求返回值
+            ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER).navigation(activity, 1)
         }
 
         loadManagerList()
@@ -112,5 +113,13 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         mDecoration = TitleItemDecoration(context!!, viewModel.getSortList())
         mManagerRcv.addItemDecoration(mDecoration)
         mManagerRcv.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == 2) {
+            val userId = data?.getStringExtra("userID")
+            viewModel.getManager(userId?:"")
+        }
     }
 }

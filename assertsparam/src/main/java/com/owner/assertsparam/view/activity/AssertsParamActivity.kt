@@ -2,6 +2,7 @@ package com.owner.assertsparam.view.activity
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -18,6 +19,8 @@ import com.owner.baselibrary.view.activity.BaseActivity
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.activity_asserts_param.*
+import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import java.util.*
 
 @Route(path = RouterPath.AssertsParam.PATH_ASSERTSPARAM_MAIN)
@@ -82,5 +85,9 @@ class AssertsParamActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>() {
             hideFragment(it)
         }
         showFragment(mStack[position])
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        managerFragment.onActivityResult(requestCode,resultCode,data)
     }
 }

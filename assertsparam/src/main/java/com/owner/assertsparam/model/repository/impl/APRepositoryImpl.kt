@@ -16,8 +16,13 @@ import retrofit2.Response
  */
 class APRepositoryImpl : AssertsParamRepository {
 
-    override fun getManager(): Observable<QueryManagerResp> {
-        return AssertsParamService.getManager()
+
+    override fun getManager(userId: String): Observable<Manager> {
+        return AssertsParamService.getManager(userId)
+    }
+
+    override fun getAllManager(): Observable<QueryManagerResp> {
+        return AssertsParamService.getAllManager()
     }
 
     override fun getCategory(parentId: String): Observable<QueryCategoryResp> {

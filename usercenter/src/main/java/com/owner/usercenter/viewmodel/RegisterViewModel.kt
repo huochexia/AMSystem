@@ -55,6 +55,7 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
 
     //通过修改这个可观察变量的值，驱动视图显示相应的提示内容
     val error = MutableLiveData<String>()
+    val userId = MutableLiveData<String>()
 
     init {
         repo = UserRepositoryImpl()
@@ -105,7 +106,7 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
      */
     private fun getResult(it: RegisterResp) {
         if (it.isSuccess()) {
-            error.value= ExceptionMsg.getError(UserConstant.ACTION_SUCCESS)
+            userId.value = it.objectId
         } else {
             error.value = ExceptionMsg.getError(it.code)
         }

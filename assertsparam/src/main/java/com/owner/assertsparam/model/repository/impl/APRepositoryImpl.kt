@@ -21,7 +21,8 @@ class APRepositoryImpl : AssertsParamRepository {
     }
 
     override fun getCategory(parentId: String): Observable<QueryCategoryResp> {
-        return AssertsParamService.getCategory("{\"parentId\":\"$parentId\"}")
+        val query="""{"parentId":"$parentId"}"""
+        return AssertsParamService.getCategory(query)
     }
 
     override fun createCategory(name: String, parentId: String, imageUrl: String): Observable<CategoryInfo> {

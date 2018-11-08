@@ -43,11 +43,9 @@ class SecondCgAdapter(private val topCategory: CategoryInfo, val mCategoryVM: Ca
      */
     fun updateList() {
         secondCgList.clear()
-        mCategoryVM.secondAndThirdCgList.forEach {
-            if (it.parentId == topCategory.objectId) {
-                secondCgList.add(it)
-            }
-        }
+        secondCgList.addAll(mCategoryVM.secondAndThirdCgList.filter {
+            it.parentId==topCategory.objectId
+        })
     }
     /**
      * ViewHolder 嵌套类

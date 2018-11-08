@@ -200,11 +200,9 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      */
     fun getSubCategory(parent: CategoryInfo): MutableList<CategoryInfo> {
         val subList = mutableListOf<CategoryInfo>()
-        secondAndThirdCgList.forEach {
-            if (it.parentId == parent.objectId) {
-                subList.add(it)
-            }
-        }
+        subList.addAll(secondAndThirdCgList.filter {
+                     it.parentId==parent.objectId
+        })
         return subList
     }
 

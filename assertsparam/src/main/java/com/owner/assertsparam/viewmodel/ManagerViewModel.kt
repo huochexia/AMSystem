@@ -61,7 +61,7 @@ class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
         return mSortList
     }
 
-     fun fillData() {
+     private fun fillData() {
         val disposable = repo.getManager().execute()
                 .subscribe({
                     mManagerList.addAll(it.results)

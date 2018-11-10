@@ -26,14 +26,20 @@ import com.owner.assertsparam.model.repository.impl.APRepositoryImpl
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 /**
- *
+ *@typeName :分类的名称。该参数的意义是区分种类。因为所有分类的结构是一样的，只是名称不一样，这个名称
+ * 对应数据库中表。因为使用RESTFULL，所以只需要区分表名即可。只要能够指定表名，就可以从不同表中获取相应
+ * 的分类对象。
+ * @isEdited :用于决定是否可以对数据进行编辑，当为false时不可编辑，取消长按功能
  * Created by Liuyong on 2018-10-20.It's AMSystem
  *@description:
  */
-class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
+class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean)
+    : BaseViewModel<AssertsParamRepository>() {
 
     companion object {
         const val KEY_SELECTED_ACTION = "select"
@@ -45,8 +51,22 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
         const val KEY_REFRESH_LIST = "refresh"
     }
 
+    //当前分类名称
+    var categoryName: String = ""
+        get() {
+            when (tableName) {
+                "Location" -> return "位置"
+                "Category" -> return "资产"
+                "Department" -> return "部门"
+            }
+            return ""
+        }
     //点击事件行为，选择、增加、修改、删除.
     var action = MutableLiveData<Pair<String, CategoryInfo>>()
+
+    // 得到选择的分类，<表名，分类>
+    var getCategoryInfo = MutableLiveData<Pair<String, CategoryInfo>>()
+
     //是否展开三级分类列表的状态
     var expandList = MutableLiveData<Boolean>()
     //刷新列表
@@ -55,14 +75,17 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
     var topCgList = mutableListOf<CategoryInfo>()
     //二级和三级分类数据表
     var secondAndThirdCgList = mutableListOf<CategoryInfo>()
+    //选择的二级或三级分类
+    private var mSelectedCategory: CategoryInfo? = null
     /*
-        显示当前一级分类
+        显示当前一级分类名称,用于在二级分类上显示一级分类名称
      */
     @get:Bindable
-    var currentTopCategory = CategoryInfo("", "")
+    var mCurrentTopCategory = CategoryInfo("", "")
         set(value) {
             field = value
-            notifyPropertyChanged(BR.currentTopCategory)
+            notifyPropertyChanged(BR.mCurrentTopCategory)
+
         }
     /*
        是否显示当前一级分类
@@ -90,7 +113,6 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
             notifyPropertyChanged(BR.mTopViewState)
         }
 
-
     init {
         repo = APRepositoryImpl()
         loadTopCategory()
@@ -98,36 +120,50 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
 
 
     /**
-     * 列表项目点击事件
+     * 列表项目点击事件。如果是一级分类，则只是加载二三级分类。如果是二级或三级分类，则要判断当前是
+     * 否为可编辑状态，如果是，则不做处理，如果不是，即为选择状态，则要退出并返回选择的分类。
+     * 如果二级分类没有子类，则可以退出。如果二级分类有子类，则只能选择子类才能退出。
      */
     fun itemOnClick(item: CategoryInfo) {
         //如果是一级分类，设置一级分类项目状态
         if (item.parentId == "0" ) {
-            setTopCgState(item)
-            //如果是重新选择一级分类，则加载二级列表数据
-            if (currentTopCategory.objectId != item.objectId) {
-
+            setClickState(item)
+            //如果是重新选择一级分类，则加载二级列表数据,避免多次网络访问
+            if (mCurrentTopCategory.objectId != item.objectId) {
                 loadSecondCategory(item)
             } else {
-                //通知视图状态改变
                 action.value = Pair(KEY_SELECTED_ACTION, item)
             }
+            mCurrentTopCategory = item
+            mSelectedCategory = null
         } else {
+            mSelectedCategory = item
             //点击二级或三级任意一个时，还原其选择状态
             secondAndThirdCgList.forEach {
                 it.isLongOnClick = false
                 it.isSelected = false
             }
+            item.isSelected = true
             //通知视图状态改变
             action.value = Pair(KEY_SELECTED_ACTION, item)
+
         }
 
     }
 
     /**
-     * 设置一级分类选择时的状态
+     * @item:父类
+     *
      */
-    private fun setTopCgState(item: CategoryInfo) {
+    fun getChildList(item: CategoryInfo, list: MutableList<CategoryInfo>): List<CategoryInfo> {
+        return list.filter {
+            it.parentId == item.objectId
+        }
+    }
+    /**
+     * 设置分类选择时的状态
+     */
+    private fun setClickState(item: CategoryInfo) {
         //还原所有选择和长按状态
         topCgList.forEach {
             it.isSelected = false
@@ -144,46 +180,42 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
 
 
     /**
-     * 列表项目长按事件
+     * 列表项目长按事件,如果可编辑状态时返回true
      */
     fun itemLongClick(item: CategoryInfo): Boolean {
-        //如果是一级分类
-        if (item.parentId == "0") {
-            setTopCgLongState(item)
-            //如果当前一级分类不是传入分类，则要加载二级分类列表，并重新指定当前一级分类
-            if (currentTopCategory.objectId != item.objectId) {
-                loadSecondCategory(item)
+
+        if (isEdited) {
+            //如果是一级分类
+            if (item.parentId == "0") {
+                setLongClickState(item, topCgList)
+                //如果当前一级分类不是传入分类，则要加载二级分类列表，并重新指定当前一级分类
+                if (mSelectedCategory?.objectId != item.objectId) {
+                    loadSecondCategory(item)
+                }
+                action.value = Pair(KEY_SELECTED_ACTION, item)
+            } else {
+                setLongClickState(item, secondAndThirdCgList)
+                action.value = Pair(KEY_SELECTED_ACTION, item)
             }
-            action.value = Pair(KEY_SELECTED_ACTION, item)
-        } else {
-            setSecondOrThirdLongState(item)
-            action.value = Pair(KEY_SELECTED_ACTION, item)
+            return true
         }
-        return true
+        return false
     }
 
     /**
-     * 设置一级分类项目长按时状态
+     * 设置分类项目长按时状态
      */
-    private fun setTopCgLongState(item: CategoryInfo) {
+    private fun setLongClickState(item: CategoryInfo, list: MutableList<CategoryInfo>) {
         //还原所有选择和长按状态
-        topCgList.forEach {
+        list.forEach {
             it.isLongOnClick = false
             it.isSelected = false
         }
         item.isSelected = true
         item.isLongOnClick = true
-    }
-
-    /**
-     * 设置二级分类项目长按时状态
-     */
-    private fun setSecondOrThirdLongState(item: CategoryInfo) {
-        //还原所有选择和长按状态
-        secondAndThirdCgList.forEach {
-            it.isLongOnClick = false
+        if (item.parentId != "0") {
+            mSelectedCategory = item
         }
-        item.isLongOnClick = true
     }
 
 
@@ -210,7 +242,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      * 加载一级分类列表
      */
     private fun loadTopCategory() {
-        val disposable = repo.getCategory("0").execute()
+        val disposable = repo.getCategory(tableName, "0").execute()
                 .subscribe({
                     topCgList.addAll(it.results)
                 }, {
@@ -231,12 +263,12 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
     private fun loadSecondCategory(item: CategoryInfo) {
         secondAndThirdCgList.clear()
         //二级分类数据流
-        val secondList = repo.getCategory(item.objectId).flatMap {
+        val secondList = repo.getCategory(tableName, item.objectId).flatMap {
             Observable.fromIterable(it.results)
         }
         //三级分类数据流
         val thirdList = secondList.flatMap {
-            repo.getCategory(it.objectId)
+            repo.getCategory(tableName, it.objectId)
         }.flatMap {
             Observable.fromIterable(it.results)
         }
@@ -254,7 +286,6 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
                 }, {
                     mSecondViewState = MultiStateView.VIEW_STATE_LOADING
                 })
-        currentTopCategory = item
         isVisibleTop = true
         compositeDisposable.add(disposable)
     }
@@ -271,7 +302,7 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      * 发送增加二级分类请求
      */
     fun addSecondAlert() {
-        action.value = Pair(KEY_ADD_ACTION, currentTopCategory)
+        action.value = Pair(KEY_ADD_ACTION, mSelectedCategory!!)
     }
 
     /**
@@ -290,14 +321,14 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      *
      */
     fun addCategory(newCg: CategoryInfo) {
-        val disposable = repo.createCategory(newCg.name, newCg.parentId, newCg.imageUrl)
+        val disposable = repo.createCategory(tableName, newCg.name, newCg.parentId, newCg.imageUrl)
                 .execute()
                 .subscribe({
                     if (it.parentId == "0") {
                         topCgList.add(it)
-                        currentTopCategory = it
+                        mSelectedCategory = it
                         isVisibleTop = true
-                        setTopCgState(it)
+                        setClickState(it)
                         action.value = Pair(KEY_SELECTED_ACTION, it)
                     } else {
                         secondAndThirdCgList.add(it)
@@ -331,7 +362,9 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      * 对数据库执行修改操作
      */
     fun updateCategory(category: CategoryInfo) {
-        val disposable=repo.updateCategory(category).execute()
+        val disposable = repo.updateCategory(tableName, category)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         compositeDisposable.add(disposable)
     }
@@ -348,7 +381,9 @@ class CategoryFgViewModel : BaseViewModel<AssertsParamRepository>() {
      *  对数据库执行删除操作
      */
     fun deleteCategory(category: CategoryInfo) {
-        val disposable=repo.deleteCategory(category.objectId).execute()
+        val disposable = repo.deleteCategory(tableName, category.objectId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         compositeDisposable.add(disposable)
     }

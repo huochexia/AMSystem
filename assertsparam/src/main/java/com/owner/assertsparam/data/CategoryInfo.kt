@@ -19,25 +19,26 @@ import com.owner.assertsparam.model.network.entites.CreateCgResp
 import com.owner.baselibrary.ext.PoKo
 
 /**
- * 类别信息
+ * 所有分类的父类信息
  * @name ：类别名称
- * @id ：自身ID值
- * @parentId ：所属类别ID，一级类别父ID为0
+ * @id ：自身ID值,总分类的Id是0，各级分类ID系统产生
+ * @parentId ：所属类别ID
  * @imageUrl：类别图片网络地址，默认为空字符串。因为一级，二级类别没有图片
  * @isSelected:是否被选择，这个属性不存储于网络
  * Created by Liuyong on 2018-10-21.It's AMSystem
  *@description:
  */
-@PoKo
-data class CategoryInfo(var objectId: String,
+
+open class CategoryInfo(var objectId: String,
                         var name: String,
-                        var parentId: String = "",
-                        var imageUrl: String = "") {
+                        var parentId: String="",
+                        var imageUrl: String="" ) {
     var isSelected: Boolean = false//选择状态
     var isLongOnClick: Boolean = false//长按状态
     companion object {
-        fun create(resp: CreateCgResp): CategoryInfo {
+        fun create(resp: CreateCgResp):CategoryInfo {
             return CategoryInfo(resp.objectId, resp.name, resp.parentId, resp.imageUrl)
         }
     }
 }
+

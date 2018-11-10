@@ -15,8 +15,8 @@
     <LinearLayout style="@style/MatchMatch.Vertical.Common">
 
         <com.owner.baselibrary.widgets.HeaderBar
-            style="@style/MatchWrap"
-            app:titleText="@string/asserts_param_category" />
+            android:id="@+id/mHeaderBar"
+            style="@style/MatchWrap" />
 
         <LinearLayout
             style="@style/MatchMatch.Horizontal"
@@ -29,10 +29,11 @@
                 <TextView
                     style="@style/MatchWrap"
                     android:padding="@dimen/common_padding"
-                    android:text="@{category.name}"
+                    android:text="@{categoryVM.categoryName}"
                     android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
                     android:gravity="center_vertical"
-                    android:onClick="@{()->categoryVM.addTopAlert(category)}"/>
+                    android:onClick="@{()->categoryVM.addTopAlert(category)}"
+                    android:enabled="@{categoryVM.edited}"/>
 
                 <com.kennyc.view.MultiStateView
                     android:id="@+id/mMultiStateTopView"
@@ -63,6 +64,7 @@
                     style="@style/MatchWrap.Horizontal"
                     android:layout_marginTop="@dimen/common_margin_small"
                     android:onClick="@{()->categoryVM.addSecondAlert()}"
+                    android:enabled="@{categoryVM.edited}"
                     android:visibility="@{categoryVM.visibleTop?View.VISIBLE:View.GONE}">
 
                     <TextView
@@ -70,7 +72,7 @@
                         style="@style/WrapWrap"
                         android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
                         android:gravity="center_vertical"
-                        android:text="@{categoryVM.currentTopCategory.name}" />
+                        android:text="@{categoryVM.mCurrentTopCategory.name}" />
                     <TextView
                         style="@style/WrapWrap"
                         android:layout_gravity="center_vertical"

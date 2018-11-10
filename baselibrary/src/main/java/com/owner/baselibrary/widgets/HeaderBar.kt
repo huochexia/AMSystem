@@ -35,7 +35,7 @@ class HeaderBar  @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr){
 
     private var isShowBack = true
-    private var titleText: String? = null
+     private  var titleText: String? = null
     private var rightText: String? = null
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.HeaderBar)

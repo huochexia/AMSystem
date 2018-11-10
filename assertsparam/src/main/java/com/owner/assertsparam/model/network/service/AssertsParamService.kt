@@ -16,12 +16,11 @@
 package com.owner.assertsparam.model.network.service
 
 import com.owner.assertsparam.data.CategoryInfo
-import com.owner.assertsparam.data.Manager
 import com.owner.assertsparam.model.network.entites.*
 import com.owner.baselibrary.model.network.RetrofitFactory
+import io.reactivex.Completable
 import io.reactivex.Observable
 import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.http.*
 
 /**
@@ -34,23 +33,27 @@ interface AssertsParamApi {
     /*
        创建分类对象
      */
-    @POST(value = "1.1/classes/Category?fetchWhenSave=true")
-    fun createCategory(@Body request: CreateCgReq):Observable<CategoryInfo>
+    @POST(value = "1.1/classes/{table}?fetchWhenSave=true")
+    fun createCategory(@Path("table") table:String, @Body request: CreateCgReq)
+            :Observable<CategoryInfo>
     /*
-       获取分类
+       获取分类列表,得到分类的超类列表
      */
-    @GET("1.1/classes/Category")
-    fun getCategory(@Query("where") condition:String):Observable<QueryCategoryResp>
+    @GET("1.1/classes/{table}")
+    fun getCategory(@Path("table") table:String,@Query("where") condition:String)
+            :Observable<GetCategoryList>
     /*
-      删除分类
+      删除分类,只返回成功与否的结果
      */
-    @DELETE(value="1.1/classes/Category/{id}")
-    fun deleteCategory(@Path("id") objectId:String):Observable<ResponseBody>
+    @DELETE(value="1.1/classes/{table}/{id}")
+    fun deleteCategory(@Path("table") table:String,@Path("id") objectId:String)
+            :Completable
     /*
-      修改分类
+      修改分类,只返回成功与否的结果
      */
-    @PUT(value = "1.1/classes/Category/{id}")
-    fun updateCategory(@Path("id") objectId: String,@Body request: CategoryInfo):Observable<ResponseBody>
+    @PUT(value = "1.1/classes/{table}/{id}")
+    fun  updateCategory(@Path("table") table:String,@Path("id") objectId: String,
+                       @Body request: CategoryInfo):Completable
 
     /*
       获取管理人员

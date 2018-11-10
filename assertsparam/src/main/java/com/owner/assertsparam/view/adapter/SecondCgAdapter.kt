@@ -65,6 +65,7 @@ class SecondCgAdapter(private val topCategory: CategoryInfo, val mCategoryVM: Ca
         fun bindData(category: CategoryInfo, viewModel: CategoryFgViewModel) {
             mBinding.category = category
             mBinding.categoryVM = viewModel
+            mBinding.mSecondCategoryNameTv.isSelected = category.isSelected
             mBinding.executePendingBindings()
             setVisibleEditLL(category.isLongOnClick)
             setThirdCgList(category, viewModel)

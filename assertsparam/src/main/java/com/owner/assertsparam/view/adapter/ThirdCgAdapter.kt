@@ -102,20 +102,22 @@ class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCate
         fun bindData(data: Any, viewModel: CategoryFgViewModel) {
             if (data is CategoryInfo) {
                 mBinding.setVariable(BR.data, data)
-                setVisibleEditLL(data.isLongOnClick)
+                setVisibleEditLL(data)
             }
             if (data is Footer) {
                 mBinding.setVariable(BR.data, data)
             }
+
             mBinding.setVariable(BR.categoryFgVM, viewModel)
             mBinding.executePendingBindings()
         }
         /*
            设置编辑界面的可见性
         */
-        private fun setVisibleEditLL(visible: Boolean) {
+        private fun setVisibleEditLL(data: CategoryInfo) {
             if (mBinding is LayoutThirdCategoryItemBinding) {
-                if (visible) {
+                mBinding.mThirdCgll.isSelected = data.isSelected
+                if (data.isLongOnClick) {
                     mBinding.mEditThirdCgll.visibility = View.VISIBLE
                 } else {
                     mBinding.mEditThirdCgll.visibility = View.GONE

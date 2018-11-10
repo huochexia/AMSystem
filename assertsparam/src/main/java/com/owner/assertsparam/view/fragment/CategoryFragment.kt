@@ -51,6 +51,7 @@ import com.owner.assertsparam.databinding.LayoutAddThirdCategoryBinding
 import com.owner.assertsparam.view.adapter.SecondCgAdapter
 import com.owner.assertsparam.view.adapter.TopCgAdapter
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
+import com.owner.assertsparam.viewmodel.CategoryViewModelFactory
 import com.owner.baselibrary.ext.enabled
 import com.owner.baselibrary.ext.loadUrl
 import com.owner.baselibrary.utils.DateUtils
@@ -58,6 +59,7 @@ import com.owner.baselibrary.utils.hideSoftInput
 import com.owner.baselibrary.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragement_category.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.support.v4.toast
 import java.io.File
 
 /**
@@ -65,8 +67,13 @@ import java.io.File
  * Created by Liuyong on 2018-10-20.It's AMSystem
  *@description:
  */
+
 class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewModel>(),
         TakePhoto.TakeResultListener, InvokeListener {
+
+
+    private var categoryName: String = ""
+    private var isEdited: Boolean = false//当前界面是否用于编辑
 
 
     private lateinit var topAdapter: TopCgAdapter
@@ -75,17 +82,49 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     private lateinit var mTakePhoto: TakePhoto
     private lateinit var mTempFile: File
     private lateinit var invokeParam: InvokeParam
-    //定义总资产分类对象
-    private val category=CategoryInfo("0","资产分类")
+    //定义总分类对象
+    private val category = CategoryInfo("0", "")
     //当前选择的一级分类
     private var currentTopCategory = CategoryInfo("", "")
     //临时分类对象
     lateinit var tempCategory: CategoryInfo
     var thirdCgImage = MutableLiveData<String>()
 
+
+    /*
+      获得外部传入的分类名称
+     */
+    companion object {
+        fun newInstance(categoryName: String, isEdited: Boolean): CategoryFragment {
+            val bundle = Bundle()
+            bundle.putString("categoryName", categoryName)
+            bundle.putBoolean("isEdited", isEdited)
+            val fragment = CategoryFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(CategoryFgViewModel::class.java)
+
+        val bundle = arguments!!
+        categoryName = bundle.getString("categoryName")!!
+        isEdited = bundle.getBoolean("isEdited")
+
+
+        initViewModel()
+
+        initTakePhoto(savedInstanceState)
+    }
+
+
+    /**
+     * 初始化ViewModel
+     */
+    private fun initViewModel() {
+        // 通过工厂方法将分类名称传入ViewModel中
+        viewModel = ViewModelProviders.of(this, CategoryViewModelFactory(categoryName, isEdited))
+                .get(CategoryFgViewModel::class.java)
 
         //观察行为信息的变化，做出相应的响应
         viewModel.action.observe(this, Observer {
@@ -95,7 +134,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         //观察刷新列表请求
         viewModel.refreshList.observe(this, Observer {
             when (it?.second) {
-                0 ->topAdapter.notifyDataSetChanged()
+                0 -> topAdapter.notifyDataSetChanged()
                 1 -> {
                     secondAdapter.updateList()
                     secondAdapter.notifyDataSetChanged()
@@ -106,6 +145,20 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         viewModel.expandList.observe(this, Observer {
             secondAdapter.notifyDataSetChanged()
         })
+        //得到所选择的分类,返回值
+        viewModel.getCategoryInfo.observe(this, Observer {
+//            val intent = Intent()
+//            intent.putExtra("category", it)
+            toast(it?.second.toString())
+//            activity?.setResult(0, intent)
+            activity?.finish()
+        })
+    }
+
+    /**
+     * 初始化TakePhoto组件
+     */
+    private fun initTakePhoto(savedInstanceState: Bundle?) {
         mTakePhoto = TakePhotoInvocationHandler.of(this)
                 .bind(TakePhotoImpl(this, this))
                 as TakePhoto
@@ -120,6 +173,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         binding.categoryVM = viewModel
         //绑定总资产对象
         binding.category = category
+        binding.mHeaderBar.getTitleView().text = viewModel.categoryName
         return binding.root
     }
 
@@ -329,7 +383,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     /**
      * 显示删除类别对话框
      */
-    fun deleteCategory(category: CategoryInfo) {
+    private fun deleteCategory(category: CategoryInfo) {
         alertView = AlertView("删除类别", null, null, null,
                 arrayOf("取消", "确定"), context, AlertView.Style.Alert,
                 OnItemClickListener { _, position ->

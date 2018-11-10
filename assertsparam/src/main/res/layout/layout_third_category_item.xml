@@ -17,12 +17,17 @@
     <FrameLayout style="@style/WrapWrap">
 
         <LinearLayout
-            style="@style/WrapWrap.Vertical"
-            android:layout_marginBottom="@dimen/common_margin">
+            android:id="@+id/mThirdCgll"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_margin"
+            android:background="@drawable/third_category_bg_selector"
+            android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="71.0dp"
-                android:layout_height="wrap_content">
+                android:layout_width="71dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
 
                 <ImageView
                     android:id="@+id/mThirdCategoryIv"
@@ -41,7 +46,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_margin_middle"
                 android:text="@{data.name}"
-                android:textSize="@dimen/text_small_size" />
+                android:textSize="@dimen/text_small_size"
+                android:textColor="@drawable/top_category_text_selector"/>
         </LinearLayout>
 
         <LinearLayout

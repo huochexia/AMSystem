@@ -40,4 +40,4 @@ data class CreateCgResp(val code:Int,
  */
 
 data class QueryCategoryReq(val parentId: String)
-data class QueryCategoryResp (val results:MutableList<CategoryInfo>)
+data class GetCategoryList (val results:MutableList<CategoryInfo>)

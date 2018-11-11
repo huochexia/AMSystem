@@ -15,22 +15,20 @@
  */
 package com.owner.assertsparam.viewmodel
 
-import android.app.DownloadManager
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import java.lang.IllegalArgumentException
 
 /**
  *
  * Created by Liuyong on 2018-11-10.It's AMSystem
  *@description:
  */
-class CategoryViewModelFactory(private val tableName: String, private val isEdited:Boolean, private val isQuery:Boolean)
+class ManagerViewModelFactory(private val isEdited: Boolean, private val isQuery: Boolean)
     : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CategoryFgViewModel::class.java)) {
-            return CategoryFgViewModel(tableName,isEdited,isQuery) as T
+        if (modelClass.isAssignableFrom(ManagerViewModel::class.java)) {
+            return ManagerViewModel(isEdited, isQuery) as T
         }
         throw IllegalArgumentException("UnKnown ViewModel class!")
     }

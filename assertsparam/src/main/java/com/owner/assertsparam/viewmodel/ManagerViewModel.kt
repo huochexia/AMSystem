@@ -33,7 +33,7 @@ import java.util.*
  * Created by Liuyong on 2018-10-30.It's AMSystem
  *@description:
  */
-class ManagerViewModel : BaseViewModel<AssertsParamRepository>() {
+class ManagerViewModel(val isEdited:Boolean,val isQuery:Boolean) : BaseViewModel<AssertsParamRepository>() {
 
     private var mComparator = PinyinComparator()
     private var mManagerList = mutableListOf<Manager>()

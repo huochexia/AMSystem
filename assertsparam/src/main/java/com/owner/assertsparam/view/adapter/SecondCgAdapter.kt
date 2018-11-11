@@ -67,7 +67,7 @@ class SecondCgAdapter(private val topCategory: CategoryInfo, val mCategoryVM: Ca
             mBinding.categoryVM = viewModel
             mBinding.mSecondCategoryNameTv.isSelected= category.isSelected
             mBinding.mSecondCB.visibility =
-                    if (viewModel.getChildList(category).isEmpty() && !viewModel.isEdited)
+                    if ((viewModel.getChildList(category).isEmpty() && !viewModel.isEdited) && !viewModel.isQuery)
                         View.VISIBLE
                     else
                         View.GONE

@@ -33,6 +33,7 @@ import com.owner.assertsparam.databinding.FragmentManagerBinding
 import com.owner.assertsparam.utils.TitleItemDecoration
 import com.owner.assertsparam.view.adapter.ManagerAdapter
 import com.owner.assertsparam.viewmodel.ManagerViewModel
+import com.owner.assertsparam.viewmodel.ManagerViewModelFactory
 import com.owner.baselibrary.view.fragment.BaseFragment
 import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_manager.*
@@ -49,10 +50,12 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
     private lateinit var mDecoration: TitleItemDecoration
 
     private var isEdited = false
+    private var isQuery = false
     companion object {
-        fun newInstance(isEdited: Boolean): ManagerFragment {
+        fun newInstance(isEdited: Boolean,isQuery:Boolean): ManagerFragment {
             val bundle = Bundle()
             bundle.putBoolean("isEdited",isEdited)
+            bundle.putBoolean("isQuery",isQuery)
             val fragment = ManagerFragment()
             fragment.arguments = bundle
             return fragment
@@ -64,8 +67,8 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
 
         val bundle = arguments!!
         isEdited = bundle.getBoolean("isEdited")
-
-        viewModel = ViewModelProviders.of(this).get(ManagerViewModel::class.java)
+        isQuery = bundle.getBoolean("isQuery")
+        viewModel = ViewModelProviders.of(this,ManagerViewModelFactory(isEdited,isQuery)).get(ManagerViewModel::class.java)
         viewModel.refresh.observe(this, Observer {
             mAdapter.updateList(viewModel.getSortList())
         })

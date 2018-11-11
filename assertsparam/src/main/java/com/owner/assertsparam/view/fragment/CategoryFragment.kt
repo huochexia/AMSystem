@@ -44,6 +44,7 @@ import com.jph.takephoto.model.TResult
 import com.jph.takephoto.permission.InvokeListener
 import com.jph.takephoto.permission.PermissionManager
 import com.jph.takephoto.permission.TakePhotoInvocationHandler
+import com.owner.assertsparam.Interface.QueryAssertsInfo
 import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.FragementCategoryBinding
@@ -75,7 +76,9 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     private lateinit var sharedViewModel:ArgumentViewModel
     private var categoryName: String = ""
     private var isEdited: Boolean = false//当前界面是否用于编辑
+    private var isQuery:Boolean = false // 当前界面是否用于查询
 
+    lateinit var queryInterface:QueryAssertsInfo
 
     private lateinit var topAdapter: TopCgAdapter
     private lateinit var secondAdapter: SecondCgAdapter
@@ -96,10 +99,11 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
       获得外部传入的分类名称
      */
     companion object {
-        fun newInstance(tableName: String, isEdited: Boolean): CategoryFragment {
+        fun newInstance(tableName: String, isEdited: Boolean,isQuery:Boolean): CategoryFragment {
             val bundle = Bundle()
             bundle.putString("tableName", tableName)
             bundle.putBoolean("isEdited", isEdited)
+            bundle.putBoolean("isQuery",isQuery)
             val fragment = CategoryFragment()
             fragment.arguments = bundle
             return fragment
@@ -111,6 +115,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         val bundle = arguments!!
         categoryName = bundle.getString("tableName")!!
         isEdited = bundle.getBoolean("isEdited")
+        isQuery = bundle.getBoolean("isQuery")
 
         sharedViewModel=ViewModelProviders.of(activity!!).get(ArgumentViewModel::class.java)
 
@@ -155,7 +160,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      */
     private fun initViewModel() {
         // 通过工厂方法将分类名称传入ViewModel中
-        viewModel = ViewModelProviders.of(this, CategoryViewModelFactory(categoryName, isEdited))
+        viewModel = ViewModelProviders.of(this, CategoryViewModelFactory(categoryName, isEdited,isQuery))
                 .get(CategoryFgViewModel::class.java)
 
         //观察行为信息的变化，做出相应的响应
@@ -180,6 +185,10 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         //得到所选择的分类,返回值
         viewModel.getCategoryInfo.observe(this, Observer {
             sharedViewModel.selectedArgumentMap[it!!.first] = it.second
+        })
+        //观察是否要查询
+        viewModel.gotoQueryAsserts.observe(this, Observer {
+            queryInterface.queryAssert(it!!.first,it.second)
         })
     }
 

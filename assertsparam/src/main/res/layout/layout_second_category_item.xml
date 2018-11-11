@@ -34,7 +34,6 @@
                     style="@style/WrapWrap"
                     android:layout_marginTop="@dimen/common_margin_middle"
                     android:layout_marginBottom="@dimen/common_margin_middle"
-                    android:onClick="@{()->categoryVM.itemOnClick(category)}"
                     android:onLongClick="@{()->categoryVM.itemLongClick(category)}"
                     android:text="@{category.name}"
                     android:textSize="@dimen/text_small_size"

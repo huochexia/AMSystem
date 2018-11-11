@@ -32,7 +32,6 @@
                     android:id="@+id/mThirdCategoryIv"
                     android:layout_width="71dp"
                     android:layout_height="71dp"
-                    android:onClick="@{()->categoryFgVM.itemOnClick(data)}"
                     android:onLongClick="@{()->categoryFgVM.itemLongClick(data)}"
                     android:scaleType="fitXY"
                     app:imageUrl="@{data.imageUrl}"
@@ -46,7 +45,7 @@
                 android:layout_marginTop="@dimen/common_margin_middle"
                 android:text="@{data.name}"
                 android:textSize="@dimen/text_small_size"
-                android:textColor="@drawable/top_category_text_selector"/>
+                android:textColor="@drawable/second_category_text_selector"/>
         </LinearLayout>
         <CheckBox
             style="@style/WrapWrap"

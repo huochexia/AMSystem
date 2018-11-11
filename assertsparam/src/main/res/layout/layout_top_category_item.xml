@@ -20,7 +20,7 @@
             style="@style/MatchWrap"
             android:background="@drawable/top_category_bg_selector"
             android:gravity="center"
-            android:onClick="@{()->categoryVM.itemOnClick(category)}"
+            android:onClick="@{()->categoryVM.topOnClick(category)}"
             android:onLongClick="@{()->categoryVM.itemLongClick(category)}"
             android:padding="@dimen/common_padding_middle"
             android:text="@{category.name}"

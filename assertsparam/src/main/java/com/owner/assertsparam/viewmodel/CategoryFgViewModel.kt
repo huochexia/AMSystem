@@ -85,7 +85,6 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean)
         set(value) {
             field = value
             notifyPropertyChanged(BR.mCurrentTopCategory)
-
         }
     /*
        是否显示当前一级分类
@@ -120,12 +119,9 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean)
 
 
     /**
-     * 列表项目点击事件。如果是一级分类，则只是加载二三级分类。如果是二级或三级分类，则要判断当前是
-     * 否为可编辑状态，如果是，则不做处理，如果不是，即为选择状态，则要退出并返回选择的分类。
-     * 如果二级分类没有子类，则可以退出。如果二级分类有子类，则只能选择子类才能退出。
+     * 一级分类列表项目点击事件，则加载二三级分类。
      */
-    fun itemOnClick(item: CategoryInfo) {
-        //如果是一级分类，设置一级分类项目状态
+    fun topOnClick(item: CategoryInfo) {
         if (item.parentId == "0" ) {
             setClickState(item)
             //如果是重新选择一级分类，则加载二级列表数据,避免多次网络访问
@@ -136,30 +132,12 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean)
             }
             mCurrentTopCategory = item
             mSelectedCategory = null
-        } else {
-           //二次点击取消选择，如果点击的是当前分类，则取消选择。如果不是，则重新选择
-            if (item.objectId == mSelectedCategory?.objectId?:"") {
-                item.isSelected = !item.isSelected
-            } else {
-                //点击二级或三级任意一个时，还原其选择状态
-                secondAndThirdCgList.forEach {
-                    it.isLongOnClick = false
-                    it.isSelected = false
-                }
-                item.isSelected = true
-            }
-            mSelectedCategory = if (item.isSelected) {
-                item
-            } else {
-                null
-            }
-            //通知视图状态改变
-            action.value = Pair(KEY_SELECTED_ACTION, item)
-
         }
-
     }
 
+    /**
+     * 选择二、三级分类，第一次选择，第二次取消选择
+     */
     fun selectedCategory(item: CategoryInfo) {
         //二次点击取消选择，如果点击的是当前分类，则取消选择。如果不是，则重新选择
         if (item.objectId == mSelectedCategory?.objectId?:"") {
@@ -244,6 +222,8 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean)
         item.isLongOnClick = true
         if (item.parentId != "0") {
             mSelectedCategory = item
+        } else {
+            mCurrentTopCategory = item
         }
     }
 

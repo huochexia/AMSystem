@@ -22,10 +22,12 @@ package com.owner.assertsparam.data
  * Created by Liuyong on 2018-10-30.It's AMSystem
  *@description:
  */
-data class Manager(val objectId:String,
-                   val username: String,
+data class Manager(val objectId: String = "",
+                   val username: String = "",
                    val department: String="",
-                   val duty: String?,
-                   val mobilePhoneNumber: String,
-                   val avatar: String ,
-                   var letters: String)
+                   val duty: String = "",
+                   val mobilePhoneNumber: String = "",
+                   val avatar: String = "",
+                   var letters: String = "") {
+    var isSelected = false
+}

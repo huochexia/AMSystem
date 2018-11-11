@@ -27,9 +27,10 @@ import com.owner.assertsparam.viewmodel.ManagerViewModel
  * Created by Liuyong on 2018-10-30.It's AMSystem
  *@description:
  */
-class ManagerAdapter(val mManagerVM: ManagerViewModel) : RecyclerView.Adapter<ManagerAdapter.ManagerViewHolder>() {
+class ManagerAdapter(private val mManagerVM: ManagerViewModel)
+    : RecyclerView.Adapter<ManagerAdapter.ManagerViewHolder>() {
 
-    var managerList = mutableListOf<Manager>()
+    private var managerList = mutableListOf<Manager>()
 
     init {
         managerList = mManagerVM.getSortList()

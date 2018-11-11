@@ -61,7 +61,6 @@ import com.owner.baselibrary.utils.hideSoftInput
 import com.owner.baselibrary.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragement_category.*
 import org.jetbrains.anko.find
-import org.jetbrains.anko.support.v4.toast
 import java.io.File
 
 /**
@@ -133,7 +132,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         //绑定总资产对象
         binding.category = category
         binding.mHeaderBar.getTitleView().text = viewModel.categoryName
-        if (!isEdited) {
+        if (!isEdited && !isQuery) { //选择状态
             initRightView(binding)
         }
         return binding.root

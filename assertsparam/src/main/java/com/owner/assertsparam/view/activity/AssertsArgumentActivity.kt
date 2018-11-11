@@ -76,6 +76,7 @@ class AssertsArgumentActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>(
         addFragment(departmentFragment, R.id.mFgContainer)
         departmentFragment.queryInterface = this
         addFragment(managerFragment, R.id.mFgContainer)
+        managerFragment.queryInterface = this
 
 //        依次入栈
         mStack.add(locationFragment)

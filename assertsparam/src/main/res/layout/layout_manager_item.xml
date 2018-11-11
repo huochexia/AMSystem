@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
+
+        <import type="android.view.View" />
         <variable
             name="manager"
             type="com.owner.assertsparam.data.Manager"/>
@@ -9,55 +13,73 @@
             type="com.owner.assertsparam.viewmodel.ManagerViewModel"/>
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:paddingLeft="@dimen/common_padding_middle"
-        android:layout_marginTop="@dimen/common_margin_small"
-        android:layout_marginBottom="@dimen/common_margin_small"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/mUserAvatarIv"
-            android:layout_width="@dimen/common_icon_width"
-            android:layout_height="@dimen/common_icon_height"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            app:imageUrl="@{manager.avatar}"
-            app:placeholder="@{@drawable/icon_default_user}"/>
+    <FrameLayout style="@style/MatchWrap">
 
         <LinearLayout
-            style="@style/MatchMatch.Vertical"
-            android:layout_marginLeft="@dimen/common_margin_small"
-            android:gravity="center_vertical">
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="@dimen/common_margin_small"
+            android:layout_marginBottom="@dimen/common_margin_small"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/common_padding_middle">
 
-            <TextView
+            <CheckBox
+                android:id="@+id/mManagerCB"
                 style="@style/WrapWrap"
-                android:textSize="16dp"
-                tools:text ="姓名"
-                android:text="@{manager.username}"/>
+                android:layout_gravity="center_vertical"
+                android:checked="@{manager.selected}"
+                android:onClick="@{()->managerVM.itemOnClick(manager)}"
+                android:visibility="@{managerVM.edited || managerVM.query ? View.GONE:View.VISIBLE}" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/mUserAvatarIv"
+                android:layout_width="@dimen/common_icon_width"
+                android:layout_height="@dimen/common_icon_height"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                app:imageUrl="@{manager.avatar}"
+                app:placeholder="@{@drawable/icon_default_user}" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_margin_small"
-                android:orientation="horizontal">
+                style="@style/MatchMatch.Vertical"
+                android:layout_marginLeft="@dimen/common_margin_small"
+                android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    tools:text="部门"/>
+                    style="@style/WrapWrap"
+                    android:onClick="@{()->managerVM.itemOnClick(manager)}"
+                    android:text="@{manager.username}"
+                    android:textSize="16dp"
+                    tools:text="姓名" />
 
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    tools:text="职务"/>
+                    android:layout_marginTop="@dimen/common_margin_small"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        tools:text="部门" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        tools:text="职务" />
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_icon_height"
+            android:layout_gravity="center_vertical"
+            android:onClick="@{()->managerVM.itemOnClick(manager)}" />
+    </FrameLayout>
+
 </layout>

@@ -36,9 +36,12 @@ import java.util.*
 class ManagerViewModel(val isEdited:Boolean,val isQuery:Boolean) : BaseViewModel<AssertsParamRepository>() {
 
     private var mComparator = PinyinComparator()
-    private var mManagerList = mutableListOf<Manager>()
+    var mManagerList = mutableListOf<Manager>()
     private var mSortList = mutableListOf<Manager>()
 
+    private var currentSelected: Manager? = null
+    var selectedManager = MutableLiveData<Manager>()
+    var gotoQueryAsserts = MutableLiveData<Manager>()
     var refresh = MutableLiveData<String>()
 
     @get:Bindable
@@ -122,4 +125,47 @@ class ManagerViewModel(val isEdited:Boolean,val isQuery:Boolean) : BaseViewModel
         mSortList.addAll(filterDateList)
     }
 
+    /**
+     *  点击事件，判断当前视图状态分别进行处理，如果是可编辑，则进行编辑界面；如果是查询，则调用查询
+     *  接口启动查询；如果是选择，则显示选择状态
+     */
+    fun itemOnClick(user: Manager) {
+        //选择状态
+        if (!isEdited && !isQuery) {
+            isAgainClick(user)
+
+        }
+        if (isEdited && !isQuery) {
+            println("当前是编辑状态")
+        }
+        if (!isEdited && isQuery) {
+            gotoQueryAsserts.value = user
+        }
+    }
+
+    private fun setSelectedState(user: Manager) {
+        mManagerList.forEach {
+            it.isSelected = false
+        }
+        user.isSelected = true
+        currentSelected = user
+        refresh.value = "OnClick"
+    }
+
+    private fun isAgainClick(user: Manager) {
+
+        if (currentSelected?.objectId ?: "" == user.objectId) {
+            user.isSelected = !user.isSelected
+            refresh.value = "Again"
+
+        } else {
+            setSelectedState(user)
+        }
+        currentSelected = if (user.isSelected) {
+            user
+        } else {
+            null
+        }
+        selectedManager.value = currentSelected ?: Manager()
+    }
 }

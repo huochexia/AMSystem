@@ -28,10 +28,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
+import com.owner.assertsparam.Interface.QueryAssertsInfo
 import com.owner.assertsparam.R
 import com.owner.assertsparam.databinding.FragmentManagerBinding
 import com.owner.assertsparam.utils.TitleItemDecoration
 import com.owner.assertsparam.view.adapter.ManagerAdapter
+import com.owner.assertsparam.viewmodel.ArgumentViewModel
 import com.owner.assertsparam.viewmodel.ManagerViewModel
 import com.owner.assertsparam.viewmodel.ManagerViewModelFactory
 import com.owner.baselibrary.view.fragment.BaseFragment
@@ -45,9 +47,12 @@ import kotlinx.android.synthetic.main.fragment_manager.*
  */
 class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>() {
 
+    lateinit var queryInterface: QueryAssertsInfo
     lateinit var mAdapter: ManagerAdapter
     private lateinit var managerLL: LinearLayoutManager
     private lateinit var mDecoration: TitleItemDecoration
+
+    private lateinit var sharedViewModel: ArgumentViewModel
 
     private var isEdited = false
     private var isQuery = false
@@ -68,9 +73,27 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         val bundle = arguments!!
         isEdited = bundle.getBoolean("isEdited")
         isQuery = bundle.getBoolean("isQuery")
-        viewModel = ViewModelProviders.of(this,ManagerViewModelFactory(isEdited,isQuery)).get(ManagerViewModel::class.java)
+
+        initViewModel()
+    }
+
+    private fun initViewModel() {
+
+        sharedViewModel = ViewModelProviders.of(activity!!).get(ArgumentViewModel::class.java)
+
+        viewModel = ViewModelProviders.of(this, ManagerViewModelFactory(isEdited, isQuery))
+                .get(ManagerViewModel::class.java)
+
         viewModel.refresh.observe(this, Observer {
             mAdapter.updateList(viewModel.getSortList())
+        })
+
+        viewModel.gotoQueryAsserts.observe(this, Observer {
+            queryInterface.queryAssert("Manager", it!!)
+        })
+
+        viewModel.selectedManager.observe(this, Observer {
+            sharedViewModel.selectedArgumentMap["Manager"] = it!!
         })
     }
 
@@ -87,6 +110,9 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         mHeaderBar.getRightView().visibility = View.VISIBLE
         if (!isEdited) {
             mHeaderBar.getRightView().text="完成"
+        }
+        if (isQuery) {
+            mHeaderBar.getRightView().visibility = View.GONE
         }
         mHeaderBar.getRightView().setOnClickListener {
             if (isEdited) {

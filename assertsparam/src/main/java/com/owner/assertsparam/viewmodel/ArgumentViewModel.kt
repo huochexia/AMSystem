@@ -28,5 +28,5 @@ class ArgumentViewModel :BaseViewModel<BaseRepository>(){
     /*
       已经选择了的参数，通过Map的key，确保同一类参数的唯一性
      */
-    var selectedArgumentMap =HashMap<String,CategoryInfo>()
+    var selectedArgumentMap =HashMap<String,Any>()
 }

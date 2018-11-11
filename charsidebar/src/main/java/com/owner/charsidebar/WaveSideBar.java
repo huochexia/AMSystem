@@ -1,4 +1,4 @@
-package com.goldenstraw.charsidebar;
+package com.owner.charsidebar;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -11,9 +11,10 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.goldenstraw.charsidebar.R;
 
 import java.util.Arrays;
 import java.util.List;

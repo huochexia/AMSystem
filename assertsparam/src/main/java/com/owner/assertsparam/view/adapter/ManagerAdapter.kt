@@ -32,7 +32,7 @@ class ManagerAdapter(private val mManagerVM: ManagerViewModel) : RecyclerView.Ad
     private var managerList = mutableListOf<Manager>()
 
     init {
-       updateList()
+       managerList = mManagerVM.getSortList()
     }
 
     fun updateList() {

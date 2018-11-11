@@ -47,8 +47,25 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
     private lateinit var managerLL: LinearLayoutManager
     private lateinit var mDecoration: TitleItemDecoration
 
+    private var isEdited = false
+
+    companion object {
+        fun newInstance(isEdited: Boolean): ManagerFragment {
+            val bundle = Bundle()
+            bundle.putBoolean("isEdited", isEdited)
+            val fragment = ManagerFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val bundle = arguments!!
+        isEdited = bundle.getBoolean("isEdited")
+
         viewModel = ViewModelProviders.of(this).get(ManagerViewModel::class.java)
         viewModel.refresh.observe(this, Observer {
             mAdapter.updateList()
@@ -67,8 +84,14 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mHeaderBar.getRightView().visibility = View.VISIBLE
+        if (!isEdited)
+            mHeaderBar.getRightView().text = "完成"
         mHeaderBar.getRightView().setOnClickListener {
-            ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER).navigation()
+            if (isEdited) {
+                ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER).navigation()
+            }else{
+                //将选择结果返回
+            }
         }
 
         loadManagerList()

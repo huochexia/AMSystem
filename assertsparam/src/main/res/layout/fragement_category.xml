@@ -33,7 +33,7 @@
                     android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
                     android:gravity="center_vertical"
                     android:onClick="@{()->categoryVM.addTopAlert(category)}"
-                    android:enabled="@{categoryVM.edited}"/>
+                    android:visibility="@{categoryVM.edited?View.VISIBLE:View.GONE}"/>
 
                 <com.kennyc.view.MultiStateView
                     android:id="@+id/mMultiStateTopView"

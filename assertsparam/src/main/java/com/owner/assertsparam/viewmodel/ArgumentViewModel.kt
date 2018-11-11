@@ -15,6 +15,7 @@
  */
 package com.owner.assertsparam.viewmodel
 
+import com.owner.assertsparam.data.CategoryInfo
 import com.owner.baselibrary.model.respository.BaseRepository
 import com.owner.baselibrary.viewmodel.BaseViewModel
 
@@ -23,5 +24,9 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
  * Created by Liuyong on 2018-10-21.It's AMSystem
  *@description:
  */
-class AssertsParaViewModel :BaseViewModel<BaseRepository>(){
+class ArgumentViewModel :BaseViewModel<BaseRepository>(){
+    /*
+      已经选择了的参数，通过Map的key，确保同一类参数的唯一性
+     */
+    var selectedArgumentMap =HashMap<String,CategoryInfo>()
 }

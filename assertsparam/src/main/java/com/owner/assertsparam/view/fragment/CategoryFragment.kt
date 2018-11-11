@@ -50,6 +50,7 @@ import com.owner.assertsparam.databinding.FragementCategoryBinding
 import com.owner.assertsparam.databinding.LayoutAddThirdCategoryBinding
 import com.owner.assertsparam.view.adapter.SecondCgAdapter
 import com.owner.assertsparam.view.adapter.TopCgAdapter
+import com.owner.assertsparam.viewmodel.ArgumentViewModel
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
 import com.owner.assertsparam.viewmodel.CategoryViewModelFactory
 import com.owner.baselibrary.ext.enabled
@@ -71,7 +72,7 @@ import java.io.File
 class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewModel>(),
         TakePhoto.TakeResultListener, InvokeListener {
 
-
+    private lateinit var sharedViewModel:ArgumentViewModel
     private var categoryName: String = ""
     private var isEdited: Boolean = false//当前界面是否用于编辑
 
@@ -95,9 +96,9 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
       获得外部传入的分类名称
      */
     companion object {
-        fun newInstance(categoryName: String, isEdited: Boolean): CategoryFragment {
+        fun newInstance(tableName: String, isEdited: Boolean): CategoryFragment {
             val bundle = Bundle()
-            bundle.putString("categoryName", categoryName)
+            bundle.putString("tableName", tableName)
             bundle.putBoolean("isEdited", isEdited)
             val fragment = CategoryFragment()
             fragment.arguments = bundle
@@ -108,9 +109,10 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         super.onCreate(savedInstanceState)
 
         val bundle = arguments!!
-        categoryName = bundle.getString("categoryName")!!
+        categoryName = bundle.getString("tableName")!!
         isEdited = bundle.getBoolean("isEdited")
 
+        sharedViewModel=ViewModelProviders.of(activity!!).get(ArgumentViewModel::class.java)
 
         initViewModel()
 
@@ -145,7 +147,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         binding.mHeaderBar.getRightView().text = "完成"
         binding.mHeaderBar.getRightView().visibility = View.VISIBLE
         binding.mHeaderBar.getRightView().setOnClickListener {
-
+            println(sharedViewModel.selectedArgumentMap.toString())
         }
     }
     /**
@@ -177,11 +179,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         })
         //得到所选择的分类,返回值
         viewModel.getCategoryInfo.observe(this, Observer {
-            //            val intent = Intent()
-//            intent.putExtra("category", it)
-            toast(it?.second.toString())
-//            activity?.setResult(0, intent)
-            activity?.finish()
+            sharedViewModel.selectedArgumentMap[it!!.first] = it.second
         })
     }
 
@@ -228,7 +226,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     }
 
     /**
-     * 选择分类
+     * 点击分类，显示列表
      */
     private fun selectCategory(category: CategoryInfo) {
         //判断是否是一级分类

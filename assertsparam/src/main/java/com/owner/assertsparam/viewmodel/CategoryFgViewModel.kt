@@ -18,6 +18,7 @@ package com.owner.assertsparam.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.Bindable
 import com.kennyc.view.MultiStateView
+import com.orhanobut.logger.Logger
 import com.owner.assertsparam.BR
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.data.Footer
@@ -64,7 +65,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean)
     //点击事件行为，选择、增加、修改、删除.
     var action = MutableLiveData<Pair<String, CategoryInfo>>()
 
-    // 得到选择的分类，<表名，分类>
+    // 得到选择的分类，<表名，分类>,分类可以是空值 ，目的是通过null来取消选择
     var getCategoryInfo = MutableLiveData<Pair<String, CategoryInfo>>()
 
     //是否展开三级分类列表的状态
@@ -157,6 +158,8 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean)
         }
         //通知视图状态改变
         action.value = Pair(KEY_SELECTED_ACTION, item)
+        //保存选择,如果已选择分类为 null，则存入一个id为空字符串的分类对象。使用时在进行判断
+        getCategoryInfo.value = Pair(tableName,mSelectedCategory?:CategoryInfo("-1",""))
     }
     /**
      *  从二三级分类列表中过滤出某个二级分类的子类
@@ -256,6 +259,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean)
                     topCgList.addAll(it.results)
                 }, {
                     mTopViewState = MultiStateView.VIEW_STATE_ERROR
+                    Logger.d(it.message)
                 }, {
                     mTopViewState = MultiStateView.VIEW_STATE_CONTENT
                 }, {

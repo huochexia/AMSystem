@@ -10,31 +10,31 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.owner.assertsparam.R
 import com.owner.assertsparam.view.fragment.CategoryFragment
 import com.owner.assertsparam.view.fragment.ManagerFragment
-import com.owner.assertsparam.viewmodel.AssertsParaViewModel
+import com.owner.assertsparam.viewmodel.ArgumentViewModel
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.ext.hideFragment
 import com.owner.baselibrary.ext.showFragment
 import com.owner.baselibrary.view.activity.BaseActivity
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import com.owner.provideslib.router.RouterPath
-import kotlinx.android.synthetic.main.activity_asserts_param.*
+import kotlinx.android.synthetic.main.activity_asserts_argument.*
 import java.util.*
 
 @Route(path = RouterPath.AssertsParam.PATH_ASSERTSPARAM_MAIN)
-class AssertsParamActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>() {
+class AssertsArgumentActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>() {
     //Fragment 栈管理
     private val mStack = Stack<Fragment>()
 
-    private val locationFragment by lazy { CategoryFragment.newInstance("Location",true) }
+    private val locationFragment by lazy { CategoryFragment.newInstance("Location",false) }
     private val categoryFragment by lazy { CategoryFragment.newInstance("Category",false) }
     private val departmentFragment by lazy {CategoryFragment.newInstance("Department",true) }
-    private val managerFragment by lazy { ManagerFragment() }
+    private val managerFragment by lazy { ManagerFragment.newInstance(true) }
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_asserts_param)
-        viewModel = ViewModelProviders.of(this).get(AssertsParaViewModel::class.java)
+        setContentView(R.layout.activity_asserts_argument)
+        viewModel = ViewModelProviders.of(this).get(ArgumentViewModel::class.java)
         initFragment()
         initBottomNav()
         changeFragment(0)

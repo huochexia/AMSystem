@@ -1,6 +1,7 @@
 package com.owner.assertsparam.model.repository
 
 import com.owner.assertsparam.data.CategoryInfo
+import com.owner.assertsparam.data.Manager
 import com.owner.assertsparam.model.network.entites.GetCategoryList
 import com.owner.assertsparam.model.network.entites.QueryManagerResp
 import com.owner.baselibrary.model.respository.BaseRepository
@@ -36,5 +37,9 @@ interface AssertsParamRepository : BaseRepository {
     /*
          获取管理人员列表
         */
-    fun getManager(): Observable<QueryManagerResp>
+    fun getAllManager(): Observable<QueryManagerResp>
+    /*
+        获取某个管理人员
+     */
+    fun getManager(userId:String):Observable<Manager>
 }

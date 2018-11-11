@@ -16,6 +16,7 @@
 package com.owner.assertsparam.model.network.service
 
 import com.owner.assertsparam.data.CategoryInfo
+import com.owner.assertsparam.data.Manager
 import com.owner.assertsparam.model.network.entites.*
 import com.owner.baselibrary.model.network.RetrofitFactory
 import io.reactivex.Completable

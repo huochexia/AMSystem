@@ -2,6 +2,7 @@ package com.owner.assertsparam.view.activity
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -82,5 +83,10 @@ class AssertsArgumentActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>(
             hideFragment(it)
         }
         showFragment(mStack[position])
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        managerFragment.onActivityResult(requestCode, resultCode, data)
     }
 }

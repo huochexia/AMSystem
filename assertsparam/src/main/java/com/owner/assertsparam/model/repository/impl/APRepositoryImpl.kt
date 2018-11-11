@@ -1,6 +1,7 @@
 package com.owner.assertsparam.model.repository.impl
 
 import com.owner.assertsparam.data.CategoryInfo
+import com.owner.assertsparam.data.Manager
 import com.owner.assertsparam.model.network.entites.GetCategoryList
 import com.owner.assertsparam.model.network.entites.CreateCgReq
 import com.owner.assertsparam.model.network.entites.QueryManagerResp
@@ -15,10 +16,17 @@ import okhttp3.ResponseBody
  */
 class APRepositoryImpl : AssertsParamRepository {
     /*
-        获取管理员
+      获取某个管理员
      */
-    override fun getManager(): Observable<QueryManagerResp> {
-        return AssertsParamService.getManager()
+    override fun getManager(userId: String): Observable<Manager> {
+        return AssertsParamService.getManager(userId)
+    }
+
+    /*
+        获取所有管理员
+     */
+    override fun getAllManager(): Observable<QueryManagerResp> {
+        return AssertsParamService.getAllManager()
     }
     /*
        获取分类列表，得到是各种分类的超类列表

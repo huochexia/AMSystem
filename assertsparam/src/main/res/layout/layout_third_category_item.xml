@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="data"
             type="com.owner.assertsparam.data.CategoryInfo" />
@@ -21,7 +21,6 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/common_margin"
-            android:background="@drawable/third_category_bg_selector"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -49,7 +48,13 @@
                 android:textSize="@dimen/text_small_size"
                 android:textColor="@drawable/top_category_text_selector"/>
         </LinearLayout>
-
+        <CheckBox
+            style="@style/WrapWrap"
+            android:layout_gravity="end|top"
+            android:background="@color/common_purple"
+            android:visibility="@{categoryFgVM.edited?View.GONE:View.VISIBLE}"
+            android:onClick="@{()->categoryFgVM.selectedCategory(data)}"
+            android:checked="@{data.selected}"/>
         <LinearLayout
             android:id="@+id/mEditThirdCgll"
             android:layout_width="71dp"

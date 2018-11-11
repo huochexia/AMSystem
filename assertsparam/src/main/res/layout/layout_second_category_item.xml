@@ -41,6 +41,13 @@
                     android:textStyle="bold"
                     android:textColor="@drawable/second_category_text_selector"/>
 
+                <CheckBox
+                    android:id="@+id/mSecondCB"
+                    style="@style/WrapWrap"
+                    android:layout_marginStart="@dimen/common_margin_small"
+                    android:layout_toRightOf="@+id/mSecondCategoryNameTv"
+                    android:onClick="@{()->categoryVM.selectedCategory(category)}"
+                    android:checked="@{category.selected}"/>
                 <RelativeLayout
                     android:id="@+id/mEditSecondCgll"
                     style="@style/MatchWrap"

@@ -137,13 +137,22 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean)
             mCurrentTopCategory = item
             mSelectedCategory = null
         } else {
-            mSelectedCategory = item
-            //点击二级或三级任意一个时，还原其选择状态
-            secondAndThirdCgList.forEach {
-                it.isLongOnClick = false
-                it.isSelected = false
+           //二次点击取消选择，如果点击的是当前分类，则取消选择。如果不是，则重新选择
+            if (item.objectId == mSelectedCategory?.objectId?:"") {
+                item.isSelected = !item.isSelected
+            } else {
+                //点击二级或三级任意一个时，还原其选择状态
+                secondAndThirdCgList.forEach {
+                    it.isLongOnClick = false
+                    it.isSelected = false
+                }
+                item.isSelected = true
             }
-            item.isSelected = true
+            mSelectedCategory = if (item.isSelected) {
+                item
+            } else {
+                null
+            }
             //通知视图状态改变
             action.value = Pair(KEY_SELECTED_ACTION, item)
 
@@ -151,12 +160,32 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean)
 
     }
 
+    fun selectedCategory(item: CategoryInfo) {
+        //二次点击取消选择，如果点击的是当前分类，则取消选择。如果不是，则重新选择
+        if (item.objectId == mSelectedCategory?.objectId?:"") {
+            item.isSelected = !item.isSelected
+        } else {
+            //点击二级或三级任意一个时，还原其选择状态
+            secondAndThirdCgList.forEach {
+                it.isLongOnClick = false
+                it.isSelected = false
+            }
+            item.isSelected = true
+        }
+        mSelectedCategory = if (item.isSelected) {
+            item
+        } else {
+            null
+        }
+        //通知视图状态改变
+        action.value = Pair(KEY_SELECTED_ACTION, item)
+    }
     /**
-     * @item:父类
+     *  从二三级分类列表中过滤出某个二级分类的子类
      *
      */
-    fun getChildList(item: CategoryInfo, list: MutableList<CategoryInfo>): List<CategoryInfo> {
-        return list.filter {
+    fun getChildList(item: CategoryInfo): List<CategoryInfo> {
+        return secondAndThirdCgList.filter {
             it.parentId == item.objectId
         }
     }

@@ -118,6 +118,36 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
     }
 
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        val binding = DataBindingUtil.inflate<FragementCategoryBinding>(
+                inflater, R.layout.fragement_category, container, false)
+        binding.categoryVM = viewModel
+        //绑定总资产对象
+        binding.category = category
+        binding.mHeaderBar.getTitleView().text = viewModel.categoryName
+        if (!isEdited) {
+            initRightView(binding)
+        }
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        loadTopCgList()
+        mSecondCategoryRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    }
+    /**
+     * 初始化HeadBar的右标题
+     */
+    private fun initRightView(binding: FragementCategoryBinding) {
+        binding.mHeaderBar.getRightView().text = "完成"
+        binding.mHeaderBar.getRightView().visibility = View.VISIBLE
+        binding.mHeaderBar.getRightView().setOnClickListener {
+
+        }
+    }
     /**
      * 初始化ViewModel
      */
@@ -147,7 +177,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         })
         //得到所选择的分类,返回值
         viewModel.getCategoryInfo.observe(this, Observer {
-//            val intent = Intent()
+            //            val intent = Intent()
 //            intent.putExtra("category", it)
             toast(it?.second.toString())
 //            activity?.setResult(0, intent)
@@ -164,25 +194,6 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
                 as TakePhoto
         mTakePhoto.onCreate(savedInstanceState)
     }
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        val binding = DataBindingUtil.inflate<FragementCategoryBinding>(
-                inflater, R.layout.fragement_category, container, false)
-        binding.categoryVM = viewModel
-        //绑定总资产对象
-        binding.category = category
-        binding.mHeaderBar.getTitleView().text = viewModel.categoryName
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        loadTopCgList()
-        mSecondCategoryRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-    }
-
     /**
      *对由ViewModel发生的事件进行筛分，对应处理
      */

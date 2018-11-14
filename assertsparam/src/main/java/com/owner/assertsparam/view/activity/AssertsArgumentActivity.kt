@@ -89,7 +89,10 @@ class AssertsArgumentActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>(
    初始化底部导航
     */
     private fun initBottomNav() {
-        mAssertParamBNav.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
+        mAssertParamBNav.apply {
+            addItem(locationItem).addItem(categoryItem).addItem(departmentItem).addItem(managerItem)
+                    .setFirstSelectedPosition(0).initialise()
+        }.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
             override fun onTabReselected(position: Int) {
 
             }

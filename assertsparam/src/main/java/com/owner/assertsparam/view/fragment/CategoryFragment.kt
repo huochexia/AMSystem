@@ -98,14 +98,13 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
       获得外部传入的分类名称
      */
     companion object {
-        fun newInstance(tableName: String, isEdited: Boolean,isQuery:Boolean): CategoryFragment {
+        fun newInstance(tableName: String, isEdited: Boolean,isQuery:Boolean)= CategoryFragment().apply {
             val bundle = Bundle()
             bundle.putString("tableName", tableName)
             bundle.putBoolean("isEdited", isEdited)
             bundle.putBoolean("isQuery",isQuery)
-            val fragment = CategoryFragment()
-            fragment.arguments = bundle
-            return fragment
+            arguments = bundle
+            return this
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {

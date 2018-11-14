@@ -57,13 +57,12 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
     private var isEdited = false
     private var isQuery = false
     companion object {
-        fun newInstance(isEdited: Boolean,isQuery:Boolean): ManagerFragment {
+        fun newInstance(isEdited: Boolean,isQuery:Boolean)=ManagerFragment().apply {
             val bundle = Bundle()
             bundle.putBoolean("isEdited",isEdited)
             bundle.putBoolean("isQuery",isQuery)
-            val fragment = ManagerFragment()
-            fragment.arguments = bundle
-            return fragment
+           arguments = bundle
+            return this
         }
     }
 

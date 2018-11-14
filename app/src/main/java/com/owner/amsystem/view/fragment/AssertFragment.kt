@@ -21,8 +21,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.owner.amsystem.databinding.FragmentAssertBinding
+import com.owner.amsystem.view.activity.AssignAssertArgActivity
 import com.owner.amsystem.viewmodel.AssertViewModel
 import com.owner.baselibrary.view.fragment.BaseFragment
+import kotlinx.android.synthetic.main.fragment_assert.*
+import org.jetbrains.anko.support.v4.startActivity
 
 /**
  *
@@ -41,6 +44,13 @@ class AssertFragment :BaseFragment<FragmentAssertBinding,AssertViewModel>() {
         binding = FragmentAssertBinding.inflate(inflater,container,false)
         binding.assertvm = viewModel
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mSelectArgBtn.setOnClickListener {
+            startActivity<AssignAssertArgActivity>()
+        }
     }
 
 }

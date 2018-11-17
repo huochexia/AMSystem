@@ -36,7 +36,8 @@ object RouterPath {
     }
     class AssertsParam{
         companion object {
-            const val PATH_ASSERTSPARAM_MAIN="/assertsparam/main"
+            const val PATH_ASSERTSPARAM_MAIN = "/assertsparam/main"
         }
     }
+
 }

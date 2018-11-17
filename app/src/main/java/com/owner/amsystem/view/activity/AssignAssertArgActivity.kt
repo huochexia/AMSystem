@@ -53,6 +53,7 @@ class AssignAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, Asse
         viewModel = ViewModelProviders.of(this).get(AssertViewModel::class.java)
         initBottomNav()
         initFragment()
+        changeFragment(0)
     }
 
     /*

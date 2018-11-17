@@ -51,7 +51,7 @@
         <CheckBox
             style="@style/WrapWrap"
             android:layout_gravity="end|top"
-            android:background="@color/common_purple"
+            android:background="@color/common_white"
             android:visibility="@{categoryFgVM.edited || categoryFgVM.query ?View.GONE:View.VISIBLE}"
             android:onClick="@{()->categoryFgVM.selectedCategory(data)}"
             android:checked="@{data.selected}"/>

@@ -18,6 +18,7 @@ package com.owner.assertsparam.viewmodel
 import android.app.DownloadManager
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.Bindable
+import com.alibaba.android.arouter.launcher.ARouter
 import com.kennyc.view.MultiStateView
 import com.orhanobut.logger.Logger
 import com.owner.assertsparam.BR
@@ -27,6 +28,7 @@ import com.owner.assertsparam.model.repository.AssertsParamRepository
 import com.owner.assertsparam.model.repository.impl.APRepositoryImpl
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.owner.provideslib.router.RouterPath
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -357,7 +359,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
                 .subscribe({
                     if (it.parentId == "0") {
                         topCgList.add(it)
-                        mSelectedCategory = it
+                        mCurrentTopCategory = it
                         isVisibleTop = true
                         setClickState(it)
                         action.value = Pair(KEY_SELECTED_ACTION, it)

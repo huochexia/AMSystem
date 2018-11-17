@@ -266,6 +266,9 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
                        val name = editV.text.toString().trim()
                        val newCg = CategoryInfo("", name, parent.objectId)
                        viewModel.addCategory(newCg)
+                       //设置父类的hasChild为true
+                       parent.hasChild = true
+                       viewModel.updateCategory(parent)
                    }
                }
             }

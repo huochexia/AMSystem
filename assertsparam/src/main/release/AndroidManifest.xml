@@ -14,6 +14,6 @@
         android:supportsRtl="true">
         <activity android:name=".view.activity.AssertsArgumentActivity"
                   android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".view.activity.FourCategoryActivity"/>
+        <activity android:name=".view.activity.FourCategoryDetailActivity"/>
     </application>
 </manifest>

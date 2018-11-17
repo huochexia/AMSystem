@@ -15,9 +15,6 @@
  */
 package com.owner.assertsparam.data
 
-import com.owner.assertsparam.model.network.entites.CreateCgResp
-import com.owner.baselibrary.ext.PoKo
-
 /**
  * 所有分类的父类信息
  * @name ：类别名称
@@ -32,13 +29,8 @@ import com.owner.baselibrary.ext.PoKo
 open class CategoryInfo(var objectId: String,
                         var name: String,
                         var parentId: String="",
-                        var imageUrl: String="" ) {
-    var isSelected: Boolean = false//选择状态
-    var isLongOnClick: Boolean = false//长按状态
-    companion object {
-        fun create(resp: CreateCgResp):CategoryInfo {
-            return CategoryInfo(resp.objectId, resp.name, resp.parentId, resp.imageUrl)
-        }
-    }
-}
+                        var imageUrl: String = "",
+                        var isSelected: Boolean = false,//选择状态
+                        var isLongOnClick: Boolean = false,//长按状态
+                        var hasChild: Boolean = false) //是否有子类
 

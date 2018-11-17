@@ -38,7 +38,8 @@ import io.reactivex.schedulers.Schedulers
  *@typeName :分类的名称。该参数的意义是区分种类。因为所有分类的结构是一样的，只是名称不一样，这个名称
  * 对应数据库中表。因为使用RESTFULL，所以只需要区分表名即可。只要能够指定表名，就可以从不同表中获取相应
  * 的分类对象。
- * @isEdited :用于决定是否可以对数据进行编辑，当为false时不可编辑，取消长按功能
+ * @isEdited :用于决定是否可以对数据进行编辑，当为true时，可进行增改删。当为false时不可编辑处于选择状态
+ * @isQuery :当为真是当前状态处于查询，点击后得到查询结果。此时的isEdited应该是true
  * Created by Liuyong on 2018-10-20.It's AMSystem
  *@description:
  */
@@ -151,6 +152,22 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
         }
     }
 
+    /**
+     * 如果三级分类有子类，则进入下一级。否则再判断
+     */
+    fun thirdItemClick(item: CategoryInfo) {
+        when {
+            item.hasChild -> ARouter.getInstance().build(RouterPath.AssertsParam.PATH_ASSERTSPARAM_FOUR).navigation()
+            isQuery && isEdited-> //驱动查询
+                gotoQueryAsserts.value = Pair(tableName, item)
+            !isEdited->selectedCategory(item)
+            else -> {
+                setClickState(item)
+                isAgainClick(item)
+                action.value = Pair(KEY_SELECTED_ACTION, item)
+            }
+        }
+    }
     /**
      * 选择二、三级分类，第一次选择，第二次取消选择
      */

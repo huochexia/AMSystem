@@ -75,8 +75,8 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
     /**
      * 长按事件,进行编辑
      */
-    fun itemLongClick(item: CategoryInfo) {
-
+    fun itemLongClick(item: CategoryInfo):Boolean {
+        return true
     }
 
     /**

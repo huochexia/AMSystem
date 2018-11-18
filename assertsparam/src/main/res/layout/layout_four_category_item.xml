@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="four"
             type="com.owner.assertsparam.data.CategoryInfo"/>
         <variable
-            name="fourth"
+            name="fourthVM"
             type="com.owner.assertsparam.viewmodel.FourthCategoryViewModel"/>
     </data>
     <FrameLayout style="@style/WrapWrap">
@@ -27,8 +29,11 @@
                     android:id="@+id/mFourCategoryIv"
                     android:layout_width="91dp"
                     android:layout_height="91dp"
-
-                    android:scaleType="fitXY" />
+                    android:onClick="@{()->fourthVM.itemOnClick(four)}"
+                    android:onLongClick="@{()->fourthVM.itemLongClick(four)}"
+                    android:scaleType="fitXY"
+                    app:imageUrl="@{four.imageUrl}"
+                    app:placeholder="@{@drawable/no_picture}"/>
             </RelativeLayout>
 
             <TextView
@@ -36,14 +41,18 @@
                 style="@style/WrapWrap"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_margin_middle"
-
+                android:text="@{four.name}"
+                android:onClick="@{()->fourthVM.itemLongClick(four)}"
                 android:textSize="@dimen/text_small_size" />
         </LinearLayout>
 
         <CheckBox
             style="@style/WrapWrap"
             android:layout_gravity="end|top"
-            android:background="@color/common_white" />
+            android:background="@color/common_white"
+            android:visibility="@{fourthVM.edited  || four.hasChild ?View.GONE:View.VISIBLE}"
+            android:onClick="@{()->fourthVM.selectedCategory(four)}"
+            android:checked="@{four.selected}"/>
 
         <LinearLayout
             android:id="@+id/mEditFourCgll"
@@ -58,14 +67,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="修改" />
+                android:text="修改"
+                android:onClick="@{()->fourthVM.updateDialog(four)}"/>
 
             <Button
                 android:id="@+id/mDeleteFourTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="删除" />
+                android:text="删除"
+                android:onClick="@{()->fourthVM.deleteDialog(four)}"/>
 
         </LinearLayout>
 

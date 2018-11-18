@@ -15,7 +15,6 @@
  */
 package com.owner.assertsparam.viewmodel
 
-import android.app.DownloadManager
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.Bindable
 import com.alibaba.android.arouter.launcher.ARouter
@@ -157,7 +156,12 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
      */
     fun thirdItemClick(item: CategoryInfo) {
         when {
-            item.hasChild -> ARouter.getInstance().build(RouterPath.AssertsParam.PATH_ASSERTSPARAM_FOUR).navigation()
+            item.hasChild -> ARouter.getInstance().build(RouterPath.AssertsParam.PATH_ASSERTSPARAM_FOUR)
+                    .withString("tableName", tableName)
+                    .withBoolean("isEdited", isEdited)
+                    .withBoolean("isQuery", isQuery)
+                    .withParcelable("thirdCg", item)
+                    .navigation()
             isQuery && isEdited-> //驱动查询
                 gotoQueryAsserts.value = Pair(tableName, item)
             !isEdited->selectedCategory(item)
@@ -352,7 +356,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
      * 发送增加二级分类请求
      */
     fun addSecondAlert() {
-        action.value = Pair(KEY_ADD_ACTION, mCurrentTopCategory!!)
+        action.value = Pair(KEY_ADD_ACTION, mCurrentTopCategory)
     }
 
     /**

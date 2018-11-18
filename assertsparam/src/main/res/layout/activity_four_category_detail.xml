@@ -6,7 +6,7 @@
 
         <variable
             name="fourVM"
-            type="com.owner.assertsparam.viewmodel.FourCgViewModel" />
+            type="com.owner.assertsparam.viewmodel.FourthCategoryViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout style="@style/MatchMatch">

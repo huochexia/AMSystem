@@ -15,6 +15,9 @@
  */
 package com.owner.assertsparam.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 /**
  * 所有分类的父类信息
  * @name ：类别名称
@@ -25,7 +28,7 @@ package com.owner.assertsparam.data
  * Created by Liuyong on 2018-10-21.It's AMSystem
  *@description:
  */
-
+@Parcelize
 open class CategoryInfo(var objectId: String,
                         var name: String,
                         var parentId: String="",
@@ -33,4 +36,5 @@ open class CategoryInfo(var objectId: String,
                         var isSelected: Boolean = false,//选择状态
                         var isLongOnClick: Boolean = false,//长按状态
                         var hasChild: Boolean = false) //是否有子类
+    : Parcelable
 

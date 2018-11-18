@@ -18,31 +18,53 @@ package com.owner.assertsparam.view.activity
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.owner.assertsparam.R
+import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.ActivityFourCategoryDetailBinding
 import com.owner.assertsparam.view.fragment.FourCategoryFragment
-import com.owner.assertsparam.viewmodel.FourCgViewModel
+import com.owner.assertsparam.viewmodel.CategoryFgViewModel
+import com.owner.assertsparam.viewmodel.CategoryViewModelFactory
+import com.owner.assertsparam.viewmodel.FourthCategoryViewModel
+import com.owner.assertsparam.viewmodel.FourthCategoryViewModelFactory
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.view.activity.BaseActivity
 import com.owner.provideslib.router.RouterPath
+import java.util.logging.Logger
 
 /**
- *  四级分类明细
+ *  四级分类明细,通过ARouter带参数的方式，将相关数据传入
  * Created by Liuyong on 2018-11-17.It's AMSystem
  *@description:
  */
 @Route(path = RouterPath.AssertsParam.PATH_ASSERTSPARAM_FOUR)
-class FourCategoryDetailActivity : BaseActivity<ActivityFourCategoryDetailBinding, FourCgViewModel>() {
+class FourCategoryDetailActivity : BaseActivity<ActivityFourCategoryDetailBinding, FourthCategoryViewModel>() {
+    @JvmField
+    @Autowired
+    var tableName = ""
+    @JvmField
+    @Autowired
+    var isEdited = true
+    @JvmField
+    @Autowired
+    var isQuery = false
+    @JvmField
+    @Autowired
+    var thirdCg = CategoryInfo("","")
 
-    private val fragment by lazy { FourCategoryFragment.newInstance() }
+    private val fragment by lazy { FourCategoryFragment.newInstance(tableName,isEdited,isQuery,thirdCg) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // ARouter会自动对字段进行赋值，无需主动获取
+        ARouter.getInstance().inject(this)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_four_category_detail)
 
-        viewModel = ViewModelProviders.of(this).get(FourCgViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, FourthCategoryViewModelFactory(tableName,isEdited,isQuery,thirdCg))
+                .get(FourthCategoryViewModel::class.java)
 
         binding.fourVM = viewModel
 

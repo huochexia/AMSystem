@@ -94,7 +94,8 @@ class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCate
 
         companion object {
             fun create(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): ThirdViewHolder {
-                val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, viewType, parent, false)
+                val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater,
+                        viewType, parent, false)
                 return ThirdViewHolder(binding)
             }
         }

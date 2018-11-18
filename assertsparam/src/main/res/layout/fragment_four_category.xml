@@ -3,13 +3,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="fourVM"
-            type="com.owner.assertsparam.viewmodel.FourCgViewModel" />
+            type="com.owner.assertsparam.viewmodel.FourthCategoryViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout style="@style/MatchMatch">
+    <LinearLayout style="@style/MatchMatch.Vertical">
 
         <com.owner.baselibrary.widgets.HeaderBar
             android:id="@+id/mFourDetailHDB"
@@ -23,6 +22,6 @@
                 android:id="@+id/mFourDetailRV"
                 style="@style/MatchMatch" />
         </com.kennyc.view.MultiStateView>
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

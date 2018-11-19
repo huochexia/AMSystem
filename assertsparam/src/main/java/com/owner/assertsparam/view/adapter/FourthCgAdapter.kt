@@ -33,15 +33,16 @@ import com.owner.assertsparam.viewmodel.FourthCategoryViewModel
  * Created by Liuyong on 2018-11-18.It's AMSystem
  *@description:
  */
-class FourthCgAdapter (thirdCategory:CategoryInfo, private val mVM:FourthCategoryViewModel)
+class FourthCgAdapter (private val thirdCategory:CategoryInfo, private val mVM:FourthCategoryViewModel)
     :RecyclerView.Adapter<FourthCgAdapter.FourthViewHolder>(){
 
     private var fourCgList = mutableListOf<Any>()
 
-    init {
+    fun updateList() {
         fourCgList.clear()
         fourCgList.addAll(mVM.fourthList)
         fourCgList.add(Footer(thirdCategory))
+        notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FourthViewHolder {
         val inflater = LayoutInflater.from(parent.context)

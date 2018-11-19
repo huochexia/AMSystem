@@ -72,12 +72,12 @@ import java.io.File
 class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewModel>(),
         TakePhoto.TakeResultListener, InvokeListener {
 
-    private lateinit var sharedViewModel:ArgumentViewModel
+    private lateinit var sharedViewModel: ArgumentViewModel
     private var categoryName: String = ""
-    private var isEdited: Boolean = false//当前界面是否用于编辑
-    private var isQuery:Boolean = false // 当前界面是否用于查询
+    private var isEdited: Boolean = true//当前界面是否用于编辑
+    private var isQuery: Boolean = false // 当前界面是否用于查询
 
-    lateinit var queryInterface:QueryAssertsInfo
+    lateinit var queryInterface: QueryAssertsInfo
 
     private lateinit var topAdapter: TopCgAdapter
     private lateinit var secondAdapter: SecondCgAdapter
@@ -98,15 +98,16 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
       获得外部传入的分类名称
      */
     companion object {
-        fun newInstance(tableName: String, isEdited: Boolean,isQuery:Boolean)= CategoryFragment().apply {
+        fun newInstance(tableName: String, isEdited: Boolean, isQuery: Boolean) = CategoryFragment().apply {
             val bundle = Bundle()
             bundle.putString("tableName", tableName)
             bundle.putBoolean("isEdited", isEdited)
-            bundle.putBoolean("isQuery",isQuery)
+            bundle.putBoolean("isQuery", isQuery)
             arguments = bundle
             return this
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -115,7 +116,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         isEdited = bundle.getBoolean("isEdited")
         isQuery = bundle.getBoolean("isQuery")
 
-        sharedViewModel=ViewModelProviders.of(activity!!).get(ArgumentViewModel::class.java)
+        sharedViewModel = ViewModelProviders.of(activity!!).get(ArgumentViewModel::class.java)
 
         initViewModel()
 
@@ -143,6 +144,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         loadTopCgList()
         mSecondCategoryRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
+
     /**
      * 初始化HeadBar的右标题
      */
@@ -153,12 +155,13 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             println(sharedViewModel.selectedArgumentMap.toString())
         }
     }
+
     /**
      * 初始化ViewModel
      */
     private fun initViewModel() {
         // 通过工厂方法将分类名称传入ViewModel中
-        viewModel = ViewModelProviders.of(this, CategoryViewModelFactory(categoryName, isEdited,isQuery))
+        viewModel = ViewModelProviders.of(this, CategoryViewModelFactory(categoryName, isEdited, isQuery))
                 .get(CategoryFgViewModel::class.java)
 
         //观察行为信息的变化，做出相应的响应
@@ -186,7 +189,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         })
         //观察是否要查询
         viewModel.gotoQueryAsserts.observe(this, Observer {
-            queryInterface.queryAssert(it!!.first,it.second)
+            queryInterface.queryAssert(it!!.first, it.second)
         })
     }
 
@@ -199,17 +202,18 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
                 as TakePhoto
         mTakePhoto.onCreate(savedInstanceState)
     }
+
     /**
      *对由ViewModel发生的事件进行筛分，对应处理
      */
     private fun executeAction(it: Pair<String, CategoryInfo>) {
         when (it.first) {
             CategoryFgViewModel.KEY_SELECTED_ACTION -> selectCategory(it.second)
-            CategoryFgViewModel.KEY_UPDATE_ACTION -> updateCategory(it.second )
-            CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second )
+            CategoryFgViewModel.KEY_UPDATE_ACTION -> updateCategory(it.second)
+            CategoryFgViewModel.KEY_DELETE_ACTION -> deleteCategory(it.second)
             CategoryFgViewModel.KEY_ADD_ACTION -> addCategory(it.second)
-            CategoryFgViewModel.KEY_ADD_THIRD_ACTION->addThirdCategory(it.second)
-            CategoryFgViewModel.KEY_UPDATE_THIRD_ACTION-> updateThirdCategory(it.second)
+            CategoryFgViewModel.KEY_ADD_THIRD_ACTION -> addThirdCategory(it.second)
+            CategoryFgViewModel.KEY_UPDATE_THIRD_ACTION -> updateThirdCategory(it.second)
         }
     }
 
@@ -248,6 +252,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             secondAdapter.notifyDataSetChanged()
         }
     }
+
     /**
      * 增加类别，在这里生成一个新子类。这里形成比在ViewModel中放便些
      * @parent:父类
@@ -259,20 +264,21 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         alertView = AlertView("增加类别", null, null, null,
                 arrayOf("取消", "完成"), context, AlertView.Style.Alert,
                 OnItemClickListener { _, position ->
-            activity?.hideSoftInput()
-            when (position) {
-               1 -> {
-                   if (editV.text.isNullOrEmpty().not()) {
-                       val name = editV.text.toString().trim()
-                       val newCg = CategoryInfo("", name, parent.objectId)
-                       viewModel.addCategory(newCg)
-                       //设置父类的hasChild为true
-                       parent.hasChild = true
-                       viewModel.updateCategory(parent)
-                   }
-               }
-            }
-        })
+                    activity?.hideSoftInput()
+                    when (position) {
+                        1 -> {
+                            if (editV.text.isNullOrEmpty().not()) {
+                                val name = editV.text.toString().trim()
+                                val newCg = CategoryInfo("", name, parent.objectId)
+                                viewModel.addCategory(newCg)
+                                //设置父类的hasChild为true
+                                parent.hasChild = true
+                                viewModel.restoreState(parent)
+                                viewModel.updateCategory(parent)
+                            }
+                        }
+                    }
+                })
 
         alertView.addExtView(extView).show()
     }
@@ -349,15 +355,13 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         val (editView, editV) = initDialog()
         editV.setText(category.name)
         thirdCgImage.value = category.imageUrl
-        alertView = AlertView("修改类别",null,null,null,
-                arrayOf("取消","完成"),context,AlertView.Style.Alert, OnItemClickListener{
-                 o, position ->
-                    activity?.hideSoftInput()
+        alertView = AlertView("修改类别", null, null, null,
+                arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
+            activity?.hideSoftInput()
             when (position) {
                 1 -> {
                     category.name = editV.text.toString()
-                    category.isSelected = false
-                    category.isLongOnClick = false
+                    viewModel.restoreState(category)
                     //要判一下图片是否发生改变,不为空说明进行了图片操作
                     if (tempCategory.imageUrl != "")
                         category.imageUrl = tempCategory.imageUrl
@@ -406,22 +410,22 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         alertView = AlertView("删除类别", null, null, null,
                 arrayOf("取消", "确定"), context, AlertView.Style.Alert,
                 OnItemClickListener { _, position ->
-            activity?.hideSoftInput()
-            when (position) {
-                1 -> {
-                    if (category.parentId == "0") {
-                        viewModel.topCgList.remove(category)
-                        viewModel.isVisibleTop = false
-                        topAdapter.notifyDataSetChanged()
-                    } else {
-                        viewModel.secondAndThirdCgList.remove(category)
-                        secondAdapter.updateList()
-                        secondAdapter.notifyDataSetChanged()
+                    activity?.hideSoftInput()
+                    when (position) {
+                        1 -> {
+                            if (category.parentId == "0") {
+                                viewModel.topCgList.remove(category)
+                                viewModel.isVisibleTop = false
+                                topAdapter.notifyDataSetChanged()
+                            } else {
+                                viewModel.secondAndThirdCgList.remove(category)
+                                secondAdapter.updateList()
+                                secondAdapter.notifyDataSetChanged()
+                            }
+                            viewModel.deleteCategory(category)
+                        }
                     }
-                    viewModel.deleteCategory(category)
-                }
-            }
-        })
+                })
         alertView.show()
     }
 
@@ -455,6 +459,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         mTakePhoto.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
+
     /**
      * TakePhoto对权限设置针对6.0 和7.0版动态权限的获取
      */

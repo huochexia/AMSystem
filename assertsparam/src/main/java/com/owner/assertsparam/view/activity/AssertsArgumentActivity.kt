@@ -50,7 +50,7 @@ class AssertsArgumentActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>(
     private val mStack = Stack<Fragment>()
 
     private val locationFragment by lazy { CategoryFragment.newInstance("Location",true,false) }
-    private val categoryFragment by lazy { CategoryFragment.newInstance("Category",true,true) }
+    private val categoryFragment by lazy { CategoryFragment.newInstance("Category",true,false) }
     private val departmentFragment by lazy {CategoryFragment.newInstance("Department",true,false) }
     private val managerFragment by lazy { ManagerFragment.newInstance(true,false) }
 

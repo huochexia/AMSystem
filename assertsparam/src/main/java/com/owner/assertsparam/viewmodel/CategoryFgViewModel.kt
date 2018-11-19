@@ -162,7 +162,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
                     .withBoolean("isQuery", isQuery)
                     .withParcelable("thirdCg", item)
                     .navigation()
-            isQuery && isEdited-> //驱动查询
+            isQuery -> //驱动查询
                 gotoQueryAsserts.value = Pair(tableName, item)
             !isEdited->selectedCategory(item)
             else -> {
@@ -217,16 +217,22 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
     private fun setClickState(item: CategoryInfo) {
         //还原所有选择和长按状态
         topCgList.forEach {
-            it.isSelected = false
-            it.isLongOnClick = false
+            restoreState(it)
         }
         //还原二级和三级，因为在二级或三级中改变状态后，点击一级要做还原
         secondAndThirdCgList.forEach {
-            it.isSelected = false
-            it.isLongOnClick = false
+            restoreState(it)
         }
         //将当前项目设定为选择状态
         item.isSelected = true
+    }
+
+    /**
+     * 还原分类信息状态
+     */
+     fun restoreState(category: CategoryInfo) {
+        category.isSelected = false
+        category.isLongOnClick = false
     }
 
 
@@ -259,8 +265,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
     private fun setLongClickState(item: CategoryInfo, list: MutableList<CategoryInfo>) {
         //还原所有选择和长按状态
         list.forEach {
-            it.isLongOnClick = false
-            it.isSelected = false
+            restoreState(it)
         }
         item.isSelected = true
         item.isLongOnClick = true

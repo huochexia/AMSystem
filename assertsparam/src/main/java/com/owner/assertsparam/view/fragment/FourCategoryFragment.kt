@@ -15,6 +15,7 @@
  */
 package com.owner.assertsparam.view.fragment
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -67,7 +68,9 @@ class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCat
         viewModel = ViewModelProviders.of(this,
                 FourthCategoryViewModelFactory(categoryName, isEdited, isQuery,thirdCg))
                 .get(FourthCategoryViewModel::class.java)
-
+        viewModel.refresh.observe(this, Observer {
+            fourAdapter.updateList()
+        })
 
     }
 

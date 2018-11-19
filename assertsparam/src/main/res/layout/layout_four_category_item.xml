@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:ignore="MissingDefaultResource">
 
     <data>
         <import type="android.view.View"/>
@@ -50,7 +52,7 @@
             style="@style/WrapWrap"
             android:layout_gravity="end|top"
             android:background="@color/common_white"
-            android:visibility="@{fourthVM.edited  || four.hasChild ?View.GONE:View.VISIBLE}"
+            android:visibility="@{fourthVM.edited? View.GONE:View.VISIBLE}"
             android:onClick="@{()->fourthVM.selectedCategory(four)}"
             android:checked="@{four.selected}"/>
 

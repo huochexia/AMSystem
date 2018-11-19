@@ -46,7 +46,7 @@ class FourCategoryDetailActivity : BaseActivity<ActivityFourCategoryDetailBindin
     var tableName = ""
     @JvmField
     @Autowired
-    var isEdited = true
+    var isEdited = false
     @JvmField
     @Autowired
     var isQuery = false

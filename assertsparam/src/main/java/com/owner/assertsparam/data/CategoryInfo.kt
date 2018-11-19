@@ -29,7 +29,7 @@ import kotlinx.android.parcel.Parcelize
  *@description:
  */
 @Parcelize
-open class CategoryInfo(var objectId: String,
+ class CategoryInfo(var objectId: String,
                         var name: String,
                         var parentId: String="",
                         var imageUrl: String = "",

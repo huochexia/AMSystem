@@ -15,6 +15,7 @@
  */
 package com.owner.assertsparam.viewmodel
 
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.Bindable
 import com.kennyc.view.MultiStateView
 import com.owner.assertsparam.BR
@@ -31,12 +32,13 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
  *@description:
  */
 class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val isQuery: Boolean, val thirdCg: CategoryInfo)
-    : BaseViewModel<AssertsParamRepository>() {
+     : BaseViewModel<AssertsParamRepository>() {
 
 
-     var fourthList = mutableListOf<CategoryInfo>()
+    var fourthList = mutableListOf<CategoryInfo>()
 
     init {
+
         repo = APRepositoryImpl()
         getFourthCgList(thirdCg)
     }
@@ -47,18 +49,19 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
             field = value
             notifyPropertyChanged(BR.mStateView)
         }
-
+    var refresh = MutableLiveData<String>()
     /**
      *  得到分类信息列表
      */
-    fun getFourthCgList(item: CategoryInfo) {
+    private fun getFourthCgList(item: CategoryInfo) {
         val disposable = repo.getCategory(tablename, thirdCg.objectId).execute()
                 .subscribe({
-                    fourthList = it.results
+                    fourthList.addAll( it.results)
                 }, {
                     mStateView = MultiStateView.VIEW_STATE_ERROR
                 }, {
                     mStateView = MultiStateView.VIEW_STATE_CONTENT
+                    refresh.value = "complete"
                 }, {
                     mStateView = MultiStateView.VIEW_STATE_LOADING
                 })
@@ -75,7 +78,7 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
     /**
      * 长按事件,进行编辑
      */
-    fun itemLongClick(item: CategoryInfo):Boolean {
+    fun itemLongClick(item: CategoryInfo): Boolean {
         return true
     }
 
@@ -89,9 +92,10 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
     /**
      * 增加
      */
-    fun addDialog(item:Footer) {
+    fun addDialog(item: Footer) {
 
     }
+
     /**
      * 修改分类信息，图片，名称等
      */

@@ -22,7 +22,6 @@
             android:layout_height="103dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_add_category"
-            android:onClick="@{()->footerVM.addDialog(four)}"
-            android:visibility="@{footerVM.edited?View.VISIBLE:View.GONE}"/>
+            android:onClick="@{()->footerVM.addDialog(four)}"/>
     </LinearLayout>
 </layout>

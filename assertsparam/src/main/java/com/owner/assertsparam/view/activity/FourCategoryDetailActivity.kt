@@ -16,6 +16,7 @@
 package com.owner.assertsparam.view.activity
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -35,7 +36,8 @@ import com.owner.provideslib.router.RouterPath
 import java.util.logging.Logger
 
 /**
- *  四级分类明细,通过ARouter带参数的方式，将相关数据传入
+ *  四级分类明细,通过ARouter带参数的方式，将相关数据传入, 通过传入的isEdited值决定当前是编辑还是选择
+ *  。通过isQuery的值决定是否是查询状态。tableName决定对哪个分类表进行操作，thirdCg是父类
  * Created by Liuyong on 2018-11-17.It's AMSystem
  *@description:
  */
@@ -70,4 +72,6 @@ class FourCategoryDetailActivity : BaseActivity<ActivityFourCategoryDetailBindin
 
         addFragment(fragment,R.id.mFragmentContainer)
     }
+
+
 }

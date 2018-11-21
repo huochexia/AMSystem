@@ -119,9 +119,8 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         mHeaderBar.getRightView().setOnClickListener {
             if (isEdited) {
                 //通过ARouter启动UserCenter模块中的RegisterActivity,并要求返回值
-                ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER).navigation(activity, SELECT_MANAGER_REQUEST_CODE)
-            } else {
-                //返回选择结果
+                ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER)
+                        .navigation(activity, SELECT_MANAGER_REQUEST_CODE)
             }
         }
 
@@ -170,7 +169,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == 2) {
+        if (requestCode == SELECT_MANAGER_REQUEST_CODE && resultCode == 2) {
             val userId = data?.getStringExtra("userID")
             viewModel.getManager(userId ?: "")
         }

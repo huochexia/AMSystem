@@ -23,13 +23,15 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bigkoo.alertview.AlertView
+import com.bigkoo.alertview.OnItemClickListener
 import com.orhanobut.logger.Logger
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.FragmentFourCategoryBinding
 import com.owner.assertsparam.view.adapter.FourthCgAdapter
-import com.owner.assertsparam.viewmodel.CategoryViewModelFactory
 import com.owner.assertsparam.viewmodel.FourthCategoryViewModel
 import com.owner.assertsparam.viewmodel.FourthCategoryViewModelFactory
+import com.owner.baselibrary.utils.hideSoftInput
 import com.owner.baselibrary.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_four_category.*
 
@@ -46,6 +48,8 @@ class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCat
     private var isQuery: Boolean = false // 当前界面是否用于查询
     private var thirdCg = CategoryInfo("", "")
 
+    private lateinit var alertView:AlertView
+
     companion object {
         fun newInstance(tableName: String, isEdited: Boolean, isQuery: Boolean, thirdCg: CategoryInfo)
                 : FourCategoryFragment = FourCategoryFragment().apply {
@@ -58,7 +62,7 @@ class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCat
             return this
         }
 
-        const val SELECT_CATEGORY_REQUEST_CODE=100
+        const val SELECT_CATEGORY_REQUEST_CODE = 100
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,13 +73,25 @@ class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCat
         isQuery = bundle.getBoolean("isQuery")
         thirdCg = bundle.getParcelable("thirdCg")!!
 
+        initViewModel()
+
+    }
+
+    private fun initViewModel() {
         viewModel = ViewModelProviders.of(this,
-                FourthCategoryViewModelFactory(tableName, isEdited, isQuery,thirdCg))
+                FourthCategoryViewModelFactory(tableName, isEdited, isQuery, thirdCg))
                 .get(FourthCategoryViewModel::class.java)
         viewModel.refresh.observe(this, Observer {
             fourAdapter.updateList()
         })
-
+        viewModel.action.observe(this, Observer {
+            when (it?.first) {
+                FourthCategoryViewModel.ACTION_SELECTED -> fourAdapter.notifyDataSetChanged()
+                FourthCategoryViewModel.ACTION_QUERY -> {
+                }
+                FourthCategoryViewModel.ACTION_DELETE->deleteFourth(it.second)
+            }
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -85,15 +101,14 @@ class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCat
         binding.fourVM = viewModel
         if (!isEdited) {
             binding.mFourDetailHDB.getRightView().visibility = View.VISIBLE
-            binding.mFourDetailHDB.getRightView().text ="完成"
+            binding.mFourDetailHDB.getRightView().text = "完成"
             binding.mFourDetailHDB.getRightView().setOnClickListener {
                 val bundle = Bundle()
-                bundle.putParcelable("categoryInfo",viewModel.currentSelected)
-                Logger.d(viewModel.currentSelected.name)
-                bundle.putString("tableName",tableName)
+                bundle.putParcelable("categoryInfo", viewModel.currentSelected)
+                bundle.putString("tableName", tableName)
                 val result = Intent()
-                result.putExtra("fourthCg",bundle)
-                activity!!.setResult(SELECT_CATEGORY_REQUEST_CODE,result)
+                result.putExtra("fourthCg", bundle)
+                activity!!.setResult(1, result)
                 activity!!.finish()
             }
         }
@@ -109,5 +124,21 @@ class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCat
         mFourDetailRV.layoutManager = manager
 
         mFourDetailHDB.getTitleView().text = "分类明细"
+    }
+
+    private fun deleteFourth(fourth: CategoryInfo) {
+        alertView = AlertView("删除该类资产",null,null,null, arrayOf("取消","确定")
+                ,context ,AlertView.Style.Alert,
+                OnItemClickListener { _, position ->
+                    activity?.hideSoftInput()
+                    when (position) {
+                        1 -> {
+                            viewModel.fourthList.remove(fourth)
+                            fourAdapter.updateList()
+                            viewModel.deleteData(fourth)
+                        }
+                    }
+                })
+        alertView.show()
     }
 }

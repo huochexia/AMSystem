@@ -188,8 +188,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
         } else {
             //点击二级或三级任意一个时，还原其选择状态
             secondAndThirdCgList.forEach {
-                it.isLongOnClick = false
-                it.isSelected = false
+                restoreState(it)
             }
             item.isSelected = true
         }

@@ -13,4 +13,6 @@
     <string name="grid_layout_manager">android.support.v7.widget.GridLayoutManager</string>
     <string name="more">更多...</string>
     <string name="pick_up">收起</string>
+    <string name="cancle">取消</string>
+    <string name="confirm">确定</string>
 </resources>

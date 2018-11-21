@@ -45,6 +45,7 @@ import com.jph.takephoto.model.TResult
 import com.jph.takephoto.permission.InvokeListener
 import com.jph.takephoto.permission.PermissionManager
 import com.jph.takephoto.permission.TakePhotoInvocationHandler
+import com.orhanobut.logger.Logger
 import com.owner.assertsparam.Interface.QueryAssertsInfo
 import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
@@ -155,7 +156,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         binding.mHeaderBar.getRightView().text = "完成"
         binding.mHeaderBar.getRightView().visibility = View.VISIBLE
         binding.mHeaderBar.getRightView().setOnClickListener {
-            println(sharedViewModel.selectedArgumentMap.toString())
+          Logger.d(sharedViewModel.selectedArgumentMap.toString())
         }
     }
 

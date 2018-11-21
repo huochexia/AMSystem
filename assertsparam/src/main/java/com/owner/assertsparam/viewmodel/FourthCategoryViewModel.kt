@@ -33,12 +33,20 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
  */
 class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val isQuery: Boolean, val thirdCg: CategoryInfo)
     : BaseViewModel<AssertsParamRepository>() {
+    companion object {
+        const val ACTION_SELECTED = "selected"
+        const val ACTION_QUERY = "query"
+        const val ACTION_ADD = "add"
+        const val ACTION_UPDATE = "update"
+        const val ACTION_DELETE = "delete"
+    }
+
+    //可观察到的行为
+    var action = MutableLiveData<Pair<String, CategoryInfo>>()
 
 
     var fourthList = mutableListOf<CategoryInfo>()
-
-
-    var currentSelected: CategoryInfo = CategoryInfo("", "")
+    var currentSelected: CategoryInfo = CategoryInfo("-1", "")
 
     init {
 
@@ -72,29 +80,56 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
     }
 
     /**
-     * 点击得到详细信息
+     * 四级分类点击事件主要作用：1、还原状态；2、查看详细信息（isQuery=true);3、用于设置（isEdited=false)
      */
     fun itemOnClick(item: CategoryInfo) {
-        fourthList.forEach {
-            it.isSelected = false
-            it.isLongOnClick = false
+        //因为无论isEdited是真是假，对四级分类来说，点击都是进行选择操作，所以只要isQuery为假即非查询
+        //状态，都进行选择操作
+        if (!isQuery) {
+            selectedCategory(item)
+        } else {
+            action.value = Pair(ACTION_QUERY, item)
         }
-        item.isSelected = true
-        currentSelected = item
+    }
+
+    /**
+     * 恢复原始状态
+     */
+    private fun restore(it: CategoryInfo) {
+        it.isSelected = false
+        it.isLongOnClick = false
     }
 
     /**
      * 长按事件,进行编辑
      */
-    fun itemLongClick(item: CategoryInfo): Boolean {
-        return true
-    }
+    fun itemLongClick(item: CategoryInfo): Boolean =
+            if (isQuery || !isEdited) { //如果是查询状态，或者是非编辑状态，长按事件返回false
+                false
+            } else {
+                restore(item)
+                item.isLongOnClick = true
+                action.value = Pair(ACTION_SELECTED, item)
+                true
+            }
+
 
     /**
      * 选择该类，用于资产选择
      */
     fun selectedCategory(item: CategoryInfo) {
-        currentSelected = item
+        //如果选择的还是当前对象，则进行取反，否则重新选择
+        if (item == currentSelected) {
+            item.isSelected = !currentSelected.isSelected
+            currentSelected = CategoryInfo("-1", "")
+        } else {
+            fourthList.forEach {
+                restore(it)
+            }
+            item.isSelected = true
+            currentSelected = item
+        }
+        action.value = Pair(ACTION_SELECTED, item)
     }
 
     /**
@@ -115,6 +150,10 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
      *  删除分类信息
      */
     fun deleteDialog(item: CategoryInfo) {
+        action.value = Pair(ACTION_DELETE, item)
+    }
+
+    fun deleteData(item: CategoryInfo) {
 
     }
 }

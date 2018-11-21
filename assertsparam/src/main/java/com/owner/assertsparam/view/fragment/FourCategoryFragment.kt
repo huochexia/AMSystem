@@ -25,14 +25,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
-import com.orhanobut.logger.Logger
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.FragmentFourCategoryBinding
 import com.owner.assertsparam.view.adapter.FourthCgAdapter
 import com.owner.assertsparam.viewmodel.FourthCategoryViewModel
 import com.owner.assertsparam.viewmodel.FourthCategoryViewModelFactory
 import com.owner.baselibrary.utils.hideSoftInput
-import com.owner.baselibrary.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_four_category.*
 
 /**
@@ -40,7 +38,7 @@ import kotlinx.android.synthetic.main.fragment_four_category.*
  * Created by Liuyong on 2018-11-17.It's AMSystem
  *@description:
  */
-class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCategoryViewModel>() {
+class FourCategoryFragment : ImageCategoryFragment<FragmentFourCategoryBinding, FourthCategoryViewModel>() {
 
     private lateinit var fourAdapter: FourthCgAdapter
     private var tableName: String = ""
@@ -90,11 +88,14 @@ class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCat
                 FourthCategoryViewModel.ACTION_QUERY -> {
                 }
                 FourthCategoryViewModel.ACTION_DELETE->deleteFourth(it.second)
+                FourthCategoryViewModel.ACTION_ADD -> addFourth(it.second)
+                FourthCategoryViewModel.ACTION_UPDATE->updateFourth(it.second)
             }
         })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         val binding = FragmentFourCategoryBinding.inflate(inflater,
                 container, false)
 
@@ -140,5 +141,22 @@ class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCat
                     }
                 })
         alertView.show()
+    }
+
+    private fun addFourth(third: CategoryInfo) {
+        popupDialog("增加", third) {
+            viewModel.addData(it)
+            viewModel.fourthList.add(it)
+            fourAdapter.updateList()
+        }
+    }
+
+    private fun updateFourth(category: CategoryInfo) {
+        updateDialog("修改", category) {
+            viewModel.updateData(it)
+            fourAdapter.notifyDataSetChanged()
+        }
+        viewModel.restore(category)
+        fourAdapter.notifyDataSetChanged()
     }
 }

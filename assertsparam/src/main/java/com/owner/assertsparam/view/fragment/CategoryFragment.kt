@@ -50,7 +50,7 @@ import com.owner.assertsparam.Interface.QueryAssertsInfo
 import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.FragementCategoryBinding
-import com.owner.assertsparam.databinding.LayoutAddThirdCategoryBinding
+import com.owner.assertsparam.databinding.LayoutAddImageOfCategoryBinding
 import com.owner.assertsparam.view.adapter.SecondCgAdapter
 import com.owner.assertsparam.view.adapter.TopCgAdapter
 import com.owner.assertsparam.viewmodel.ArgumentViewModel
@@ -300,9 +300,10 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      * 增加三级分类
      */
     private fun addThirdCategory(parent: CategoryInfo) {
-        tempCategory = CategoryInfo("", "")
         //刷新列表，目的是取消之前做过的长按状态
         secondAdapter.notifyDataSetChanged()
+
+        tempCategory = CategoryInfo("", "")
         val (editView, editV) = initDialog()
         thirdCgImage.value = parent.imageUrl
         alertView = AlertView("增加分类", null, null, null,
@@ -324,9 +325,10 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      * 初始化对话框内容
      */
     private fun initDialog(): Pair<View, EditText> {
-        val binding = LayoutAddThirdCategoryBinding.inflate(layoutInflater, null)
+        val binding = LayoutAddImageOfCategoryBinding.
+                inflate(layoutInflater, null)
         binding.thirdvm = this
-        val editView = LayoutInflater.from(context).inflate(R.layout.layout_add_third_category, null)
+        val editView = LayoutInflater.from(context).inflate(R.layout.layout_add_image_of_category, null)
 
         val imageView = editView.find<ImageView>(R.id.mPictureIv)
         thirdCgImage.observe(this, Observer {
@@ -360,11 +362,10 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      * 修改三级分类
      */
     private fun updateThirdCategory(category: CategoryInfo) {
+
         //因为拍照或相册操作成功后，会把imageUrl先写入tempCategory当中
         //为了防止将其他操作保存在tempCategory中的imageUrl写入这个category当中，所以先进行清空处理
         tempCategory = CategoryInfo("", "")
-        //刷新列表，目的是取消之前做过的长按状态
-        secondAdapter.notifyDataSetChanged()
         val (editView, editV) = initDialog()
         editV.setText(category.name)
         thirdCgImage.value = category.imageUrl
@@ -383,6 +384,8 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
                 }
             }
         })
+        //刷新列表，目的是取消之前做过的长按状态
+        secondAdapter.notifyDataSetChanged()
         alertView.addExtView(editView).show()
 
     }

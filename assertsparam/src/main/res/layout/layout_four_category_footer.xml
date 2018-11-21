@@ -8,7 +8,7 @@
             type="com.owner.assertsparam.data.Footer" />
 
         <variable
-            name="footerVM"
+            name="fourthVM"
             type="com.owner.assertsparam.viewmodel.FourthCategoryViewModel" />
     </data>
 
@@ -22,6 +22,6 @@
             android:layout_height="103dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_add_category"
-            android:onClick="@{()->footerVM.addDialog(four)}"/>
+            android:onClick="@{()->fourthVM.addDialog(four)}"/>
     </LinearLayout>
 </layout>

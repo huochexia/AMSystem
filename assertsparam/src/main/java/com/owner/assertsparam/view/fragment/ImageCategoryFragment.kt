@@ -1,0 +1,233 @@
+/*
+ * Copyright (C) 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.owner.assertsparam.view.fragment
+
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Observer
+import android.content.Intent
+import android.databinding.ViewDataBinding
+import android.net.Uri
+import android.os.Bundle
+import android.os.Environment
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import com.avos.avoscloud.AVException
+import com.avos.avoscloud.AVFile
+import com.avos.avoscloud.SaveCallback
+import com.bigkoo.alertview.AlertView
+import com.bigkoo.alertview.OnItemClickListener
+import com.jph.takephoto.app.TakePhoto
+import com.jph.takephoto.app.TakePhotoImpl
+import com.jph.takephoto.compress.CompressConfig
+import com.jph.takephoto.model.InvokeParam
+import com.jph.takephoto.model.TContextWrap
+import com.jph.takephoto.model.TResult
+import com.jph.takephoto.permission.InvokeListener
+import com.jph.takephoto.permission.PermissionManager
+import com.jph.takephoto.permission.TakePhotoInvocationHandler
+import com.owner.assertsparam.R
+import com.owner.assertsparam.data.CategoryInfo
+import com.owner.assertsparam.databinding.LayoutImageOfCategoryBinding
+import com.owner.baselibrary.ext.enabled
+import com.owner.baselibrary.ext.loadUrl
+import com.owner.baselibrary.utils.DateUtils
+import com.owner.baselibrary.utils.hideSoftInput
+import com.owner.baselibrary.view.fragment.BaseFragment
+import com.owner.baselibrary.viewmodel.BaseViewModel
+import org.jetbrains.anko.find
+import java.io.File
+
+/**
+ *
+ * Created by Liuyong on 2018-11-21.It's AMSystem
+ *@description:
+ */
+open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : BaseFragment<T, B>(),
+        TakePhoto.TakeResultListener, InvokeListener {
+
+    //临时分类对象
+    lateinit var tempCategory: CategoryInfo
+    var mCategoryImage = MutableLiveData<String>()
+
+    private lateinit var mTakePhoto: TakePhoto
+    private lateinit var mTempFile: File
+    private lateinit var invokeParam: InvokeParam
+
+    private lateinit var mAlertView: AlertView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initTakePhoto(savedInstanceState)
+    }
+
+    /**
+     * 初始化TakePhoto组件
+     */
+    private fun initTakePhoto(savedInstanceState: Bundle?) {
+        mTakePhoto = TakePhotoInvocationHandler.of(this)
+                .bind(TakePhotoImpl(this, this))
+                as TakePhoto
+        mTakePhoto.onCreate(savedInstanceState)
+    }
+
+    override fun takeSuccess(result: TResult?) {
+        //1、利用压缩文件生成AVFile
+        val file = AVFile.withAbsoluteLocalPath("${DateUtils.curTime}.png", result?.image?.compressPath)
+        //2、上传AVFile对象
+        file.saveInBackground(object : SaveCallback() {
+            override fun done(p0: AVException?) {
+                mCategoryImage.value = file.url
+                tempCategory.imageUrl = file.url
+            }
+        })
+    }
+
+    override fun takeCancel() {
+
+    }
+
+    override fun takeFail(result: TResult?, msg: String?) {
+
+    }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        //TakePhoto的要求
+        mTakePhoto.onSaveInstanceState(outState)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //TakePhoto的要求
+        mTakePhoto.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    /**
+     * TakePhoto对权限设置针对6.0 和7.0版动态权限的获取
+     */
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        PermissionManager.handlePermissionsResult(activity, type, invokeParam, this)
+    }
+
+    override fun invoke(invokeParam: InvokeParam): PermissionManager.TPermissionType {
+        val type = PermissionManager.checkPermission(TContextWrap.of(this), invokeParam.method)
+        if (PermissionManager.TPermissionType.WAIT == type) {
+            this.invokeParam = invokeParam
+        }
+        return type
+    }
+
+    /**
+     * 为照像创建临时文件
+     */
+    private fun createTempFile() {
+        val tempFileName = "${DateUtils.curTime}.png"
+        if (Environment.MEDIA_MOUNTED == (Environment.getExternalStorageState())) {
+            this.mTempFile = File(Environment.getExternalStorageDirectory(), tempFileName)
+            return
+        }
+        this.mTempFile = File(activity?.filesDir, tempFileName)
+    }
+
+    /**
+     * 初始化对话框内容
+     */
+    fun initDialog(): Pair<View, EditText> {
+        val binding = LayoutImageOfCategoryBinding.inflate(layoutInflater, null)
+        binding.mFragment = this
+        val editView = LayoutInflater.from(context).inflate(R.layout.layout_image_of_category, null)
+
+        val imageView = editView.find<ImageView>(R.id.mPictureIv)
+        mCategoryImage.observe(this, Observer {
+            if (it.isNullOrEmpty()) {
+                imageView.setImageResource(R.drawable.pictures_no)
+            } else {
+                imageView.loadUrl(it!!)
+            }
+        })
+        val editV = editView.findViewById<EditText>(R.id.mThirdCgNameEt)
+
+        val takePhoto = editView.findViewById<Button>(R.id.mPictureBtn)
+        takePhoto.enabled(editV) { !editV.text.isNullOrEmpty() }
+
+        val camera = editView.findViewById<Button>(R.id.mCameraBtn)
+        camera.enabled(editV) { !editV.text.isNullOrEmpty() }
+
+        camera.setOnClickListener {
+            mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
+            createTempFile()
+            mTakePhoto.onPickFromCapture(Uri.fromFile(mTempFile))
+        }
+        takePhoto.setOnClickListener {
+            mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
+            mTakePhoto.onPickFromGallery()
+        }
+        return Pair(editView, editV)
+    }
+
+    /**
+     * 弹出窗口
+     */
+    fun popupDialog(title: String, category: CategoryInfo, action: (CategoryInfo) -> Unit) {
+        //因为拍照或相册操作成功后，会把imageUrl先写入tempCategory当中
+        //为了防止将其他操作保存在tempCategory中的imageUrl写入这个category当中，所以先进行清空处理
+        tempCategory = CategoryInfo("", "")
+        val (editView, editV) = initDialog()
+        mCategoryImage.value = category.imageUrl
+        mAlertView = AlertView(title, null, null, null,
+                arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { _, position ->
+            activity?.hideSoftInput()
+            when (position) {
+                1 -> {
+                    tempCategory.name = editV.text.toString()
+                    tempCategory.parentId = category.objectId
+                    action(tempCategory)
+                }
+            }
+        })
+        mAlertView.addExtView(editView).show()
+    }
+
+    /**
+     * 修改窗口
+     */
+    fun updateDialog(title: String, category: CategoryInfo, action: (CategoryInfo) ->Unit) {
+        tempCategory = CategoryInfo("", "")
+        val (editView, editV) = initDialog()
+        editV.setText(category.name)
+        mCategoryImage.value = category.imageUrl
+        mAlertView = AlertView(title, null, null, null,
+                arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
+            activity?.hideSoftInput()
+            when (position) {
+                1 -> {
+                    category.name = editV.text.toString()
+                    //要判一下图片是否发生改变,不为空说明进行了图片操作
+                    if (tempCategory.imageUrl != "")
+                        category.imageUrl = tempCategory.imageUrl
+                    action(category)
+                }
+            }
+        })
+        mAlertView.addExtView(editView).show()
+    }
+}

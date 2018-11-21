@@ -25,6 +25,8 @@ import com.owner.assertsparam.model.repository.AssertsParamRepository
 import com.owner.assertsparam.model.repository.impl.APRepositoryImpl
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  *
@@ -95,7 +97,7 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
     /**
      * 恢复原始状态
      */
-    private fun restore(it: CategoryInfo) {
+   fun restore(it: CategoryInfo) {
         it.isSelected = false
         it.isLongOnClick = false
     }
@@ -136,16 +138,34 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
      * 增加
      */
     fun addDialog(item: Footer) {
-
+        action.value = Pair(ACTION_ADD, item.category)
     }
 
+    fun addData(item: CategoryInfo) {
+        val disposable = repo.createCategory(tablename, item.name, item.parentId, item.imageUrl)
+                .execute()
+                .subscribe({}, {
+                    //处理错误
+                }, {})
+
+        compositeDisposable.add(disposable)
+    }
     /**
      * 修改分类信息，图片，名称等
      */
     fun updateDialog(item: CategoryInfo) {
-
+        action.value = Pair(ACTION_UPDATE,item)
     }
 
+    fun updateData(item: CategoryInfo) {
+        val disposable = repo.updateCategory(tablename,item)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe{
+                    //完成
+                }
+        compositeDisposable.add(disposable)
+    }
     /**
      *  删除分类信息
      */
@@ -154,6 +174,13 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
     }
 
     fun deleteData(item: CategoryInfo) {
-
+        val disposable = repo.deleteCategory(tablename, item.objectId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe{
+                    //提示删除成功
+                }
+        compositeDisposable.add(disposable)
     }
+
 }

@@ -56,14 +56,17 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
 
     private var isEdited = false
     private var isQuery = false
+
     companion object {
-        fun newInstance(isEdited: Boolean,isQuery:Boolean)=ManagerFragment().apply {
+        fun newInstance(isEdited: Boolean, isQuery: Boolean) = ManagerFragment().apply {
             val bundle = Bundle()
-            bundle.putBoolean("isEdited",isEdited)
-            bundle.putBoolean("isQuery",isQuery)
-           arguments = bundle
+            bundle.putBoolean("isEdited", isEdited)
+            bundle.putBoolean("isQuery", isQuery)
+            arguments = bundle
             return this
         }
+
+        const val SELECT_MANAGER_REQUEST_CODE = 101
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +93,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         viewModel.gotoQueryAsserts.observe(this, Observer {
             queryInterface.queryAssert("Manager", it!!)
         })
-
+        //保存已选择的管理人到Activity对应的ViewModel中
         viewModel.selectedManager.observe(this, Observer {
             sharedViewModel.selectedArgumentMap["Manager"] = it!!
         })
@@ -108,7 +111,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         super.onViewCreated(view, savedInstanceState)
         mHeaderBar.getRightView().visibility = View.VISIBLE
         if (!isEdited) {
-            mHeaderBar.getRightView().text="完成"
+            mHeaderBar.getRightView().text = "完成"
         }
         if (isQuery) {
             mHeaderBar.getRightView().visibility = View.GONE
@@ -116,7 +119,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         mHeaderBar.getRightView().setOnClickListener {
             if (isEdited) {
                 //通过ARouter启动UserCenter模块中的RegisterActivity,并要求返回值
-                ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER).navigation(activity, 1)
+                ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER).navigation(activity, SELECT_MANAGER_REQUEST_CODE)
             } else {
                 //返回选择结果
             }
@@ -169,7 +172,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == 2) {
             val userId = data?.getStringExtra("userID")
-            viewModel.getManager(userId?:"")
+            viewModel.getManager(userId ?: "")
         }
     }
 }

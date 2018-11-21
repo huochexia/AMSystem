@@ -17,11 +17,13 @@ package com.owner.assertsparam.view.fragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.orhanobut.logger.Logger
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.FragmentFourCategoryBinding
 import com.owner.assertsparam.view.adapter.FourthCgAdapter
@@ -39,7 +41,7 @@ import kotlinx.android.synthetic.main.fragment_four_category.*
 class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCategoryViewModel>() {
 
     private lateinit var fourAdapter: FourthCgAdapter
-    private var categoryName: String = ""
+    private var tableName: String = ""
     private var isEdited: Boolean = false//当前界面是否用于编辑
     private var isQuery: Boolean = false // 当前界面是否用于查询
     private var thirdCg = CategoryInfo("", "")
@@ -55,18 +57,20 @@ class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCat
             arguments = bundle
             return this
         }
+
+        const val SELECT_CATEGORY_REQUEST_CODE=100
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = arguments!!
-        categoryName = bundle.getString("tablename")!!
+        tableName = bundle.getString("tablename")!!
         isEdited = bundle.getBoolean("isEdited")
         isQuery = bundle.getBoolean("isQuery")
         thirdCg = bundle.getParcelable("thirdCg")!!
 
         viewModel = ViewModelProviders.of(this,
-                FourthCategoryViewModelFactory(categoryName, isEdited, isQuery,thirdCg))
+                FourthCategoryViewModelFactory(tableName, isEdited, isQuery,thirdCg))
                 .get(FourthCategoryViewModel::class.java)
         viewModel.refresh.observe(this, Observer {
             fourAdapter.updateList()
@@ -79,7 +83,20 @@ class FourCategoryFragment : BaseFragment<FragmentFourCategoryBinding, FourthCat
                 container, false)
 
         binding.fourVM = viewModel
-
+        if (!isEdited) {
+            binding.mFourDetailHDB.getRightView().visibility = View.VISIBLE
+            binding.mFourDetailHDB.getRightView().text ="完成"
+            binding.mFourDetailHDB.getRightView().setOnClickListener {
+                val bundle = Bundle()
+                bundle.putParcelable("categoryInfo",viewModel.currentSelected)
+                Logger.d(viewModel.currentSelected.name)
+                bundle.putString("tableName",tableName)
+                val result = Intent()
+                result.putExtra("fourthCg",bundle)
+                activity!!.setResult(SELECT_CATEGORY_REQUEST_CODE,result)
+                activity!!.finish()
+            }
+        }
         return binding.root
     }
 

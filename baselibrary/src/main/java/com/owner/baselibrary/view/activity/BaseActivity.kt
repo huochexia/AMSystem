@@ -43,6 +43,7 @@ open class BaseActivity<B : ViewDataBinding, VM : BaseViewModel<*>> : RxAppCompa
     }
 
     override fun onDestroy() {
+
         viewModel.compositeDisposable.clear()
         AppManager.instance.removeActivity(this)
         super.onDestroy()

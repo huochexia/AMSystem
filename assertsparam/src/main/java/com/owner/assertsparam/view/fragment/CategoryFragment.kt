@@ -30,6 +30,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.AVFile
 import com.avos.avoscloud.SaveCallback
@@ -59,6 +60,7 @@ import com.owner.baselibrary.ext.loadUrl
 import com.owner.baselibrary.utils.DateUtils
 import com.owner.baselibrary.utils.hideSoftInput
 import com.owner.baselibrary.view.fragment.BaseFragment
+import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.fragement_category.*
 import org.jetbrains.anko.find
 import java.io.File
@@ -72,8 +74,8 @@ import java.io.File
 class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewModel>(),
         TakePhoto.TakeResultListener, InvokeListener {
 
-    private lateinit var sharedViewModel: ArgumentViewModel
-    private var categoryName: String = ""
+    private lateinit var sharedViewModel: ArgumentViewModel//用于保存每个参数的选择结果
+    private var tableName: String = ""
     private var isEdited: Boolean = true//当前界面是否用于编辑
     private var isQuery: Boolean = false // 当前界面是否用于查询
 
@@ -106,13 +108,14 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
             arguments = bundle
             return this
         }
+        const val SELECT_ITEM_REQUEST_CODE =100
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val bundle = arguments!!
-        categoryName = bundle.getString("tableName")!!
+        tableName=bundle.getString("tableName")!!
         isEdited = bundle.getBoolean("isEdited")
         isQuery = bundle.getBoolean("isQuery")
 
@@ -161,7 +164,7 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
      */
     private fun initViewModel() {
         // 通过工厂方法将分类名称传入ViewModel中
-        viewModel = ViewModelProviders.of(this, CategoryViewModelFactory(categoryName, isEdited, isQuery))
+        viewModel = ViewModelProviders.of(this, CategoryViewModelFactory(tableName, isEdited, isQuery))
                 .get(CategoryFgViewModel::class.java)
 
         //观察行为信息的变化，做出相应的响应
@@ -190,6 +193,15 @@ class CategoryFragment : BaseFragment<FragementCategoryBinding, CategoryFgViewMo
         //观察是否要查询
         viewModel.gotoQueryAsserts.observe(this, Observer {
             queryInterface.queryAssert(it!!.first, it.second)
+        })
+        //启动四级分类明细
+        viewModel.selectedFourthCg.observe(this, Observer {
+            ARouter.getInstance().build(RouterPath.AssertsParam.PATH_ASSERTSPARAM_FOUR)
+                    .withString("tableName", tableName)
+                    .withBoolean("isEdited", isEdited)
+                    .withBoolean("isQuery", isQuery)
+                    .withParcelable("thirdCg", it)
+                    .navigation(activity, SELECT_ITEM_REQUEST_CODE)
         })
     }
 

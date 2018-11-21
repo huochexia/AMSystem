@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:ignore="MissingDefaultResource">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View"/>
@@ -13,6 +11,7 @@
             name="fourthVM"
             type="com.owner.assertsparam.viewmodel.FourthCategoryViewModel"/>
     </data>
+
     <FrameLayout style="@style/WrapWrap">
 
         <LinearLayout
@@ -31,9 +30,9 @@
                     android:id="@+id/mFourCategoryIv"
                     android:layout_width="91dp"
                     android:layout_height="91dp"
+                    android:scaleType="fitXY"
                     android:onClick="@{()->fourthVM.itemOnClick(four)}"
                     android:onLongClick="@{()->fourthVM.itemLongClick(four)}"
-                    android:scaleType="fitXY"
                     app:imageUrl="@{four.imageUrl}"
                     app:placeholder="@{@drawable/no_picture}"/>
             </RelativeLayout>
@@ -44,7 +43,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_margin_middle"
                 android:text="@{four.name}"
-                android:onClick="@{()->fourthVM.itemLongClick(four)}"
+                android:onClick="@{()->fourthVM.itemOnClick(four)}"
                 android:textSize="@dimen/text_small_size" />
         </LinearLayout>
 
@@ -52,7 +51,7 @@
             style="@style/WrapWrap"
             android:layout_gravity="end|top"
             android:background="@color/common_white"
-            android:visibility="@{fourthVM.edited? View.GONE:View.VISIBLE}"
+            android:visibility="@{fourthVM.edited?View.GONE:View.VISIBLE}"
             android:onClick="@{()->fourthVM.selectedCategory(four)}"
             android:checked="@{four.selected}"/>
 
@@ -62,7 +61,8 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:alpha="100"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/mUpdateFourTv"
@@ -81,7 +81,6 @@
                 android:onClick="@{()->fourthVM.deleteDialog(four)}"/>
 
         </LinearLayout>
-
 
     </FrameLayout>
 

@@ -8,11 +8,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
+import com.orhanobut.logger.Logger
 import com.owner.assertsparam.Interface.QueryAssertsInfo
 import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.data.Manager
 import com.owner.assertsparam.view.fragment.CategoryFragment
+import com.owner.assertsparam.view.fragment.FourCategoryFragment
 import com.owner.assertsparam.view.fragment.ManagerFragment
 import com.owner.assertsparam.viewmodel.ArgumentViewModel
 import com.owner.baselibrary.ext.addFragment
@@ -26,7 +28,7 @@ import org.jetbrains.anko.toast
 import java.util.*
 
 @Route(path = RouterPath.AssertsParam.PATH_ASSERTSPARAM_MAIN)
-class AssertsArgumentActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>(),QueryAssertsInfo {
+class AssertsArgumentActivity : BaseActivity<ViewDataBinding, ArgumentViewModel>(),QueryAssertsInfo {
 
     override fun queryAssert(tablename: String, condition: Any) {
         when (tablename) {
@@ -59,6 +61,7 @@ class AssertsArgumentActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>(
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_asserts_argument)
         viewModel = ViewModelProviders.of(this).get(ArgumentViewModel::class.java)
+
         initFragment()
         initBottomNav()
         changeFragment(0)
@@ -118,6 +121,19 @@ class AssertsArgumentActivity : BaseActivity<ViewDataBinding, BaseViewModel<*>>(
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        managerFragment.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            FourCategoryFragment.SELECT_CATEGORY_REQUEST_CODE ->{
+                val result=data?.getBundleExtra("fourth")
+                val tablename=result?.getString("tableName")?:""
+                val categoryInfo = result?.getParcelable("categoryInfo")?: CategoryInfo("-1","")
+                val pair =Pair<String,CategoryInfo>(tablename,categoryInfo)
+                viewModel.selectedArgumentMap[pair.first]=pair.second
+                Logger.d(pair.second)
+            }
+            ManagerFragment.SELECT_MANAGER_REQUEST_CODE->{
+                managerFragment.onActivityResult(requestCode, resultCode, data)
+            }
+        }
+
     }
 }

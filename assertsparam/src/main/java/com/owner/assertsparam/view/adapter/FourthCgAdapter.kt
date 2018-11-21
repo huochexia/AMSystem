@@ -79,7 +79,7 @@ class FourthCgAdapter (private val thirdCategory:CategoryInfo, private val mVM:F
             } else {
                 mBinding.setVariable(BR.four,data)
             }
-            mBinding.setVariable(BR.categoryFgVM,viewModel)
+            mBinding.setVariable(BR.fourthVM,viewModel)
             mBinding.executePendingBindings()
         }
         /*

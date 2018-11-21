@@ -17,7 +17,6 @@ package com.owner.assertsparam.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.Bindable
-import com.alibaba.android.arouter.launcher.ARouter
 import com.kennyc.view.MultiStateView
 import com.orhanobut.logger.Logger
 import com.owner.assertsparam.BR
@@ -27,7 +26,6 @@ import com.owner.assertsparam.model.repository.AssertsParamRepository
 import com.owner.assertsparam.model.repository.impl.APRepositoryImpl
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.viewmodel.BaseViewModel
-import com.owner.provideslib.router.RouterPath
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -42,7 +40,7 @@ import io.reactivex.schedulers.Schedulers
  * Created by Liuyong on 2018-10-20.It's AMSystem
  *@description:
  */
-class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,val isQuery:Boolean)
+class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, val isQuery: Boolean)
     : BaseViewModel<AssertsParamRepository>() {
 
     companion object {
@@ -71,11 +69,15 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
     // 得到选择的分类，<表名，分类>
     var getCategoryInfo = MutableLiveData<Pair<String, CategoryInfo>>()
     // 启动查询功能
-    var gotoQueryAsserts = MutableLiveData<Pair<String,CategoryInfo>>()
+    var gotoQueryAsserts = MutableLiveData<Pair<String, CategoryInfo>>()
     //是否展开三级分类列表的状态
     var expandList = MutableLiveData<Boolean>()
     //刷新列表
     var refreshList = MutableLiveData<Pair<String, Int>>()
+    //启动四级明细列表
+    var selectedFourthCg = MutableLiveData<CategoryInfo>()
+
+
     //一级分类数据列表
     var topCgList = mutableListOf<CategoryInfo>()
     //二级和三级分类数据表
@@ -128,7 +130,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
      * 如果是非查询状态，只用于刷新列表，取消长按状态。
      */
     fun itemOnClick(item: CategoryInfo) {
-        if (item.parentId == "0" ) {
+        if (item.parentId == "0") {
             setClickState(item)
             //如果是重新选择一级分类，则加载二级列表数据,避免多次网络访问
             if (mCurrentTopCategory.objectId != item.objectId) {
@@ -138,10 +140,10 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
             }
             mCurrentTopCategory = item
             mSelectedCategory = null
-        }else{
+        } else {
             if (isQuery) {
                 //驱动查询
-                gotoQueryAsserts.value=Pair(tableName,item)
+                gotoQueryAsserts.value = Pair(tableName, item)
             } else {
                 setClickState(item)
                 isAgainClick(item)
@@ -156,15 +158,10 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
      */
     fun thirdItemClick(item: CategoryInfo) {
         when {
-            item.hasChild -> ARouter.getInstance().build(RouterPath.AssertsParam.PATH_ASSERTSPARAM_FOUR)
-                    .withString("tableName", tableName)
-                    .withBoolean("isEdited", isEdited)
-                    .withBoolean("isQuery", isQuery)
-                    .withParcelable("thirdCg", item)
-                    .navigation()
+            item.hasChild -> selectedFourthCg.value = item
             isQuery -> //驱动查询
                 gotoQueryAsserts.value = Pair(tableName, item)
-            !isEdited->selectedCategory(item)
+            !isEdited -> selectedCategory(item)
             else -> {
                 setClickState(item)
                 isAgainClick(item)
@@ -172,6 +169,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
             }
         }
     }
+
     /**
      * 选择二、三级分类，第一次选择，第二次取消选择
      */
@@ -181,7 +179,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
         //通知视图状态改变
         action.value = Pair(KEY_SELECTED_ACTION, item)
         //保存选择,如果已选择分类为 null，则存入一个id为空字符串的分类对象。使用时在进行判断
-        getCategoryInfo.value = Pair(tableName,mSelectedCategory?:CategoryInfo("-1",""))
+        getCategoryInfo.value = Pair(tableName, mSelectedCategory ?: CategoryInfo("-1", ""))
     }
 
     private fun isAgainClick(item: CategoryInfo) {
@@ -211,6 +209,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
             it.parentId == item.objectId
         }
     }
+
     /**
      * 设置分类选择时的状态
      */
@@ -230,7 +229,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
     /**
      * 还原分类信息状态
      */
-     fun restoreState(category: CategoryInfo) {
+    fun restoreState(category: CategoryInfo) {
         category.isSelected = false
         category.isLongOnClick = false
     }
@@ -291,7 +290,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
     fun getSubCategory(parent: CategoryInfo): MutableList<CategoryInfo> {
         val subList = mutableListOf<CategoryInfo>()
         subList.addAll(secondAndThirdCgList.filter {
-                     it.parentId==parent.objectId
+            it.parentId == parent.objectId
         })
         return subList
     }
@@ -348,6 +347,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean,v
         isVisibleTop = true
         compositeDisposable.add(disposable)
     }
+
     /**
      * 发送增加一级分类请求
      *

@@ -32,10 +32,13 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
  *@description:
  */
 class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val isQuery: Boolean, val thirdCg: CategoryInfo)
-     : BaseViewModel<AssertsParamRepository>() {
+    : BaseViewModel<AssertsParamRepository>() {
 
 
     var fourthList = mutableListOf<CategoryInfo>()
+
+
+    var currentSelected: CategoryInfo = CategoryInfo("", "")
 
     init {
 
@@ -56,7 +59,7 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
     private fun getFourthCgList(item: CategoryInfo) {
         val disposable = repo.getCategory(tablename, thirdCg.objectId).execute()
                 .subscribe({
-                    fourthList.addAll( it.results)
+                    fourthList.addAll(it.results)
                 }, {
                     mStateView = MultiStateView.VIEW_STATE_ERROR
                 }, {
@@ -72,7 +75,12 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
      * 点击得到详细信息
      */
     fun itemOnClick(item: CategoryInfo) {
-
+        fourthList.forEach {
+            it.isSelected = false
+            it.isLongOnClick = false
+        }
+        item.isSelected = true
+        currentSelected = item
     }
 
     /**
@@ -86,7 +94,7 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
      * 选择该类，用于资产选择
      */
     fun selectedCategory(item: CategoryInfo) {
-
+        currentSelected = item
     }
 
     /**

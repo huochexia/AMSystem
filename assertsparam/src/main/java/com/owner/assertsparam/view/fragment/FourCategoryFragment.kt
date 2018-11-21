@@ -24,13 +24,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bigkoo.alertview.AlertView
-import com.bigkoo.alertview.OnItemClickListener
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.FragmentFourCategoryBinding
 import com.owner.assertsparam.view.adapter.FourthCgAdapter
 import com.owner.assertsparam.viewmodel.FourthCategoryViewModel
 import com.owner.assertsparam.viewmodel.FourthCategoryViewModelFactory
-import com.owner.baselibrary.utils.hideSoftInput
 import kotlinx.android.synthetic.main.fragment_four_category.*
 
 /**
@@ -46,7 +44,7 @@ class FourCategoryFragment : ImageCategoryFragment<FragmentFourCategoryBinding, 
     private var isQuery: Boolean = false // 当前界面是否用于查询
     private var thirdCg = CategoryInfo("", "")
 
-    private lateinit var alertView:AlertView
+    private lateinit var alertView: AlertView
 
     companion object {
         fun newInstance(tableName: String, isEdited: Boolean, isQuery: Boolean, thirdCg: CategoryInfo)
@@ -87,9 +85,9 @@ class FourCategoryFragment : ImageCategoryFragment<FragmentFourCategoryBinding, 
                 FourthCategoryViewModel.ACTION_SELECTED -> fourAdapter.notifyDataSetChanged()
                 FourthCategoryViewModel.ACTION_QUERY -> {
                 }
-                FourthCategoryViewModel.ACTION_DELETE->deleteFourth(it.second)
+                FourthCategoryViewModel.ACTION_DELETE -> deleteFourth(it.second)
                 FourthCategoryViewModel.ACTION_ADD -> addFourth(it.second)
-                FourthCategoryViewModel.ACTION_UPDATE->updateFourth(it.second)
+                FourthCategoryViewModel.ACTION_UPDATE -> updateFourth(it.second)
             }
         })
     }
@@ -128,23 +126,15 @@ class FourCategoryFragment : ImageCategoryFragment<FragmentFourCategoryBinding, 
     }
 
     private fun deleteFourth(fourth: CategoryInfo) {
-        alertView = AlertView("删除该类资产",null,null,null, arrayOf("取消","确定")
-                ,context ,AlertView.Style.Alert,
-                OnItemClickListener { _, position ->
-                    activity?.hideSoftInput()
-                    when (position) {
-                        1 -> {
-                            viewModel.fourthList.remove(fourth)
-                            fourAdapter.updateList()
-                            viewModel.deleteData(fourth)
-                        }
-                    }
-                })
-        alertView.show()
+        popupDeleteDialog("删除操作", fourth) {
+            viewModel.fourthList.remove(it)
+            fourAdapter.updateList()
+            viewModel.deleteData(it)
+        }
     }
 
     private fun addFourth(third: CategoryInfo) {
-        popupDialog("增加", third) {
+        popupAddImageDialog("增加", third) {
             viewModel.addData(it)
             viewModel.fourthList.add(it)
             fourAdapter.updateList()
@@ -152,7 +142,7 @@ class FourCategoryFragment : ImageCategoryFragment<FragmentFourCategoryBinding, 
     }
 
     private fun updateFourth(category: CategoryInfo) {
-        updateDialog("修改", category) {
+        popupUpdateImageDialog("修改", category) {
             viewModel.updateData(it)
             fourAdapter.notifyDataSetChanged()
         }

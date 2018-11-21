@@ -151,7 +151,7 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
     /**
      * 初始化对话框内容
      */
-    fun initDialog(): Pair<View, EditText> {
+    private fun initDialog(): Pair<View, EditText> {
         val binding = LayoutImageOfCategoryBinding.inflate(layoutInflater, null)
         binding.mFragment = this
         val editView = LayoutInflater.from(context).inflate(R.layout.layout_image_of_category, null)
@@ -185,9 +185,9 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
     }
 
     /**
-     * 弹出窗口
+     * 弹出带图片的窗口
      */
-    fun popupDialog(title: String, category: CategoryInfo, action: (CategoryInfo) -> Unit) {
+    fun popupAddImageDialog(title: String, category: CategoryInfo, action: (CategoryInfo) -> Unit) {
         //因为拍照或相册操作成功后，会把imageUrl先写入tempCategory当中
         //为了防止将其他操作保存在tempCategory中的imageUrl写入这个category当中，所以先进行清空处理
         tempCategory = CategoryInfo("", "")
@@ -198,9 +198,13 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
             activity?.hideSoftInput()
             when (position) {
                 1 -> {
-                    tempCategory.name = editV.text.toString()
-                    tempCategory.parentId = category.objectId
-                    action(tempCategory)
+                    if (editV.text.isNullOrEmpty().not()) {
+                        tempCategory.name = editV.text.toString().trim()
+                        tempCategory.parentId = category.objectId
+                        //设置父类的hasChild为true
+                        category.hasChild = true
+                        action(tempCategory)
+                    }
                 }
             }
         })
@@ -208,9 +212,9 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
     }
 
     /**
-     * 修改窗口
+     * 修改带图片窗口
      */
-    fun updateDialog(title: String, category: CategoryInfo, action: (CategoryInfo) ->Unit) {
+    fun popupUpdateImageDialog(title: String, category: CategoryInfo, action: (CategoryInfo) -> Unit) {
         tempCategory = CategoryInfo("", "")
         val (editView, editV) = initDialog()
         editV.setText(category.name)
@@ -220,7 +224,7 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
             activity?.hideSoftInput()
             when (position) {
                 1 -> {
-                    category.name = editV.text.toString()
+                    category.name = editV.text.toString().trim()
                     //要判一下图片是否发生改变,不为空说明进行了图片操作
                     if (tempCategory.imageUrl != "")
                         category.imageUrl = tempCategory.imageUrl
@@ -229,5 +233,22 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
             }
         })
         mAlertView.addExtView(editView).show()
+    }
+
+    /**
+     * 删除窗口
+     */
+    fun popupDeleteDialog(title: String,category: CategoryInfo, action: (CategoryInfo) -> Unit) {
+        mAlertView = AlertView(title, null, null, null,
+                arrayOf("取消", "确定"), context, AlertView.Style.Alert,
+                OnItemClickListener { _, position ->
+                    activity?.hideSoftInput()
+                    when (position) {
+                        1 -> {
+                            action(category)
+                        }
+                    }
+                })
+        mAlertView.show()
     }
 }

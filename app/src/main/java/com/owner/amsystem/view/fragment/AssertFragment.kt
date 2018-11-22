@@ -21,7 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.owner.amsystem.databinding.FragmentAssertBinding
-import com.owner.amsystem.view.activity.AssignAssertArgActivity
+import com.owner.assertsparam.view.activity.RegisterAssertArgActivity
 import com.owner.amsystem.viewmodel.AssertViewModel
 import com.owner.baselibrary.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_assert.*
@@ -49,7 +49,7 @@ class AssertFragment :BaseFragment<FragmentAssertBinding,AssertViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mSelectArgBtn.setOnClickListener {
-            startActivity<AssignAssertArgActivity>()
+            startActivity<RegisterAssertArgActivity>()
         }
     }
 

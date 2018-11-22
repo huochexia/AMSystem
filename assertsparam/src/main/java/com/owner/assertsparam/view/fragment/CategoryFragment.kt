@@ -117,6 +117,7 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
      * 初始化HeadBar的右标题
      */
     private fun initRightView(binding: FragementCategoryBinding) {
+
         binding.mHeaderBar.getRightView().text = "完成"
         binding.mHeaderBar.getRightView().visibility = View.VISIBLE
         binding.mHeaderBar.getRightView().setOnClickListener {

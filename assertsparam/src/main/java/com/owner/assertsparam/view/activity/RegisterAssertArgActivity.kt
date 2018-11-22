@@ -13,47 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.amsystem.view.activity
+package com.owner.assertsparam.view.activity
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
-import com.orhanobut.logger.Logger
-import com.owner.amsystem.R
-import com.owner.amsystem.databinding.ActivityAssignArgumentBinding
-import com.owner.amsystem.viewmodel.AssertViewModel
+import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
+import com.owner.assertsparam.databinding.ActivityAssignArgumentBinding
 import com.owner.assertsparam.view.fragment.CategoryFragment
 import com.owner.assertsparam.view.fragment.FourCategoryFragment
 import com.owner.assertsparam.view.fragment.ManagerFragment
 import com.owner.assertsparam.viewmodel.ArgumentViewModel
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.ext.hideFragment
-import com.owner.baselibrary.ext.replaceFragment
 import com.owner.baselibrary.ext.showFragment
 import com.owner.baselibrary.view.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_assign_argument.*
-import org.jetbrains.anko.toast
 import java.util.*
 
 /**
- *  指定资产参数
+ *  登记资产的参数，必选项类别和管理人
  * Created by Liuyong on 2018-11-14.It's AMSystem
  *@description:
  */
-class AssignAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, ArgumentViewModel>() {
+class RegisterAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, ArgumentViewModel>() {
 
 
     //Fragment 栈管理
     private val mStack = Stack<Fragment>()
 
     private val categoryFragment by lazy { CategoryFragment.newInstance("Category", false, false) }
-    private val locationFragment by lazy { CategoryFragment.newInstance("Location", false, false) }
     private val managerFragment by lazy { ManagerFragment.newInstance(false, false) }
 
-    private lateinit var fourthFragment :FourCategoryFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,14 +64,10 @@ class AssignAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, Argu
     private fun initFragment() {
         addFragment(categoryFragment, R.id.mArgumentContainer)
 
-        addFragment(locationFragment, R.id.mArgumentContainer)
-
         addFragment(managerFragment, R.id.mArgumentContainer)
-
 
 //        依次入栈
         mStack.add(categoryFragment)
-        mStack.add(locationFragment)
         mStack.add(managerFragment)
     }
 
@@ -88,7 +78,7 @@ class AssignAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, Argu
     private fun initBottomNav() {
         mAssertArgumentBNav.apply {
             //增加项目到导航栏,并设置默认位置，初始化
-            addItem(categoryItem).addItem(locationItem).addItem(managerItem)
+            addItem(categoryItem).addItem(managerItem)
                     .setFirstSelectedPosition(0).initialise()
         }.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
             override fun onTabReselected(position: Int) {
@@ -120,7 +110,6 @@ class AssignAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, Argu
         if (data != null) {
             getFourth(data)
         }
-//        managerFragment.onActivityResult(requestCode, resultCode, data)
     }
 
     /**

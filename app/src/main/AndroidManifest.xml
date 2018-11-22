@@ -19,7 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.SettingActivity" />
-        <activity android:name=".view.activity.AssignAssertArgActivity"/>
     </application>
 
 </manifest>

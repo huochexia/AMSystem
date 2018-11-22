@@ -20,16 +20,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
+import com.orhanobut.logger.Logger
 import com.owner.amsystem.R
 import com.owner.amsystem.databinding.ActivityAssignArgumentBinding
 import com.owner.amsystem.viewmodel.AssertViewModel
+import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.view.fragment.CategoryFragment
+import com.owner.assertsparam.view.fragment.FourCategoryFragment
 import com.owner.assertsparam.view.fragment.ManagerFragment
+import com.owner.assertsparam.viewmodel.ArgumentViewModel
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.ext.hideFragment
+import com.owner.baselibrary.ext.replaceFragment
 import com.owner.baselibrary.ext.showFragment
 import com.owner.baselibrary.view.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_assign_argument.*
+import org.jetbrains.anko.toast
 import java.util.*
 
 /**
@@ -37,20 +43,22 @@ import java.util.*
  * Created by Liuyong on 2018-11-14.It's AMSystem
  *@description:
  */
-class AssignAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, AssertViewModel>() {
+class AssignAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, ArgumentViewModel>() {
 
 
     //Fragment 栈管理
     private val mStack = Stack<Fragment>()
 
-    private val locationFragment by lazy { CategoryFragment.newInstance("Location", false, false) }
     private val categoryFragment by lazy { CategoryFragment.newInstance("Category", false, false) }
+    private val locationFragment by lazy { CategoryFragment.newInstance("Location", false, false) }
     private val managerFragment by lazy { ManagerFragment.newInstance(false, false) }
+
+    private lateinit var fourthFragment :FourCategoryFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_assign_argument)
-        viewModel = ViewModelProviders.of(this).get(AssertViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ArgumentViewModel::class.java)
         initBottomNav()
         initFragment()
         changeFragment(0)
@@ -60,26 +68,27 @@ class AssignAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, Asse
          初始化Fragment
        */
     private fun initFragment() {
-        addFragment(locationFragment, R.id.mArgumentContainer)
-
         addFragment(categoryFragment, R.id.mArgumentContainer)
+
+        addFragment(locationFragment, R.id.mArgumentContainer)
 
         addFragment(managerFragment, R.id.mArgumentContainer)
 
 
 //        依次入栈
-        mStack.add(locationFragment)
         mStack.add(categoryFragment)
+        mStack.add(locationFragment)
         mStack.add(managerFragment)
     }
 
+
     /*
-   初始化底部导航
+     初始化底部导航
     */
     private fun initBottomNav() {
         mAssertArgumentBNav.apply {
             //增加项目到导航栏,并设置默认位置，初始化
-            addItem(locationItem).addItem(categoryItem).addItem(managerItem)
+            addItem(categoryItem).addItem(locationItem).addItem(managerItem)
                     .setFirstSelectedPosition(0).initialise()
         }.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
             override fun onTabReselected(position: Int) {
@@ -107,6 +116,21 @@ class AssignAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, Asse
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        managerFragment.onActivityResult(requestCode, resultCode, data)
+
+        if (data != null) {
+            getFourth(data)
+        }
+//        managerFragment.onActivityResult(requestCode, resultCode, data)
+    }
+
+    /**
+     * 得到四级分类选择结果，并暂存在共享ViewModel中
+     */
+    private fun getFourth(data: Intent) {
+        val result = data.getBundleExtra("fourthCg")
+        val tableName = result.getString("tableName")
+        val categoryInfo = result.getParcelable<CategoryInfo>("categoryInfo")
+        val pair = Pair(tableName, categoryInfo)
+        viewModel.selectedArgumentMap[pair.first] = pair.second
     }
 }

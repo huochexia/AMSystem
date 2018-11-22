@@ -122,15 +122,7 @@ class AssertsArgumentActivity : BaseActivity<ViewDataBinding, ArgumentViewModel>
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            FourCategoryFragment.SELECT_CATEGORY_REQUEST_CODE ->{
-                val result=data?.getBundleExtra("fourth")
-                val tablename=result?.getString("tableName")?:""
-                val categoryInfo = result?.getParcelable("categoryInfo")?: CategoryInfo("-1","")
-                val pair =Pair<String,CategoryInfo>(tablename,categoryInfo)
-                viewModel.selectedArgumentMap[pair.first]=pair.second
-                Logger.d(pair.second)
-            }
-            ManagerFragment.SELECT_MANAGER_REQUEST_CODE->{
+           ManagerFragment.SELECT_MANAGER_REQUEST_CODE->{
                 managerFragment.onActivityResult(requestCode, resultCode, data)
             }
         }

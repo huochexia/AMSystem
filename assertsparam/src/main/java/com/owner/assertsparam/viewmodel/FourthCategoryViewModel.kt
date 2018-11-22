@@ -18,6 +18,7 @@ package com.owner.assertsparam.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.Bindable
 import com.kennyc.view.MultiStateView
+import com.orhanobut.logger.Logger
 import com.owner.assertsparam.BR
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.data.Footer
@@ -130,6 +131,7 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
             }
             item.isSelected = true
             currentSelected = item
+
         }
         action.value = Pair(ACTION_SELECTED, item)
     }

@@ -167,6 +167,7 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
                     .withBoolean("isQuery", isQuery)
                     .withParcelable("thirdCg", it)
                     .navigation(activity, SELECT_ITEM_REQUEST_CODE)
+
         })
     }
 

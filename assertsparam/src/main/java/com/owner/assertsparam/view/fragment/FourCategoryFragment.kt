@@ -30,6 +30,7 @@ import com.owner.assertsparam.view.adapter.FourthCgAdapter
 import com.owner.assertsparam.viewmodel.FourthCategoryViewModel
 import com.owner.assertsparam.viewmodel.FourthCategoryViewModelFactory
 import kotlinx.android.synthetic.main.fragment_four_category.*
+import java.util.logging.Logger
 
 /**
  *
@@ -105,6 +106,7 @@ class FourCategoryFragment : CRUDDialogFragment<FragmentFourCategoryBinding, Fou
                 val bundle = Bundle()
                 bundle.putParcelable("categoryInfo", viewModel.currentSelected)
                 bundle.putString("tableName", tableName)
+
                 val result = Intent()
                 result.putExtra("fourthCg", bundle)
                 activity!!.setResult(1, result)

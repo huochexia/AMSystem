@@ -23,10 +23,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import com.alibaba.android.arouter.launcher.ARouter
-import com.bigkoo.alertview.AlertView
-import com.bigkoo.alertview.OnItemClickListener
 import com.orhanobut.logger.Logger
 import com.owner.assertsparam.Interface.QueryAssertsInfo
 import com.owner.assertsparam.R
@@ -37,7 +34,6 @@ import com.owner.assertsparam.view.adapter.TopCgAdapter
 import com.owner.assertsparam.viewmodel.ArgumentViewModel
 import com.owner.assertsparam.viewmodel.CategoryFgViewModel
 import com.owner.assertsparam.viewmodel.CategoryViewModelFactory
-import com.owner.baselibrary.utils.hideSoftInput
 import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.fragement_category.*
 
@@ -47,7 +43,7 @@ import kotlinx.android.synthetic.main.fragement_category.*
  *@description:
  */
 
-class CategoryFragment : ImageCategoryFragment<FragementCategoryBinding, CategoryFgViewModel>() {
+class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFgViewModel>() {
 
     private lateinit var sharedViewModel: ArgumentViewModel//用于保存每个参数的选择结果
     private var tableName: String = ""
@@ -68,8 +64,7 @@ class CategoryFragment : ImageCategoryFragment<FragementCategoryBinding, Categor
       获得外部传入的分类名称
      */
     companion object {
-        fun newInstance(tableName: String, isEdited: Boolean, isQuery: Boolean)
-                = CategoryFragment().apply {
+        fun newInstance(tableName: String, isEdited: Boolean, isQuery: Boolean) = CategoryFragment().apply {
             val bundle = Bundle()
             bundle.putString("tableName", tableName)
             bundle.putBoolean("isEdited", isEdited)
@@ -227,43 +222,27 @@ class CategoryFragment : ImageCategoryFragment<FragementCategoryBinding, Categor
     }
 
     /**
-     * 增加类别，在这里生成一个新子类。这里形成比在ViewModel中放便些
+     * 增加类别，此方法对应一级二级分类，因为它们不需要图片
      * @parent:父类
      *
      */
     private fun addCategory(parent: CategoryInfo) {
-        val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
-        val editV = extView.findViewById<EditText>(R.id.mCgNameEt)
-        val alertView = AlertView("增加类别", null, null, null,
-                arrayOf("取消", "完成"), context, AlertView.Style.Alert,
-                OnItemClickListener { _, position ->
-                    activity?.hideSoftInput()
-                    when (position) {
-                        1 -> {
-                            if (editV.text.isNullOrEmpty().not()) {
-                                val name = editV.text.toString().trim()
-                                val newCg = CategoryInfo("", name, parent.objectId)
-                                viewModel.addCategory(newCg)
-                                //设置父类的hasChild为true
-                                parent.hasChild = true
-                                viewModel.restoreState(parent)
-                                viewModel.updateCategory(parent)
-                            }
-                        }
-                    }
-                })
-
-        alertView.addExtView(extView).show()
+        popupAddDialog( parent, false) {
+            viewModel.addCategory(it)
+            viewModel.restoreState(parent)//防止修改保存hasChild属性，修改了其他属性
+            viewModel.updateCategory(parent)
+        }
     }
 
     /**
-     * 增加三级分类,有图片
+     * 增加三级分类,有图片。
      */
     private fun addThirdCategory(parent: CategoryInfo) {
         //刷新列表，目的是取消之前做过的长按状态
         secondAdapter.notifyDataSetChanged()
-        popupAddImageDialog("增加", parent) {
+        popupAddDialog( parent, true) {
             viewModel.addCategory(it)
+            viewModel.updateCategory(parent)
         }
     }
 
@@ -273,7 +252,7 @@ class CategoryFragment : ImageCategoryFragment<FragementCategoryBinding, Categor
      */
     private fun updateThirdCategory(category: CategoryInfo) {
 
-        popupUpdateImageDialog("修改", category) {
+        popupUpdateDialog(category,true) {
             viewModel.updateCategory(category)
             secondAdapter.notifyDataSetChanged()
         }
@@ -287,36 +266,23 @@ class CategoryFragment : ImageCategoryFragment<FragementCategoryBinding, Categor
      * 显示修改类别对话框
      */
     private fun updateCategory(category: CategoryInfo) {
-        val extView = LayoutInflater.from(context).inflate(R.layout.edit_category_name, null)
-        val editV = extView.findViewById<EditText>(R.id.mCgNameEt)
-        editV.setText(category.name)
-        val alertView = AlertView("修改类别", null, null, null,
-                arrayOf("取消", "完成"), context, AlertView.Style.Alert,
-                OnItemClickListener { o, position ->
-                    activity?.hideSoftInput()
-                    when (position) {
-                        1 -> {
-                            category.name = editV.text.toString().trim()
-                            viewModel.updateCategory(category)
-                            if (category.parentId == "0") {
-                                mAddSecondCgTv.text = category.name
-                                category.isLongOnClick = false
-                                category.isSelected = false
-                                topAdapter.notifyDataSetChanged()
-                            } else {
-                                secondAdapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
-                })
-        alertView.addExtView(extView).show()
+        popupUpdateDialog(category,false){
+            viewModel.restoreState(it)
+            viewModel.updateCategory(it)
+            if (it.parentId == "0") {
+                mAddSecondCgTv.text = it.name
+                topAdapter.notifyDataSetChanged()
+            } else {
+                secondAdapter.notifyDataSetChanged()
+            }
+        }
     }
 
     /**
      * 显示删除类别对话框
      */
     private fun deleteCategory(category: CategoryInfo) {
-        popupDeleteDialog("删除操作",category){
+        popupDeleteDialog("删除操作", category) {
             if (it.parentId == "0") {
                 viewModel.topCgList.remove(it)
                 viewModel.isVisibleTop = false

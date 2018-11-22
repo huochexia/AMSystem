@@ -41,6 +41,9 @@ class FourthCgAdapter (private val thirdCategory:CategoryInfo, private val mVM:F
     fun updateList() {
         fourCgList.clear()
         fourCgList.addAll(mVM.fourthList)
+        fourCgList.sortBy {
+            (it as CategoryInfo).name
+        }
         fourCgList.add(Footer(thirdCategory))
         notifyDataSetChanged()
     }

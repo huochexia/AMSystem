@@ -36,7 +36,7 @@ import kotlinx.android.synthetic.main.fragment_four_category.*
  * Created by Liuyong on 2018-11-17.It's AMSystem
  *@description:
  */
-class FourCategoryFragment : ImageCategoryFragment<FragmentFourCategoryBinding, FourthCategoryViewModel>() {
+class FourCategoryFragment : CRUDDialogFragment<FragmentFourCategoryBinding, FourthCategoryViewModel>() {
 
     private lateinit var fourAdapter: FourthCgAdapter
     private var tableName: String = ""
@@ -134,7 +134,7 @@ class FourCategoryFragment : ImageCategoryFragment<FragmentFourCategoryBinding, 
     }
 
     private fun addFourth(third: CategoryInfo) {
-        popupAddImageDialog("增加", third) {
+        popupAddDialog( third,true) {
             viewModel.addData(it)
             viewModel.fourthList.add(it)
             fourAdapter.updateList()
@@ -142,7 +142,7 @@ class FourCategoryFragment : ImageCategoryFragment<FragmentFourCategoryBinding, 
     }
 
     private fun updateFourth(category: CategoryInfo) {
-        popupUpdateImageDialog("修改", category) {
+        popupUpdateDialog( category,true) {
             viewModel.updateData(it)
             fourAdapter.notifyDataSetChanged()
         }

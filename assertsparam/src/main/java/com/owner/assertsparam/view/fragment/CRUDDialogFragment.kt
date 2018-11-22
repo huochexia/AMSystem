@@ -27,6 +27,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.AVFile
 import com.avos.avoscloud.SaveCallback
@@ -54,11 +55,11 @@ import org.jetbrains.anko.find
 import java.io.File
 
 /**
- *
+ * 用于弹出增改删操作的对话框，初始化了TakePhoto组件，只要需要这些操作的Fragment就需要继承该类
  * Created by Liuyong on 2018-11-21.It's AMSystem
  *@description:
  */
-open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : BaseFragment<T, B>(),
+open class CRUDDialogFragment<T : ViewDataBinding, B : BaseViewModel<*>> : BaseFragment<T, B>(),
         TakePhoto.TakeResultListener, InvokeListener {
 
     //临时分类对象
@@ -151,12 +152,13 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
     /**
      * 初始化对话框内容
      */
-    private fun initDialog(): Pair<View, EditText> {
+    private fun initDialog(hasImage: Boolean): Pair<View, EditText> {
         val binding = LayoutImageOfCategoryBinding.inflate(layoutInflater, null)
         binding.mFragment = this
         val editView = LayoutInflater.from(context).inflate(R.layout.layout_image_of_category, null)
 
         val imageView = editView.find<ImageView>(R.id.mPictureIv)
+        imageView.visibility = if (hasImage) View.VISIBLE else View.GONE
         mCategoryImage.observe(this, Observer {
             if (it.isNullOrEmpty()) {
                 imageView.setImageResource(R.drawable.pictures_no)
@@ -164,6 +166,8 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
                 imageView.loadUrl(it!!)
             }
         })
+        val getPhotoLL = editView.findViewById<LinearLayout>(R.id.mGetPhotoll)
+        getPhotoLL.visibility = if (hasImage) View.VISIBLE else View.GONE
         val editV = editView.findViewById<EditText>(R.id.mThirdCgNameEt)
 
         val takePhoto = editView.findViewById<Button>(R.id.mPictureBtn)
@@ -184,26 +188,32 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
         return Pair(editView, editV)
     }
 
+
     /**
-     * 弹出带图片的窗口
+     * 弹出增加窗口
+     * @title 标题
+     * @parent 上一级
+     * @hasImage 是否有图片
+     * @action 确认独立行为
      */
-    fun popupAddImageDialog(title: String, category: CategoryInfo, action: (CategoryInfo) -> Unit) {
+    fun popupAddDialog(parent: CategoryInfo, hasImage: Boolean,
+                       confirm: (CategoryInfo) -> Unit) {
         //因为拍照或相册操作成功后，会把imageUrl先写入tempCategory当中
-        //为了防止将其他操作保存在tempCategory中的imageUrl写入这个category当中，所以先进行清空处理
+        //为了防止将其他操作保存在tempCategory中的imageUrl写入这个parent当中，所以先进行清空处理
         tempCategory = CategoryInfo("", "")
-        val (editView, editV) = initDialog()
-        mCategoryImage.value = category.imageUrl
-        mAlertView = AlertView(title, null, null, null,
+        val (editView, editV) = initDialog(hasImage)
+        mCategoryImage.value = parent.imageUrl
+        mAlertView = AlertView("增加操作", null, null, null,
                 arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { _, position ->
             activity?.hideSoftInput()
             when (position) {
                 1 -> {
                     if (editV.text.isNullOrEmpty().not()) {
                         tempCategory.name = editV.text.toString().trim()
-                        tempCategory.parentId = category.objectId
+                        tempCategory.parentId = parent.objectId
                         //设置父类的hasChild为true
-                        category.hasChild = true
-                        action(tempCategory)
+                        parent.hasChild = true
+                        confirm(tempCategory)
                     }
                 }
             }
@@ -212,15 +222,15 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
     }
 
     /**
-     * 修改带图片窗口
+     * 修改窗口
      */
-    fun popupUpdateImageDialog(title: String, category: CategoryInfo, action: (CategoryInfo) -> Unit) {
+    fun popupUpdateDialog(category: CategoryInfo,hasImage:Boolean, action: (CategoryInfo) -> Unit) {
         tempCategory = CategoryInfo("", "")
-        val (editView, editV) = initDialog()
+        val (editView, editV) = initDialog(hasImage)
         editV.setText(category.name)
         mCategoryImage.value = category.imageUrl
-        mAlertView = AlertView(title, null, null, null,
-                arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { o, position ->
+        mAlertView = AlertView("修改操作", null, null, null,
+                arrayOf("取消", "完成"), context, AlertView.Style.Alert, OnItemClickListener { _, position ->
             activity?.hideSoftInput()
             when (position) {
                 1 -> {
@@ -238,14 +248,14 @@ open class ImageCategoryFragment<T : ViewDataBinding, B : BaseViewModel<*>> : Ba
     /**
      * 删除窗口
      */
-    fun popupDeleteDialog(title: String,category: CategoryInfo, action: (CategoryInfo) -> Unit) {
+    fun popupDeleteDialog(title: String, category: CategoryInfo, confirm: (CategoryInfo) -> Unit) {
         mAlertView = AlertView(title, null, null, null,
                 arrayOf("取消", "确定"), context, AlertView.Style.Alert,
                 OnItemClickListener { _, position ->
                     activity?.hideSoftInput()
                     when (position) {
                         1 -> {
-                            action(category)
+                            confirm(category)
                         }
                     }
                 })

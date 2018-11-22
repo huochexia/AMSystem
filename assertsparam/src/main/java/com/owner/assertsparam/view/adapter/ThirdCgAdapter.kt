@@ -31,6 +31,9 @@ class ThirdCgAdapter(private val secondCategory: CategoryInfo, private val mCate
         //1、清空列表防止重复，筛选出三级分类
         thirdCgAllList.clear()
         thirdCgAllList.addAll(mCategoryVM.getSubCategory(secondCategory))
+        thirdCgAllList.sortBy {
+            ( it as CategoryInfo).name
+        }
         //将Footer对象加入列表
         thirdCgAllList.add(thirdCgAllList
                 .size, Footer(secondCategory))

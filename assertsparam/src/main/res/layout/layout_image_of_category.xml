@@ -4,7 +4,7 @@
     <data>
         <variable
             name="mFragment"
-            type="com.owner.assertsparam.view.fragment.ImageCategoryFragment" />
+            type="com.owner.assertsparam.view.fragment.CRUDDialogFragment" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -42,7 +42,7 @@
             android:src="@drawable/no_picture" />
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/mGetPhotoll"
             style="@style/MatchWrap.Horizontal"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"

@@ -301,6 +301,9 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
         val disposable = repo.getCategory(tableName, "0").execute()
                 .subscribe({
                     topCgList.addAll(it.results)
+                    topCgList.sortBy { info ->
+                        info.name
+                    }
                 }, {
                     mTopViewState = MultiStateView.VIEW_STATE_ERROR
                     Logger.d(it.message)

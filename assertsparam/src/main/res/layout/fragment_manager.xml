@@ -12,12 +12,6 @@
                   xmlns:app="http://schemas.android.com/apk/res-auto"
                   style="@style/MatchMatch.Vertical">
 
-        <com.owner.baselibrary.widgets.HeaderBar
-            android:id="@+id/mHeaderBar"
-            style="@style/MatchWrap"
-            app:rightText="增加"
-            app:titleText="管理人员"/>
-
         <LinearLayout
             android:id="@+id/mSearchll"
             style="@style/MatchWrap"

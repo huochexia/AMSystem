@@ -14,9 +14,9 @@
 
     <LinearLayout style="@style/MatchMatch.Vertical.Common">
 
-        <com.owner.baselibrary.widgets.HeaderBar
-            android:id="@+id/mHeaderBar"
-            style="@style/MatchWrap" />
+        <!--<com.owner.baselibrary.widgets.HeaderBar-->
+            <!--android:id="@+id/mHeaderBar"-->
+            <!--style="@style/MatchWrap" />-->
 
         <LinearLayout
             style="@style/MatchMatch.Horizontal"

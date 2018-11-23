@@ -99,10 +99,10 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
         binding.categoryVM = viewModel
         //绑定总资产对象
         binding.category = category
-        binding.mHeaderBar.getTitleView().text = viewModel.categoryName
-        if (!isEdited && !isQuery) { //选择状态
-            initRightView(binding)
-        }
+//        binding.mHeaderBar.getTitleView().text = viewModel.categoryName
+//        if (!isEdited && !isQuery) { //选择状态
+//            initRightView(binding)
+//        }
         return binding.root
     }
 
@@ -113,17 +113,17 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
         mSecondCategoryRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 
-    /**
-     * 初始化HeadBar的右标题
-     */
-    private fun initRightView(binding: FragementCategoryBinding) {
-
-        binding.mHeaderBar.getRightView().text = "完成"
-        binding.mHeaderBar.getRightView().visibility = View.VISIBLE
-        binding.mHeaderBar.getRightView().setOnClickListener {
-            Logger.d(sharedViewModel.selectedArgumentMap.toString())
-        }
-    }
+//    /**
+//     * 初始化HeadBar的右标题
+//     */
+//    private fun initRightView(binding: FragementCategoryBinding) {
+//
+//        binding.mHeaderBar.getRightView().text = "完成"
+//        binding.mHeaderBar.getRightView().visibility = View.VISIBLE
+//        binding.mHeaderBar.getRightView().setOnClickListener {
+//            Logger.d(sharedViewModel.selectedArgumentMap.toString())
+//        }
+//    }
 
     /**
      * 初始化ViewModel

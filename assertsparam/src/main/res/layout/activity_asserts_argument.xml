@@ -15,7 +15,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".view.activity.AssertsArgumentActivity">
-
+        <com.owner.baselibrary.widgets.HeaderBar
+            android:id="@+id/mHeaderBar"
+            style="@style/MatchWrap"/>
         <FrameLayout
             android:id="@+id/mFgContainer"
             style="@style/MatchMatch"
@@ -23,8 +25,7 @@
 
         <com.owner.assertsparam.widgets.AssertsParamBottomNavBar
             android:id="@+id/mAssertParamBNav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            style="@style/MatchWrap" />
 
     </LinearLayout>
 </layout>

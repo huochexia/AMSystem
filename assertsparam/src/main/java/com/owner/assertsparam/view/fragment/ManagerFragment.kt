@@ -109,20 +109,6 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mHeaderBar.getRightView().visibility = View.VISIBLE
-        if (!isEdited) {
-            mHeaderBar.getRightView().text = "完成"
-        }
-        if (isQuery) {
-            mHeaderBar.getRightView().visibility = View.GONE
-        }
-        mHeaderBar.getRightView().setOnClickListener {
-            if (isEdited) {
-                //通过ARouter启动UserCenter模块中的RegisterActivity,并要求返回值
-                ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER)
-                        .navigation(activity, SELECT_MANAGER_REQUEST_CODE)
-            }
-        }
 
         loadManagerList()
 

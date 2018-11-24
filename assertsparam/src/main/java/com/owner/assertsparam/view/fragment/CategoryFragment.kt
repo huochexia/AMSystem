@@ -179,7 +179,7 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
     private fun loadTopCgList() {
         mTopCategoryRv.layoutManager = LinearLayoutManager(context)
         topAdapter = TopCgAdapter(viewModel)
-        mTopCategoryRv.adapter = topAdapter
+        mTopCategoryRv.adapter =   topAdapter
     }
 
     /**

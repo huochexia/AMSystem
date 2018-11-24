@@ -309,6 +309,12 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
                     Logger.d(it.message)
                 }, {
                     mTopViewState = MultiStateView.VIEW_STATE_CONTENT
+                    //将第一项做为默认当前已选择项，同时加载它的二级子类
+                    //利用数据驱动视图的原则，二级分类得到后会自刷新视图
+                    topCgList.first().isSelected = true
+                    mCurrentTopCategory = topCgList.first()
+                    loadSecondCategory(mCurrentTopCategory)
+
                 }, {
                     mTopViewState = MultiStateView.VIEW_STATE_LOADING
                 })

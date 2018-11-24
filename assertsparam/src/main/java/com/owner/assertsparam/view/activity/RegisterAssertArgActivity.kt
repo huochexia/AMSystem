@@ -22,16 +22,15 @@ import android.support.v4.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
-import com.owner.assertsparam.databinding.ActivityAssignArgumentBinding
+import com.owner.assertsparam.databinding.ActivityRegisterAssertArgBinding
 import com.owner.assertsparam.view.fragment.CategoryFragment
-import com.owner.assertsparam.view.fragment.FourCategoryFragment
 import com.owner.assertsparam.view.fragment.ManagerFragment
 import com.owner.assertsparam.viewmodel.ArgumentViewModel
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.ext.hideFragment
 import com.owner.baselibrary.ext.showFragment
 import com.owner.baselibrary.view.activity.BaseActivity
-import kotlinx.android.synthetic.main.activity_assign_argument.*
+import kotlinx.android.synthetic.main.activity_register_assert_arg.*
 import java.util.*
 
 /**
@@ -39,19 +38,19 @@ import java.util.*
  * Created by Liuyong on 2018-11-14.It's AMSystem
  *@description:
  */
-class RegisterAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, ArgumentViewModel>() {
+class RegisterAssertArgActivity : BaseActivity<ActivityRegisterAssertArgBinding, ArgumentViewModel>() {
 
 
     //Fragment 栈管理
     private val mStack = Stack<Fragment>()
-
+    private val titles = arrayOf("资产", "管理人")
     private val categoryFragment by lazy { CategoryFragment.newInstance("Category", false, false) }
     private val managerFragment by lazy { ManagerFragment.newInstance(false, false) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_assign_argument)
+        setContentView(R.layout.activity_register_assert_arg)
         viewModel = ViewModelProviders.of(this).get(ArgumentViewModel::class.java)
         initBottomNav()
         initFragment()
@@ -101,6 +100,7 @@ class RegisterAssertArgActivity : BaseActivity<ActivityAssignArgumentBinding, Ar
         mStack.forEach {
             hideFragment(it)
         }
+        mRegisterHBar.getTitleView().text = titles[position]
         showFragment(mStack[position])
     }
 

@@ -6,10 +6,14 @@
 
         <variable
             name="fourVM"
-            type="com.owner.assertsparam.viewmodel.FourthCategoryViewModel" />
+            type="com.owner.assertsparam.viewmodel.FourthCategoryViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout style="@style/MatchMatch">
+    <LinearLayout style="@style/MatchMatch.Vertical">
+
+        <com.owner.baselibrary.widgets.HeaderBar
+            android:id="@+id/mFourDetailHDB"
+            style="@style/MatchWrap"/>
 
         <FrameLayout
             android:id="@+id/mFragmentContainer"
@@ -17,6 +21,6 @@
             android:layout_height="match_parent">
 
         </FrameLayout>
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

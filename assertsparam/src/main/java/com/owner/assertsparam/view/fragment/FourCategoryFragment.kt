@@ -99,20 +99,7 @@ class FourCategoryFragment : CRUDDialogFragment<FragmentFourCategoryBinding, Fou
                 container, false)
 
         binding.fourVM = viewModel
-        if (!isEdited) {
-            binding.mFourDetailHDB.getRightView().visibility = View.VISIBLE
-            binding.mFourDetailHDB.getRightView().text = "完成"
-            binding.mFourDetailHDB.getRightView().setOnClickListener {
-                val bundle = Bundle()
-                bundle.putParcelable("categoryInfo", viewModel.currentSelected)
-                bundle.putString("tableName", tableName)
 
-                val result = Intent()
-                result.putExtra("fourthCg", bundle)
-                activity!!.setResult(1, result)
-                activity!!.finish()
-            }
-        }
         return binding.root
     }
 
@@ -124,7 +111,7 @@ class FourCategoryFragment : CRUDDialogFragment<FragmentFourCategoryBinding, Fou
         mFourDetailRV.adapter = fourAdapter
         mFourDetailRV.layoutManager = manager
 
-        mFourDetailHDB.getTitleView().text = "分类明细"
+
     }
 
     private fun deleteFourth(fourth: CategoryInfo) {

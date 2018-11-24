@@ -19,6 +19,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -26,14 +27,12 @@ import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
 import com.owner.assertsparam.databinding.ActivityFourCategoryDetailBinding
 import com.owner.assertsparam.view.fragment.FourCategoryFragment
-import com.owner.assertsparam.viewmodel.CategoryFgViewModel
-import com.owner.assertsparam.viewmodel.CategoryViewModelFactory
 import com.owner.assertsparam.viewmodel.FourthCategoryViewModel
 import com.owner.assertsparam.viewmodel.FourthCategoryViewModelFactory
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.view.activity.BaseActivity
 import com.owner.provideslib.router.RouterPath
-import java.util.logging.Logger
+import kotlinx.android.synthetic.main.activity_four_category_detail.*
 
 /**
  *  四级分类明细,通过ARouter带参数的方式，将相关数据传入, 通过传入的isEdited值决定当前是编辑还是选择
@@ -54,9 +53,9 @@ class FourCategoryDetailActivity : BaseActivity<ActivityFourCategoryDetailBindin
     var isQuery = false
     @JvmField
     @Autowired
-    var thirdCg = CategoryInfo("","")
+    var thirdCg = CategoryInfo("", "")
 
-    private val fragment by lazy { FourCategoryFragment.newInstance(tableName,isEdited,isQuery,thirdCg) }
+    private val fragment by lazy { FourCategoryFragment.newInstance(tableName, isEdited, isQuery, thirdCg) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,12 +64,34 @@ class FourCategoryDetailActivity : BaseActivity<ActivityFourCategoryDetailBindin
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_four_category_detail)
 
-        viewModel = ViewModelProviders.of(this, FourthCategoryViewModelFactory(tableName,isEdited,isQuery,thirdCg))
+        viewModel = ViewModelProviders.of(this, FourthCategoryViewModelFactory(tableName, isEdited, isQuery, thirdCg))
                 .get(FourthCategoryViewModel::class.java)
 
         binding.fourVM = viewModel
+        initHeadBar()
+        addFragment(fragment, R.id.mFragmentContainer)
+    }
 
-        addFragment(fragment,R.id.mFragmentContainer)
+    /**
+     * 初始化HeadBar
+     */
+    private fun initHeadBar() {
+        mFourDetailHDB.getTitleView().text = "明细"
+        if (!isEdited) {
+            mFourDetailHDB.getRightView().visibility = View.VISIBLE
+            mFourDetailHDB.getRightView().text = "完成"
+            mFourDetailHDB.getRightView().setOnClickListener {
+                val bundle = Bundle()
+                bundle.putParcelable("categoryInfo", viewModel.currentSelected)
+                bundle.putString("tableName", tableName)
+
+                val result = Intent()
+                result.putExtra("fourthCg", bundle)
+                setResult(1, result)
+                finish()
+            }
+        }
+
     }
 
 

@@ -10,10 +10,6 @@
 
     <LinearLayout style="@style/MatchMatch.Vertical">
 
-        <com.owner.baselibrary.widgets.HeaderBar
-            android:id="@+id/mFourDetailHDB"
-            style="@style/MatchWrap" />
-
         <com.kennyc.view.MultiStateView
             android:id="@+id/mStateView"
             style="@style/MatchMatch">

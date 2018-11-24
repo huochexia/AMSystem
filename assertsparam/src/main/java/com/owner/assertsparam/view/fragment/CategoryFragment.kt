@@ -24,7 +24,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
-import com.orhanobut.logger.Logger
 import com.owner.assertsparam.Interface.QueryAssertsInfo
 import com.owner.assertsparam.R
 import com.owner.assertsparam.data.CategoryInfo
@@ -45,7 +44,7 @@ import kotlinx.android.synthetic.main.fragement_category.*
 
 class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFgViewModel>() {
 
-    private lateinit var sharedViewModel: ArgumentViewModel//用于保存每个参数的选择结果
+    private lateinit var sharedViewModel: ArgumentViewModel//用于保存参数的选择结果
     private var tableName: String = ""
     private var isEdited: Boolean = true//当前界面是否用于编辑
     private var isQuery: Boolean = false // 当前界面是否用于查询
@@ -139,7 +138,7 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
             secondAdapter.notifyDataSetChanged()
         })
         //得到所选择的分类,返回值
-        viewModel.getCategoryInfo.observe(this, Observer {
+        viewModel.saveSelectedCategory.observe(this, Observer {
             sharedViewModel.selectedArgumentMap[it!!.first] = it.second
         })
         //观察是否要查询

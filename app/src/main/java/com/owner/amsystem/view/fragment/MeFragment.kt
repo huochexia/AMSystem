@@ -24,9 +24,9 @@ import android.view.ViewGroup
 import com.owner.amsystem.R
 import com.owner.amsystem.databinding.FragmentMeBinding
 import com.owner.amsystem.viewmodel.MeViewModel
-import com.owner.baselibrary.ext.loadUrl
-import com.owner.baselibrary.utils.GlideUtils
+import com.owner.baselibrary.ext.loadWithGlide
 import com.owner.baselibrary.view.fragment.BaseFragment
+import com.owner.provideslib.common.isLogined
 import kotlinx.android.synthetic.main.fragment_me.*
 
 /**
@@ -43,25 +43,25 @@ class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMeBinding.inflate(inflater, container, false)
         binding.mevm = viewModel
-        loadData()
 
+        initViewModel()
         return binding.root
     }
 
-    private fun loadData() {
+    private fun initViewModel() {
         //观察头像的变化
         viewModel.avatar.observe(this, Observer {
 
-            if (it.isNullOrEmpty())
-
+            if (!isLogined())
                 mUserAvatarIv.setImageResource(R.drawable.icon_default_user)
             else {
-                mUserAvatarIv.loadUrl(it!!)
+                val username = viewModel.username.value
+                mUserAvatarIv.loadWithGlide(it,username!!.first())
             }
         })
         //观察用户名的变化
         viewModel.username.observe(this, Observer {
-            if (it.isNullOrEmpty()) {
+            if (!isLogined()) {
                 mUserNameTv.text = getString(R.string.un_login_text)
             } else {
                 mUserNameTv.text = it

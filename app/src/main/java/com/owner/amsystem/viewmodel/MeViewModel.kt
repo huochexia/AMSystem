@@ -39,12 +39,6 @@ class MeViewModel : BaseViewModel<MainRepository>() {
     var avatar = MutableLiveData<String>()
     var username = MutableLiveData<String>()
 
-    /**
-     * 加载数据
-     */
-    init {
-        getSPData()
-    }
 
     /**
      * 从本地获取数据

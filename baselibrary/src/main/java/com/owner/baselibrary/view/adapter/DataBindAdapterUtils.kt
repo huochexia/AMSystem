@@ -19,8 +19,10 @@ import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.TextView
+import cn.carbs.android.avatarimageview.library.AvatarImageView
 import com.kennyc.view.MultiStateView
 import com.owner.baselibrary.ext.loadUrl
+import com.owner.baselibrary.ext.loadWithGlide
 import com.owner.baselibrary.utils.GlideUtils
 
 /**
@@ -57,6 +59,13 @@ class DataBindAdapterUtils {
         @JvmStatic
         fun setViewState(view: MultiStateView, state: Int) {
             view.viewState = state
+        }
+
+        @BindingAdapter(value = ["avatar","textPlaceHolder"])
+        @JvmStatic
+        fun setAvatarImage(avatar: AvatarImageView, url: String?,textPlaceHolder:String) {
+            val firstChar=textPlaceHolder.first()
+            avatar.loadWithGlide(url,firstChar)
         }
     }
 }

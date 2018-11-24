@@ -88,9 +88,8 @@ dependencies {
     //Glide
     api "com.github.bumptech.glide:glide:$glide_version"
 
-    //Circle ImageView
-    api "de.hdodenhof:circleimageview:$circle_imageView_version"
-
+    //AvatarImageView
+    api 'cn.carbs.android:AvatarImageView:1.0.4'
     //Take Photo
     api "com.jph.takephoto:takephoto_library:$take_photo_version"
 

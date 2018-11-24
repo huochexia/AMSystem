@@ -106,9 +106,7 @@ class AssertsArgumentActivity : BaseActivity<ViewDataBinding, ArgumentViewModel>
 
             override fun onTabSelected(position: Int) {
                 changeFragment(position)
-
             }
-
         })
 
     }
@@ -119,15 +117,7 @@ class AssertsArgumentActivity : BaseActivity<ViewDataBinding, ArgumentViewModel>
         }
         mHeaderBar.getTitleView().text = titles[position]
         showFragment(mStack[position])
-        if (position == 3) {
-            mHeaderBar.getRightView().text = "增加"
-            mHeaderBar.getRightView().visibility=View.VISIBLE
-            mHeaderBar.getRightView().setOnClickListener {
-                //通过ARouter启动UserCenter模块中的RegisterActivity,并要求返回值
-                ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER)
-                        .navigation(this, ManagerFragment.SELECT_MANAGER_REQUEST_CODE)
-            }
-        }
+
     }
 
     /**

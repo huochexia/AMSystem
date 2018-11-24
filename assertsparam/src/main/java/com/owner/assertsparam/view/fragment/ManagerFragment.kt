@@ -97,6 +97,18 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         viewModel.selectedManager.observe(this, Observer {
             sharedViewModel.selectedArgumentMap["Manager"] = it!!
         })
+        //增改删
+        viewModel.action.observe(this, Observer {
+            when(it){
+                "add"-> {
+                    //通过ARouter启动UserCenter模块中的RegisterActivity,并要求返回值
+                    ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_REGISTER)
+                            .navigation(activity, ManagerFragment.SELECT_MANAGER_REQUEST_CODE)
+                }
+                "update"->{}
+                "delete"->{}
+            }
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

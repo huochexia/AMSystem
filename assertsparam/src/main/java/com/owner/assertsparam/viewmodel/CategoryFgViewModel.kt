@@ -67,7 +67,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
     var action = MutableLiveData<Pair<String, CategoryInfo>>()
 
     // 得到选择的分类，<表名，分类>
-    var getCategoryInfo = MutableLiveData<Pair<String, CategoryInfo>>()
+    var saveSelectedCategory = MutableLiveData<Pair<String, CategoryInfo>>()
     // 启动查询功能
     var gotoQueryAsserts = MutableLiveData<Pair<String, CategoryInfo>>()
     //是否展开三级分类列表的状态
@@ -179,7 +179,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
         //通知视图状态改变
         action.value = Pair(KEY_SELECTED_ACTION, item)
         //保存选择,如果已选择分类为 null，则存入一个id为空字符串的分类对象。使用时在进行判断
-        getCategoryInfo.value = Pair(tableName, mSelectedCategory ?: CategoryInfo("-1", ""))
+        saveSelectedCategory.value = Pair(tableName, mSelectedCategory ?: CategoryInfo("-1", ""))
     }
 
     private fun isAgainClick(item: CategoryInfo) {

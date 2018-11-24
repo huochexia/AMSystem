@@ -27,6 +27,7 @@ import com.orhanobut.logger.Logger
 import com.owner.baselibrary.common.BaseConstant
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.ext.loadUrl
+import com.owner.baselibrary.ext.loadWithGlide
 import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.utils.DateUtils
 import com.owner.baselibrary.utils.NetWorkUtils
@@ -83,10 +84,11 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
 
         }
         viewModel.avatar.observe(this, Observer {
-            if (it.isNullOrEmpty()) {
+            if (!isLogined()) {
                 mUserAvatarIv.setImageResource(R.drawable.icon_default_user)
             } else {
-                mUserAvatarIv.loadUrl(it!!)
+                val username = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_NAME)
+                mUserAvatarIv.loadWithGlide(it,username.first())
             }
         })
     }

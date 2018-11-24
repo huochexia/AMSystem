@@ -16,14 +16,12 @@
             android:background="@mipmap/bg_me_header"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <cn.carbs.android.avatarimageview.library.AvatarImageView
                 android:id="@+id/mUserAvatarIv"
                 android:layout_width="@dimen/common_icon_width"
                 android:layout_height="@dimen/common_icon_height"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/common_margin"
-                app:imageUrl="@{mevm.avatar}"
-                app:placeholder="@{@drawable/icon_default_user}"
                 android:onClick="@{mevm::startUserInfoOrLogin}"/>
 
             <TextView
@@ -31,8 +29,6 @@
                 style="@style/WrapWrap"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/common_margin"
-                app:textvalue="@{mevm.username}"
-                app:placeholder="@{@string/un_login_text}"
                 android:textColor="@color/common_white"
                 android:textSize="@dimen/text_big_size"
                 android:onClick="@{mevm::startUserInfoOrLogin}"/>

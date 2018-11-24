@@ -31,14 +31,15 @@
                 android:onClick="@{()->managerVM.itemOnClick(manager)}"
                 android:visibility="@{managerVM.edited || managerVM.query ? View.GONE:View.VISIBLE}" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+
+            <cn.carbs.android.avatarimageview.library.AvatarImageView
                 android:id="@+id/mUserAvatarIv"
                 android:layout_width="@dimen/common_icon_width"
                 android:layout_height="@dimen/common_icon_height"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
-                app:imageUrl="@{manager.avatar}"
-                app:placeholder="@{@drawable/icon_default_user}" />
+                app:avatar="@{manager.avatar}"
+                app:textPlaceHolder="@{manager.username}" />
 
             <LinearLayout
                 style="@style/MatchMatch.Vertical"

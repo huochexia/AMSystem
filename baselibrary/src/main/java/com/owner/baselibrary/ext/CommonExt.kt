@@ -15,6 +15,7 @@
  */
 package com.owner.baselibrary.ext
 
+import android.support.constraint.Placeholder
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
@@ -25,6 +26,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import cn.carbs.android.avatarimageview.library.AvatarImageView
+import com.bumptech.glide.Glide
 import com.owner.baselibrary.utils.GlideUtils
 import com.owner.baselibrary.widgets.DefaultTextWatcher
 import io.reactivex.Observable
@@ -85,4 +88,11 @@ fun File.ensureDir():Boolean{
         Log.w("FileExt",e.message)
     }
     return false
+
+}
+fun AvatarImageView.loadWithGlide(url: String?, textPlaceHolder: Char) {
+    textPlaceHolder.toString().let {
+        setTextAndColorSeed(it.toUpperCase(),it.hashCode().toString())
+    }
+    Glide.with(this.context).load(url).into(this)
 }

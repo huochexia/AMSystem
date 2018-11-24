@@ -2,6 +2,7 @@ package com.owner.baselibrary.utils
 
 import android.content.Context
 import android.widget.ImageView
+import cn.carbs.android.avatarimageview.library.AvatarImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
@@ -32,4 +33,6 @@ object GlideUtils {
                     }
                 })
     }
+
+
 }

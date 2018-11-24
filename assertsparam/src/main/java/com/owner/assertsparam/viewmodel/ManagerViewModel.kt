@@ -36,14 +36,14 @@ import java.util.*
 class ManagerViewModel(val isEdited:Boolean,val isQuery:Boolean) : BaseViewModel<AssertsParamRepository>() {
 
     private var mComparator = PinyinComparator()
-    var mManagerList = mutableListOf<Manager>()
+    private var mManagerList = mutableListOf<Manager>()
     private var mSortList = mutableListOf<Manager>()
 
     private var currentSelected: Manager? = null
     var selectedManager = MutableLiveData<Manager>()
     var gotoQueryAsserts = MutableLiveData<Manager>()
     var refresh = MutableLiveData<String>()
-
+    var action = MutableLiveData<String>()//增改删
     @get:Bindable
     var mManagerViewState = MultiStateView.VIEW_STATE_EMPTY
         set(value) {
@@ -93,7 +93,7 @@ class ManagerViewModel(val isEdited:Boolean,val isQuery:Boolean) : BaseViewModel
                     mManagerList.add(it)
                     refresh.value = "refresh"
                 }
-
+        compositeDisposable.add(disposable)
     }
 
     /**
@@ -133,7 +133,6 @@ class ManagerViewModel(val isEdited:Boolean,val isQuery:Boolean) : BaseViewModel
         //选择状态
         if (!isEdited && !isQuery) {
             isAgainClick(user)
-
         }
         if (isEdited && !isQuery) {
             println("当前是编辑状态")
@@ -153,7 +152,6 @@ class ManagerViewModel(val isEdited:Boolean,val isQuery:Boolean) : BaseViewModel
     }
 
     private fun isAgainClick(user: Manager) {
-
         if (currentSelected?.objectId ?: "" == user.objectId) {
             user.isSelected = !user.isSelected
             refresh.value = "Again"
@@ -167,5 +165,12 @@ class ManagerViewModel(val isEdited:Boolean,val isQuery:Boolean) : BaseViewModel
             null
         }
         selectedManager.value = currentSelected ?: Manager()
+    }
+
+    /**
+     * 增加管理人
+     */
+    fun addManager() {
+        action.value = "add"
     }
 }

@@ -2,17 +2,13 @@ package com.owner.amsystem.view.activity
 
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ViewDataBinding
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
-import com.avos.avoscloud.LogUtil
-import com.orhanobut.logger.Logger
 import com.owner.amsystem.R
-import com.owner.amsystem.view.fragment.AssertFragment
+import com.owner.amsystem.view.fragment.AssetFragment
 import com.owner.amsystem.view.fragment.HomeFragment
 import com.owner.amsystem.view.fragment.MeFragment
 import com.owner.amsystem.view.fragment.MessageFragment
@@ -36,7 +32,7 @@ class MainActivity : BaseActivity<ViewDataBinding,BaseViewModel<*>>() {
     private val mStack = Stack<Fragment>()
 
     private val homeFragment = HomeFragment()
-    private val assertFragment by lazy { AssertFragment() }
+    private val assertFragment by lazy { AssetFragment() }
     private val messageFragment by lazy { MessageFragment() }
     private val meFragment by lazy { MeFragment() }
 

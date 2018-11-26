@@ -6,7 +6,7 @@
 
         <variable
             name="assertvm"
-            type="com.owner.amsystem.viewmodel.AssertViewModel" />
+            type="com.owner.amsystem.viewmodel.AssetViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

@@ -1,1 +1,1 @@
-include ':app', ':baselibrary', ':provideslib', ':usercenter', ':messagecenter', ':assertsparam', ':charsidebar'
+include ':app', ':baselibrary', ':provideslib', ':usercenter', ':messagecenter', ':assetsparam', ':charsidebar'

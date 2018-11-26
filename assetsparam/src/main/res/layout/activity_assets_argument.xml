@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="assertsParaVm"
+            type="com.owner.assetsparam.viewmodel.ArgumentViewModel" />
+    </data>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.activity.AssetsArgumentActivity">
+        <com.owner.baselibrary.widgets.HeaderBar
+            android:id="@+id/mHeaderBar"
+            style="@style/MatchWrap"/>
+        <FrameLayout
+            android:id="@+id/mFgContainer"
+            style="@style/MatchMatch"
+            android:layout_weight="1" />
+
+        <com.owner.assetsparam.widgets.AssetsParamBottomNavBar
+            android:id="@+id/mAssertParamBNav"
+            style="@style/MatchWrap" />
+
+    </LinearLayout>
+</layout>

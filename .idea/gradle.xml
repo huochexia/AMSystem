@@ -9,7 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/assertsparam" />
+            <option value="$PROJECT_DIR$/assetsparam" />
             <option value="$PROJECT_DIR$/baselibrary" />
             <option value="$PROJECT_DIR$/charsidebar" />
             <option value="$PROJECT_DIR$/messagecenter" />

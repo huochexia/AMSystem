@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="category"
+            type="com.owner.assetsparam.data.CategoryInfo"/>
+
+        <variable
+            name="categoryVM"
+            type="com.owner.assetsparam.viewmodel.CategoryFgViewModel"/>
+        <variable
+            name="thirdCgMore"
+            type="com.owner.assetsparam.viewmodel.ThirdCgMoreView"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_margin_middle">
+
+        <LinearLayout
+            style="@style/MatchWrap.Vertical"
+            android:layout_marginBottom="@dimen/common_margin">
+
+            <RelativeLayout
+                style="@style/MatchWrap"
+                android:onClick="@{()->categoryVM.itemOnClick(category)}">
+
+                <TextView
+                    android:id="@+id/mSecondCategoryNameTv"
+                    style="@style/WrapWrap"
+                    android:layout_marginTop="@dimen/common_margin_middle"
+                    android:layout_marginBottom="@dimen/common_margin_middle"
+                    android:onClick="@{()->categoryVM.itemOnClick(category)}"
+                    android:onLongClick="@{()->categoryVM.itemLongClick(category)}"
+                    android:text="@{category.name}"
+                    android:textSize="@dimen/text_small_size"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/mSecondCB"
+                    style="@style/WrapWrap"
+                    android:layout_marginStart="@dimen/common_margin_small"
+                    android:layout_toRightOf="@+id/mSecondCategoryNameTv"
+                    android:onClick="@{()->categoryVM.selectedCategory(category)}"
+                    android:checked="@{category.selected}"/>
+                <RelativeLayout
+                    android:id="@+id/mEditSecondCgll"
+                    style="@style/MatchWrap"
+                    android:layout_centerVertical="true"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/mUpdateSecondCgIv"
+                        style="@style/WrapWrap"
+                        android:layout_toLeftOf="@+id/mDeleteSecondCgIv"
+                        android:onClick="@{()->categoryVM.updateAlert(category)}"
+                        android:src="@drawable/ic_edit_black_24dp"/>
+
+                    <ImageView
+                        android:id="@+id/mDeleteSecondCgIv"
+                        style="@style/WrapWrap"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/common_margin_middle"
+                        android:onClick="@{()->categoryVM.deleteAlert(category)}"
+                        android:src="@drawable/ic_delete_black_24dp"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mThirdCategoryRv"
+                style="@style/commonRecyclerView"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/common_margin_middle"
+                    android:gravity="center_vertical"
+                    android:onClick="@{()->categoryVM.expandThirdCategory(thirdCgMore)}"
+                    android:text="@{thirdCgMore.expanded?@string/pick_up:@string/more}"
+                    android:visibility="@{thirdCgMore.more?View.VISIBLE:View.GONE}"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</layout>

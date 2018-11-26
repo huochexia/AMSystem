@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="categoryVM"
+            type="com.owner.assetsparam.viewmodel.CategoryFgViewModel" />
+        <variable
+            name="category"
+            type="com.owner.assetsparam.data.CategoryInfo"/>
+    </data>
+
+    <LinearLayout style="@style/MatchMatch.Vertical.Common">
+
+        <!--<com.owner.baselibrary.widgets.HeaderBar-->
+            <!--android:id="@+id/mHeaderBar"-->
+            <!--style="@style/MatchWrap" />-->
+
+        <LinearLayout
+            style="@style/MatchMatch.Horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                style="@style/MatchMatch.Vertical"
+                android:layout_weight="5">
+
+                <TextView
+                    style="@style/MatchWrap"
+                    android:padding="@dimen/common_padding"
+                    android:text="@{categoryVM.categoryName}"
+                    android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{()->categoryVM.addTopAlert(category)}"
+                    android:visibility="@{categoryVM.edited?View.VISIBLE:View.GONE}"/>
+
+                <com.kennyc.view.MultiStateView
+                    android:id="@+id/mMultiStateTopView"
+                    style="@style/MultiStateStyle"
+                    app:msv_viewState="@{categoryVM.mTopViewState}">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mTopCategoryRv"
+                    style="@style/commonRecyclerView" />
+
+                </com.kennyc.view.MultiStateView>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/MatchMatch.Vertical"
+                android:layout_weight="2"
+                android:paddingLeft="@dimen/common_padding"
+                android:paddingTop="@dimen/common_padding"
+                android:paddingRight="@dimen/common_padding">
+
+                <ImageView
+                    android:id="@+id/mSecondCategoryIv"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/category_banner" />
+
+                <LinearLayout
+                    style="@style/MatchWrap.Horizontal"
+                    android:layout_marginTop="@dimen/common_margin_small"
+                    android:onClick="@{()->categoryVM.addSecondAlert()}"
+                    android:enabled="@{categoryVM.edited}"
+                    android:visibility="@{categoryVM.visibleTop?View.VISIBLE:View.GONE}">
+
+                    <TextView
+                        android:id="@+id/mAddSecondCgTv"
+                        style="@style/WrapWrap"
+                        android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
+                        android:gravity="center_vertical"
+                        android:text="@{categoryVM.mCurrentTopCategory.name}" />
+                    <TextView
+                        style="@style/WrapWrap"
+                        android:layout_gravity="center_vertical"
+                        android:text="的分类" />
+                </LinearLayout>
+
+                <com.kennyc.view.MultiStateView
+                    android:id="@+id/mMultiStateView"
+                    style="@style/MultiStateStyle"
+                    app:msv_viewState="@{categoryVM.mSecondViewState}">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/mSecondCategoryRv"
+                        style="@style/commonRecyclerView"
+                        android:layout_marginTop="@dimen/common_margin_small"
+                        android:background="@drawable/border_all"
+                        android:paddingStart="12dp"
+                        android:paddingTop="@dimen/common_padding_small" />
+                </com.kennyc.view.MultiStateView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

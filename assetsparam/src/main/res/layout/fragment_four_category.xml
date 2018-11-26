@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="fourVM"
+            type="com.owner.assetsparam.viewmodel.FourthCategoryViewModel" />
+    </data>
+
+    <LinearLayout style="@style/MatchMatch.Vertical">
+
+        <com.kennyc.view.MultiStateView
+            android:id="@+id/mStateView"
+            style="@style/MatchMatch">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mFourDetailRV"
+                style="@style/MatchMatch" />
+        </com.kennyc.view.MultiStateView>
+    </LinearLayout>
+
+</layout>

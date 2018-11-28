@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                       
+                                                   
+    
+
+                                           
+                 
+                          
+                                                        
+                 
+                            
+                                                                      
+           
+
+    <FrameLayout style="@style/MatchWrap" android:tag="layout/layout_manager_item_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="@dimen/common_margin_small"
+            android:layout_marginBottom="@dimen/common_margin_small"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/common_padding_middle">
+
+            <CheckBox
+                android:id="@+id/mManagerCB"
+                style="@style/WrapWrap"
+                android:layout_gravity="center_vertical"
+                android:tag="binding_1"              
+                                                                       
+                                                                                                     />
+
+
+            <cn.carbs.android.avatarimageview.library.AvatarImageView
+                android:id="@+id/mUserAvatarIv"
+                android:layout_width="@dimen/common_icon_width"
+                android:layout_height="@dimen/common_icon_height"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:tag="binding_2"       
+                                                          />
+
+            <LinearLayout
+                style="@style/MatchMatch.Vertical"
+                android:layout_marginLeft="@dimen/common_margin_small"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/WrapWrap"
+                    android:tag="binding_3"                                
+                                                      
+                    android:textSize="16dp"
+                    tools:text="姓名" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_margin_small"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        tools:text="部门" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        tools:text="职务" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_icon_height"
+            android:layout_gravity="center_vertical"
+            android:tag="binding_4"                                 />
+    </FrameLayout>
+
+         

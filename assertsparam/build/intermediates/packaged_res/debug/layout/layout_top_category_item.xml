@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+                                                                   
+
+    
+                 
+                           
+                                                              
+
+                 
+                             
+                                                                          
+           
+
+    <LinearLayout
+        style="@style/MatchWrap"
+        android:orientation="vertical" android:tag="layout/layout_top_category_item_0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
+            android:id="@+id/mTopCategoryNameTv"
+            style="@style/MatchWrap"
+            android:background="@drawable/top_category_bg_selector"
+            android:gravity="center"
+            android:tag="binding_1"                                  
+                                                                           
+            android:padding="@dimen/common_padding_middle"
+                                           
+            android:textColor="@drawable/top_category_text_selector" />
+
+        <LinearLayout
+            android:id="@+id/mEditCgLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/MatchWrap"
+                android:layout_marginStart="@dimen/common_margin_middle"
+                android:layout_marginEnd="@dimen/common_margin_middle"
+                android:background="@color/common_blue"
+                android:gravity="center"
+                android:paddingTop="@dimen/common_padding_middle"
+                android:text="修改"
+                android:tag="binding_2"                                  />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                style="@style/MatchWrap"
+                android:layout_marginStart="@dimen/common_margin_middle"
+                android:layout_marginEnd="@dimen/common_margin_middle"
+                android:background="@color/common_blue"
+                android:gravity="center"
+                android:paddingTop="@dimen/common_padding_middle"
+                android:text="删除"
+                android:tag="binding_3"                                  />
+
+        </LinearLayout>
+    </LinearLayout>
+
+         

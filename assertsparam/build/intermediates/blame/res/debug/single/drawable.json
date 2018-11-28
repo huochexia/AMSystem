@@ -1,0 +1,378 @@
+[
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\border_top.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\border_top.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\navigation_empty_icon.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable\\navigation_empty_icon.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\collect_selector.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\collect_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\black_background.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\banner-1.4.10.aar\\8f3aef39541cc7ee51018500aa45f63a\\res\\drawable\\black_background.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\gender_bg_selector.xml",
+        "source": "D:\\AMSystem\\usercenter\\build\\intermediates\\packaged_res\\debug\\drawable\\gender_bg_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\border_corner_all.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\border_corner_all.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\home_header_corner_bg.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\home_header_corner_bg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_common_pressed.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\btn_common_pressed.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\ac28050068886a81c566714260dd4813\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\corner_gray_white_bg.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\corner_gray_white_bg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_mtrl_chip_close_circle.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable\\ic_mtrl_chip_close_circle.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\crop__selectable_background.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\lib_crop-1.0.0.aar\\75d5f05d7202edaccb34fbc4966dc724\\res\\drawable\\crop__selectable_background.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\gray_radius.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\banner-1.4.10.aar\\8f3aef39541cc7ee51018500aa45f63a\\res\\drawable\\gray_radius.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\state_loading.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\state_loading.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\ac28050068886a81c566714260dd4813\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\tooltip_frame_dark.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\tooltip_frame_dark.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\progress_dialog_anim.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\progress_dialog_anim.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_alertview_alert.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\drawable\\bg_alertview_alert.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_divider_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_list_divider_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\border_bottom_gray.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\border_bottom_gray.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\image_placeholder.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\multipleimageselect-1.0.4.aar\\5a2b01b3d4db47c590946fd72b4b3ada\\res\\drawable\\image_placeholder.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\white_radius.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\banner-1.4.10.aar\\8f3aef39541cc7ee51018500aa45f63a\\res\\drawable\\white_radius.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_common_nor.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\btn_common_nor.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_common_selector.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\btn_common_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_selector.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\tab_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\mtrl_tabs_default_indicator.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable\\mtrl_tabs_default_indicator.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_common_disable.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\btn_common_disable.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_mtrl_chip_checked_black.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable\\ic_mtrl_chip_checked_black.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_alertbutton_left.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\drawable\\bg_alertbutton_left.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\border_all.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\border_all.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\mtrl_snackbar_background.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable\\mtrl_snackbar_background.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\design_bottom_navigation_item_background.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable\\design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\design_fab_background.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\design_password_eye.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable\\design_password_eye.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\top_category_text_selector.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\drawable\\top_category_text_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\bottom_nav_cart_selector.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\bottom_nav_cart_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\border_corner_all_blue.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\border_corner_all_blue.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\common_check_selector.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\common_check_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\gender_text_selector.xml",
+        "source": "D:\\AMSystem\\usercenter\\build\\intermediates\\packaged_res\\debug\\drawable\\gender_text_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\bottom_nav_text_selector.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\bottom_nav_text_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\ac28050068886a81c566714260dd4813\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable\\design_snackbar_background.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\gender_checked_bg.xml",
+        "source": "D:\\AMSystem\\usercenter\\build\\intermediates\\packaged_res\\debug\\drawable\\gender_checked_bg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\tooltip_frame_light.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\tooltip_frame_light.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_alertbutton_bottom.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\drawable\\bg_alertbutton_bottom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_alertbutton_none.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\drawable\\bg_alertbutton_none.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\corner_blue_white_bg.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\corner_blue_white_bg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_actionsheet_cancel.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\drawable\\bg_actionsheet_cancel.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_mtrl_chip_checked_circle.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable\\ic_mtrl_chip_checked_circle.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\no_banner.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\banner-1.4.10.aar\\8f3aef39541cc7ee51018500aa45f63a\\res\\drawable\\no_banner.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_actionsheet_header.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\drawable\\bg_actionsheet_header.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\no_picture.png",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\drawable\\no_picture.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\progress_dialog_bg.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\progress_dialog_bg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\leak_canary_toast_background.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\b41ecbb3d45cc908d732b0e3e1b2eac0\\res\\drawable\\leak_canary_toast_background.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\crop__texture.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\lib_crop-1.0.0.aar\\75d5f05d7202edaccb34fbc4966dc724\\res\\drawable\\crop__texture.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\top_category_bg_selector.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\drawable\\top_category_bg_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\ac28050068886a81c566714260dd4813\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_alertbutton_right.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\drawable\\bg_alertbutton_right.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\gender_nor_bg.xml",
+        "source": "D:\\AMSystem\\usercenter\\build\\intermediates\\packaged_res\\debug\\drawable\\gender_nor_bg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\border_bottom.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable\\border_bottom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    }
+]

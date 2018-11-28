@@ -1,0 +1,498 @@
+[
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_tooltip.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_tooltip.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_action.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\514102e03e1fadfa1553a808a0fc02b3\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\activity_register.xml",
+        "source": "D:\\AMSystem\\usercenter\\build\\intermediates\\packaged_res\\debug\\layout\\activity_register.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\activity_login.xml",
+        "source": "D:\\AMSystem\\usercenter\\build\\intermediates\\packaged_res\\debug\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_manager_item.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_manager_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_layout_snackbar.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_alertview.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\layout\\layout_alertview.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\514102e03e1fadfa1553a808a0fc02b3\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\include_alertheader.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\layout\\include_alertheader.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_alertview_actionsheet.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\layout\\layout_alertview_actionsheet.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\crop__layout_done_cancel.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\lib_crop-1.0.0.aar\\75d5f05d7202edaccb34fbc4966dc724\\res\\layout\\crop__layout_done_cancel.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar_include.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_layout_snackbar_include.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_screen_content_include.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_manager.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\fragment_manager.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_custom.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\514102e03e1fadfa1553a808a0fc02b3\\res\\layout\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\layout_four_category_footer.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_four_category_footer.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_header.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_navigation_item_header.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\leak_canary_leak_row.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\b41ecbb3d45cc908d732b0e3e1b2eac0\\res\\layout\\leak_canary_leak_row.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\progress_dialog.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\layout\\progress_dialog.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines_media.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\514102e03e1fadfa1553a808a0fc02b3\\res\\layout\\notification_template_lines_media.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\banner.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\banner-1.4.10.aar\\8f3aef39541cc7ee51018500aa45f63a\\res\\layout\\banner.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\activity_asserts_argument.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\activity_asserts_argument.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\514102e03e1fadfa1553a808a0fc02b3\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_title_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_alert_dialog_title_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_four_category.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\fragment_four_category.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\layout_third_category_item.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_third_category_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\layout_image_of_category.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_image_of_category.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_asserts_argument.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\activity_asserts_argument.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\mtrl_layout_snackbar.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\mtrl_layout_snackbar.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\activity_image_select.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\multipleimageselect-1.0.4.aar\\5a2b01b3d4db47c590946fd72b4b3ada\\res\\layout\\activity_image_select.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_four_category.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\fragment_four_category.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\grid_view_item_album_select.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\multipleimageselect-1.0.4.aar\\5a2b01b3d4db47c590946fd72b4b3ada\\res\\layout\\grid_view_item_album_select.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_state_loading.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\layout\\layout_state_loading.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_alertview_alert.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\layout\\layout_alertview_alert.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow_custom.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\514102e03e1fadfa1553a808a0fc02b3\\res\\layout\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragement_category.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\fragement_category.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_image_of_category.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_image_of_category.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\bottom_navigation_bar_container.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\bottom-navigation-bar-2.0.5.aar\\166e141815127dd01ef600cb571fb069\\res\\layout\\bottom_navigation_bar_container.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\ac28050068886a81c566714260dd4813\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\activity_register_assert_arg.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\activity_register_assert_arg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\leak_canary_display_leak.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\b41ecbb3d45cc908d732b0e3e1b2eac0\\res\\layout\\leak_canary_display_leak.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_top_category_item.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_top_category_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\leak_canary_ref_row.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\b41ecbb3d45cc908d732b0e3e1b2eac0\\res\\layout\\leak_canary_ref_row.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_manager.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\fragment_manager.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\fixed_bottom_navigation_item.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\bottom-navigation-bar-2.0.5.aar\\166e141815127dd01ef600cb571fb069\\res\\layout\\fixed_bottom_navigation_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\leak_canary_ref_top_row.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\b41ecbb3d45cc908d732b0e3e1b2eac0\\res\\layout\\leak_canary_ref_top_row.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\ac28050068886a81c566714260dd4813\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\layout_third_category_footer.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_third_category_footer.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\514102e03e1fadfa1553a808a0fc02b3\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_text_input_password_icon.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_text_input_password_icon.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_cascading_menu_item_layout.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_cascading_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_navigation_menu_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\activity_reset_pwd.xml",
+        "source": "D:\\AMSystem\\usercenter\\build\\intermediates\\packaged_res\\debug\\layout\\activity_reset_pwd.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\layout_second_category_item.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_second_category_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_icon.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_layout_tab_icon.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_third_category_item.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_third_category_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_subheader.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\layout_top_category_item.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_top_category_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_state_empty.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\layout\\layout_state_empty.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\grid_view_item_image_select.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\multipleimageselect-1.0.4.aar\\5a2b01b3d4db47c590946fd72b4b3ada\\res\\layout\\grid_view_item_image_select.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\fragement_category.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\fragement_category.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\shifting_bottom_navigation_item.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\bottom-navigation-bar-2.0.5.aar\\166e141815127dd01ef600cb571fb069\\res\\layout\\shifting_bottom_navigation_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\layout_manager_item.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_manager_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media_custom.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\514102e03e1fadfa1553a808a0fc02b3\\res\\layout\\notification_template_media_custom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\item_alertbutton.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\layout\\item_alertbutton.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\activity_forget_pwd.xml",
+        "source": "D:\\AMSystem\\usercenter\\build\\intermediates\\packaged_res\\debug\\layout\\activity_forget_pwd.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_text.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_layout_tab_text.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\toolbar.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\multipleimageselect-1.0.4.aar\\5a2b01b3d4db47c590946fd72b4b3ada\\res\\layout\\toolbar.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\514102e03e1fadfa1553a808a0fc02b3\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_four_category_footer.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_four_category_footer.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_separator.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_navigation_item_separator.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\activity_user_info.xml",
+        "source": "D:\\AMSystem\\usercenter\\build\\intermediates\\packaged_res\\debug\\layout\\activity_user_info.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_alertview_alert_horizontal.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\layout\\layout_alertview_alert_horizontal.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\ac28050068886a81c566714260dd4813\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_four_category_detail.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\activity_four_category_detail.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_sheet_dialog.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_bottom_sheet_dialog.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_navigation_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_third_category_footer.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_third_category_footer.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\leak_canary_heap_dump_toast.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\b41ecbb3d45cc908d732b0e3e1b2eac0\\res\\layout\\leak_canary_heap_dump_toast.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_alertview_alert_vertical.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\layout\\layout_alertview_alert_vertical.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_label_textview.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\layout\\layout_label_textview.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\layout_four_category_item.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_four_category_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_menu_item_action_area.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_menu_item_action_area.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_register_assert_arg.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\activity_register_assert_arg.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\ac28050068886a81c566714260dd4813\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\activity_album_select.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\multipleimageselect-1.0.4.aar\\5a2b01b3d4db47c590946fd72b4b3ada\\res\\layout\\activity_album_select.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_second_category_item.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_second_category_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\crop__activity_crop.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\lib_crop-1.0.0.aar\\75d5f05d7202edaccb34fbc4966dc724\\res\\layout\\crop__activity_crop.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\mtrl_layout_snackbar_include.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\mtrl_layout_snackbar_include.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\activity_four_category_detail.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\activity_four_category_detail.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\ac28050068886a81c566714260dd4813\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_header_bar.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\layout\\layout_header_bar.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_four_category_item.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\layout\\layout_four_category_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_navigation_menu.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_navigation_item.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\layout\\design_bottom_navigation_item.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\layout\\layout_state_error.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\layout\\layout_state_error.xml"
+    }
+]

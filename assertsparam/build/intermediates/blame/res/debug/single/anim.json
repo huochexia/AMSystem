@@ -1,0 +1,90 @@
+[
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\push_bottom_out.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\anim\\push_bottom_out.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\anim\\design_snackbar_in.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_bottom.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\anim\\slide_out_bottom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_bottom.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\anim\\slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\fade_out_center.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\anim\\fade_out_center.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\fade_in_center.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\alertview-1.0.3.aar\\b7a48eddca36e0b53981445cdba2bbcc\\res\\anim\\fade_in_center.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_tooltip_exit.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_tooltip_exit.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\push_bottom_in.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\anim\\push_bottom_in.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_tooltip_enter.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_tooltip_enter.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\anim\\design_snackbar_out.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\anim\\abc_fade_out.xml"
+    }
+]

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+                                                                   
+
+    
+                                          
+                 
+                       
+                                                        
+
+                 
+                               
+                                                                          
+           
+
+    <LinearLayout
+        style="@style/WrapWrap.Vertical"
+        android:layout_marginBottom="@dimen/common_margin" android:tag="layout/layout_third_category_footer_0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ImageView
+            android:id="@+id/mThirdCategoryIv"
+            android:layout_width="71dp"
+            android:layout_height="83dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_add_category"
+            android:tag="binding_1"                                  
+                                                                              />
+    </LinearLayout>
+         

@@ -29,7 +29,7 @@ import retrofit2.http.*
  *@description:
  */
 
-interface AssertsParamApi {
+interface AssetsParamApi {
     /*
        创建分类对象
      */
@@ -68,4 +68,4 @@ interface AssertsParamApi {
 
 }
 
-object AssertsParamService : AssertsParamApi by RetrofitFactory.instance.create(AssertsParamApi::class.java)
+object AssertsParamService : AssetsParamApi by RetrofitFactory.instance.create(AssetsParamApi::class.java)

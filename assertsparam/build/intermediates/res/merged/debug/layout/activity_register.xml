@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                        
+
+    
+                 
+                     
+                                                                     
+           
+
+    <LinearLayout style="@style/MatchMatch.Vertical.Common" android:tag="layout/activity_register_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.owner.baselibrary.widgets.HeaderBar
+            android:id="@+id/mHeaderBar"
+            style="@style/MatchWrap"
+            app:titleText="注册" />
+
+        <LinearLayout
+            style="@style/MatchWrap.Vertical"
+            android:layout_margin="@dimen/common_margin"
+            android:background="@drawable/border_corner_all">
+
+            <LinearLayout style="@style/MatchWrap.Horizontal">
+
+                <EditText
+                    android:id="@+id/mMobileEt"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_line_height"
+                    android:layout_weight="1.0"
+                    android:background="@null"
+                    android:drawableLeft="@mipmap/icon_user_name"
+                    android:drawablePadding="@dimen/common_padding_small"
+                    android:hint="请输入用户姓名"
+                    android:paddingLeft="@dimen/common_padding_small"
+                    android:tag="binding_1"                   />
+
+                <!--<View style="@style/DividerFixedWidth.MarginTopBottom" />-->
+
+                <!--<com.owner.baselibrary.widgets.VerifyButton-->
+                    <!--android:id="@+id/mVerifyCodeBtn"-->
+                    <!--style="@style/WrapMatch"-->
+                    <!--android:background="@null"-->
+                    <!--android:text="获取验证码"-->
+                    <!--android:textColor="@color/common_blue"-->
+                    <!--android:onClick="@{vm::acceptVerifyCode}"/>-->
+            </LinearLayout>
+
+            <View style="@style/DividerFixedHeight" />
+
+            <EditText
+                android:id="@+id/mVerifyCodeEt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_line_height"
+                android:background="@null"
+                android:drawableLeft="@mipmap/icon_phone"
+                android:drawablePadding="@dimen/common_padding_small"
+                android:hint="请输入手机号"
+                android:inputType="number"
+                android:paddingLeft="@dimen/common_padding_small"
+                android:tag="binding_2"                 />
+
+            <View style="@style/DividerFixedHeight" />
+
+            <EditText
+                android:id="@+id/mPwdEt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_line_height"
+                android:background="@null"
+                android:drawableLeft="@mipmap/icon_pwd"
+                android:drawablePadding="@dimen/common_padding_small"
+                android:hint="请输入密码（6-20位字母或数字）"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/common_padding_small"
+                android:tag="binding_3"              />
+
+            <View style="@style/DividerFixedHeight" />
+
+            <EditText
+                android:id="@+id/mPwdConfirmEt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_line_height"
+                android:background="@null"
+                android:drawableLeft="@mipmap/icon_pwd"
+                android:drawablePadding="@dimen/common_padding_small"
+                android:hint="请再次输入密码"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/common_padding_small"
+                android:tag="binding_4"                   />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/mRegisterBtn"
+            style="@style/FullBtnStyle"
+            android:text="注册"
+            android:tag="binding_5"          />
+    </LinearLayout>
+         

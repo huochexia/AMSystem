@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                                   
+
+    
+                 
+                         
+                                                                              
+           
+
+    <LinearLayout style="@style/MatchMatch.Vertical" android:tag="layout/fragment_four_category_0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <com.kennyc.view.MultiStateView
+            android:id="@+id/mStateView"
+            style="@style/MatchMatch">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mFourDetailRV"
+                style="@style/MatchMatch" />
+        </com.kennyc.view.MultiStateView>
+    </LinearLayout>
+
+         

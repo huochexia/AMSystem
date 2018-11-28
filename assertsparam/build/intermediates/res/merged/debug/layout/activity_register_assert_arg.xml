@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                   
+
+    
+
+                 
+                     
+                                                                        
+           
+
+    <LinearLayout style="@style/MatchMatch.Vertical" android:tag="layout/activity_register_assert_arg_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+        <com.owner.baselibrary.widgets.HeaderBar
+            android:id="@+id/mRegisterHBar"
+            style="@style/MatchWrap"/>
+        <FrameLayout
+            android:id="@+id/mArgumentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:ignore="Suspicious0dp" />
+
+        <com.owner.assertsparam.widgets.AssertsParamBottomNavBar
+            android:id="@+id/mAssertArgumentBNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+         

@@ -15,17 +15,13 @@
  */
 package com.owner.baselibrary.ext
 
-import android.support.constraint.Placeholder
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import cn.carbs.android.avatarimageview.library.AvatarImageView
 import com.bumptech.glide.Glide
 import com.owner.baselibrary.utils.GlideUtils
@@ -34,7 +30,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.io.File
-import java.lang.Exception
 
 
 /**
@@ -96,3 +91,4 @@ fun AvatarImageView.loadWithGlide(url: String?, textPlaceHolder: Char) {
     }
     Glide.with(this.context).load(url).into(this)
 }
+

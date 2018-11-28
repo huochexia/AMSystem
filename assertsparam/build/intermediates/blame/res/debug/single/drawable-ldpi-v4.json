@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_edit_black_24dp.png",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_edit_black_24dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_add_circle_outline_black_24dp.png",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_add_circle_outline_black_24dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_add_category.png",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_add_category.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_delete_black_24dp.png",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_delete_black_24dp.png"
+    }
+]

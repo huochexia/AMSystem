@@ -1,0 +1,406 @@
+[
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\loading4.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\loading4.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_search.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\icon_search.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_text_select_handle_left_mtrl_light.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_text_select_handle_left_mtrl_light.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_popup_background_mtrl_mult.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_popup_background_mtrl_mult.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_switch_track_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_switch_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_box_nor.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\icon_box_nor.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_delete_black_24dp.png",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_delete_black_24dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\btn_nav_cart_normal.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\btn_nav_cart_normal.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_favorite_checked.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\icon_favorite_checked.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_text_select_handle_middle_mtrl_dark.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_text_select_handle_middle_mtrl_dark.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\loading5.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\loading5.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_box_checked.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\icon_box_checked.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\btn_nav_msg_press.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\btn_nav_msg_press.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_default_user.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\icon_default_user.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_000.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\sidebar_background.xml",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\sidebar_background.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_arrow_back.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\multipleimageselect-1.0.4.aar\\5a2b01b3d4db47c590946fd72b4b3ada\\res\\drawable-xxhdpi-v4\\ic_arrow_back.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\second_category_text_selector.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\drawable-xxhdpi\\second_category_text_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\default_loading.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\default_loading.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_textfield_default_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_textfield_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading10.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading10.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\leak_canary_icon.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\b41ecbb3d45cc908d732b0e3e1b2eac0\\res\\drawable-xxhdpi-v4\\leak_canary_icon.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_star_black_48dp.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_star_black_48dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading8.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading8.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_text_select_handle_right_mtrl_light.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_text_select_handle_right_mtrl_light.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading3.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading3.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading9.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\design_ic_visibility_off.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable-xxhdpi-v4\\design_ic_visibility_off.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading2.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading2.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\design_ic_visibility.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable-xxhdpi-v4\\design_ic_visibility.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\pictures_no.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\pictures_no.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_favorite_nor.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\icon_favorite_nor.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_back.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\icon_back.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\loading3.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\loading3.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_text_select_handle_right_mtrl_dark.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_text_select_handle_right_mtrl_dark.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\loading6.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\loading6.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_star_half_black_36dp.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_star_half_black_36dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\btn_nav_cart_press.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\btn_nav_cart_press.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_star_black_36dp.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_star_black_36dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\loading0.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\loading0.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_text_select_handle_middle_mtrl_light.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_text_select_handle_middle_mtrl_light.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading5.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading5.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_done_white.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\multipleimageselect-1.0.4.aar\\5a2b01b3d4db47c590946fd72b4b3ada\\res\\drawable-xxhdpi-v4\\ic_done_white.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading6.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading6.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_spinner_mtrl_am_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_add_category.png",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_add_category.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_text_select_handle_left_mtrl_dark.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_text_select_handle_left_mtrl_dark.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\btn_nav_msg_normal.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\btn_nav_msg_normal.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_selector_disabled_holo_light.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\third_category_bg_selector.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\drawable-xxhdpi\\third_category_bg_selector.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_state_error.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\icon_state_error.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_star_half_black_48dp.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_star_half_black_48dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\btn_nav_home_press.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\btn_nav_home_press.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading11.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading11.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\btn_nav_user_normal.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\btn_nav_user_normal.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\btn_nav_home_normal.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\btn_nav_home_normal.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\btn_nav_category_press.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\btn_nav_category_press.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_check_to_on_mtrl_000.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_btn_check_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\loading7.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\loading7.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\leak_canary_notification.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\b41ecbb3d45cc908d732b0e3e1b2eac0\\res\\drawable-xxhdpi-v4\\leak_canary_notification.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\loading1.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\loading1.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\btn_nav_category_normal.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\btn_nav_category_normal.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_add_circle_outline_black_24dp.png",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_add_circle_outline_black_24dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_arrow.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\icon_arrow.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\loading2.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\loading2.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_pressed_holo_dark.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_list_pressed_holo_dark.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\corners_tag_white.xml",
+        "source": "D:\\AMSystem\\assertsparam\\src\\main\\res\\drawable-xxhdpi\\corners_tag_white.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading1.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading1.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\btn_nav_user_press.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\btn_nav_user_press.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_star_black_16dp.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_pressed_holo_light.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_list_pressed_holo_light.9.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading7.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading7.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_star_half_black_16dp.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_ic_star_half_black_16dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_check_to_on_mtrl_015.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\light_progress_loading4.png",
+        "source": "D:\\AMSystem\\baselibrary\\build\\intermediates\\packaged_res\\debug\\drawable-xxhdpi-v4\\light_progress_loading4.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_edit_black_24dp.png",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_edit_black_24dp.png"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9f1d3d932f58a4d5ada249cd64ec81b9\\res\\drawable-xxhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
+    }
+]

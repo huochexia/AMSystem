@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_edit_black_24dp.xml",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_edit_black_24dp.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_add_category.xml",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_add_category.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_delete_black_24dp.xml",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_delete_black_24dp.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_add_circle_outline_black_24dp.xml",
+        "source": "D:\\AMSystem\\assertsparam\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_add_circle_outline_black_24dp.xml"
+    },
+    {
+        "merged": "D:\\AMSystem\\assertsparam\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility.xml",
+        "source": "C:\\Users\\Owner\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\4ef37ef01a3887918b649427f93cacb2\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
+    }
+]

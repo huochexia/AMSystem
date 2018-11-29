@@ -20,10 +20,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.launcher.ARouter
 import com.owner.amsystem.databinding.FragmentAssertBinding
-import com.owner.assetsparam.view.activity.RegisterAssetArgActivity
 import com.owner.amsystem.viewmodel.AssetViewModel
+import com.owner.assetsparam.view.activity.RegisterAssetArgActivity
 import com.owner.baselibrary.view.fragment.BaseFragment
+import com.owner.provideslib.common.isLogined
+import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_assert.*
 import org.jetbrains.anko.support.v4.startActivity
 
@@ -49,7 +52,11 @@ class AssetFragment :BaseFragment<FragmentAssertBinding,AssetViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mSelectArgBtn.setOnClickListener {
-            startActivity<RegisterAssetArgActivity>()
+            if (isLogined()) {
+                startActivity<RegisterAssetArgActivity>()
+            } else {
+                ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_LOGIN).navigation()
+            }
         }
     }
 

@@ -15,18 +15,23 @@
  */
 package com.owner.assetsparam.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
-import com.owner.baselibrary.model.respository.BaseRepository
-import com.owner.baselibrary.viewmodel.BaseViewModel
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import java.lang.IllegalArgumentException
 
 /**
  *
- * Created by Liuyong on 2018-10-21.It's AMSystem
+ * Created by Liuyong on 2018-11-10.It's AMSystem
  *@description:
  */
-class ArgumentViewModel :BaseViewModel<BaseRepository>(){
-    /*
-      已经选择了的参数，通过Map的key，确保同一类参数的唯一性
-     */
-    var selectedArgumentMap = MutableLiveData<Pair<String,Any>>()
+class AssetInfoViewModelFactory(private val isEdited:Boolean)
+    : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(AssetInfoViewModel::class.java)) {
+            return AssetInfoViewModel(isEdited) as T
+        }
+        throw IllegalArgumentException("UnKnown ViewModel class!")
+    }
 }

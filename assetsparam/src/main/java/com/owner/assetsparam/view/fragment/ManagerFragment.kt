@@ -95,7 +95,11 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         })
         //保存已选择的管理人到Activity对应的ViewModel中
         viewModel.selectedManager.observe(this, Observer {
-            sharedViewModel.selectedArgumentMap["Manager"] = it!!
+            it?.apply {
+                if (isSelected)
+                    sharedViewModel.selectedArgumentMap.value = Pair("Manager", this)
+            } ?: ""
+
         })
         //增改删
         viewModel.action.observe(this, Observer {

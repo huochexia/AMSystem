@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_assets_argument.*
 import org.jetbrains.anko.toast
 import java.util.*
 
-@Route(path = RouterPath.AssertsParam.PATH_ASSERTSPARAM_MAIN)
+@Route(path = RouterPath.Asset.PATH_ASSETSPARAM_MAIN)
 class AssetsArgumentActivity : BaseActivity<ViewDataBinding, ArgumentViewModel>(), QueryAssertsInfo {
 
     override fun queryAssert(tablename: String, condition: Any) {

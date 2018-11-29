@@ -139,7 +139,12 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
         })
         //得到所选择的分类,返回值
         viewModel.saveSelectedCategory.observe(this, Observer {
-            sharedViewModel.selectedArgumentMap[it!!.first] = it.second
+            it?.apply {
+                if (it.second.isSelected) {
+                    sharedViewModel.selectedArgumentMap.value = it
+                }
+            } ?: ""
+
         })
         //观察是否要查询
         viewModel.gotoQueryAsserts.observe(this, Observer {
@@ -147,7 +152,7 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
         })
         //启动四级分类明细
         viewModel.selectedFourthCg.observe(this, Observer {
-            ARouter.getInstance().build(RouterPath.AssertsParam.PATH_ASSERTSPARAM_FOUR)
+            ARouter.getInstance().build(RouterPath.Asset.PATH_ASSETSPARAM_FOUR)
                     .withString("tableName", tableName)
                     .withBoolean("isEdited", isEdited)
                     .withBoolean("isQuery", isQuery)

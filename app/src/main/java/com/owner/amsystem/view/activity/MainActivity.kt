@@ -19,6 +19,7 @@ import com.owner.baselibrary.ext.hideFragment
 import com.owner.baselibrary.ext.showFragment
 import com.owner.baselibrary.view.activity.BaseActivity
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.owner.provideslib.common.isLogined
 import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
@@ -37,11 +38,17 @@ class MainActivity : BaseActivity<ViewDataBinding,BaseViewModel<*>>() {
     private val meFragment by lazy { MeFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        window.setBackgroundDrawable(null)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         assertSetBtn.setOnClickListener {
-            ARouter.getInstance().build(RouterPath.AssertsParam.PATH_ASSERTSPARAM_MAIN).navigation()
+            if (isLogined()) {
+                ARouter.getInstance().build(RouterPath.Asset.PATH_ASSETSPARAM_MAIN).navigation()
+            } else {
+                ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_LOGIN).navigation()
+            }
         }
 
         initFragment()

@@ -34,10 +34,12 @@ object RouterPath {
             const val PATH_USER_REGISTER="/usercenter/register"
         }
     }
-    class AssertsParam{
+
+    class Asset {
         companion object {
-            const val PATH_ASSERTSPARAM_MAIN = "/assertsparam/main"
-            const val PATH_ASSERTSPARAM_FOUR = "/assertsparam/four"
+            const val PATH_ASSETSPARAM_MAIN = "/assetsparam/main"
+            const val PATH_ASSETSPARAM_FOUR = "/assetsparam/four"
+            const val PATH_ASSET_INFO = "/assetinfo/info"
         }
     }
 

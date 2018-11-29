@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.owner.assetsparam.R
+import com.owner.assetsparam.data.AssetInfo
 import com.owner.assetsparam.data.CategoryInfo
 import com.owner.assetsparam.databinding.ActivityRegisterAssetArgBinding
 import com.owner.assetsparam.view.fragment.CategoryFragment
@@ -31,6 +32,7 @@ import com.owner.baselibrary.ext.hideFragment
 import com.owner.baselibrary.ext.showFragment
 import com.owner.baselibrary.view.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_register_asset_arg.*
+import org.jetbrains.anko.toast
 import java.util.*
 
 /**
@@ -47,11 +49,13 @@ class RegisterAssetArgActivity : BaseActivity<ActivityRegisterAssetArgBinding, A
     private val categoryFragment by lazy { CategoryFragment.newInstance("Category", false, false) }
     private val managerFragment by lazy { ManagerFragment.newInstance(false, false) }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_asset_arg)
         viewModel = ViewModelProviders.of(this).get(ArgumentViewModel::class.java)
+        viewModel.selectedArgumentMap.observe(this,android.arch.lifecycle.Observer {
+
+        })
         initBottomNav()
         initFragment()
         changeFragment(0)
@@ -107,9 +111,7 @@ class RegisterAssetArgActivity : BaseActivity<ActivityRegisterAssetArgBinding, A
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (data != null) {
-            getFourth(data)
-        }
+        data?.apply { getFourth(this) }?:toast("没有返回选择结果！")
     }
 
     /**
@@ -120,6 +122,6 @@ class RegisterAssetArgActivity : BaseActivity<ActivityRegisterAssetArgBinding, A
         val tableName = result.getString("tableName")
         val categoryInfo = result.getParcelable<CategoryInfo>("categoryInfo")
         val pair = Pair(tableName, categoryInfo)
-        viewModel.selectedArgumentMap[pair.first] = pair.second
+        viewModel.selectedArgumentMap.value = pair
     }
 }

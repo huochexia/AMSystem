@@ -40,7 +40,7 @@ import kotlinx.android.synthetic.main.activity_four_category_detail.*
  * Created by Liuyong on 2018-11-17.It's AMSystem
  *@description:
  */
-@Route(path = RouterPath.AssertsParam.PATH_ASSERTSPARAM_FOUR)
+@Route(path = RouterPath.Asset.PATH_ASSETSPARAM_FOUR)
 class FourCategoryDetailActivity : BaseActivity<ActivityFourCategoryDetailBinding, FourthCategoryViewModel>() {
     @JvmField
     @Autowired

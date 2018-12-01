@@ -22,12 +22,10 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bigkoo.alertview.AlertView
 import com.owner.assetsparam.data.CategoryInfo
 import com.owner.assetsparam.databinding.FragmentFourCategoryBinding
 import com.owner.assetsparam.view.adapter.FourthCgAdapter
 import com.owner.assetsparam.viewmodel.FourthCategoryViewModel
-import com.owner.assetsparam.viewmodel.FourthCategoryViewModelFactory
 import kotlinx.android.synthetic.main.fragment_four_category.*
 
 /**
@@ -38,43 +36,26 @@ import kotlinx.android.synthetic.main.fragment_four_category.*
 class FourCategoryFragment : CRUDDialogFragment<FragmentFourCategoryBinding, FourthCategoryViewModel>() {
 
     private lateinit var fourAdapter: FourthCgAdapter
-    private var tableName: String = ""
-    private var isEdited: Boolean = false//当前界面是否用于编辑
-    private var isQuery: Boolean = false // 当前界面是否用于查询
-    private var thirdCg = CategoryInfo("", "")
 
-    private lateinit var alertView: AlertView
+
 
     companion object {
-        fun newInstance(tableName: String, isEdited: Boolean, isQuery: Boolean, thirdCg: CategoryInfo)
+        fun newInstance()
                 : FourCategoryFragment = FourCategoryFragment().apply {
-            val bundle = Bundle()
-            bundle.putString("tablename", tableName)
-            bundle.putBoolean("isEdited", isEdited)
-            bundle.putBoolean("isQuery", isQuery)
-            bundle.putParcelable("thirdCg", thirdCg)
-            arguments = bundle
             return this
         }
 
-        const val SELECT_CATEGORY_REQUEST_CODE = 100
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bundle = arguments!!
-        tableName = bundle.getString("tablename")!!
-        isEdited = bundle.getBoolean("isEdited")
-        isQuery = bundle.getBoolean("isQuery")
-        thirdCg = bundle.getParcelable("thirdCg")!!
-
         initViewModel()
 
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this,
-                FourthCategoryViewModelFactory(tableName, isEdited, isQuery, thirdCg))
+        //使用Activity的ViewModel
+        viewModel = ViewModelProviders.of(activity!!)
                 .get(FourthCategoryViewModel::class.java)
         viewModel.refresh.observe(this, Observer {
             fourAdapter.updateList()
@@ -103,21 +84,24 @@ class FourCategoryFragment : CRUDDialogFragment<FragmentFourCategoryBinding, Fou
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fourAdapter = FourthCgAdapter(thirdCg, viewModel)
+        fourAdapter = FourthCgAdapter(viewModel.thirdCg, viewModel)
 
         val manager = GridLayoutManager(context, 3)
         mFourDetailRV.adapter = fourAdapter
-        mFourDetailRV.layoutManager = manager
+        mFourDetailRV.layoutManager = manager!!
+
 
 
     }
 
-    private fun deleteFourth(fourth: CategoryInfo) {
-        popupDeleteDialog("删除操作", fourth) {
+    private fun deleteFourth(category: CategoryInfo) {
+        popupDeleteDialog("删除操作", category) {
             viewModel.fourthList.remove(it)
             fourAdapter.updateList()
             viewModel.deleteData(it)
         }
+        viewModel.restore(category)
+        fourAdapter.notifyDataSetChanged()
     }
 
     private fun addFourth(third: CategoryInfo) {
@@ -125,6 +109,12 @@ class FourCategoryFragment : CRUDDialogFragment<FragmentFourCategoryBinding, Fou
             viewModel.addData(it)
             viewModel.fourthList.add(it)
             fourAdapter.updateList()
+            //修改父类的hasChild
+            viewModel.restore(third)
+            if (!third.hasChild) {
+                third.hasChild = true
+                viewModel.updateData(third)
+            }
         }
     }
 

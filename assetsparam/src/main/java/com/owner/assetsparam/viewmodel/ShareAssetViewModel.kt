@@ -16,6 +16,8 @@
 package com.owner.assetsparam.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
+import android.view.View
+import com.owner.assetsparam.data.AssetInfo
 import com.owner.baselibrary.model.respository.BaseRepository
 import com.owner.baselibrary.viewmodel.BaseViewModel
 
@@ -24,9 +26,10 @@ import com.owner.baselibrary.viewmodel.BaseViewModel
  * Created by Liuyong on 2018-10-21.It's AMSystem
  *@description:
  */
-class ArgumentViewModel :BaseViewModel<BaseRepository>(){
+class ShareAssetViewModel : BaseViewModel<BaseRepository>() {
     /*
-      已经选择了的参数，通过Map的key，确保同一类参数的唯一性
+       多个Fragment共享数据，主要用于登记资产时，分步生成一个新的资产
      */
-    var selectedArgumentMap = MutableLiveData<Pair<String,Any>>()
+    var sharedAsset = AssetInfo()
+
 }

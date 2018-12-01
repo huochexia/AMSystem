@@ -211,8 +211,6 @@ open class CRUDDialogFragment<T : ViewDataBinding, B : BaseViewModel<*>> : BaseF
                     if (editV.text.isNullOrEmpty().not()) {
                         tempCategory.name = editV.text.toString().trim()
                         tempCategory.parentId = parent.objectId
-                        //设置父类的hasChild为true
-                        parent.hasChild = true
                         confirm(tempCategory)
                     }
                 }

@@ -13,10 +13,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         style="@style/MatchMatch.Vertical">
 
-        <com.owner.baselibrary.widgets.HeaderBar
-            android:id="@+id/mAssetInfoHB"
-            style="@style/MatchWrap" />
-
         <com.youth.banner.Banner
             android:id="@+id/mAssetBanner"
             android:layout_width="match_parent"

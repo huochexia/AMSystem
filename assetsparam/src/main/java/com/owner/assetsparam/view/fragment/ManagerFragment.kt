@@ -33,9 +33,9 @@ import com.owner.assetsparam.R
 import com.owner.assetsparam.databinding.FragmentManagerBinding
 import com.owner.assetsparam.utils.TitleItemDecoration
 import com.owner.assetsparam.view.adapter.ManagerAdapter
-import com.owner.assetsparam.viewmodel.ArgumentViewModel
 import com.owner.assetsparam.viewmodel.ManagerViewModel
 import com.owner.assetsparam.viewmodel.ManagerViewModelFactory
+import com.owner.assetsparam.viewmodel.ShareAssetViewModel
 import com.owner.baselibrary.view.fragment.BaseFragment
 import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_manager.*
@@ -52,7 +52,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
     private lateinit var managerLL: LinearLayoutManager
     private lateinit var mDecoration: TitleItemDecoration
 
-    private lateinit var sharedViewModel: ArgumentViewModel
+    private lateinit var shareViewModel: ShareAssetViewModel
 
     private var isEdited = false
     private var isQuery = false
@@ -81,7 +81,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
 
     private fun initViewModel() {
 
-        sharedViewModel = ViewModelProviders.of(activity!!).get(ArgumentViewModel::class.java)
+        shareViewModel = ViewModelProviders.of(activity!!).get(ShareAssetViewModel::class.java)
 
         viewModel = ViewModelProviders.of(this, ManagerViewModelFactory(isEdited, isQuery))
                 .get(ManagerViewModel::class.java)
@@ -97,7 +97,7 @@ class ManagerFragment : BaseFragment<FragmentManagerBinding, ManagerViewModel>()
         viewModel.selectedManager.observe(this, Observer {
             it?.apply {
                 if (isSelected)
-                    sharedViewModel.selectedArgumentMap.value = Pair("Manager", this)
+                    shareViewModel.sharedAsset.manager = it
             } ?: ""
 
         })

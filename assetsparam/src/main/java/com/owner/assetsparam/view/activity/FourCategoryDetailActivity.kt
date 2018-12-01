@@ -53,9 +53,9 @@ class FourCategoryDetailActivity : BaseActivity<ActivityFourCategoryDetailBindin
     var isQuery = false
     @JvmField
     @Autowired
-    var thirdCg = CategoryInfo("", "")
+    var thirdCg :CategoryInfo? = null
 
-    private val fragment by lazy { FourCategoryFragment.newInstance(tableName, isEdited, isQuery, thirdCg) }
+    private val fragment by lazy { FourCategoryFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +64,7 @@ class FourCategoryDetailActivity : BaseActivity<ActivityFourCategoryDetailBindin
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_four_category_detail)
 
-        viewModel = ViewModelProviders.of(this, FourthCategoryViewModelFactory(tableName, isEdited, isQuery, thirdCg))
+        viewModel = ViewModelProviders.of(this, FourthCategoryViewModelFactory(tableName, isEdited, isQuery, thirdCg!!))
                 .get(FourthCategoryViewModel::class.java)
 
         binding.fourVM = viewModel
@@ -76,7 +76,7 @@ class FourCategoryDetailActivity : BaseActivity<ActivityFourCategoryDetailBindin
      * 初始化HeadBar
      */
     private fun initHeadBar() {
-        mFourDetailHDB.getTitleView().text = "明细"
+        mFourDetailHDB.getTitleView().text = thirdCg?.name+"明细"
         if (!isEdited) {
             mFourDetailHDB.getRightView().visibility = View.VISIBLE
             mFourDetailHDB.getRightView().text = "完成"

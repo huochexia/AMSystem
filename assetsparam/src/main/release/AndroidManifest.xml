@@ -16,7 +16,6 @@
         <activity android:name="com.owner.assetsparam.view.activity.AssetsArgumentActivity"
                   android:windowSoftInputMode="adjustPan"/>
         <activity android:name="com.owner.assetsparam.view.activity.FourCategoryDetailActivity"/>
-        <activity android:name="com.owner.assetsparam.view.activity.RegisterAssetArgActivity"/>
-        <activity android:name=".view.activity.AssetInfoActivity"/>
+        <activity android:name="com.owner.assetsparam.view.activity.RegisterAssetActivity"/>
     </application>
 </manifest>

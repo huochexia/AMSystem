@@ -17,17 +17,18 @@ package com.owner.assetsparam.data
 
 /**
  * @state :资产状态，正常，待接收，报修，报废等
+ * 将@category、@location以及@manager设置为可空，是为了用于判断当前资产状态
  * Created by Liuyong on 2018-11-29.It's AMSystem
  *@description:
  */
-data class AssetInfo(val objectId:String="",
-                     val category: CategoryInfo = CategoryInfo("", ""),
-                     val location:CategoryInfo =CategoryInfo("",""),
-                     val number: Double = 0.0,
-                     val unit: String = "",
-                     val price: Double = 0.0,
-                     val receiveDate: String = "",
-                     val comment: String = "",
-                     val manager: Manager = Manager(),
-                     val receiver: Manager = Manager(),
-                     val state:Int = 0)
+data class AssetInfo(var objectId: String = "",
+                     var category: CategoryInfo? = null,
+                     var location: CategoryInfo? = null,
+                     var number: Double = 0.0,
+                     var unit: String = "",
+                     var price: Double = 0.0,
+                     var receiveDate: String = "",
+                     var comment: String = "",
+                     var manager: Manager? = null,
+                     var receiver: Manager? = null,
+                     var state: Int = 0)

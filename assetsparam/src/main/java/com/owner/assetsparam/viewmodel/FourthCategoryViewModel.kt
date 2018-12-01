@@ -48,7 +48,7 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
 
 
     var fourthList = mutableListOf<CategoryInfo>()
-    var currentSelected: CategoryInfo = CategoryInfo("-1", "")
+    var currentSelected: CategoryInfo? = null
 
     init {
 
@@ -121,9 +121,9 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
      */
     fun selectedCategory(item: CategoryInfo) {
         //如果选择的还是当前对象，则进行取反，否则重新选择
-        if (item == currentSelected) {
-            item.isSelected = !currentSelected.isSelected
-            currentSelected = CategoryInfo("-1", "")
+        if (currentSelected != null && item == currentSelected) {
+            item.isSelected = !item.isSelected
+            currentSelected = null
         } else {
             fourthList.forEach {
                 restore(it)
@@ -145,9 +145,13 @@ class FourthCategoryViewModel(val tablename: String, val isEdited: Boolean, val 
     fun addData(item: CategoryInfo) {
         val disposable = repo.createCategory(tablename, item.name, item.parentId, item.imageUrl)
                 .execute()
-                .subscribe({}, {
+                .subscribe({
+
+                }, {
                     //处理错误
-                }, {})
+                }, {
+
+                })
 
         compositeDisposable.add(disposable)
     }

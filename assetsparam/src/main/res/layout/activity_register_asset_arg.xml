@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.owner.assetsparam.viewmodel.ArgumentViewModel" />
+            type="com.owner.assetsparam.viewmodel.ShareAssetViewModel" />
     </data>
 
     <LinearLayout style="@style/MatchMatch.Vertical">
@@ -20,9 +20,34 @@
             android:layout_weight="1"
             tools:ignore="Suspicious0dp" />
 
-        <com.owner.assetsparam.widgets.AssetsParamBottomNavBar
-            android:id="@+id/mAssertArgumentBNav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <!--<com.owner.assetsparam.widgets.AssetsParamBottomNavBar-->
+        <!--android:id="@+id/mAssertArgumentBNav"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+        <LinearLayout style="@style/MatchWrap.Horizontal">
+
+            <Button
+                android:id="@+id/mPrevBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="上一步"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/mNextBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="下一步" />
+
+            <Button
+                android:id="@+id/mFinishBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="完成"
+                android:visibility="gone" />
+        </LinearLayout>
     </LinearLayout>
 </layout>

@@ -6,7 +6,7 @@
 
         <variable
             name="assertsParaVm"
-            type="com.owner.assetsparam.viewmodel.ArgumentViewModel" />
+            type="com.owner.assetsparam.viewmodel.ShareAssetViewModel" />
     </data>
 
     <LinearLayout

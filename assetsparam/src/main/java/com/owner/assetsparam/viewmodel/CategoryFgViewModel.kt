@@ -50,6 +50,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
         const val KEY_ADD_ACTION = "add"
         const val KEY_ADD_THIRD_ACTION = "add_third"
         const val KEY_UPDATE_THIRD_ACTION = "update_third"
+        const val KEY_DELETE_THIRD_ACTION = "delete_third"
         const val KEY_REFRESH_LIST = "refresh"
     }
 
@@ -158,7 +159,10 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
      */
     fun thirdItemClick(item: CategoryInfo) {
         when {
-            item.hasChild -> selectedFourthCg.value = item
+            item.hasChild -> {
+                setClickState(item)
+                selectedFourthCg.value = item
+            }
             isQuery -> //驱动查询
                 gotoQueryAsserts.value = Pair(tableName, item)
             !isEdited -> selectedCategory(item)
@@ -183,19 +187,17 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
     }
 
     private fun isAgainClick(item: CategoryInfo) {
-        if (item.objectId == mSelectedCategory?.objectId ?: "") {
+        //在一个item上点击二次的判断条件
+        if (mSelectedCategory != null && item == mSelectedCategory) {
             item.isSelected = !item.isSelected
+            mSelectedCategory = null
         } else {
             //点击二级或三级任意一个时，还原其选择状态
             secondAndThirdCgList.forEach {
                 restoreState(it)
             }
             item.isSelected = true
-        }
-        mSelectedCategory = if (item.isSelected) {
-            item
-        } else {
-            null
+            mSelectedCategory = item
         }
     }
 
@@ -383,6 +385,13 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
     }
 
     /**
+     * 发送增加四级分类
+     *
+     */
+    fun addFourthActivity(third: CategoryInfo) {
+        selectedFourthCg.value = third
+    }
+    /**
      * 对数据库执行保存操作,保存成功后返回新增对象。对新增对象区分，一级分类加入topCgList中，刷新列表。
      * 二级分类加入secondAndThirdCgList中，刷新二级列表。
      *
@@ -423,6 +432,11 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
     fun updateThirdAlert(third: CategoryInfo) {
         third.isLongOnClick = false
         action.value = Pair(KEY_UPDATE_THIRD_ACTION, third)
+    }
+
+    fun deleteThirdAlert(third: CategoryInfo) {
+        third.isLongOnClick = false
+        action.value = Pair(KEY_DELETE_THIRD_ACTION, third)
     }
 
     /**

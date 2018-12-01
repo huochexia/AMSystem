@@ -23,7 +23,7 @@ import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 import com.owner.amsystem.databinding.FragmentAssertBinding
 import com.owner.amsystem.viewmodel.AssetViewModel
-import com.owner.assetsparam.view.activity.RegisterAssetArgActivity
+import com.owner.assetsparam.view.activity.RegisterAssetActivity
 import com.owner.baselibrary.view.fragment.BaseFragment
 import com.owner.provideslib.common.isLogined
 import com.owner.provideslib.router.RouterPath
@@ -53,7 +53,7 @@ class AssetFragment :BaseFragment<FragmentAssertBinding,AssetViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         mSelectArgBtn.setOnClickListener {
             if (isLogined()) {
-                startActivity<RegisterAssetArgActivity>()
+                startActivity<RegisterAssetActivity>()
             } else {
                 ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_LOGIN).navigation()
             }

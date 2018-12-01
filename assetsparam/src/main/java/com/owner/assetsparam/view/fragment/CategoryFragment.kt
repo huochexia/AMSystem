@@ -17,6 +17,7 @@ package com.owner.assetsparam.view.fragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -30,9 +31,9 @@ import com.owner.assetsparam.data.CategoryInfo
 import com.owner.assetsparam.databinding.FragementCategoryBinding
 import com.owner.assetsparam.view.adapter.SecondCgAdapter
 import com.owner.assetsparam.view.adapter.TopCgAdapter
-import com.owner.assetsparam.viewmodel.ArgumentViewModel
 import com.owner.assetsparam.viewmodel.CategoryFgViewModel
 import com.owner.assetsparam.viewmodel.CategoryViewModelFactory
+import com.owner.assetsparam.viewmodel.ShareAssetViewModel
 import com.owner.provideslib.router.RouterPath
 import kotlinx.android.synthetic.main.fragement_category.*
 
@@ -44,7 +45,7 @@ import kotlinx.android.synthetic.main.fragement_category.*
 
 class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFgViewModel>() {
 
-    private lateinit var sharedViewModel: ArgumentViewModel//用于保存参数的选择结果
+    private lateinit var shareViewModel: ShareAssetViewModel//用于保存参数的选择结果
     private var tableName: String = ""
     private var isEdited: Boolean = true//当前界面是否用于编辑
     private var isQuery: Boolean = false // 当前界面是否用于查询
@@ -83,7 +84,7 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
         isEdited = bundle.getBoolean("isEdited")
         isQuery = bundle.getBoolean("isQuery")
 
-        sharedViewModel = ViewModelProviders.of(activity!!).get(ArgumentViewModel::class.java)
+        shareViewModel = ViewModelProviders.of(activity!!).get(ShareAssetViewModel::class.java)
 
         initViewModel()
 
@@ -101,7 +102,6 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
 
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -140,8 +140,15 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
         //得到所选择的分类,返回值
         viewModel.saveSelectedCategory.observe(this, Observer {
             it?.apply {
-                if (it.second.isSelected) {
-                    sharedViewModel.selectedArgumentMap.value = it
+                if (it.second.objectId != "-1") {
+                    when (it.first) {
+                        "Location" -> {
+                            shareViewModel.sharedAsset.location = it.second
+                        }
+                        "Category" -> {
+                            shareViewModel.sharedAsset.category = it.second
+                        }
+                    }
                 }
             } ?: ""
 
@@ -158,10 +165,16 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
                     .withBoolean("isQuery", isQuery)
                     .withParcelable("thirdCg", it)
                     .navigation(activity, SELECT_ITEM_REQUEST_CODE)
-
+            //恢复三级选择状态
+            viewModel.restoreState(it!!)
+            secondAdapter.notifyDataSetChanged()
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        secondAdapter.notifyDataSetChanged()
+    }
 
     /**
      *对由ViewModel发生的事件进行筛分，对应处理
@@ -174,6 +187,7 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
             CategoryFgViewModel.KEY_ADD_ACTION -> addCategory(it.second)
             CategoryFgViewModel.KEY_ADD_THIRD_ACTION -> addThirdCategory(it.second)
             CategoryFgViewModel.KEY_UPDATE_THIRD_ACTION -> updateThirdCategory(it.second)
+            CategoryFgViewModel.KEY_DELETE_THIRD_ACTION -> deleteThirdCategory(it.second)
         }
     }
 
@@ -222,7 +236,10 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
         popupAddDialog( parent, false) {
             viewModel.addCategory(it)
             viewModel.restoreState(parent)//防止修改保存hasChild属性，修改了其他属性
-            viewModel.updateCategory(parent)
+            if (!parent.hasChild) {
+                parent.hasChild = true
+                viewModel.updateCategory(parent)
+            }
         }
     }
 
@@ -234,10 +251,13 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
         secondAdapter.notifyDataSetChanged()
         popupAddDialog( parent, true) {
             viewModel.addCategory(it)
-            viewModel.updateCategory(parent)
+            viewModel.restoreState(parent)
+            if (!parent.hasChild) {
+                parent.hasChild = true
+                viewModel.updateCategory(parent)
+            }
         }
     }
-
 
     /**
      * 修改三级分类，有图片
@@ -286,6 +306,19 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
             }
             viewModel.deleteCategory(it)
         }
+    }
+
+    /**
+     * 显示删除三级分类对话框
+     */
+    private fun deleteThirdCategory(third: CategoryInfo) {
+        popupDeleteDialog("删除操作", third) {
+            viewModel.secondAndThirdCgList.remove(it)
+            secondAdapter.updateList()
+            secondAdapter.notifyDataSetChanged()
+            viewModel.deleteCategory(third)
+        }
+        secondAdapter.notifyDataSetChanged()
     }
 
 }

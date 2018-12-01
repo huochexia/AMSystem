@@ -14,7 +14,7 @@ import com.owner.assetsparam.data.CategoryInfo
 import com.owner.assetsparam.data.Manager
 import com.owner.assetsparam.view.fragment.CategoryFragment
 import com.owner.assetsparam.view.fragment.ManagerFragment
-import com.owner.assetsparam.viewmodel.ArgumentViewModel
+import com.owner.assetsparam.viewmodel.ShareAssetViewModel
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.ext.hideFragment
 import com.owner.baselibrary.ext.showFragment
@@ -25,7 +25,7 @@ import org.jetbrains.anko.toast
 import java.util.*
 
 @Route(path = RouterPath.Asset.PATH_ASSETSPARAM_MAIN)
-class AssetsArgumentActivity : BaseActivity<ViewDataBinding, ArgumentViewModel>(), QueryAssertsInfo {
+class AssetsArgumentActivity : BaseActivity<ViewDataBinding, ShareAssetViewModel>(), QueryAssertsInfo {
 
     override fun queryAssert(tablename: String, condition: Any) {
         when (tablename) {
@@ -58,7 +58,7 @@ class AssetsArgumentActivity : BaseActivity<ViewDataBinding, ArgumentViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_assets_argument)
-        viewModel = ViewModelProviders.of(this).get(ArgumentViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ShareAssetViewModel::class.java)
 
         initFragment()
         initBottomNav()
@@ -123,7 +123,7 @@ class AssetsArgumentActivity : BaseActivity<ViewDataBinding, ArgumentViewModel>(
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
+         when (requestCode) {
             ManagerFragment.SELECT_MANAGER_REQUEST_CODE -> {
                 managerFragment.onActivityResult(requestCode, resultCode, data)
             }

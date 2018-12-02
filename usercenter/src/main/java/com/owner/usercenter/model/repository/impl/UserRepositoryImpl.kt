@@ -23,6 +23,7 @@ import com.owner.usercenter.model.network.entities.*
 import com.owner.usercenter.model.network.service.UserService
 import com.owner.usercenter.model.repository.UserRepository
 import io.reactivex.Observable
+import io.reactivex.Single
 import java.io.File
 
 /**
@@ -36,7 +37,7 @@ class UserRepositoryImpl : UserRepository {
     /**
      * 注册请求
      */
-    override fun register(username: String, password: String, phone: String): Observable<RegisterResp> {
+    override fun register(username: String, password: String, phone: String): Single<RegisterResp> {
         var letters = PinyinUtils.getFirstSpell(username).toUpperCase().toCharArray()[0].toString()
         // 正则表达式，判断首字母是否是英文字母
         if (!letters.matches("[A-Z]".toRegex())) {
@@ -49,7 +50,7 @@ class UserRepositoryImpl : UserRepository {
     /**
      *登录请求
      */
-    override fun login(username: String, pwd: String): Observable<LoginResp> {
+    override fun login(username: String, pwd: String): Single<LoginResp> {
         return UserService.login(LoginReq(username, pwd))
     }
 
@@ -63,7 +64,7 @@ class UserRepositoryImpl : UserRepository {
     /**
      *更新头像
      */
-    override fun updateAvatar(token: String, userId: String, avatar: String): Observable<UpdateAvatarResp> {
+    override fun updateAvatar(token: String, userId: String, avatar: String): Single<UpdateAvatarResp> {
         return UserService.updateAvatar(token, userId, UpdateAvatarReq(avatar))
     }
 

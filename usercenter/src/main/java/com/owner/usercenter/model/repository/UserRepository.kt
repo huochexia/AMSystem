@@ -21,6 +21,7 @@ import com.owner.usercenter.model.network.entities.LoginResp
 import com.owner.usercenter.model.network.entities.RegisterResp
 import com.owner.usercenter.model.network.entities.UpdateAvatarResp
 import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.Response
 import java.io.File
 
@@ -33,11 +34,11 @@ interface UserRepository : BaseRepository {
     /*
       注册
      */
-    fun register(username:String,password:String,phone:String): Observable<RegisterResp>
+    fun register(username:String,password:String,phone:String): Single<RegisterResp>
     /*
       登录
      */
-    fun login(username:String,pwd:String):Observable<LoginResp>
+    fun login(username:String,pwd:String): Single<LoginResp>
     /*
       上传头像
      */
@@ -45,5 +46,5 @@ interface UserRepository : BaseRepository {
     /*
       更新用户头像
      */
-    fun updateAvatar(token:String,userId:String,avatar: String):Observable<UpdateAvatarResp>
+    fun updateAvatar(token:String,userId:String,avatar: String):Single<UpdateAvatarResp>
 }

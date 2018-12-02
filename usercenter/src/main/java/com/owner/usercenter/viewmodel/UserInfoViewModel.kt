@@ -24,6 +24,9 @@ import com.owner.usercenter.model.network.entities.UpdateAvatarResp
 import com.owner.usercenter.model.repository.UserRepository
 import com.owner.usercenter.model.repository.impl.UserRepositoryImpl
 import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 import java.io.File
 
@@ -52,8 +55,10 @@ class UserInfoViewModel : BaseViewModel<UserRepository>() {
     /**
      *更新用户头像
      */
-    fun updateAvatar(token: String, userId: String, avatarUrl: String): Observable<UpdateAvatarResp> {
+    fun updateAvatar(token: String, userId: String, avatarUrl: String): Single<UpdateAvatarResp> {
         this.avatar.value = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
         return repo.updateAvatar(token, userId, avatarUrl)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 }

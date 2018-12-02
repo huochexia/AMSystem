@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="presenter"
+            type="com.owner.baselibrary.view.Interface.Presenter"/>
         <variable
             name="vm"
             type="com.owner.usercenter.viewmodel.LoginViewModel" />
@@ -52,7 +54,7 @@
             android:id="@+id/mLoginBtn"
             style="@style/FullBtnStyle"
             android:text="登录"
-            android:onClick="@{vm::login}"/>
+            android:onClick="@{presenter::onClick}"/>
 
         <TextView
             android:id="@+id/mForgetPwdTv"
@@ -60,6 +62,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="@dimen/common_margin"
             android:text="忘记密码？"
-            android:textColor="@color/common_blue"/>
+            android:textColor="@color/common_blue"
+            android:onClick="@{presenter::onClick}"/>
     </LinearLayout>
 </layout>

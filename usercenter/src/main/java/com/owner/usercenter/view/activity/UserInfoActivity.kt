@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.AVFile
@@ -23,10 +22,7 @@ import com.jph.takephoto.model.TResult
 import com.jph.takephoto.permission.InvokeListener
 import com.jph.takephoto.permission.PermissionManager
 import com.jph.takephoto.permission.TakePhotoInvocationHandler
-import com.orhanobut.logger.Logger
 import com.owner.baselibrary.common.BaseConstant
-import com.owner.baselibrary.ext.execute
-import com.owner.baselibrary.ext.loadUrl
 import com.owner.baselibrary.ext.loadWithGlide
 import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.baselibrary.utils.DateUtils
@@ -40,7 +36,6 @@ import com.owner.usercenter.R
 import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.databinding.ActivityUserInfoBinding
 import com.owner.usercenter.viewmodel.UserInfoViewModel
-import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_user_info.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -123,6 +118,17 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
         }).show()
     }
 
+    private fun updateAvatar(token: String, userId: String, avatarUrl: String) {
+        viewModel.updateAvatar(token, userId, avatarUrl)
+                .compose(bindToLifecycle())
+                .subscribe({
+                    if (!it.isSuccess()) {
+                        toast(it.error.toString())
+                    }
+                }, {
+                    toast(it.message.toString())
+                })
+    }
     /**
      * TakeResultListener的方法，获取TakePhoto相关方法的结果
      */
@@ -135,14 +141,9 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
                 //3、将返回的头像Url保存本地
                 AppPrefsUtils.putString(ProviderConstant.KEY_SP_USER_ICON,file.url.toString())
                 //4、更新用户信息，将头像信息保存至用户信息中
-               val disposable= viewModel.updateAvatar(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN),
-                        AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID),file.url.toString()).execute()
-                        .subscribe{
-                            if (!it.isSuccess()) {
-                                Log.d("error:",it.error)
-                            }
-                        }
-                viewModel.compositeDisposable.add(disposable)
+                updateAvatar(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN),
+                        AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID), file.url.toString())
+
             }
 
         })
@@ -200,7 +201,7 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding, UserInfoViewModel
     /**
      * 为照像创建临时文件
      */
-    fun createTempFile() {
+    private fun createTempFile() {
         val tempFileName = "${DateUtils.curTime}.png"
         if (Environment.MEDIA_MOUNTED == (Environment.getExternalStorageState())) {
             this.mTempFile = File(Environment.getExternalStorageDirectory(), tempFileName)

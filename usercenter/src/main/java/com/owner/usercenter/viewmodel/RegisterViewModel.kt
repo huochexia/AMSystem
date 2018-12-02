@@ -16,30 +16,13 @@
 package com.owner.usercenter.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableInt
-import android.view.View
-import android.widget.Toast
-import com.alibaba.android.arouter.launcher.ARouter
-import com.owner.baselibrary.common.BaseConstant
-import com.owner.baselibrary.ext.execute
-import com.owner.baselibrary.ext.pref
-import com.owner.baselibrary.utils.AppPrefsUtils
-import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
-import com.owner.provideslib.exception.ExceptionMsg
-import com.owner.provideslib.router.RouterPath
-import com.owner.usercenter.common.UserConstant
-import com.owner.usercenter.model.network.entities.RegisterReq
 import com.owner.usercenter.model.network.entities.RegisterResp
-import com.owner.usercenter.model.network.service.UserService
 import com.owner.usercenter.model.repository.UserRepository
 import com.owner.usercenter.model.repository.impl.UserRepositoryImpl
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
-import org.json.JSONObject
-import retrofit2.Response
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  *
@@ -54,7 +37,6 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
     private var pwdAgain: String = ""
 
     //通过修改这个可观察变量的值，驱动视图显示相应的提示内容
-    val error = MutableLiveData<String>()
     val userId = MutableLiveData<String>()
 
     init {
@@ -81,35 +63,22 @@ class RegisterViewModel : BaseViewModel<UserRepository>() {
     }
 
     /**
+     * 比较两次输入密码是否一致
+     */
+    fun comparePwd(): Boolean = pwd == pwdAgain
+    /**
      * 注册按钮，使用Api方式
      */
-    fun register(view: View) {
-        if (NetWorkUtils.isNetWorkAvailable(view.context)) {
-            if (pwd == pwdAgain) {
-                val disposable = repo.register(userName, pwd, mobile)
-                        .execute()
-                        .subscribeBy {
-                            getResult(it)
-                        }
-                compositeDisposable.add(disposable)
-            } else {
-                error.value = ExceptionMsg.getError(UserConstant.TWO_PASSWORD_NO_SAME)
-            }
-        } else {
-            error.value = ExceptionMsg.getError(UserConstant.NET_NO)
-        }
+    fun register(): Single<RegisterResp> {
 
-    }
-
-    /**
-     * 得到结果
-     */
-    private fun getResult(it: RegisterResp) {
-        if (it.isSuccess()) {
-            userId.value = it.objectId
-        } else {
-            error.value = ExceptionMsg.getError(it.code)
-        }
+        return repo.register(userName, pwd, mobile)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess {
+                    if (it.isSuccess()) {
+                        userId.value = it.objectId
+                    }
+                }
 
     }
 

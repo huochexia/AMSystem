@@ -4,6 +4,9 @@
 
     <data>
         <variable
+            name="presenter"
+            type="com.owner.baselibrary.view.Interface.Presenter"/>
+        <variable
             name="vm"
             type="com.owner.usercenter.viewmodel.RegisterViewModel"/>
     </data>
@@ -92,6 +95,6 @@
             android:id="@+id/mRegisterBtn"
             style="@style/FullBtnStyle"
             android:text="注册"
-            android:onClick="@{vm::register}"/>
+            android:onClick="@{presenter::onClick}"/>
     </LinearLayout>
 </layout>

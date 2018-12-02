@@ -13,19 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.assetsparam.view.Interface
+package com.owner.baselibrary.view.Interface
 
 import android.view.View
-import com.owner.assetsparam.data.CategoryInfo
 
 /**
  *
  * Created by Liuyong on 2018-12-02.It's AMSystem
  *@description:
  */
-interface Presenter {
-
-    fun onClick(view: View,category:CategoryInfo)
-
-    fun onLongClick(view: View,category:CategoryInfo):Boolean
-}
+interface Presenter : View.OnClickListener

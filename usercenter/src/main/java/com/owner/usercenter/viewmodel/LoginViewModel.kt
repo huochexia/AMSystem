@@ -16,24 +16,16 @@
 package com.owner.usercenter.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
-import android.databinding.ObservableInt
-import android.view.View
-import android.widget.Toast
 import com.alibaba.android.arouter.launcher.ARouter
-import com.owner.baselibrary.common.AMSystemApp
-import com.owner.baselibrary.ext.execute
-import com.owner.baselibrary.utils.NetWorkUtils
 import com.owner.baselibrary.viewmodel.BaseViewModel
-import com.owner.provideslib.exception.ExceptionMsg
 import com.owner.provideslib.router.RouterPath
-import com.owner.usercenter.common.UserConstant
 import com.owner.usercenter.model.network.entities.LoginResp
 import com.owner.usercenter.model.repository.UserRepository
 import com.owner.usercenter.model.repository.impl.UserRepositoryImpl
 import com.owner.usercenter.utils.UserUtils
-import io.reactivex.rxkotlin.subscribeBy
-import org.json.JSONObject
-import retrofit2.Response
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -48,10 +40,6 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
         repo = UserRepositoryImpl()
 
     }
-
-    //登录结果，通过它驱动视图变化
-    var result = MutableLiveData<String>()
-
     private var mUserName: String = ""
 
     private var mPwd: String = ""
@@ -71,21 +59,16 @@ class LoginViewModel : BaseViewModel<UserRepository>() {
     /**
      * 登录事件,暂时使用手机号做为用户名，正式版可以通过手机号获取验证码进行登录
      */
-    fun login(view: View) {
-        if (NetWorkUtils.isNetWorkAvailable(AMSystemApp.instance)) {
-            val disposable = repo.login(mUserName, mPwd)
-                    .execute()
-                    .subscribeBy {
-                        if (it.isSuccess()) {
-                            loginSuccess(it)
-                        } else {
-                            result.value = ExceptionMsg.getError(it.code)
-                        }
+    fun login(): Single<LoginResp> {
+
+        return repo.login(mUserName, mPwd)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess {
+                    if (it.isSuccess())
+                        loginSuccess(it)
                     }
-            compositeDisposable.add(disposable)
-        } else {
-            result.value =ExceptionMsg.getError(UserConstant.NET_NO)
-        }
+
     }
 
     /**

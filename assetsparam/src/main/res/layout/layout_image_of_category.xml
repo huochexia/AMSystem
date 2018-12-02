@@ -28,18 +28,27 @@
                 style="@style/MatchWrap"
                 android:hint="请输入类别的名字" />
         </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/imageLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-        <ImageView
-            android:id="@+id/mPictureIv"
-            android:layout_width="71dp"
-            android:layout_height="83dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            android:src="@drawable/no_picture" />
+            <ImageView
+                android:id="@+id/mPictureIv"
+                android:layout_width="71dp"
+                android:layout_height="83dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/no_picture" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/mPictureIv"
+                android:layout_centerVertical="true"
+                android:text="（可选）" />
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/mGetPhotoll"
@@ -49,7 +58,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mPictureIv">
+            app:layout_constraintTop_toBottomOf="@+id/imageLL">
 
             <TextView
                 android:layout_width="wrap_content"

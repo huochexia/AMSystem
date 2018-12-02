@@ -99,7 +99,6 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
         binding.categoryVM = viewModel
         //绑定总资产对象
         binding.category = category
-
         return binding.root
     }
 
@@ -175,7 +174,6 @@ class CategoryFragment : CRUDDialogFragment<FragementCategoryBinding, CategoryFg
         super.onActivityResult(requestCode, resultCode, data)
         secondAdapter.notifyDataSetChanged()
     }
-
     /**
      *对由ViewModel发生的事件进行筛分，对应处理
      */

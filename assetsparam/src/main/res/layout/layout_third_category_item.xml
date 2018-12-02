@@ -36,7 +36,7 @@
                     android:onLongClick="@{()->categoryFgVM.itemLongClick(data)}"
                     android:scaleType="fitXY"
                     app:imageUrl="@{data.imageUrl}"
-                    app:placeholder="@{@drawable/no_picture}"/>
+                    android:visibility="@{data.imageUrl.isEmpty()?View.GONE:View.VISIBLE}"/>
             </RelativeLayout>
 
             <TextView
@@ -46,6 +46,7 @@
                 android:layout_marginTop="@dimen/common_margin_middle"
                 android:text="@{data.name}"
                 android:onClick="@{()->categoryFgVM.thirdItemClick(data)}"
+                android:onLongClick="@{()->categoryFgVM.itemLongClick(data)}"
                 android:textSize="@dimen/text_small_size" />
             <ImageView
                 style="@style/WrapWrap"

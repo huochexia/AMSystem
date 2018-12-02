@@ -26,6 +26,7 @@ import com.owner.assetsparam.model.repository.AssetsParamRepository
 import com.owner.assetsparam.model.repository.impl.APRepositoryImpl
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.viewmodel.BaseViewModel
+import com.trello.rxlifecycle2.RxLifecycle
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -137,7 +138,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
             if (mCurrentTopCategory.objectId != item.objectId) {
                 loadSecondCategory(item)
             } else {
-                action.value = Pair(KEY_SELECTED_ACTION, item)
+//                action.value = Pair(KEY_SELECTED_ACTION, item)
             }
             mCurrentTopCategory = item
             mSelectedCategory = null
@@ -148,7 +149,7 @@ class CategoryFgViewModel(private val tableName: String, val isEdited: Boolean, 
             } else {
                 setClickState(item)
                 isAgainClick(item)
-                action.value = Pair(KEY_SELECTED_ACTION, item)
+//                action.value = Pair(KEY_SELECTED_ACTION, item)
             }
 
         }

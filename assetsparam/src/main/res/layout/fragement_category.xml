@@ -72,11 +72,8 @@
                         style="@style/WrapWrap"
                         android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
                         android:gravity="center_vertical"
-                        android:text="@{categoryVM.mCurrentTopCategory.name}" />
-                    <TextView
-                        style="@style/WrapWrap"
-                        android:layout_gravity="center_vertical"
-                        android:text="的分类" />
+                        android:text="@{categoryVM.mCurrentTopCategory.name+`的分类`}" />
+
                 </LinearLayout>
 
                 <com.kennyc.view.MultiStateView

@@ -21,7 +21,7 @@
             android:layout_width="71dp"
             android:layout_height="83dp"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_add_category"
+            android:src="@drawable/icon_add"
             android:onClick="@{()->categoryFgVM.addThirdAlert(data)}"
             android:visibility="@{categoryFgVM.edited?View.VISIBLE:View.GONE}"/>
     </LinearLayout>

@@ -38,9 +38,11 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <RelativeLayout style="@style/MatchMatch">
+        <android.support.design.widget.CoordinatorLayout style="@style/MatchMatch">
 
-            <FrameLayout style="@style/MatchMatch">
+            <FrameLayout
+                android:id="@+id/mFrameLayout"
+                style="@style/MatchMatch">
 
                 <com.kennyc.view.MultiStateView
                     android:id="@+id/mMultiStateView"
@@ -65,20 +67,21 @@
                     app:radius="20dp"
                     app:textColor="#969696"
                     app:textSize="10sp" />
-            </FrameLayout>
 
+            </FrameLayout>
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/mAddFAB"
                 style="@style/WrapWrap"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/common_margin_small"
-                android:clickable="true"
+                android:layout_margin="@dimen/common_margin_middle"
                 android:onClick="@{()->managerVm.addManager()}"
-                android:src="@drawable/ic_add_category"
+                android:src="@drawable/icon_add"
                 android:visibility="@{managerVm.edited?View.VISIBLE:View.GONE}"
+                app:fabSize="normal"
+                app:layout_anchor="@id/mFrameLayout"
+                app:layout_anchorGravity="bottom|center"
                 app:rippleColor="@color/common_purple" />
-        </RelativeLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
 
 
     </LinearLayout>

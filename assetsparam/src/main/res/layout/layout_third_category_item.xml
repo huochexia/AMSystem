@@ -75,7 +75,7 @@
                 android:layout_gravity="center_horizontal"
                 android:visibility="@{data.hasChild?View.GONE:View.VISIBLE}"
                 android:onClick="@{()->categoryFgVM.addFourthActivity(data)}"
-                android:src="@drawable/ic_add_category" />
+                android:src="@drawable/icon_add" />
 
             <ImageButton
                 android:id="@+id/mUpdateThirdTv"

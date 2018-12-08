@@ -50,12 +50,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
+    //room
+    api "android.arch.persistence.room:runtime:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
     // LeanCloud 基础包
     api 'cn.leancloud.android:avoscloud-sdk:v4.7.3'
 
     //ViewModel
-    api 'android.arch.lifecycle:extensions:1.1.0'
+    api "android.arch.lifecycle:extensions:$arch_lifecycle_version"
 
     // Anko Commons
     api "org.jetbrains.anko:anko-commons:$anko_version"

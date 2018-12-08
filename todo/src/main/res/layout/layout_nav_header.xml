@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="192dp"
+    android:background="@color/common_blue"
+    android:gravity ="bottom"
+    android:orientation="vertical"
+    android:padding="@dimen/common_padding_middle"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@mipmap/todo_logo"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="备忘录"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+</FrameLayout>

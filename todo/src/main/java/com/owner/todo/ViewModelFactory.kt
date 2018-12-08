@@ -16,6 +16,7 @@
 package com.owner.todo
 
 import android.app.Application
+import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.owner.todo.data.source.TasksRepository
 
@@ -24,7 +25,10 @@ import com.owner.todo.data.source.TasksRepository
  * Created by Liuyong on 2018-12-08.It's AMSystem
  *@description:
  */
-class ViewModelFactory private constructor(private val application: Application,
-                                           private val taskRepository: TasksRepository
+class ViewModelFactory private constructor(
+        private val application: Application,
+        private val taskRepository: TasksRepository
 ):ViewModelProvider.NewInstanceFactory(){
+
+
 }

@@ -15,6 +15,7 @@
  */
 package com.owner.todo.data.source
 
+import com.owner.baselibrary.model.respository.BaseRepository
 import com.owner.todo.data.Task
 
 /**
@@ -25,7 +26,7 @@ import com.owner.todo.data.Task
 class TasksRepository(
         val remoteDataSource: TasksDataSource,
         val localDataSource: TasksDataSource
-) : TasksDataSource {
+) : TasksDataSource,BaseRepository {
 
     var cachedTasks: LinkedHashMap<String, Task> = LinkedHashMap()
     /**

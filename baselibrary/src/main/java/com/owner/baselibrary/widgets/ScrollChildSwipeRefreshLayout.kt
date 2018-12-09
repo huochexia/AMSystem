@@ -13,21 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.todo.util
+package com.owner.baselibrary.widgets
 
-import android.support.annotation.IdRes
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
+import android.content.Context
+import android.support.v4.widget.SwipeRefreshLayout
+import android.util.AttributeSet
+import android.view.View
 
 /**
  *
  * Created by Liuyong on 2018-12-08.It's AMSystem
  *@description:
  */
+class ScrollChildSwipeRefreshLayout @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null
+) : SwipeRefreshLayout(context, attrs) {
 
-fun AppCompatActivity.setupToolBar(@IdRes toolbarId: Int, action: ActionBar.() -> Unit) {
-    setSupportActionBar(findViewById(toolbarId))
-    supportActionBar?.run {
-        action()
-    }
+    var scrollUpChild: View? = null
+
+    override fun canChildScrollUp(): Boolean =
+            scrollUpChild?.canScrollVertically(-1) ?: super.canChildScrollUp()
 }

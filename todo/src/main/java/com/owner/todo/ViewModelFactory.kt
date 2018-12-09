@@ -15,10 +15,13 @@
  */
 package com.owner.todo
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import android.support.annotation.VisibleForTesting
 import com.owner.todo.data.source.TasksRepository
+import com.owner.todo.viewmodel.TaskViewModel
 
 /**
  *
@@ -30,5 +33,30 @@ class ViewModelFactory private constructor(
         private val taskRepository: TasksRepository
 ):ViewModelProvider.NewInstanceFactory(){
 
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+            with(modelClass) {
+                when {
+                    isAssignableFrom(TaskViewModel::class.java) -> TaskViewModel(application, taskRepository)
+                    else ->
+                        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+                }
+            } as T
 
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        @Volatile
+        private var INSTANCE: ViewModelFactory? = null
+
+        fun getInstance(application: Application, taskRepository: TasksRepository) =
+                INSTANCE ?: synchronized(ViewModelFactory::class.java) {
+                    INSTANCE ?: ViewModelFactory(application, taskRepository).also {
+                        INSTANCE = it
+                    }
+                }
+
+        @VisibleForTesting
+        fun destoryInstance() {
+            INSTANCE = null
+        }
+    }
 }

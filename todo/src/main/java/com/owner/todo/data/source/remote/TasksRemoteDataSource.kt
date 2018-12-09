@@ -10,7 +10,10 @@ import com.owner.todo.data.source.TasksDataSource
  */
 object TasksRemoteDataSource : TasksDataSource {
     override fun getTasksList(callback: TasksDataSource.LoadTasksListCallback) {
-
+        val tasks = ArrayList<Task>()
+        if (tasks.isEmpty()) {
+            callback.onTasksListLoad(tasks)
+        }
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {

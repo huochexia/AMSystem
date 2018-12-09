@@ -7,5 +7,8 @@
         <attr name="rightText" format="string" />
     </declare-styleable>
 
-
+    <!-- 滚动刷新自定义属性-->
+    <declare-styleable name="ScrollChildSwipeRefreshLayout">
+        <attr name="refreshing" format="boolean"/>
+    </declare-styleable>
 </resources>

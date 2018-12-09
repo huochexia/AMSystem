@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/mFilterMenuItem"
+        android:icon="@drawable/ic_filter_list"
+        android:title="Filter"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/mClearMenuItem"
+        android:title="清理已完成任务"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/mRefreshMenuItem"
+        android:title="刷新"
+        app:showAsAction="never" />
+</menu>

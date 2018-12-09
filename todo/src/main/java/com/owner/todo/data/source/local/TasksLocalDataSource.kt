@@ -89,4 +89,7 @@ class TasksLocalDataSource private constructor(
     override fun deleteTask(taskId: String) {
         appExecutors.diskIO.execute { taskDao.deleteTaskById(taskId) }
     }
+    companion object {
+        fun getInstance(appExecutors: AppExecutors,taskDao: TaskDao) = TasksLocalDataSource(appExecutors,taskDao)
+    }
 }

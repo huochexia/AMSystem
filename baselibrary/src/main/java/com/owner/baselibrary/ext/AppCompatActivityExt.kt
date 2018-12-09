@@ -15,10 +15,16 @@
  */
 package com.owner.baselibrary.ext
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
+import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 
 
 /**
@@ -62,3 +68,11 @@ fun AppCompatActivity.showFragment(fragment: Fragment) {
         show(fragment)
     }
 }
+
+fun AppCompatActivity.setupToolBar(@IdRes toolbarId: Int, action: ActionBar.() -> Unit) {
+    setSupportActionBar(findViewById<Toolbar>(toolbarId))
+    supportActionBar?.run {
+        action()
+    }
+}
+

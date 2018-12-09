@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.owner.todo.viewmodel.TaskViewModel" />
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <com.owner.baselibrary.widgets.ScrollChildSwipeRefreshLayout
+        android:id="@+id/mRefreshLayout"
+        style="@style/MatchMatch"
+        app:refreshing="@{viewmodel.dataLoading}" >
+
+        <RelativeLayout
+            android:id="@+id/tasksContainer"
+            style="@style/MatchMatch"
+            android:clickable="true">
+
+            <LinearLayout
+                android:id="@+id/mTasksLL"
+                style="@style/MatchMatch"
+                android:orientation="vertical"
+                android:visibility="@{viewmodel.empty?View.GONE:View.VISIBLE}">
+                <TextView
+                    android:id="@+id/mFilteringLabel"
+                    style="@style/MatchWrap"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:gravity="center_vertical"
+                    android:layout_margin="@dimen/common_margin_middle"
+                    android:text="@{viewmodel.currentFilteringLabel}" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mTasksList"
+                    style="@style/MatchWrap" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/mNoTasksLL"
+                style="@style/WrapWrap"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:visibility="@{viewmodel.empty?View.VISIBLE:View.GONE}">
+
+                <ImageView
+                    android:id="@+id/mNoTasksIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@{viewmodel.noTaskIconRes}"/>
+                <TextView
+                    android:id="@+id/mNoTasksTV"
+                    style="@style/WrapWrap"
+                    android:layout_gravity="center"
+                    android:text="@{viewmodel.noTasksLabel}"
+                    android:layout_marginBottom="@dimen/common_margin_middle"/>
+                <TextView
+                    android:id="@+id/mNoTasksAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+
+                    android:text="@string/no_tasks_add"
+                    android:onClick="@{()->viewmodel.addNewTask()}"
+                    android:visibility="@{viewmodel.tasksAddViewVisible?View.VISIBLE:View.GONE}"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </com.owner.baselibrary.widgets.ScrollChildSwipeRefreshLayout>
+</layout>

@@ -65,4 +65,6 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //ARouter
     kapt 'com.alibaba:arouter-compiler:1.2.1'
+    //room
+    kapt "android.arch.persistence.room:compiler:$room_version"
 }

@@ -15,15 +15,20 @@
  */
 package com.owner.baselibrary.ext
 
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.Observer
+import android.support.design.widget.Snackbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import cn.carbs.android.avatarimageview.library.AvatarImageView
 import com.bumptech.glide.Glide
+import com.owner.baselibrary.common.SingleLiveEvent
 import com.owner.baselibrary.utils.GlideUtils
 import com.owner.baselibrary.widgets.DefaultTextWatcher
 import io.reactivex.Observable
@@ -92,3 +97,21 @@ fun AvatarImageView.loadWithGlide(url: String?, textPlaceHolder: Char) {
     Glide.with(this.context).load(url).into(this)
 }
 
+/**
+ * 扩展目的就是省去每次都写show（）方法
+ */
+fun View.showSnackbar(snackbarText: String, timeLength: Int) {
+    Snackbar.make(this,snackbarText,timeLength).show()
+}
+
+/**
+ *
+ */
+fun View.setupSnacker(lifecycleOwner: LifecycleOwner,
+                      snackbarMessageLiveEvent: SingleLiveEvent<Int>, timeLength: Int) {
+    snackbarMessageLiveEvent.observe(lifecycleOwner, Observer {
+        it?.let {
+            showSnackbar(context.getString(it),timeLength)
+        }
+    })
+}

@@ -1,5 +1,8 @@
 package com.owner.todo.data.source.remote
 
+import com.owner.baselibrary.ext.execute
+import com.owner.baselibrary.utils.AppPrefsUtils
+import com.owner.provideslib.common.ProviderConstant
 import com.owner.todo.data.Task
 import com.owner.todo.data.source.TasksDataSource
 
@@ -10,10 +13,20 @@ import com.owner.todo.data.source.TasksDataSource
  */
 object TasksRemoteDataSource : TasksDataSource {
     override fun getTasksList(callback: TasksDataSource.LoadTasksListCallback) {
-        val tasks = ArrayList<Task>()
-        if (tasks.isEmpty()) {
-            callback.onTasksListLoad(tasks)
-        }
+
+        val userId = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID)
+        val where: String = """{"userId","$userId"}"""
+        val disposable=TaskService.getTasksList(where).execute()
+                .subscribe({
+                    if (it.results == null) {
+                        val tasks = ArrayList<Task>()
+                        callback.onTasksListLoad(tasks)
+                    } else {
+                        callback.onTasksListLoad(it.results)
+                    }
+                }, {
+                    callback.onDataNotAvailable()
+                })
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {

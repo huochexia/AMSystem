@@ -17,7 +17,9 @@ package com.owner.todo.data
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
+import com.owner.usercenter.data.UserInfo
 import java.util.*
 
 /**
@@ -29,6 +31,7 @@ import java.util.*
 data class Task @JvmOverloads constructor(
         var title: String = "",
         var description: String = "",
+        @Ignore var userId: String = "",
         @PrimaryKey var id: String = UUID.randomUUID().toString()
 ) {
     /**
@@ -47,4 +50,5 @@ data class Task @JvmOverloads constructor(
 
     val isEmpty
         get() = title.isEmpty() && description.isEmpty()
+
 }

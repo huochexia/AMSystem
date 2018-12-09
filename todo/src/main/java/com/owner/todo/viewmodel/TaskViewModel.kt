@@ -42,7 +42,7 @@ class TaskViewModel(context: Application,
 ) : AndroidViewModel(context) {
 
     private val context: Context = context.applicationContext
-    private val isDataLoadingError = ObservableBoolean(false)
+    private val isDataLoadingError = ObservableBoolean(false)//暂时没有它的观察者
 
     internal val openTaskEvent = SingleLiveEvent<String>()
 

@@ -16,38 +16,42 @@
 package com.owner.todo.data.source
 
 import com.owner.todo.data.Task
+import io.reactivex.Flowable
+import io.reactivex.Single
 
 /**
  * 访问任务数据的主要入口
- * 用前仅仅getTasksList()和getTask()使用了回调，未来应该给其他方法也增加回调方法，以便当网络或数据库
- * 操作成功或出现错误时通知用户。
+ * 这里没有使用回调方式，如getTasksList(callback)和getTask(id,callback)使用了回调，通过回调接口参数得到查询
+ * 结果。回调接口的具体逻辑实现也就是对结果的处理是在调用该接口方法的类中，即TaskViewModel中。
+ *
+ * 而是使用了Rxjava架构，以流链接的方式将结果返回给TaskViewModel中
  * Created by Liuyong on 2018-12-08.It's AMSystem
  *@description:
  */
 interface TasksDataSource {
-    /*
-     *加载任务列表回调接口
-     */
-    interface LoadTasksListCallback {
+//    /*
+//     *加载任务列表回调接口
+//     */
+//    interface LoadTasksListCallback {
+//
+//        fun onTasksListLoad(tasks: List<Task>)
+//
+//        fun onDataNotAvailable()//没有得到结果
+//    }
+//
+//    /*
+//       加载某一项任务回调接口
+//     */
+//    interface GetTaskCallback {
+//
+//        fun onTaskLoaded(task: Task)
+//
+//        fun onDataNotAvailable()//没有得到结果
+//    }
 
-        fun onTasksListLoad(tasks: List<Task>)
+    fun getTasksList(): Flowable<List<Task>>
 
-        fun onDataNotAvailable()//没有得到结果
-    }
-
-    /*
-       加载某一项任务回调接口
-     */
-    interface GetTaskCallback {
-
-        fun onTaskLoaded(task: Task)
-
-        fun onDataNotAvailable()//没有得到结果
-    }
-
-    fun getTasksList(callback: LoadTasksListCallback)
-
-    fun getTask(taskId: String, callback: GetTaskCallback)
+    fun getTask(taskId: String):Single<Task>
 
     fun saveTask(task: Task)
     /*

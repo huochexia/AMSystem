@@ -18,6 +18,8 @@ package com.owner.todo.data.source.local
 import com.owner.todo.data.Task
 import com.owner.todo.data.source.TasksDataSource
 import com.owner.todo.util.AppExecutors
+import io.reactivex.Flowable
+import io.reactivex.Single
 
 /**
  *
@@ -28,31 +30,12 @@ class TasksLocalDataSource private constructor(
         private val appExecutors: AppExecutors,
         private val taskDao: TaskDao
 ):TasksDataSource{
-    override fun getTasksList(callback: TasksDataSource.LoadTasksListCallback) {
-        appExecutors.diskIO.execute{
-            val tasks = taskDao.getTasks()
-            appExecutors.mainThread.execute{
-                if (tasks.isEmpty()) {
-                    callback.onDataNotAvailable()
-                } else {
-                    callback.onTasksListLoad(tasks)
-                }
-            }
-        }
-    }
 
-    override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
-        appExecutors.diskIO.execute{
-            val task = taskDao.getTaskId(taskId)
-            appExecutors.mainThread.execute {
-                if (task != null) {
-                    callback.onTaskLoaded(task)
-                } else {
-                    callback.onDataNotAvailable()
-                }
-            }
-        }
-    }
+    override fun getTasksList(): Flowable<List<Task>> = taskDao.getTasks()
+
+
+    override fun getTask(taskId: String): Single<Task> = taskDao.getTaskId(taskId)
+
 
     override fun saveTask(task: Task) {
         appExecutors.diskIO.execute { taskDao.insertTask(task) }

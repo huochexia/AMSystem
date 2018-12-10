@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.owner.todo.viewmodel.AddEditTaskViewModel" />
+
+    </data>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/mDrawerLayout"
+        style="@style/MatchMatch">
+
+        <LinearLayout style="@style/MatchMatch.Vertical">
+
+            <android.support.design.widget.AppBarLayout style="@style/MatchWrap">
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/mToolbar"
+                    style="@style/MatchWrap"
+                    android:background="@color/common_blue"
+                    android:minHeight="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:theme="@style/Toolbar" />
+
+            </android.support.design.widget.AppBarLayout>
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/mCoordinatorLayout"
+                style="@style/MatchMatch">
+                <FrameLayout
+                    android:id="@+id/mFragmentContainer"
+                    style="@style/MatchMatch"/>
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/mFabEditTask"
+                    style="@style/WrapWrap"
+                    android:layout_margin="@dimen/common_margin_middle"
+                    android:src="@drawable/icon_add"
+                    app:fabSize="normal"
+                    app:backgroundTint="@color/common_blue"
+                    app:layout_anchor="@id/mFragmentContainer"
+                    app:layout_anchorGravity="bottom|right|end"
+                    app:rippleColor="@color/common_purple" />
+            </android.support.design.widget.CoordinatorLayout>
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
+</layout>

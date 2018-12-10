@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.todo
+package com.owner.todo.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -21,7 +21,6 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.support.annotation.VisibleForTesting
 import com.owner.todo.data.source.TasksRepository
-import com.owner.todo.viewmodel.TaskViewModel
 
 /**
  *
@@ -37,6 +36,7 @@ class ViewModelFactory private constructor(
             with(modelClass) {
                 when {
                     isAssignableFrom(TaskViewModel::class.java) -> TaskViewModel(application, taskRepository)
+                    isAssignableFrom(AddEditTaskViewModel::class.java) -> AddEditTaskViewModel(application, taskRepository)
                     else ->
                         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
                 }
@@ -48,8 +48,10 @@ class ViewModelFactory private constructor(
         private var INSTANCE: ViewModelFactory? = null
 
         fun getInstance(application: Application, taskRepository: TasksRepository) =
-                INSTANCE ?: synchronized(ViewModelFactory::class.java) {
-                    INSTANCE ?: ViewModelFactory(application, taskRepository).also {
+                INSTANCE
+                        ?: synchronized(ViewModelFactory::class.java) {
+                            INSTANCE
+                                    ?: ViewModelFactory(application, taskRepository).also {
                         INSTANCE = it
                     }
                 }

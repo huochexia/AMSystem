@@ -17,6 +17,9 @@ package com.owner.todo.data.source
 
 import com.owner.baselibrary.model.respository.BaseRepository
 import com.owner.todo.data.Task
+import com.owner.todo.data.source.remote.TasksRemoteDataSource
+import io.reactivex.Flowable
+import io.reactivex.Single
 
 /**
  *  是远程、本地以及缓存的合体
@@ -38,48 +41,37 @@ class TasksRepository(
      * 从缓存、本地数据库或远程数据库中获取任务列表，先从缓存，然后判断数据是否变化，无变化则从本地，
      * 有变化则从远程。无论是从本地还是从远程，都需要先刷新缓存。
      */
-    override fun getTasksList(callback: TasksDataSource.LoadTasksListCallback) {
+    override fun getTasksList(): Flowable<List<Task>> {
         //如果缓存数据有效，立即响应
         if (cachedTasks.isNotEmpty() && !cacheIsDirty) {
-            callback.onTasksListLoad(ArrayList(cachedTasks.values))
-            return
+
+            return Flowable.just(ArrayList(cachedTasks.values))
         }
         //如果缓存数据是脏的
-        if (cacheIsDirty) {
+        return if (cacheIsDirty) {
             //如果缓存的数据是脏的，我们需要从网络获取新的数据
-            getTasksFromRemoteDataSource(callback)
+            getTasksFromRemoteDataSource()
         } else {
             //否则，从本地数据库中获取数据。
-            localDataSource.getTasksList(object : TasksDataSource.LoadTasksListCallback {
-                override fun onTasksListLoad(tasks: List<Task>) {
-                    //先要刷新缓存
-                    refreshCache(tasks)
-                    //回调
-                    callback.onTasksListLoad(ArrayList(cachedTasks.values))
+            localDataSource.getTasksList().doOnNext {
+                if (it.isEmpty())
+                    getTasksFromRemoteDataSource()
+                else {
+                    refreshCache(it)
+                    Flowable.just(ArrayList(cachedTasks.values))
                 }
-
-                override fun onDataNotAvailable() {
-                    //如果本地数据库中无数据，则从远程调用
-                    getTasksFromRemoteDataSource(callback)
-                }
-
-            })
+            }
         }
     }
 
-    private fun getTasksFromRemoteDataSource(callback: TasksDataSource.LoadTasksListCallback) {
-        remoteDataSource.getTasksList(object : TasksDataSource.LoadTasksListCallback {
-            override fun onTasksListLoad(tasks: List<Task>) {
-                refreshCache(tasks)
-                refreshLocalDataSource(tasks)
-                callback.onTasksListLoad(ArrayList(cachedTasks.values))
-            }
+    private fun getTasksFromRemoteDataSource(): Flowable<List<Task>> {
 
-            override fun onDataNotAvailable() {
-                callback.onDataNotAvailable()
-            }
-
-        })
+        return remoteDataSource.getTasksList().doOnNext {
+            refreshCache(it)
+            refreshLocalDataSource(it)
+        }.map {
+            ArrayList(cachedTasks.values)
+        }
     }
 
     /**
@@ -173,38 +165,26 @@ class TasksRepository(
     /**
      * 从本地获取单个任务，除非本地是新的或空的。
      */
-    override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
+    override fun getTask(taskId: String): Single<Task> {
         //先从缓存中得到该对象
         val taskInCache = getTaskWithId(taskId)
 
         if (taskInCache != null) {
-            callback.onTaskLoaded(taskInCache)
-            return
+            return Single.just(taskInCache)
         }
         //从本地获取数据，如果没有，则是从远程获取
-        localDataSource.getTask(taskId, object : TasksDataSource.GetTaskCallback {
-            override fun onTaskLoaded(task: Task) {
+        return localDataSource.getTask(taskId).doOnError { throwable ->
+            TasksRemoteDataSource.getTask(taskId).doOnSuccess { task ->
                 cacheAndPerform(task) {
-                    callback.onTaskLoaded(it)
+                    Single.just(it)
                 }
             }
-
-            override fun onDataNotAvailable() {
-                remoteDataSource.getTask(taskId, object : TasksDataSource.GetTaskCallback {
-                    override fun onTaskLoaded(task: Task) {
-                        cacheAndPerform(task) {
-                            callback.onTaskLoaded(it)
-                        }
-                    }
-
-                    override fun onDataNotAvailable() {
-                        callback.onDataNotAvailable()
-                    }
-
-                })
+        }.doOnSuccess { task ->
+            cacheAndPerform(task) {
+                Single.just(it)
             }
+        }
 
-        })
     }
 
     /**

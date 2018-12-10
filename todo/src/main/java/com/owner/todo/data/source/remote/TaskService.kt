@@ -18,6 +18,7 @@ package com.owner.todo.data.source.remote
 import com.owner.baselibrary.model.network.RetrofitFactory
 import com.owner.todo.data.Task
 import com.owner.todo.data.source.remote.entites.TaskList
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.Body
@@ -40,7 +41,13 @@ interface TaskServiceApi{
     查询全部
      */
     @GET("1.1/classes/Task")
-    fun getTasksList(@Query(value = "where") condition:String): Observable<TaskList>
+    fun getTasksList(@Query(value = "where") condition:String): Flowable<TaskList>
+
+    /*
+      查询某个任务
+     */
+    @GET("1.1/classes/Task")
+    fun getTaskById(@Query(value = "where") condition:String): Single<Task>
 }
 
 object TaskService:TaskServiceApi by RetrofitFactory.instance.create(TaskServiceApi::class.java)

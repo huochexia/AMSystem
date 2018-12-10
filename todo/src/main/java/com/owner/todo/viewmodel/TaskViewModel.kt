@@ -25,12 +25,15 @@ import android.databinding.ObservableList
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
-import com.owner.todo.R
 import com.owner.baselibrary.common.SingleLiveEvent
+import com.owner.todo.R
 import com.owner.todo.common.TasksFilterType
 import com.owner.todo.data.Task
 import com.owner.todo.data.source.TasksDataSource
 import com.owner.todo.data.source.TasksRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 /**
  *
@@ -41,9 +44,10 @@ class TaskViewModel(context: Application,
                     private val tasksRepository: TasksRepository
 ) : AndroidViewModel(context) {
 
+
     private val context: Context = context.applicationContext
     private val isDataLoadingError = ObservableBoolean(false)//暂时没有它的观察者
-
+    val compositeDisposable = CompositeDisposable()
     internal val openTaskEvent = SingleLiveEvent<String>()
 
     val items: ObservableList<Task> = ObservableArrayList()
@@ -119,40 +123,42 @@ class TaskViewModel(context: Application,
         if (forceUpdate) {
             tasksRepository.refreshTasks()
         }
-        tasksRepository.getTasksList(object : TasksDataSource.LoadTasksListCallback {
-            override fun onTasksListLoad(tasks: List<Task>) {
-                //临时对象，过滤前数据
-                val tasksToShow: List<Task>
-                //过滤列表
-                tasksToShow = when (currentFiltering) {
-                    TasksFilterType.ALL_TASKS ->
-                        tasks
-                    TasksFilterType.ACTIVE_TASKS ->
-                        tasks.filter { it.isActive }
-                    TasksFilterType.COMPLETED_TASKS ->
-                        tasks.filter { it.isCompleted }
-                }
-                //加载完成后，取消刷新
-                if (showLoadingUI) {
-                    dataLoading.set(false)
-                }
-                //通知View，加载正常
-                isDataLoadingError.set(false)
+        val disposable=tasksRepository.getTasksList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    onTaskLoad(it,showLoadingUI)
+                },{
+                    isDataLoadingError.set(true)
+                })
+        compositeDisposable.add(disposable)
 
-                with(items) {
-                    clear()
-                    addAll(tasksToShow)
-                    empty.set(isEmpty())
-                }
-            }
+    }
 
-            override fun onDataNotAvailable() {
-                //通知View加载失败
-                isDataLoadingError.set(true)
+    private fun onTaskLoad(tasks: List<Task>, showLoadingUI: Boolean) {
+        //临时对象，过滤前数据
+        val tasksToShow: List<Task>
+        //过滤列表
+        tasksToShow = when (currentFiltering) {
+            TasksFilterType.ALL_TASKS ->
+                tasks
+            TasksFilterType.ACTIVE_TASKS ->
+                tasks.filter { it.isActive }
+            TasksFilterType.COMPLETED_TASKS ->
+                tasks.filter { it.isCompleted }
+        }
+        //加载完成后，取消刷新
+        if (showLoadingUI) {
+            dataLoading.set(false)
+        }
+        //通知View，加载正常
+        isDataLoadingError.set(false)
 
-            }
-
-        })
+        with(items) {
+            clear()
+            addAll(tasksToShow)
+            empty.set(isEmpty())
+        }
     }
 
     /**

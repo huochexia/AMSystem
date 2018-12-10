@@ -1,10 +1,11 @@
 package com.owner.todo.data.source.remote
 
-import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.provideslib.common.ProviderConstant
 import com.owner.todo.data.Task
 import com.owner.todo.data.source.TasksDataSource
+import io.reactivex.Flowable
+import io.reactivex.Single
 
 /**
  *  访问远程数据
@@ -12,25 +13,21 @@ import com.owner.todo.data.source.TasksDataSource
  *@description:
  */
 object TasksRemoteDataSource : TasksDataSource {
-    override fun getTasksList(callback: TasksDataSource.LoadTasksListCallback) {
+
+    override fun getTasksList(): Flowable<List<Task>> {
 
         val userId = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID)
         val where: String = """{"userId","$userId"}"""
-        val disposable=TaskService.getTasksList(where).execute()
-                .subscribe({
-                    if (it.results == null) {
-                        val tasks = ArrayList<Task>()
-                        callback.onTasksListLoad(tasks)
-                    } else {
-                        callback.onTasksListLoad(it.results)
-                    }
-                }, {
-                    callback.onDataNotAvailable()
-                })
+        return TaskService.getTasksList(where).flatMap {
+            Flowable.just(it.results)
+        }
+
     }
 
-    override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
+    override fun getTask(taskId: String): Single<Task> {
 
+        val where = """{"id","$taskId"}"""
+        return TaskService.getTaskById(where)
     }
 
     override fun saveTask(task: Task) {

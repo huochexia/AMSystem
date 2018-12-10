@@ -28,9 +28,9 @@ import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.ext.setupToolBar
 import com.owner.baselibrary.ext.showSnackbar
 import com.owner.todo.R
-import com.owner.todo.obtainViewModel
 import com.owner.todo.view.fragment.TasksFragment
 import com.owner.todo.viewmodel.TaskViewModel
+import com.owner.todo.viewmodel.obtainViewModel
 
 /**
  *
@@ -126,5 +126,9 @@ class TasksActivity : AppCompatActivity() {
                 else -> super.onOptionsItemSelected(item)
             }
 
+    override fun onDestroy() {
+        viewModel.compositeDisposable.clear()
+        super.onDestroy()
+    }
     fun obtainViewModel(): TaskViewModel = obtainViewModel(TaskViewModel::class.java)
 }

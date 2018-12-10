@@ -17,6 +17,8 @@ package com.owner.todo.data.source.local
 
 import android.arch.persistence.room.*
 import com.owner.todo.data.Task
+import io.reactivex.Flowable
+import io.reactivex.Single
 
 /**
  *
@@ -27,10 +29,10 @@ import com.owner.todo.data.Task
 interface TaskDao {
 
     @Query("SELECT * FROM Tasks")
-    fun getTasks(): List<Task>
+    fun getTasks(): Flowable<List<Task>>
 
     @Query("SELECT * FROM Tasks WHERE id = :taskId")
-    fun getTaskId(taskId: String): Task?
+    fun getTaskId(taskId: String): Single<Task>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTask(task: Task)

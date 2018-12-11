@@ -15,6 +15,7 @@
  */
 package com.owner.todo.util
 
+import android.app.Activity
 import android.os.Handler
 import android.os.Looper
 import android.support.annotation.MainThread
@@ -27,6 +28,7 @@ import java.util.concurrent.Executors
  *@description:
  */
 const val THREAD_COUNT = 3
+
 
 open class AppExecutors constructor(
         val diskIO:Executor = DiskIOThreadExecutor(),

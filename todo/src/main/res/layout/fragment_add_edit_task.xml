@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.owner.todo.viewmodel.AddEditTaskViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <com.owner.baselibrary.widgets.ScrollChildSwipeRefreshLayout
+        android:id="@+id/mRefreshLayout"
+        style="@style/MatchMatch"
+        app:enabled="@{viewmodel.dataLoading}"
+        app:refreshing="@{viewmodel.dataLoading}">
+        <ScrollView
+            style="@style/MatchMatch">
+            <LinearLayout
+               style="@style/MatchWrap.Vertical"
+                android:padding="@dimen/common_padding_middle"
+                android:visibility="@{viewmodel.dataLoading?View.GONE:View.VISIBLE}">
+                <EditText
+                    android:id="@+id/mAddTaskTitle"
+                    style="@style/MatchWrap"
+                    android:hint="标题"
+                    android:text="@={viewmodel.title}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:maxLines="1"/>
+                <EditText
+                    android:id="@+id/mAddTaskDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:gravity="top"
+                    android:hint="输入备忘录"
+                    android:text="@={viewmodel.description}"/>
+            </LinearLayout>
+        </ScrollView>
+
+    </com.owner.baselibrary.widgets.ScrollChildSwipeRefreshLayout>
+</layout>

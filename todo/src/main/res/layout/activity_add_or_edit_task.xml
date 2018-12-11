@@ -34,7 +34,7 @@
                     android:id="@+id/mFragmentContainer"
                     style="@style/MatchMatch"/>
                 <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/mFabEditTask"
+                    android:id="@+id/mFabAddEditTask"
                     style="@style/WrapWrap"
                     android:layout_margin="@dimen/common_margin_middle"
                     android:src="@drawable/icon_add"

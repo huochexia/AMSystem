@@ -37,7 +37,7 @@ import com.owner.todo.viewmodel.obtainViewModel
  * Created by Liuyong on 2018-12-08.It's AMSystem
  *@description:
  */
-class TasksActivity : AppCompatActivity() {
+class TasksActivity : AppCompatActivity(),TaskItemNavigator,TasksNavigator {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var viewModel: TaskViewModel
@@ -70,15 +70,16 @@ class TasksActivity : AppCompatActivity() {
     /**
      * 启动编辑任务详情界面
      */
-    private fun openTaskDetails(taskId: String) {
+    override fun openTaskDetails(taskId: String) {
         drawerLayout.showSnackbar("编辑任务",Snackbar.LENGTH_LONG)
     }
 
     /**
      * 启动增加任务界面
      */
-    private fun addNewTask() {
-        drawerLayout.showSnackbar("增加任务",Snackbar.LENGTH_LONG)
+    override fun addNewTask() {
+        val intent = Intent(this,AddEditTaskActivity::class.java)
+        startActivityForResult(intent,AddEditTaskActivity.REQUEST_CODE)
     }
 
     private fun setupFragment() {

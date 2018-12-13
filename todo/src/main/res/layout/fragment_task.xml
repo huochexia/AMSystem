@@ -36,7 +36,8 @@
                     android:text="@{viewmodel.currentFilteringLabel}" />
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/mTasksList"
-                    style="@style/MatchWrap" />
+                    style="@style/MatchWrap"
+                 app:items="@{viewmodel.items}"/>
 
             </LinearLayout>
             <LinearLayout

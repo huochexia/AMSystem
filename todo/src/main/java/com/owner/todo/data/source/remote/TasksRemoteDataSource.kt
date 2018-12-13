@@ -14,9 +14,10 @@ import io.reactivex.Single
  */
 object TasksRemoteDataSource : TasksDataSource {
 
+    private val userId = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID)
+
     override fun getTasksList(): Flowable<List<Task>> {
 
-        val userId = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID)
         val where: String = """{"userId","$userId"}"""
         return TaskService.getTasksList(where).flatMap {
             Flowable.just(it.results)
@@ -31,27 +32,28 @@ object TasksRemoteDataSource : TasksDataSource {
     }
 
     override fun saveTask(task: Task) {
-
+        TaskService.createTask(task)
     }
 
     override fun completeTask(task: Task) {
-
+        completeTask(task.id)
     }
 
     override fun completeTask(taskId: String) {
-
+        TaskService.updateTask(taskId)
     }
 
     override fun activateTask(task: Task) {
-
+        activateTask(task.id)
     }
 
     override fun activateTask(taskId: String) {
-
+        TaskService.updateTask(taskId)
     }
 
     override fun clearCompletedTasks() {
-
+        val where = """{"{'$'}and":[{"isCompleted":"true"},{"userId":"$userId"}]}"""
+        TaskService.deleteTask(where)
     }
 
     override fun refreshTasks() {
@@ -59,10 +61,11 @@ object TasksRemoteDataSource : TasksDataSource {
     }
 
     override fun deleteAllTasks() {
-
+        val where ="""{"userId":"$userId"}"""
+        TaskService.deleteTask(where)
     }
 
     override fun deleteTask(taskId: String) {
-
+        TaskService.deleteTaskById(taskId)
     }
 }

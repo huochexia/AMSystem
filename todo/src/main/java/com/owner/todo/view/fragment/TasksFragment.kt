@@ -20,6 +20,7 @@ import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import android.widget.PopupMenu
 import com.owner.baselibrary.ext.setupSnacker
@@ -27,7 +28,9 @@ import com.owner.todo.R
 import com.owner.todo.common.TasksFilterType
 import com.owner.todo.databinding.FragmentTaskBinding
 import com.owner.todo.view.activity.TasksActivity
+import com.owner.todo.view.adapter.TaskRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_task.*
+import kotlinx.android.synthetic.main.fragment_task.*
 
 /**
  *
@@ -37,6 +40,7 @@ import kotlinx.android.synthetic.main.activity_task.*
 class TasksFragment : Fragment() {
 
     private lateinit var mBinding: FragmentTaskBinding
+    private lateinit var adapter:TaskRecyclerAdapter
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,6 +54,7 @@ class TasksFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         mBinding.viewmodel?.start()
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -58,6 +63,11 @@ class TasksFragment : Fragment() {
             view?.setupSnacker(this,it.snackbarMessage,Snackbar.LENGTH_LONG)
         }
         setupFab()
+
+        mTasksList.layoutManager=LinearLayoutManager(context)
+        adapter = TaskRecyclerAdapter(mBinding.viewmodel!!)
+        mTasksList.adapter = adapter
+
         setupRefreshLayout()
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

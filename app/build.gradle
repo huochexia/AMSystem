@@ -47,6 +47,9 @@ dependencies {
     if(isAssertsParam.toBoolean()){
         api project(':assetsparam')
     }
+    if (isTodo.toBoolean()) {
+        api project(':todo')
+    }
     //ARouter
     kapt 'com.alibaba:arouter-compiler:1.2.1'
 }

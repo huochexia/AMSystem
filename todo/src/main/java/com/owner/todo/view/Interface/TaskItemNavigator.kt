@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.todo.view.activity
+package com.owner.todo.view.Interface
 
 /**
  *
- * Created by Liuyong on 2018-12-10.It's AMSystem
+ * Created by Liuyong on 2018-12-11.It's AMSystem
  *@description:
  */
-internal interface AddEditTaskNavigator {
+interface TaskItemNavigator {
 
-    fun onTaskSaved()
+    fun openTaskDetails(taskId:String)
 }

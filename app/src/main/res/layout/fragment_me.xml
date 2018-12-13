@@ -22,7 +22,7 @@
                 android:layout_height="@dimen/common_icon_height"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/common_margin"
-                android:onClick="@{mevm::startUserInfoOrLogin}"/>
+                android:onClick="@{()->mevm.startUserInfoOrLogin()}"/>
 
             <TextView
                 android:id="@+id/mUserNameTv"
@@ -31,7 +31,7 @@
                 android:layout_marginLeft="@dimen/common_margin"
                 android:textColor="@color/common_white"
                 android:textSize="@dimen/text_big_size"
-                android:onClick="@{mevm::startUserInfoOrLogin}"/>
+                android:onClick="@{()->mevm.startUserInfoOrLogin()}"/>
         </LinearLayout>
 
         <LinearLayout
@@ -73,5 +73,11 @@
             android:drawableLeft="@mipmap/icon_setting"
             android:text="个人设置"
             android:onClick="@{mevm::startSettingActivity}"/>
+        <TextView
+            android:id="@+id/mTodoTv"
+            style="@style/MeItemStyle"
+            android:drawableLeft="@mipmap/ic_todo"
+            android:text="备忘录"
+            android:onClick="@{()->mevm.startTodo()}"/>
     </LinearLayout>
 </layout>

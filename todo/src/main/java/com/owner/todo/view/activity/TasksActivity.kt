@@ -24,20 +24,25 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.ext.setupToolBar
 import com.owner.baselibrary.ext.showSnackbar
+import com.owner.provideslib.router.RouterPath
 import com.owner.todo.R
 import com.owner.todo.view.fragment.TasksFragment
 import com.owner.todo.viewmodel.TaskViewModel
-import com.owner.todo.viewmodel.obtainViewModel
+import com.owner.todo.ext.obtainViewModel
+import com.owner.todo.view.Interface.TaskItemNavigator
+import com.owner.todo.view.Interface.TasksNavigator
 
 /**
  *
  * Created by Liuyong on 2018-12-08.It's AMSystem
  *@description:
  */
-class TasksActivity : AppCompatActivity(),TaskItemNavigator,TasksNavigator {
+@Route(path = RouterPath.Todo.PATH_TODO_TASK)
+class TasksActivity : AppCompatActivity(), TaskItemNavigator, TasksNavigator {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var viewModel: TaskViewModel
@@ -106,6 +111,9 @@ class TasksActivity : AppCompatActivity(),TaskItemNavigator,TasksNavigator {
                 }
                 R.id.mStatisticsNavMenuItem -> {
 
+                }
+                R.id.mFinishMenuItem -> {
+                    finish()
                 }
             }
             menuItem.isChecked = true

@@ -24,7 +24,8 @@ import com.owner.todo.R
 import com.owner.todo.util.ADD_EDIT_RESULT_OK
 import com.owner.todo.view.fragment.AddEditTaskFragment
 import com.owner.todo.viewmodel.AddEditTaskViewModel
-import com.owner.todo.viewmodel.obtainViewModel
+import com.owner.todo.ext.obtainViewModel
+import com.owner.todo.view.Interface.AddEditTaskNavigator
 
 /**
  *

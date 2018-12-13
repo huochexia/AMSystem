@@ -62,10 +62,21 @@ class MeViewModel : BaseViewModel<MainRepository>() {
     /**
      * 启动登录界面
      */
-    fun startUserInfoOrLogin(view: View) {
+    fun startUserInfoOrLogin() {
         if (!isLogined()) {
             ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_LOGIN).navigation()
         }
 
+    }
+
+    /**
+     *  启动备忘录
+     */
+    fun startTodo() {
+        if (!isLogined()) {
+            ARouter.getInstance().build(RouterPath.UserCenter.PATH_USER_LOGIN).navigation()
+        } else {
+            ARouter.getInstance().build(RouterPath.Todo.PATH_TODO_TASK).navigation()
+        }
     }
 }

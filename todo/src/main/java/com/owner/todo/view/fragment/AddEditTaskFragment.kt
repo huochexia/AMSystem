@@ -30,7 +30,7 @@ import com.owner.todo.view.activity.AddEditTaskActivity
 import kotlinx.android.synthetic.main.activity_task.view.*
 
 /**
- *
+ *演示了从Fragment中调用activity的Toolbar和Fab按钮等视图
  * Created by Liuyong on 2018-12-11.It's AMSystem
  *@description:
  */
@@ -43,14 +43,21 @@ class AddEditTaskFragment :Fragment(){
 
         fun newInstance() = AddEditTaskFragment()
     }
+    /*
+      对于非静态的view，最好在onActivityCreated方法调用
+     */
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         setupFab()
+
         mBinding.viewmodel?.let {
             view?.setupSnacker(this,it.snackbarMessage,Snackbar.LENGTH_LONG)
         }
+
         setupActionBar()
+
         loadData()
     }
 
@@ -65,7 +72,8 @@ class AddEditTaskFragment :Fragment(){
     }
 
     /**
-     * 根据传入Fragment参数设置activity的工具栏标题内容
+     * 根据传入Fragment参数设置activity的工具栏标题内容，setTitle()方法有两种，一种参数是字符串，一
+     * 种参数是Int，资源文件。本例采用的是资源文件。
      */
     private fun setupActionBar() {
         (activity as AppCompatActivity).supportActionBar?.setTitle(

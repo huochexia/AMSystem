@@ -109,7 +109,7 @@ fun View.showSnackbar(snackbarText: String, timeLength: Int) {
  */
 fun View.setupSnacker(lifecycleOwner: LifecycleOwner,
                       snackbarMessageLiveEvent: SingleLiveEvent<Int>, timeLength: Int) {
-    snackbarMessageLiveEvent.observe(lifecycleOwner, Observer {
+    snackbarMessageLiveEvent.observe(lifecycleOwner, Observer { it ->
         it?.let {
             showSnackbar(context.getString(it),timeLength)
         }

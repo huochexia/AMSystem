@@ -8,4 +8,6 @@
     <item android:id="@+id/mStatisticsNavMenuItem"
         android:icon="@drawable/ic_statistics"
         android:title="统计"/>
+    <item android:id = "@+id/mFinishMenuItem"
+          android:title="返回"/>
 </menu>

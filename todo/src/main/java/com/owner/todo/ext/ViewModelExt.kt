@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.todo.viewmodel
+package com.owner.todo.ext
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
@@ -24,6 +24,7 @@ import com.owner.todo.data.source.local.TasksLocalDataSource
 import com.owner.todo.data.source.local.ToDoDatabase
 import com.owner.todo.data.source.remote.TasksRemoteDataSource
 import com.owner.todo.util.AppExecutors
+import com.owner.todo.viewmodel.ViewModelFactory
 
 /**
  *

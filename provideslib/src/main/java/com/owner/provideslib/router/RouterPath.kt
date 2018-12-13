@@ -42,5 +42,10 @@ object RouterPath {
             const val PATH_ASSET_INFO = "/assetinfo/info"
         }
     }
+    class Todo{
+        companion object {
+            const val PATH_TODO_TASK = "/todo/taskActivity"
+        }
+    }
 
 }

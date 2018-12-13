@@ -5,9 +5,7 @@
 
     <application
         android:allowBackup="true"
-        android:label="ToDo"
         android:supportsRtl="true">
-
         <activity android:name="com.owner.todo.view.activity.TasksActivity" />
         <activity android:name=".view.activity.AddEditTaskActivity"/>
     </application>

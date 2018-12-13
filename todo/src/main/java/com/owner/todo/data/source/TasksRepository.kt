@@ -16,6 +16,8 @@
 package com.owner.todo.data.source
 
 import com.owner.baselibrary.model.respository.BaseRepository
+import com.owner.baselibrary.utils.AppPrefsUtils
+import com.owner.provideslib.common.ProviderConstant
 import com.owner.todo.data.Task
 import com.owner.todo.data.source.remote.TasksRemoteDataSource
 import io.reactivex.Flowable
@@ -97,7 +99,8 @@ class TasksRepository(
      */
     private fun cacheAndPerform(task: Task, perform: (Task) -> Unit) {
         //生成一个新的对象
-        val cachedTask = Task(task.title, task.description, task.id).apply {
+        val cachedTask = Task(task.title, task.description,
+                AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID), task.id).apply {
             isCompleted = task.isCompleted
         }
         cachedTasks[cachedTask.id] = cachedTask
@@ -106,6 +109,7 @@ class TasksRepository(
 
     /**
      * UI对数据的更新是在缓存中进行的，所以为了保持UI与数据库一致，所以要将更新变化保存的远程和本地。
+     * 应该是远程保存成功了才保存本地，这样才能保持一致性
      */
     override fun saveTask(task: Task) {
         //对缓存中的数据进行更新，保持UI为最新

@@ -19,35 +19,50 @@ import com.owner.baselibrary.model.network.RetrofitFactory
 import com.owner.todo.data.Task
 import com.owner.todo.data.source.remote.entites.TaskList
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  *
  * Created by Liuyong on 2018-12-09.It's AMSystem
  *@description:
  */
-interface TaskServiceApi{
+interface TaskServiceApi {
     /*
     创建任务
      */
-    @POST("1.1/classes/Task?fetchWhenSave=true")
-    fun createTask(@Body task:Task):Single<Task>
+    @POST(value= "1.1/classes/Task?fetchWhenSave=true")
+    fun createTask(@Body task: Task): Single<Task>
+
     /*
     查询全部
      */
     @GET("1.1/classes/Task")
-    fun getTasksList(@Query(value = "where") condition:String): Flowable<TaskList>
+    fun getTasksList(@Query(value = "where") condition: String): Flowable<TaskList>
 
     /*
       查询某个任务
      */
-    @GET("1.1/classes/Task")
-    fun getTaskById(@Query(value = "where") condition:String): Single<Task>
+    @GET("1.1/classes/Task/{id}")
+    fun getTaskById(@Path("id") taskId: String): Single<Task>
+
+    /*
+      更新任务
+     */
+    @PUT("1.1/classes/Task/{id}")
+    fun updateTask(@Path("id") taskId: String)
+
+    /*
+      删除任务
+     */
+    @DELETE("1.1/classes/Task/{id}")
+    fun deleteTaskById(@Path("id") taskId: String)
+
+    /*
+      按条件删除任务
+     */
+    @DELETE("1.1/classes/Task")
+    fun deleteTask(@Query("where") condition:String)
 }
 
-object TaskService:TaskServiceApi by RetrofitFactory.instance.create(TaskServiceApi::class.java)
+object TaskService : TaskServiceApi by RetrofitFactory.instance.create(TaskServiceApi::class.java)

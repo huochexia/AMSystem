@@ -31,6 +31,10 @@ import com.owner.todo.common.TasksFilterType
 import com.owner.todo.data.Task
 import com.owner.todo.data.source.TasksDataSource
 import com.owner.todo.data.source.TasksRepository
+import com.owner.todo.util.ADD_EDIT_RESULT_OK
+import com.owner.todo.util.DELETE_RESULT_OK
+import com.owner.todo.util.EDIT_RESULT_OK
+import com.owner.todo.view.activity.AddEditTaskActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -135,6 +139,9 @@ class TaskViewModel(context: Application,
 
     }
 
+    /**
+     * 过滤任务列表
+     */
     private fun onTaskLoad(tasks: List<Task>, showLoadingUI: Boolean) {
         //临时对象，过滤前数据
         val tasksToShow: List<Task>
@@ -175,12 +182,11 @@ class TaskViewModel(context: Application,
     /**
      * 完成任务
      */
-    fun completeTask(task: Task, completed: Boolean) {
+    fun completeTask(task: Task) {
         //修改任务
-        task.isCompleted = true
-
+        task.isCompleted = !task.isCompleted
         //保存修改
-        if (completed) {
+        if (task.isCompleted) {
             tasksRepository.completeTask(task)
             showSnackbarMessage(R.string.task_marked_complete)
         } else {
@@ -203,6 +209,13 @@ class TaskViewModel(context: Application,
     }
 
     fun handleActivityResult(requestCode: Int, resultCode: Int) {
-
+        if (AddEditTaskActivity.REQUEST_CODE == requestCode) {
+            snackbarMessage.value = when (resultCode) {
+                ADD_EDIT_RESULT_OK ->R.string.successfully_added_task_message
+                EDIT_RESULT_OK ->R.string.successfully_saved_task_message
+                DELETE_RESULT_OK ->R.string.successfully_deleted_task_message
+                else ->return
+            }
+        }
     }
 }

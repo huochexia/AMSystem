@@ -51,11 +51,6 @@ class TasksFragment : Fragment() {
         return mBinding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        mBinding.viewmodel?.start()
-
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -70,6 +65,18 @@ class TasksFragment : Fragment() {
 
         setupRefreshLayout()
     }
+
+    /**
+     * 说明：start()是加载数据的方法，onResume是Fragment的生命周期方法。当从增加或编辑界面返回主界面
+     * 时，Fragment重新建立时，都会调用这个方法。这样得到新的数据。在start()方法中，数据是添加到items
+     * 这个可观察变量中的，它绑定在列表视图上，所以它会及时通知视图刷新列表。
+     */
+    override fun onResume() {
+        super.onResume()
+        mBinding.viewmodel?.start()
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_task_fragment, menu)
     }

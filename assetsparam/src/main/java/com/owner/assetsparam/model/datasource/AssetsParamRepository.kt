@@ -1,4 +1,4 @@
-package com.owner.assetsparam.model.repository
+package com.owner.assetsparam.model.datasource
 
 import com.owner.assetsparam.data.CategoryInfo
 import com.owner.assetsparam.data.Manager

@@ -66,5 +66,6 @@ dependencies {
     if (isUserCenter.toBoolean()) {
         api project(':usercenter')
     }
-
+//room
+    kapt "android.arch.persistence.room:compiler:$room_version"
 }

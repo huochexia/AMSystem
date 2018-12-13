@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.assetsparam.model.repository.impl
-
-import com.owner.assetsparam.model.repository.AssetInfoRepository
+package com.owner.assetsparam.model.local
 
 /**
  *
- * Created by Liuyong on 2018-11-28.It's AMSystem
+ * Created by Liuyong on 2018-12-13.It's AMSystem
  *@description:
  */
-class AssetInfoRepositoryImpl:AssetInfoRepository {
+interface CategoryDao {
 }

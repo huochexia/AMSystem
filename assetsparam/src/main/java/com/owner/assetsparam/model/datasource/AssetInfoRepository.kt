@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.assetsparam.model.repository
+package com.owner.assetsparam.model.datasource
 
 import com.owner.baselibrary.model.respository.BaseRepository
 

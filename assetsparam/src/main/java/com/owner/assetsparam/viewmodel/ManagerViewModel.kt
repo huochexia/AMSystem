@@ -20,8 +20,8 @@ import android.databinding.Bindable
 import com.kennyc.view.MultiStateView
 import com.owner.assetsparam.BR
 import com.owner.assetsparam.data.Manager
-import com.owner.assetsparam.model.repository.AssetsParamRepository
-import com.owner.assetsparam.model.repository.impl.APRepositoryImpl
+import com.owner.assetsparam.model.datasource.AssetsParamRepository
+import com.owner.assetsparam.model.datasource.impl.APRepositoryImpl
 import com.owner.assetsparam.utils.PinyinComparator
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.utils.PinyinUtils

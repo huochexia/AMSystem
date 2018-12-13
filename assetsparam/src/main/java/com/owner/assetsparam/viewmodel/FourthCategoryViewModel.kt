@@ -21,8 +21,8 @@ import com.kennyc.view.MultiStateView
 import com.owner.assetsparam.BR
 import com.owner.assetsparam.data.CategoryInfo
 import com.owner.assetsparam.data.Footer
-import com.owner.assetsparam.model.repository.AssetsParamRepository
-import com.owner.assetsparam.model.repository.impl.APRepositoryImpl
+import com.owner.assetsparam.model.datasource.AssetsParamRepository
+import com.owner.assetsparam.model.datasource.impl.APRepositoryImpl
 import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers

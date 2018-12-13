@@ -13,22 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.assetsparam.viewmodel
-
-import com.owner.assetsparam.model.datasource.AssetInfoRepository
-import com.owner.assetsparam.model.datasource.impl.AssetInfoRepositoryImpl
-import com.owner.baselibrary.viewmodel.BaseViewModel
+package com.owner.assetsparam.model.local
 
 /**
- *  资产信息ViewModel
- * Created by Liuyong on 2018-11-28.It's AMSystem
+ *
+ * Created by Liuyong on 2018-12-13.It's AMSystem
  *@description:
  */
-class AssetInfoViewModel(val isEdited:Boolean) :BaseViewModel<AssetInfoRepository>(){
-
-    init {
-        repo = AssetInfoRepositoryImpl()
-    }
-
-
+class CategoryLocalDataSource {
 }

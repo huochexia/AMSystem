@@ -1,4 +1,4 @@
-package com.owner.assetsparam.model.repository.impl
+package com.owner.assetsparam.model.datasource.impl
 
 import com.owner.assetsparam.data.CategoryInfo
 import com.owner.assetsparam.data.Manager
@@ -6,7 +6,7 @@ import com.owner.assetsparam.model.network.entites.GetCategoryList
 import com.owner.assetsparam.model.network.entites.CreateCgReq
 import com.owner.assetsparam.model.network.entites.QueryManagerResp
 import com.owner.assetsparam.model.network.service.AssertsParamService
-import com.owner.assetsparam.model.repository.AssetsParamRepository
+import com.owner.assetsparam.model.datasource.AssetsParamRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
 

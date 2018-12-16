@@ -54,6 +54,8 @@ class TaskViewModel(context: Application,
     val compositeDisposable = CompositeDisposable()
     internal val openTaskEvent = SingleLiveEvent<String>()
 
+    val tasksAll = arrayListOf<Task>()
+
     val items: ObservableList<Task> = ObservableArrayList()
     val dataLoading = ObservableBoolean(false)
     val currentFilteringLabel = ObservableField<String>()
@@ -130,9 +132,16 @@ class TaskViewModel(context: Application,
         val disposable=tasksRepository.getTasksList()
                 .execute()
                 .subscribe({
-                    onTaskLoad(it,showLoadingUI)
+                    if (showLoadingUI) {
+                        dataLoading.set(false)
+                    }
+                    tasksAll.clear()
+                    tasksAll.addAll(it)
+                    filterTasks()
                 },{
                     isDataLoadingError.set(true)
+                },{
+
                 })
         compositeDisposable.add(disposable)
 
@@ -141,25 +150,18 @@ class TaskViewModel(context: Application,
     /**
      * 过滤任务列表
      */
-    private fun onTaskLoad(tasks: List<Task>, showLoadingUI: Boolean) {
+   fun filterTasks() {
         //临时对象，过滤前数据
         val tasksToShow: List<Task>
         //过滤列表
         tasksToShow = when (currentFiltering) {
             TasksFilterType.ALL_TASKS ->
-                tasks
+                tasksAll
             TasksFilterType.ACTIVE_TASKS ->
-                tasks.filter { it.isActive }
+                tasksAll.filter { it.isActive }
             TasksFilterType.COMPLETED_TASKS ->
-                tasks.filter { it.isCompleted }
+                tasksAll.filter { it.isCompleted }
         }
-        //加载完成后，取消刷新
-        if (showLoadingUI) {
-            dataLoading.set(false)
-        }
-        //通知View，加载正常
-        isDataLoadingError.set(false)
-
         with(items) {
             clear()
             addAll(tasksToShow)
@@ -174,11 +176,18 @@ class TaskViewModel(context: Application,
      * 清除已完成任务
      */
     fun clearCompleteTasks() {
-        tasksRepository.clearCompletedTasks()
-        //通知View显示完成清理任务提示
-        snackbarMessage.value = R.string.completed_tasks_cleared
-        //重新加载数据
-        loadTasks(false, false)
+
+        val disposable = tasksRepository.clearCompletedTasks(tasksAll.filter { it.isCompleted })
+                .execute()
+                .subscribe({
+
+                }, {}, {
+                    //通知View显示完成清理任务提示
+                    snackbarMessage.value = R.string.completed_tasks_cleared
+                    //重新加载数据
+                    loadTasks(true)
+                })
+        compositeDisposable.add(disposable)
     }
 
     /**
@@ -221,7 +230,11 @@ class TaskViewModel(context: Application,
     fun handleActivityResult(requestCode: Int, resultCode: Int) {
         if (AddEditTaskActivity.REQUEST_CODE == requestCode) {
             snackbarMessage.value = when (resultCode) {
-                ADD_EDIT_RESULT_OK ->R.string.successfully_added_task_message
+                ADD_EDIT_RESULT_OK ->{
+                    //新生成的任务的objectId是空，只有它保存到了远程数据库以后，由数据库为它生成。
+                    //这样为了保存缓存、本地和远程的一致性，生成新任务后要刷新任务列表。
+                    loadTasks(true,false)
+                    R.string.successfully_added_task_message}
                 EDIT_RESULT_OK ->R.string.successfully_saved_task_message
                 DELETE_RESULT_OK ->R.string.successfully_deleted_task_message
                 else ->return

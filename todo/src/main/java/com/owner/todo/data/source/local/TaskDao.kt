@@ -28,8 +28,8 @@ import io.reactivex.Single
 @Dao
 interface TaskDao {
 
-    @Query("SELECT * FROM Tasks")
-    fun getTasks(): Flowable<List<Task>>
+    @Query("SELECT * FROM Tasks WHERE userId = :userId")
+    fun getTasks(userId:String): Flowable<List<Task>>
 
     @Query("SELECT * FROM Tasks WHERE objectId = :taskId")
     fun getTaskId(taskId: String): Single<Task>

@@ -20,6 +20,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
+import okhttp3.ResponseBody
 
 /**
  *
@@ -28,23 +29,29 @@ import io.reactivex.Single
  */
 interface RemoteDataSource {
 
-
+    /*
+     *获取全部
+     */
     fun getTasksList(): Observable<List<Task>>
-
+    /*
+      获取单个
+     */
     fun getTask(taskId: String): Single<Task>
     /*
     生成新的任务
      */
     fun createTask(task:Task):Observable<Task>
-
+    /*
+     更新
+     */
     fun updateTask(task: Task):Completable
+    /*
+      批量删除
+     */
+    fun clearCompletedTasks(tasks:List<Task>):Observable<ResponseBody>
 
-    fun clearCompletedTasks()
-
-    fun refreshTasks()
-
-    fun deleteAllTasks()
-
-
-    fun deleteTaskById(taskId: String): Single<Any>
+    /*
+      删除单个
+     */
+    fun deleteTaskById(taskId: String): Completable
 }

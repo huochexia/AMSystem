@@ -3,9 +3,12 @@ package com.owner.todo.data.source.remote
 import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.provideslib.common.ProviderConstant
 import com.owner.todo.data.Task
+import com.owner.todo.data.source.remote.entites.BatchDeleteRequest
+import com.owner.todo.data.source.remote.entites.TaskDelete
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import okhttp3.ResponseBody
 
 /**
  *  访问远程数据
@@ -14,11 +17,9 @@ import io.reactivex.Single
  */
 object TasksRemoteDataSource : RemoteDataSource {
 
-    private val userId = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID)
-
     override fun getTasksList(): Observable<List<Task>> {
 
-        val where = """{"userId":"$userId"}"""
+        val where = """{"userId":"${AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID)}"}"""
         return TaskService.getTasksList(where).flatMap {
             Observable.just(it.results)
         }
@@ -39,21 +40,19 @@ object TasksRemoteDataSource : RemoteDataSource {
         return TaskService.updateTask(taskId, task)
     }
 
-    override fun clearCompletedTasks() {
-        val where = """{"{'$'}and":[{"isCompleted":"true"},{"userId":"$userId"}]}"""
-        TaskService.deleteTask(where)
+    override fun clearCompletedTasks(tasks:List<Task>):Observable<ResponseBody> {
+        val deleteTasks = arrayListOf<TaskDelete>()
+        tasks.forEach {
+            val one = TaskDelete(taskId = it.objectId)
+            deleteTasks.add(one)
+        }
+        return TaskService.deleteTasks(BatchDeleteRequest(deleteTasks))
     }
 
-    override fun refreshTasks() {
 
-    }
 
-    override fun deleteAllTasks() {
-        val where ="""{"userId":"$userId"}"""
-        TaskService.deleteTask(where)
-    }
 
-    override fun deleteTaskById(taskId: String): Single<Any> {
+    override fun deleteTaskById(taskId: String): Completable {
         return TaskService.deleteTaskById(taskId)
     }
 }

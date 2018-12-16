@@ -111,7 +111,8 @@ class TasksFragment : Fragment() {
                                 R.id.active -> TasksFilterType.ACTIVE_TASKS
                                 else -> TasksFilterType.ALL_TASKS
                             }
-                    loadTasks(false)
+//                    loadTasks(false)
+                    filterTasks()
                 }
                 true
             }

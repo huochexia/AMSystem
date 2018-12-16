@@ -22,4 +22,13 @@ import com.owner.todo.data.Task
  * Created by Liuyong on 2018-12-09.It's AMSystem
  *@description:
  */
+data class TaskDelete(val method:String ="DELETE",
+                       val taskId:String){
+    val path = "/1.1/classes/Task/$taskId"
+}
+
+data class BatchDeleteRequest(val requests:List<TaskDelete>)
+
+
 data class TaskList(val results:List<Task>)
+

@@ -15,6 +15,8 @@
  */
 package com.owner.todo.data.source.local
 
+import com.owner.baselibrary.utils.AppPrefsUtils
+import com.owner.provideslib.common.ProviderConstant
 import com.owner.todo.data.Task
 import com.owner.todo.util.AppExecutors
 import io.reactivex.Flowable
@@ -30,7 +32,8 @@ class TasksLocalDataSource private constructor(
         private val taskDao: TaskDao
 ): LocalDataSource {
 
-    override fun getTasksList(): Flowable<List<Task>> = taskDao.getTasks()
+    override fun getTasksList(): Flowable<List<Task>> = taskDao.getTasks(
+            AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID))
 
 
     override fun getTask(taskId: String): Single<Task> = taskDao.getTaskId(taskId)

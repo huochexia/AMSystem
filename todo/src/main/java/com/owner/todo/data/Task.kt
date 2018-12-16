@@ -30,7 +30,7 @@ import java.util.*
 data class Task @JvmOverloads constructor(
         var title: String = "",
         var description: String = "",
-        @Ignore var userId: String = "",
+        var userId: String = "",
         @PrimaryKey var objectId: String =""
 ) {
     /**

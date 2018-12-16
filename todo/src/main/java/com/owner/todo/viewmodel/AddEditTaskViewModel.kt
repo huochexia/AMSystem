@@ -87,7 +87,7 @@ class AddEditTaskViewModel(
     }
 
     fun saveTask() {
-        val task = Task(title.get()!!,description.get()!!,AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID))
+        val task = Task(title.get()?:"",description.get()?:"",AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID))
         if (task.isEmpty) {
             showSnackbarMessage(R.string.empty_task_message)
         }
@@ -109,7 +109,11 @@ class AddEditTaskViewModel(
      */
     private fun createTask(newTask: Task) {
         val disposable = tasksRepository.createTask(newTask).execute()
-                .subscribe({},{},{ taskUpdateEvent.call()})
+                .subscribe({
+
+                },{
+
+                },{ taskUpdateEvent.call()})
 
         compositeDisposable.add(disposable)
     }

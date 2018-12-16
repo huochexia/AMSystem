@@ -25,6 +25,7 @@ import com.owner.todo.data.source.remote.TasksRemoteDataSource
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import okhttp3.ResponseBody
 
 /**
  *  是远程、本地以及缓存的合体
@@ -52,7 +53,7 @@ class TasksRepository(
 
             return Observable.just(ArrayList(cachedTasks.values))
         }
-        //如果缓存数据是脏的
+
         return if (cacheIsDirty) {
             //如果缓存的数据是脏的，我们需要从网络获取新的数据
             getTasksFromRemoteDataSource()
@@ -114,11 +115,7 @@ class TasksRepository(
      * 生成新的,当远程生成数据成功后，刷新缓存和本地数据，以保持一致
      */
     fun createTask(task: Task): Observable<Task> {
-        return remoteDataSource.createTask(task).doOnComplete {
-            cacheAndPerform(task) {
-                localDataSource.saveTask(it)
-            }
-        }
+        return remoteDataSource.createTask(task)
     }
     /**
      * UI对数据的更新是在缓存中进行的，所以为了保持UI与数据库一致，所以要将更新变化保存的远程和本地。
@@ -141,6 +138,8 @@ class TasksRepository(
                 cacheAndPerform(task) {
                     localDataSource.completeTask(task)
                 }
+            }.doOnError {
+                println("Update is Failure"+it.localizedMessage)
             }
 
 
@@ -152,14 +151,16 @@ class TasksRepository(
     /**
      * 清理已完成任务，分别清理远程数据库，本地数据库以及缓存中
      */
-    fun clearCompletedTasks() {
-        remoteDataSource.clearCompletedTasks()
-        localDataSource.clearCompletedTasks()
-        //利用集合的过滤功能，过滤掉已完成任务，需要强转
-        cachedTasks = cachedTasks.filterValues {
-            !it.isCompleted
-        } as LinkedHashMap<String, Task>
-    }
+    fun clearCompletedTasks(tasks:List<Task>):Observable<ResponseBody> =
+         remoteDataSource.clearCompletedTasks(tasks).doOnNext {
+             localDataSource.clearCompletedTasks()
+             //利用集合的过滤功能，过滤掉已完成任务，需要强转
+             cachedTasks = cachedTasks.filterValues {task->
+                 !task.isCompleted
+             } as LinkedHashMap<String, Task>
+         }
+
+
 
     /**
      * 从本地获取单个任务，除非本地是新的或空的。
@@ -186,7 +187,10 @@ class TasksRepository(
     }
 
     /**
-     * 刷新列表：缓存数据发生变化，将缓存设置为脏的。
+     * 刷新列表，是为了让缓存、本地与远程数据一致起来，所以刷新列表就是重新获取远程数据。正常使用
+     * 过程中，如果缓存中有数据或本地有数据时是不从远程获取数据的，所以为了能够强制执行从远程获取
+     * 数据，就要设定一个条件，当cacheIsDirty为true时，从远程获取数据。于是刷新的逻辑就是将cacheIsDirty
+     * 设置为true后，再调用获取数据方法。
      */
     fun refreshTasks() {
         cacheIsDirty = true
@@ -196,9 +200,9 @@ class TasksRepository(
      * 删除所有任务
      */
     fun deleteAllTasks() {
-        remoteDataSource.deleteAllTasks()
-        localDataSource.deleteAllTasks()
-        cachedTasks.clear()
+//        remoteDataSource.deleteAllTasks()
+//        localDataSource.deleteAllTasks()
+//        cachedTasks.clear()
     }
 
     fun deleteTask(taskId: String) {
@@ -207,10 +211,12 @@ class TasksRepository(
         cachedTasks.remove(taskId)
     }
 
-    fun deleteTaskById(taskId: String): Single<Any> {
-        return remoteDataSource.deleteTaskById(taskId).doOnSuccess {
+    fun deleteTaskById(taskId: String): Completable {
+        return remoteDataSource.deleteTaskById(taskId).doOnComplete {
             localDataSource.deleteTask(taskId)
             cachedTasks.remove(taskId)
+        }.doOnError {
+            println("Delete is Failure!"+it.localizedMessage)
         }
 
     }

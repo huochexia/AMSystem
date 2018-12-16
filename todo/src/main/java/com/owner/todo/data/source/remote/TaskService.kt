@@ -17,11 +17,13 @@ package com.owner.todo.data.source.remote
 
 import com.owner.baselibrary.model.network.RetrofitFactory
 import com.owner.todo.data.Task
+import com.owner.todo.data.source.remote.entites.BatchDeleteRequest
 import com.owner.todo.data.source.remote.entites.TaskList
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
+import okhttp3.ResponseBody
 import retrofit2.http.*
 
 /**
@@ -55,16 +57,16 @@ interface TaskServiceApi {
     fun updateTask(@Path("objectId") objectId:String, @Body task:Task):Completable
 
     /*
-      删除任务
+      删除单个任务
      */
     @DELETE("1.1/classes/Task/{id}")
-    fun deleteTaskById(@Path("id") taskId: String):Single<Any>
+    fun deleteTaskById(@Path("id") taskId: String):Completable
 
     /*
-      按条件删除任务
+      批量删除任务
      */
-    @DELETE("1.1/classes/Task")
-    fun deleteTask(@Query("where") condition:String):Single<Any>
+    @POST("1.1/batch")
+    fun deleteTasks(@Body requests:BatchDeleteRequest):Observable<ResponseBody>
 }
 
 object TaskService : TaskServiceApi by RetrofitFactory.instance.create(TaskServiceApi::class.java)

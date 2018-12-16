@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.owner.todo.viewmodel.TaskDetailViewModel" />
+
+    </data>
+
+    <LinearLayout
+        style="@style/MatchMatch"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/mToolbar"
+                style="@style/MatchWrap"
+                android:background="@color/common_blue"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/Toolbar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/mCoordinatorLayout"
+            style="@style/MatchMatch">
+
+            <FrameLayout
+                android:id="@+id/mDetailContainer"
+                style="@style/MatchMatch" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/mEditTaskFAB"
+                style="@style/WrapWrap"
+                android:layout_margin="@dimen/common_margin_middle"
+                android:src="@drawable/ic_edit"
+                app:backgroundTint="@color/common_blue"
+                app:fabSize="normal"
+                app:layout_anchor="@id/mDetailContainer"
+                app:layout_anchorGravity="bottom|right|end" />
+        </android.support.design.widget.CoordinatorLayout>
+
+    </LinearLayout>
+</layout>

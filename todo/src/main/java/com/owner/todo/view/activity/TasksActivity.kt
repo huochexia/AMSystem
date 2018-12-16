@@ -35,6 +35,7 @@ import com.owner.todo.viewmodel.TaskViewModel
 import com.owner.todo.ext.obtainViewModel
 import com.owner.todo.view.Interface.TaskItemNavigator
 import com.owner.todo.view.Interface.TasksNavigator
+import org.jetbrains.anko.startActivity
 
 /**
  *
@@ -76,7 +77,10 @@ class TasksActivity : AppCompatActivity(), TaskItemNavigator, TasksNavigator {
      * 启动编辑任务详情界面
      */
     override fun openTaskDetails(taskId: String) {
-        drawerLayout.showSnackbar("编辑任务",Snackbar.LENGTH_LONG)
+        val intent = Intent(this,TaskDetailActivity::class.java).apply {
+            putExtra(TaskDetailActivity.EXTRA_TASK_ID,taskId)
+        }
+        startActivityForResult(intent,AddEditTaskActivity.REQUEST_CODE)
     }
 
     /**
@@ -110,7 +114,10 @@ class TasksActivity : AppCompatActivity(), TaskItemNavigator, TasksNavigator {
 
                 }
                 R.id.mStatisticsNavMenuItem -> {
-
+                    val intent = Intent(this,StatisticsActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    }
+                    startActivity(intent)
                 }
                 R.id.mFinishMenuItem -> {
                     finish()

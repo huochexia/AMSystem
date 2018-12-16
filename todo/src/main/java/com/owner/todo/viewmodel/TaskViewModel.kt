@@ -26,10 +26,10 @@ import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import com.owner.baselibrary.common.SingleLiveEvent
+import com.owner.baselibrary.ext.execute
 import com.owner.todo.R
 import com.owner.todo.common.TasksFilterType
 import com.owner.todo.data.Task
-import com.owner.todo.data.source.TasksDataSource
 import com.owner.todo.data.source.TasksRepository
 import com.owner.todo.util.ADD_EDIT_RESULT_OK
 import com.owner.todo.util.DELETE_RESULT_OK
@@ -128,8 +128,7 @@ class TaskViewModel(context: Application,
             tasksRepository.refreshTasks()
         }
         val disposable=tasksRepository.getTasksList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .execute()
                 .subscribe({
                     onTaskLoad(it,showLoadingUI)
                 },{
@@ -168,6 +167,9 @@ class TaskViewModel(context: Application,
         }
     }
 
+    fun onClickTask(task: Task) {
+        openTaskEvent.value = task.objectId
+    }
     /**
      * 清除已完成任务
      */
@@ -186,11 +188,19 @@ class TaskViewModel(context: Application,
         //修改任务
         task.isCompleted = !task.isCompleted
         //保存修改
+        val disposable=tasksRepository.completeTask(task)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+
+                },{
+
+                })
+        compositeDisposable.add(disposable)
+
         if (task.isCompleted) {
-            tasksRepository.completeTask(task)
             showSnackbarMessage(R.string.task_marked_complete)
         } else {
-            tasksRepository.activateTask(task)
             showSnackbarMessage(R.string.task_marked_active)
         }
 

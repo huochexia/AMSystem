@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mDrawerLayout"
+    style="@style/MatchMatch"
+    tools:context=".view.activity.TasksActivity"
+    tools:openDrawer="start">
+
+    <LinearLayout style="@style/MatchMatch.Vertical">
+
+        <android.support.design.widget.AppBarLayout style="@style/MatchWrap">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/mToolbar"
+                style="@style/MatchWrap"
+                android:background="@color/common_blue"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/Toolbar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/mContentFrame"
+            style="@style/MatchMatch" />
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/mNavView"
+        style="@style/WrapMatch"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/layout_nav_header"
+        app:menu="@menu/menu_drawer_actions" />
+
+</android.support.v4.widget.DrawerLayout>

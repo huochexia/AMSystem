@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.todo.data.source
+package com.owner.todo.data.source.local
 
 import com.owner.todo.data.Task
 import io.reactivex.Flowable
@@ -28,7 +28,7 @@ import io.reactivex.Single
  * Created by Liuyong on 2018-12-08.It's AMSystem
  *@description:
  */
-interface TasksDataSource {
+interface LocalDataSource {
 //    /*
 //     *加载任务列表回调接口
 //     */
@@ -49,23 +49,18 @@ interface TasksDataSource {
 //        fun onDataNotAvailable()//没有得到结果
 //    }
 
-    fun getTasksList(): Flowable<List<Task>>
+    fun getTasksList():Flowable<List<Task>>
 
     fun getTask(taskId: String):Single<Task>
 
     fun saveTask(task: Task)
     /*
-      完成任务
+      完成任务或激活任务
      */
     fun completeTask(task: Task)
 
     fun completeTask(taskId: String)
-    /*
-      激活任务
-     */
-    fun activateTask(task: Task)
 
-    fun activateTask(taskId: String)
     /*
       清理已完成任务
      */

@@ -31,7 +31,7 @@ data class Task @JvmOverloads constructor(
         var title: String = "",
         var description: String = "",
         @Ignore var userId: String = "",
-        @PrimaryKey var id: String = UUID.randomUUID().toString()
+        @PrimaryKey var objectId: String =""
 ) {
     /**
      * 如果任务完成了返回真，否则返回假

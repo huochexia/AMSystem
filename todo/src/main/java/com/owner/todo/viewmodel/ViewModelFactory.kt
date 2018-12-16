@@ -37,6 +37,8 @@ class ViewModelFactory private constructor(
                 when {
                     isAssignableFrom(TaskViewModel::class.java) -> TaskViewModel(application, taskRepository)
                     isAssignableFrom(AddEditTaskViewModel::class.java) -> AddEditTaskViewModel(application, taskRepository)
+                    isAssignableFrom(TaskDetailViewModel::class.java)-> TaskDetailViewModel(application,taskRepository)
+                    isAssignableFrom(StatisticsViewModel::class.java) -> StatisticsViewModel(application,taskRepository)
                     else ->
                         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
                 }

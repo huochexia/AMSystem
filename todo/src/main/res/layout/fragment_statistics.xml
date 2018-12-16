@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.owner.todo.viewmodel.StatisticsViewModel" />
+
+    </data>
+
+    <LinearLayout
+        style="@style/MatchMatch.Vertical"
+        android:padding="@dimen/common_padding_middle">
+
+        <TextView
+            style="@style/MatchMatch"
+            android:text="LOADING"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="@{viewmodel.dataLoading?View.VISIBLE:View.GONE}" />
+
+        <LinearLayout
+            android:id="@+id/mStatistics"
+            style="@style/MatchMatch.Vertical"
+            android:visibility="@{viewmodel.dataLoading?View.GONE:View.VISIBLE}">
+
+            <TextView
+                style="@style/MatchWrap"
+                android:text="@string/statistics_no_tasks"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{viewmodel.empty?View.VISIBLE:View.GONE}" />
+
+            <TextView
+                style="@style/MatchWrap"
+                android:text="@{viewmodel.numberOfActiveTasksString}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{viewmodel.empty?View.GONE:View.VISIBLE}" />
+
+            <TextView
+                style="@style/MatchWrap"
+                android:text="@{viewmodel.numberOfCompletedTasksString}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{viewmodel.empty ? View.GONE:View.VISIBLE}" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

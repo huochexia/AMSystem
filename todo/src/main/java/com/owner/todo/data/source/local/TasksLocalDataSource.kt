@@ -16,7 +16,6 @@
 package com.owner.todo.data.source.local
 
 import com.owner.todo.data.Task
-import com.owner.todo.data.source.TasksDataSource
 import com.owner.todo.util.AppExecutors
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -29,7 +28,7 @@ import io.reactivex.Single
 class TasksLocalDataSource private constructor(
         private val appExecutors: AppExecutors,
         private val taskDao: TaskDao
-):TasksDataSource{
+): LocalDataSource {
 
     override fun getTasksList(): Flowable<List<Task>> = taskDao.getTasks()
 
@@ -42,20 +41,14 @@ class TasksLocalDataSource private constructor(
     }
 
     override fun completeTask(task: Task) {
-        appExecutors.diskIO.execute { taskDao.updateCompleted(task.id,true) }
+        appExecutors.diskIO.execute { taskDao.updateCompleted(task.objectId,task.isCompleted) }
     }
 
     override fun completeTask(taskId: String) {
        //由TasksRepository 实现
     }
 
-    override fun activateTask(task: Task) {
-        appExecutors.diskIO.execute { taskDao.updateCompleted(task.id,false) }
-    }
 
-    override fun activateTask(taskId: String) {
-        //同上
-    }
 
     override fun clearCompletedTasks() {
         appExecutors.diskIO.execute { taskDao.deleteCompletedTasks() }

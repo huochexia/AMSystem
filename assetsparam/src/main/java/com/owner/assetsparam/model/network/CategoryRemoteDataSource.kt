@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.assetsparam.model.local
+package com.owner.assetsparam.model.network
 
 /**
- *
- * Created by Liuyong on 2018-12-13.It's AMSystem
+ *远程数据访问入口
+ * Created by Liuyong on 2018-12-14.It's AMSystem
  *@description:
  */
-interface CategoryDao {
+class CategoryRemoteDataSource {
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.owner.todo.viewmodel.TaskDetailViewModel" />
+
+    </data>
+
+    <com.owner.baselibrary.widgets.ScrollChildSwipeRefreshLayout
+        android:id="@+id/mRefreshLayout"
+        style="@style/MatchMatch"
+        app:onRefreshListener="@{viewmodel::onRefresh}"
+        app:refreshing="@{viewmodel.dataLoading}">
+
+        <LinearLayout
+            style="@style/MatchMatch.Vertical"
+            android:padding="@dimen/common_padding_middle">
+
+            <LinearLayout
+                style="@style/MatchMatch.Vertical"
+                android:padding="@dimen/common_padding_middle"
+                android:visibility="@{viewmodel.dataAvailable?View.GONE:View.VISIBLE}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="没有数据"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                style="@style/MatchMatch"
+                android:padding="@dimen/common_margin_middle"
+                android:visibility="@{viewmodel.dataAvailable ?View.VISIBLE:View.GONE}">
+
+                <CheckBox
+                    android:id="@+id/mTaskDetailComplete"
+                    style="@style/WrapWrap"
+                    android:layout_marginRight="@dimen/common_margin_middle"
+                    android:checked="@{viewmodel.completed}"
+                    android:onClick="@{()->viewmodel.setCompleted(!viewmodel.completed)}"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/mTaskDetailTitle"
+                    style="@style/MatchWrap"
+                    android:layout_toRightOf="@id/mTaskDetailComplete"
+                    android:text="@{viewmodel.singleTask.title}"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/mTaskDetailDescription"
+                    style="@style/MatchWrap"
+                    android:layout_below="@id/mTaskDetailTitle"
+                    android:layout_toRightOf="@id/mTaskDetailComplete"
+                    android:text="@{viewmodel.singleTask.description}"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.owner.baselibrary.widgets.ScrollChildSwipeRefreshLayout>
+</layout>

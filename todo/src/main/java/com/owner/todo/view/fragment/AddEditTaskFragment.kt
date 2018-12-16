@@ -27,7 +27,6 @@ import com.owner.baselibrary.ext.setupSnacker
 import com.owner.todo.R
 import com.owner.todo.databinding.FragmentAddEditTaskBinding
 import com.owner.todo.view.activity.AddEditTaskActivity
-import kotlinx.android.synthetic.main.activity_task.view.*
 
 /**
  *演示了从Fragment中调用activity的Toolbar和Fab按钮等视图
@@ -42,6 +41,15 @@ class AddEditTaskFragment :Fragment(){
         const val ARGUMENT_EDIT_TASK_ID = "EDIT_TASK_ID"
 
         fun newInstance() = AddEditTaskFragment()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        mBinding = FragmentAddEditTaskBinding.inflate(inflater, container, false).apply {
+            viewmodel = (activity as AddEditTaskActivity).obtainViewModel()
+        }
+        setHasOptionsMenu(true)
+        retainInstance = false//非中断保存，为true时Fragment不会被销毁
+        return mBinding.root
     }
     /*
       对于非静态的view，最好在onActivityCreated方法调用
@@ -86,15 +94,6 @@ class AddEditTaskFragment :Fragment(){
     }
     private fun loadData() {
         mBinding.viewmodel?.start(arguments?.getString(ARGUMENT_EDIT_TASK_ID))
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mBinding = FragmentAddEditTaskBinding.inflate(inflater,container,false).apply {
-            viewmodel = (activity as AddEditTaskActivity).obtainViewModel()
-        }
-        setHasOptionsMenu(true)
-        retainInstance = false//非中断保存，为true时Fragment不会被销毁
-        return  mBinding.root
     }
 
 

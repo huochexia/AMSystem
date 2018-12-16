@@ -18,7 +18,9 @@ package com.owner.todo.data.source.remote
 import com.owner.baselibrary.model.network.RetrofitFactory
 import com.owner.todo.data.Task
 import com.owner.todo.data.source.remote.entites.TaskList
+import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -32,13 +34,13 @@ interface TaskServiceApi {
     创建任务
      */
     @POST(value= "1.1/classes/Task?fetchWhenSave=true")
-    fun createTask(@Body task: Task): Single<Task>
+    fun createTask(@Body task: Task): Observable<Task>
 
     /*
     查询全部
      */
     @GET("1.1/classes/Task")
-    fun getTasksList(@Query(value = "where") condition: String): Flowable<TaskList>
+    fun getTasksList(@Query("where") condition: String): Observable<TaskList>
 
     /*
       查询某个任务
@@ -49,20 +51,20 @@ interface TaskServiceApi {
     /*
       更新任务
      */
-    @PUT("1.1/classes/Task/{id}")
-    fun updateTask(@Path("id") taskId: String)
+    @PUT("1.1/classes/Task/{objectId}")
+    fun updateTask(@Path("objectId") objectId:String, @Body task:Task):Completable
 
     /*
       删除任务
      */
     @DELETE("1.1/classes/Task/{id}")
-    fun deleteTaskById(@Path("id") taskId: String)
+    fun deleteTaskById(@Path("id") taskId: String):Single<Any>
 
     /*
       按条件删除任务
      */
     @DELETE("1.1/classes/Task")
-    fun deleteTask(@Query("where") condition:String)
+    fun deleteTask(@Query("where") condition:String):Single<Any>
 }
 
 object TaskService : TaskServiceApi by RetrofitFactory.instance.create(TaskServiceApi::class.java)

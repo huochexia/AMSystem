@@ -25,7 +25,8 @@
         android:paddingStart="@dimen/common_padding_middle"
         android:paddingEnd="@dimen/common_padding_middle"
         android:paddingTop="@dimen/common_padding_small"
-        android:paddingBottom="@dimen/common_padding_small">
+        android:paddingBottom="@dimen/common_padding_small"
+        android:onClick="@{()->viewmodel.onClickTask(task)}">
 
         <CheckBox
             android:id="@+id/mCompleteCB"
@@ -39,6 +40,8 @@
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/common_margin_middle"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:text="@{task.titleForList}"/>
     </LinearLayout>
 </layout>

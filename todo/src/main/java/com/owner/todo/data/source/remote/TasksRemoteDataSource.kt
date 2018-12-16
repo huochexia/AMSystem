@@ -3,8 +3,8 @@ package com.owner.todo.data.source.remote
 import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.provideslib.common.ProviderConstant
 import com.owner.todo.data.Task
-import com.owner.todo.data.source.TasksDataSource
-import io.reactivex.Flowable
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 /**
@@ -12,15 +12,15 @@ import io.reactivex.Single
  * Created by Liuyong on 2018-12-08.It's AMSystem
  *@description:
  */
-object TasksRemoteDataSource : TasksDataSource {
+object TasksRemoteDataSource : RemoteDataSource {
 
     private val userId = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID)
 
-    override fun getTasksList(): Flowable<List<Task>> {
+    override fun getTasksList(): Observable<List<Task>> {
 
-        val where: String = """{"userId","$userId"}"""
+        val where = """{"userId":"$userId"}"""
         return TaskService.getTasksList(where).flatMap {
-            Flowable.just(it.results)
+            Observable.just(it.results)
         }
 
     }
@@ -31,24 +31,12 @@ object TasksRemoteDataSource : TasksDataSource {
         return TaskService.getTaskById(where)
     }
 
-    override fun saveTask(task: Task) {
-        TaskService.createTask(task)
-    }
+    override fun createTask(task: Task): Observable<Task> = TaskService.createTask(task)
 
-    override fun completeTask(task: Task) {
-        completeTask(task.id)
-    }
+    override fun updateTask(task: Task): Completable {
+        val taskId = task.objectId
 
-    override fun completeTask(taskId: String) {
-        TaskService.updateTask(taskId)
-    }
-
-    override fun activateTask(task: Task) {
-        activateTask(task.id)
-    }
-
-    override fun activateTask(taskId: String) {
-        TaskService.updateTask(taskId)
+        return TaskService.updateTask(taskId, task)
     }
 
     override fun clearCompletedTasks() {
@@ -65,7 +53,7 @@ object TasksRemoteDataSource : TasksDataSource {
         TaskService.deleteTask(where)
     }
 
-    override fun deleteTask(taskId: String) {
-        TaskService.deleteTaskById(taskId)
+    override fun deleteTaskById(taskId: String): Single<Any> {
+        return TaskService.deleteTaskById(taskId)
     }
 }

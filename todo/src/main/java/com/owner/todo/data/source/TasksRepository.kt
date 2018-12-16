@@ -19,8 +19,11 @@ import com.owner.baselibrary.model.respository.BaseRepository
 import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.provideslib.common.ProviderConstant
 import com.owner.todo.data.Task
+import com.owner.todo.data.source.local.LocalDataSource
+import com.owner.todo.data.source.remote.RemoteDataSource
 import com.owner.todo.data.source.remote.TasksRemoteDataSource
-import io.reactivex.Flowable
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 /**
@@ -29,9 +32,9 @@ import io.reactivex.Single
  *@description:
  */
 class TasksRepository(
-        val remoteDataSource: TasksDataSource,
-        val localDataSource: TasksDataSource
-) : TasksDataSource,BaseRepository {
+        val remoteDataSource: RemoteDataSource,
+        val localDataSource: LocalDataSource
+) : BaseRepository {
 
     var cachedTasks: LinkedHashMap<String, Task> = LinkedHashMap()
     /**
@@ -43,11 +46,11 @@ class TasksRepository(
      * 从缓存、本地数据库或远程数据库中获取任务列表，先从缓存，然后判断数据是否变化，无变化则从本地，
      * 有变化则从远程。无论是从本地还是从远程，都需要先刷新缓存。
      */
-    override fun getTasksList(): Flowable<List<Task>> {
+    fun getTasksList(): Observable<List<Task>> {
         //如果缓存数据有效，立即响应
         if (cachedTasks.isNotEmpty() && !cacheIsDirty) {
 
-            return Flowable.just(ArrayList(cachedTasks.values))
+            return Observable.just(ArrayList(cachedTasks.values))
         }
         //如果缓存数据是脏的
         return if (cacheIsDirty) {
@@ -55,18 +58,18 @@ class TasksRepository(
             getTasksFromRemoteDataSource()
         } else {
             //否则，从本地数据库中获取数据。
-            localDataSource.getTasksList().doOnNext {
-                if (it.isEmpty())
+            localDataSource.getTasksList().toObservable().flatMap {
+                if (it.isEmpty()) {
                     getTasksFromRemoteDataSource()
-                else {
+                } else {
                     refreshCache(it)
-                    Flowable.just(ArrayList(cachedTasks.values))
+                    Observable.just(ArrayList(cachedTasks.values))
                 }
             }
         }
     }
 
-    private fun getTasksFromRemoteDataSource(): Flowable<List<Task>> {
+    private fun getTasksFromRemoteDataSource(): Observable<List<Task>> {
 
         return remoteDataSource.getTasksList().doOnNext {
             refreshCache(it)
@@ -100,64 +103,56 @@ class TasksRepository(
     private fun cacheAndPerform(task: Task, perform: (Task) -> Unit) {
         //生成一个新的对象
         val cachedTask = Task(task.title, task.description,
-                AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID), task.id).apply {
+                AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ID), task.objectId).apply {
             isCompleted = task.isCompleted
         }
-        cachedTasks[cachedTask.id] = cachedTask
+        cachedTasks[cachedTask.objectId] = cachedTask
         perform(cachedTask)
     }
 
     /**
+     * 生成新的,当远程生成数据成功后，刷新缓存和本地数据，以保持一致
+     */
+    fun createTask(task: Task): Observable<Task> {
+        return remoteDataSource.createTask(task).doOnComplete {
+            cacheAndPerform(task) {
+                localDataSource.saveTask(it)
+            }
+        }
+    }
+    /**
      * UI对数据的更新是在缓存中进行的，所以为了保持UI与数据库一致，所以要将更新变化保存的远程和本地。
      * 应该是远程保存成功了才保存本地，这样才能保持一致性
      */
-    override fun saveTask(task: Task) {
-        //对缓存中的数据进行更新，保持UI为最新
-        cacheAndPerform(task) {
-            remoteDataSource.saveTask(it)
-            localDataSource.saveTask(it)
-        }
-    }
+    fun saveTask(task: Task): Completable =
+            remoteDataSource.updateTask(task)
+                    .doOnComplete {
+                        //更新缓存和本地。没考虑如果本地更新失败的处理
+                        cacheAndPerform(task) {
+                            localDataSource.saveTask(it)
+                        }
+                    }
 
     /**
      * UI上设置任务为完成状态，同样要更新远程数据和本地数据
      */
-    override fun completeTask(task: Task) {
-        cacheAndPerform(task) {
-            it.isCompleted = true
-            remoteDataSource.saveTask(task)
-            localDataSource.saveTask(task)
-        }
-    }
+    fun completeTask(task: Task): Completable =
+            remoteDataSource.updateTask(task).doOnComplete {
+                cacheAndPerform(task) {
+                    localDataSource.completeTask(task)
+                }
+            }
 
-    override fun completeTask(taskId: String) {
-        getTaskWithId(taskId)?.let {
-            completeTask(it)
-        }
-    }
+
+    fun completeTask(taskId: String): Completable = completeTask(getTaskWithId(taskId)!!)
 
     private fun getTaskWithId(taskId: String) = cachedTasks[taskId]
-    /**
-     * 激活任务，即指定任务为未完成状态
-     */
-    override fun activateTask(task: Task) {
-        cacheAndPerform(task) {
-            it.isCompleted = false
-            remoteDataSource.saveTask(task)
-            localDataSource.saveTask(task)
-        }
-    }
 
-    override fun activateTask(taskId: String) {
-        getTaskWithId(taskId)?.let {
-            activateTask(it)
-        }
-    }
 
     /**
      * 清理已完成任务，分别清理远程数据库，本地数据库以及缓存中
      */
-    override fun clearCompletedTasks() {
+    fun clearCompletedTasks() {
         remoteDataSource.clearCompletedTasks()
         localDataSource.clearCompletedTasks()
         //利用集合的过滤功能，过滤掉已完成任务，需要强转
@@ -169,7 +164,7 @@ class TasksRepository(
     /**
      * 从本地获取单个任务，除非本地是新的或空的。
      */
-    override fun getTask(taskId: String): Single<Task> {
+    fun getTask(taskId: String): Single<Task> {
         //先从缓存中得到该对象
         val taskInCache = getTaskWithId(taskId)
 
@@ -177,40 +172,47 @@ class TasksRepository(
             return Single.just(taskInCache)
         }
         //从本地获取数据，如果没有，则是从远程获取
-        return localDataSource.getTask(taskId).doOnError { throwable ->
-            TasksRemoteDataSource.getTask(taskId).doOnSuccess { task ->
-                cacheAndPerform(task) {
-                    Single.just(it)
+        return localDataSource.getTask(taskId).flatMap {
+            if (it == null) {
+                TasksRemoteDataSource.getTask(taskId).doOnSuccess { task ->
+                    cacheAndPerform(task) {}
+                    localDataSource.saveTask(task)
                 }
-            }
-        }.doOnSuccess { task ->
-            cacheAndPerform(task) {
+            } else {
+                cacheAndPerform(it) {}
                 Single.just(it)
             }
         }
-
     }
 
     /**
      * 刷新列表：缓存数据发生变化，将缓存设置为脏的。
      */
-    override fun refreshTasks() {
+    fun refreshTasks() {
         cacheIsDirty = true
     }
 
     /**
      * 删除所有任务
      */
-    override fun deleteAllTasks() {
+    fun deleteAllTasks() {
         remoteDataSource.deleteAllTasks()
         localDataSource.deleteAllTasks()
         cachedTasks.clear()
     }
 
-    override fun deleteTask(taskId: String) {
-        remoteDataSource.deleteTask(taskId)
+    fun deleteTask(taskId: String) {
+        remoteDataSource.deleteTaskById(taskId)
         localDataSource.deleteTask(taskId)
         cachedTasks.remove(taskId)
+    }
+
+    fun deleteTaskById(taskId: String): Single<Any> {
+        return remoteDataSource.deleteTaskById(taskId).doOnSuccess {
+            localDataSource.deleteTask(taskId)
+            cachedTasks.remove(taskId)
+        }
+
     }
 
     /**
@@ -220,8 +222,8 @@ class TasksRepository(
         private var INSTANCE: TasksRepository? = null
 
         @JvmStatic
-        fun getInstance(tasksRemoteDataSource: TasksDataSource,
-                        taskLocalDataSource: TasksDataSource) =
+        fun getInstance(tasksRemoteDataSource: TasksRemoteDataSource,
+                        taskLocalDataSource: LocalDataSource) =
                 INSTANCE ?: synchronized(TasksRepository::class.java) {
                     INSTANCE ?: TasksRepository(tasksRemoteDataSource, taskLocalDataSource)
                             .also { INSTANCE = it }

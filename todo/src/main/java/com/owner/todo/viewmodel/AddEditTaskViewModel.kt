@@ -21,6 +21,7 @@ import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.support.annotation.StringRes
 import com.owner.baselibrary.common.SingleLiveEvent
+import com.owner.baselibrary.ext.execute
 import com.owner.baselibrary.utils.AppPrefsUtils
 import com.owner.provideslib.common.ProviderConstant
 import com.owner.todo.R
@@ -29,7 +30,6 @@ import com.owner.todo.data.source.TasksRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.lang.RuntimeException
 
 /**
  * ViewModel for the Add/Edit screen
@@ -91,6 +91,7 @@ class AddEditTaskViewModel(
         if (task.isEmpty) {
             showSnackbarMessage(R.string.empty_task_message)
         }
+
         if (isNewTask) {
             createTask(task)
         } else {
@@ -103,17 +104,26 @@ class AddEditTaskViewModel(
 
     }
 
+    /**
+     * 生成新的任务
+     */
     private fun createTask(newTask: Task) {
-        tasksRepository.saveTask(newTask)
-        taskUpdateEvent.call()
+        val disposable = tasksRepository.createTask(newTask).execute()
+                .subscribe({},{},{ taskUpdateEvent.call()})
+
+        compositeDisposable.add(disposable)
     }
 
     private fun updateTask(task: Task) {
         if (isNewTask) {
             throw RuntimeException("updateTask() was called but task is new.")
         }
-        tasksRepository.saveTask(task)
-        taskUpdateEvent.call()
+        val disposable=tasksRepository.saveTask(task).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    taskUpdateEvent.call()
+                },{})
+       compositeDisposable.add(disposable)
     }
     private fun showSnackbarMessage(@StringRes message: Int) {
        snackbarMessage.value = message

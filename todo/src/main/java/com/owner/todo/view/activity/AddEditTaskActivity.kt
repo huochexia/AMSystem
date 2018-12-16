@@ -16,16 +16,18 @@
 package com.owner.todo.view.activity
 
 import android.arch.lifecycle.Observer
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.owner.baselibrary.ext.addFragment
 import com.owner.baselibrary.ext.setupToolBar
 import com.owner.todo.R
+import com.owner.todo.databinding.ActivityAddOrEditTaskBinding
+import com.owner.todo.ext.obtainViewModel
 import com.owner.todo.util.ADD_EDIT_RESULT_OK
+import com.owner.todo.view.Interface.AddEditTaskNavigator
 import com.owner.todo.view.fragment.AddEditTaskFragment
 import com.owner.todo.viewmodel.AddEditTaskViewModel
-import com.owner.todo.ext.obtainViewModel
-import com.owner.todo.view.Interface.AddEditTaskNavigator
 
 /**
  *
@@ -33,6 +35,8 @@ import com.owner.todo.view.Interface.AddEditTaskNavigator
  *@description:
  */
 class AddEditTaskActivity : AppCompatActivity(), AddEditTaskNavigator {
+
+    private lateinit var mBinding: ActivityAddOrEditTaskBinding
     /*
        在使用toolbar的情况下，onBackPressed可以使系统自带的后退按钮，
        onSupportNavigateUp可以使用toolbar的后退按钮后退
@@ -49,7 +53,9 @@ class AddEditTaskActivity : AppCompatActivity(), AddEditTaskNavigator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_or_edit_task)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_or_edit_task)
+
+        mBinding.viewmodel = obtainViewModel()
 
         setupToolBar(R.id.mToolbar) {
             setDisplayHomeAsUpEnabled(true)
@@ -59,6 +65,11 @@ class AddEditTaskActivity : AppCompatActivity(), AddEditTaskNavigator {
         addFragment(obtainViewFragment(),R.id.mFragmentContainer)
 
         subscribeToNavigationChanges()
+    }
+
+    override fun onDestroy() {
+        mBinding.viewmodel?.compositeDisposable?.clear()
+        super.onDestroy()
     }
     private fun obtainViewFragment()= supportFragmentManager.findFragmentById(R.id.mFragmentContainer) ?:
             AddEditTaskFragment.newInstance().apply {

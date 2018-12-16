@@ -18,4 +18,8 @@
     <string name="successfully_deleted_task_message">Task was deleted</string>
     <string name="successfully_added_task_message">TO-DO added</string>
     <string name="successfully_saved_task_message">TO-DO saved</string>
+
+    <string name="statistics_active_tasks">Active tasks: %d</string>
+    <string name="statistics_completed_tasks">Completed tasks: %d</string>
+    <string name="statistics_no_tasks">You have no tasks.</string>
 </resources>

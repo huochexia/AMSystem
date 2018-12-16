@@ -13,12 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.owner.assetsparam.model.local
+package com.owner.todo.data.source.remote
+
+import com.owner.todo.data.Task
+import io.reactivex.Completable
+import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.Single
 
 /**
- *  本地数据访问入口
- * Created by Liuyong on 2018-12-13.It's AMSystem
+ *
+ * Created by Liuyong on 2018-12-15.It's AMSystem
  *@description:
  */
-class CategoryLocalDataSource {
+interface RemoteDataSource {
+
+
+    fun getTasksList(): Observable<List<Task>>
+
+    fun getTask(taskId: String): Single<Task>
+    /*
+    生成新的任务
+     */
+    fun createTask(task:Task):Observable<Task>
+
+    fun updateTask(task: Task):Completable
+
+    fun clearCompletedTasks()
+
+    fun refreshTasks()
+
+    fun deleteAllTasks()
+
+
+    fun deleteTaskById(taskId: String): Single<Any>
 }

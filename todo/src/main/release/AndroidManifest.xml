@@ -8,5 +8,7 @@
         android:supportsRtl="true">
         <activity android:name="com.owner.todo.view.activity.TasksActivity" />
         <activity android:name=".view.activity.AddEditTaskActivity"/>
+        <activity android:name=".view.activity.TaskDetailActivity"/>
+        <activity android:name=".view.activity.StatisticsActivity"/>
     </application>
 </manifest>

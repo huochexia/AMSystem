@@ -48,26 +48,45 @@ class TasksRepository(
      * 有变化则从远程。无论是从本地还是从远程，都需要先刷新缓存。
      */
     fun getTasksList(): Observable<List<Task>> {
-        //如果缓存数据有效，立即响应
-        if (cachedTasks.isNotEmpty() && !cacheIsDirty) {
-
-            return Observable.just(ArrayList(cachedTasks.values))
+        if (cacheIsDirty) {
+            return getTasksFromRemoteDataSource()
         }
-
-        return if (cacheIsDirty) {
-            //如果缓存的数据是脏的，我们需要从网络获取新的数据
-            getTasksFromRemoteDataSource()
-        } else {
-            //否则，从本地数据库中获取数据。
-            localDataSource.getTasksList().toObservable().flatMap {
-                if (it.isEmpty()) {
-                    getTasksFromRemoteDataSource()
-                } else {
-                    refreshCache(it)
-                    Observable.just(ArrayList(cachedTasks.values))
+        /*
+          从三个不同数据源获取数据，缓存空则本地，本地空则远程。下面是响应编程的写法
+         */
+        val cacheObservable = Observable.just(ArrayList(cachedTasks.values))
+        val localObservable = localDataSource.getTasksList().toObservable().flatMap {
+            refreshCache(it)
+            Observable.just(ArrayList(cachedTasks.values))
+        }
+        val remoteObservable = getTasksFromRemoteDataSource()
+        return Observable.concat(cacheObservable,localObservable,remoteObservable)
+                .takeUntil{
+                    it.isNotEmpty()
                 }
-            }
-        }
+        /*
+           下面是传统的写法。
+         */
+//        //如果缓存数据有效，立即响应
+//        if (cachedTasks.isNotEmpty() && !cacheIsDirty) {
+//
+//            return Observable.just(ArrayList(cachedTasks.values))
+//        }
+//
+//        return if (cacheIsDirty) {
+//            //如果缓存的数据是脏的，我们需要从网络获取新的数据
+//            getTasksFromRemoteDataSource()
+//        } else {
+//            //否则，从本地数据库中获取数据。
+//            localDataSource.getTasksList().toObservable().flatMap {
+//                if (it.isEmpty()) {
+//                    getTasksFromRemoteDataSource()
+//                } else {
+//                    refreshCache(it)
+//                    Observable.just(ArrayList(cachedTasks.values))
+//                }
+//            }
+//        }
     }
 
     private fun getTasksFromRemoteDataSource(): Observable<List<Task>> {
